@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { Phone, MapPin, Clock, Star, Heart, Check } from "lucide-react";
-import Testimonials from "@/components/testimonials";
 
 export default function Home() {
   const specialOffers = [
@@ -26,7 +25,7 @@ export default function Home() {
       name: "Family Deal", 
       description: "10\" Pizza + 3 toppings + 6pcs Chicken + Nuggets + 2 chips + Bottle of soft drink",
       price: 26.90,
-      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
     }
   ];
 
@@ -51,13 +50,13 @@ export default function Home() {
             </div>
             
             <h1 className="font-poppins text-5xl md:text-7xl font-bold mb-6">
-              Authentic <span className="text-accent">Kebabs</span> & 
-              <span className="text-primary"> Fresh Pizzas</span>
+              Authentic <span className="text-accent">Kebabs</span> &nbsp;
+              <span className="text-primary">Fresh Pizzas</span>
             </h1>
             
             <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-              Stalham in Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more. 
-              <strong> Open now</strong> for dine-in and takeaway!
+              Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more.{" "}
+              <strong>Open now</strong> for dine-in and takeaway!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -69,7 +68,7 @@ export default function Home() {
               </a>
               <Link href="/menu">
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-charcoal">
-                  <span className="mr-3">📋</span>
+                  <span className="mr-3">📋</span>{" "}
                   View Menu
                 </Button>
               </Link>
@@ -224,9 +223,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Testimonials */}
-      <Testimonials />
 
       {/* Quick Contact */}
       <section className="py-16 bg-white">
