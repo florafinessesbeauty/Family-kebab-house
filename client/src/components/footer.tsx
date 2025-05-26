@@ -58,8 +58,8 @@ export default function Footer() {
 
         <div className="border-t border-gray-600 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Family Kebab House. All rights reserved. | 
-            <span className="text-primary"> Norwich's Premier Kebab Shop</span> | 
+            © 2024 Family Kebab House. All rights reserved. |{" "}
+            <span className="text-primary">Norwich's Premier Kebab Shop</span> |{" "}
             Serving authentic flavors since 2004
           </p>
         </div>

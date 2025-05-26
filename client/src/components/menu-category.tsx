@@ -9,7 +9,7 @@ interface MenuCategoryProps {
   icon?: string;
 }
 
-export default function MenuCategory({ title, description, items, icon }: MenuCategoryProps) {
+export default function MenuCategory({ title, description, items, icon }: Readonly<MenuCategoryProps>) {
   const formatPrice = (price: number) => `£${price.toFixed(2)}`;
 
   const renderPriceDisplay = (item: MenuItemData) => {
