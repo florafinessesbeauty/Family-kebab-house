@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { Phone, MapPin, Clock, Star, Heart, Check } from "lucide-react";
+import Testimonials from "@/components/testimonials";
 
 export default function Home() {
   const specialOffers = [
@@ -223,6 +224,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* Quick Contact */}
       <section className="py-16 bg-white">
