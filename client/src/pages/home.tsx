@@ -56,7 +56,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-              Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more. 
+              Stalham and Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more. 
               <strong> Open now</strong> for dine-in and takeaway!
             </p>
             
