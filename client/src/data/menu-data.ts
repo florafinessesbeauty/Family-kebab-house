@@ -53,7 +53,7 @@ export const menuData: MenuItemData[] = [
   },
   {
     id: "arba-mix",
-    name: "Arba Mix",
+    name: "Arda Mix",
     description: "Doner, chicken, shish kebab & kofte kebab",
     category: "kebabs",
     singlePrice: 15.00,
