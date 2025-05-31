@@ -57,7 +57,7 @@ export default function Home() {
             
             <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
               Stalham in Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more. 
-              <strong> Open now</strong> for dine-in and takeaway!
+              <strong>Open now</strong> for dine-in and takeaway!
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
