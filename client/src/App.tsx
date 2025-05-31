@@ -6,12 +6,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
-// Adjust the import paths as needed depending on your file names (capitalization matters)
-import Home from "@/pages/home";      // or "./pages/Home" if your file is named with a capital H
-import Menu from "@/pages/menu";      // or "./pages/Menu"
-import About from "@/pages/about";    // or "./pages/About"
-import Contact from "@/pages/contact";// or "./pages/Contact"
-import NotFound from "@/pages/not-found"; // or "./pages/NotFound"
+// Import your page components (adjust the paths and capitalization as needed)
+import Home from "@/pages/home";
+import Menu from "@/pages/menu";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
+import NotFound from "@/pages/not-found";
 
 function App() {
   return (
