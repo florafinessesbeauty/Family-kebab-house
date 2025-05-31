@@ -61,7 +61,7 @@ export class DatabaseStorage implements IStorage {
     const result = await db
       .delete(menuItems)
       .where(eq(menuItems.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 }
 
