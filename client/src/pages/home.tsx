@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { Phone, MapPin, Clock, Star, Heart, Check } from "lucide-react";
 import Testimonials from "@/components/testimonials";
 
@@ -57,6 +57,7 @@ export default function Home() {
             
             <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
               Stalham in Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more. 
+              {" "}
               <strong>Open now</strong> for dine-in and takeaway!
             </p>
             
@@ -67,7 +68,7 @@ export default function Home() {
                   Order Now: 01692 584100
                 </Button>
               </a>
-              <Link href="/menu">
+              <Link to="/menu">
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-charcoal">
                   <span className="mr-3">📋</span>{" "}
                   View Menu
@@ -154,7 +155,7 @@ export default function Home() {
               </div>
 
               <div className="mt-8">
-                <Link href="/about">
+                <Link to="/about">
                   <Button className="bg-secondary text-white hover:bg-green-700">
                     Learn More About Us
                   </Button>
@@ -244,7 +245,7 @@ export default function Home() {
                 Call 01692 584100
               </Button>
             </a>
-            <Link href="/contact">
+            <Link to="/contact">
               <Button size="lg" variant="outline" className="border-charcoal text-charcoal hover:bg-charcoal hover:text-white">
                 <MapPin className="mr-3 h-5 w-5" />
                 Get Directions

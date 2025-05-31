@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Phone, Utensils } from "lucide-react";
 
 export default function Header() {
-  const [location] = useLocation();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = [
@@ -16,8 +16,8 @@ export default function Header() {
   ];
 
   const isActive = (href: string) => {
-    if (href === "/" && location === "/") return true;
-    if (href !== "/" && location.startsWith(href)) return true;
+    if (href === "/" && location.pathname === "/") return true;
+    if (href !== "/" && location.pathname.startsWith(href)) return true;
     return false;
   };
 
@@ -25,7 +25,7 @@ export default function Header() {
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
-          <Link href="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
               <Utensils className="text-white text-xl" />
             </div>
@@ -39,7 +39,7 @@ export default function Header() {
             {navigation.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className={`transition-colors font-medium ${
                   isActive(item.href)
                     ? "text-primary"
@@ -70,7 +70,7 @@ export default function Header() {
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
                       className={`block py-3 text-lg font-medium transition-colors border-b border-gray-100 ${
                         isActive(item.href)
                           ? "text-primary"

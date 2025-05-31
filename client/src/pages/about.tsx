@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import { Heart, Check, Award, Users, Clock, Star } from "lucide-react";
 
 export default function About() {
@@ -68,7 +68,7 @@ export default function About() {
                   What started as a small family dream has grown into the area's most trusted kebab shop.
                 </p>
                 <p>
-                  Every day, we prepare our dishes using <strong className="text-secondary">traditional recipes</strong> 
+                  Every day, we prepare our dishes using <strong className="text-secondary">traditional recipes</strong>{" "}
                   and the freshest ingredients available. Our doner kebabs are carved fresh, our pizzas are 
                   made to order, and every meal is prepared with the same care and attention we'd give our own family.
                 </p>
@@ -111,8 +111,8 @@ export default function About() {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <div key={index} className="text-center">
+            {achievements.map((achievement) => (
+              <div key={achievement.label} className="text-center">
                 <div className="text-5xl mb-4">{achievement.icon}</div>
                 <div className="text-4xl font-bold text-primary mb-2">{achievement.value}</div>
                 <div className="text-gray-600 font-medium">{achievement.label}</div>
@@ -134,8 +134,8 @@ export default function About() {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
-            {whyChooseUs.map((item, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+            {whyChooseUs.map((item) => (
+              <Card key={item.title} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
@@ -216,12 +216,12 @@ export default function About() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/menu">
+            <Link to="/menu">
               <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
                 View Our Menu
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link to="/contact">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
                 Visit Us Today
               </Button>
