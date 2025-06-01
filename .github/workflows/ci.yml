@@ -16,13 +16,15 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages  # This tells GitHub which environment to deploy to
 
     steps:
       # 1. Checkout the repository code so the job has access to your files
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js using version 18
+      # 2. Setup Node.js; adjust the node-version if you need a different version
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
