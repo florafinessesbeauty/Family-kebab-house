@@ -706,10 +706,10 @@ export const menuData: MenuItemData[] = [
   },
 
   // MEAL DEALS
-  {
+{
     id: "pizza-offer-1",
     name: "Pizza Offer 1",
-    description: "12\" Pizza from set menu",
+    description: "2 x 10\" from set menu",
     category: "meal-deals",
     singlePrice: 17.20,
     isSpecial: true,
@@ -717,36 +717,30 @@ export const menuData: MenuItemData[] = [
   {
     id: "pizza-offer-2",
     name: "Pizza Offer 2",
-    description: "12\" Pizza from set menu",
+    description: "2 x 12\" from set menu",
     category: "meal-deals",
     singlePrice: 22.50,
     isSpecial: true,
   },
-  // MEAL DEALS
-{
-  id: "family-deal-10",
-  name: "Family Deal 10\"",
-  description: "Family Deal 10\" inches pizza with 3 toppings, 6 pcs chicken nuggets, 1 chicken fillet burger, 2 pcs fried chicken, 2x chips, bottle of soft drink",
-  category: "meal-deals",
-  singlePrice: 24.90,
-  isSpecial: true,
-},
-{
-  id: "family-deal-12",
-  name: "Family Deal 12\"",
-  description: "Family Deal 12\" inches pizza with 3 toppings, 6 pcs chicken nuggets, 1 chicken fillet burger, 2 pcs fried chicken, 2x chips, bottle of soft drink",
-  category: "meal-deals",
-  singlePrice: 26.90,
-  isSpecial: true,
-},
-{
-  id: "chicken-combo-meal",
-  name: "Chicken Combo Meal",
-  description: "Chicken Combo Meal 3 pcs chicken, 4 spicy wings, with chips & drink",
-  category: "meal-deals",
-  singlePrice: 10.20,
-  isSpecial: true,
-},  
+  {
+    id: "family-deal",
+    name: "Family Deal",
+    description:
+      "Family Deal 10\"/12\" inches pizza with 3 toppings, 6 pcs chicken nuggets, 1 chicken fillet burger, 2 pcs fried chicken, 2x chips, bottle of soft drink",
+    category: "meal-deals",
+    price10inches: 24.90,
+    price12inches: 26.90,
+    isSpecial: true,
+  },
+  {
+    id: "chicken-combo-meal",
+    name: "Chicken Combo Meal",
+    description:
+      "Chicken Combo Meal 3 pcs chicken, 4 spicy wings, with chips & drink",
+    category: "meal-deals",
+    singlePrice: 10.20,
+    isSpecial: true,
+  }
 ];
 
 export const categories = [
