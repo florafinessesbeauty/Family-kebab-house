@@ -10,21 +10,21 @@ export default function Home() {
     {
       id: "pizza-offer-1",
       name: "Pizza Offer 1",
-      description: "12\" Pizza from set menu",
+      description: "2 X 10\" Pizza from set menu",
       price: 17.20,
       image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
     },
     {
       id: "pizza-offer-2", 
       name: "Pizza Offer 2",
-      description: "12\" Pizza from set menu",
+      description: "2 X 12\" Pizza from set menu",
       price: 22.50,
       image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
     },
     {
       id: "family-deal",
       name: "Family Deal", 
-      description: "10\" Pizza + 3 toppings + 6pcs Chicken + Nuggets + 2 chips + Bottle of soft drink",
+      description: "10\" Pizza + 3 toppings + 6pcs Chicken Nuggets + 1 CHICKEN FILLET BURGER + 2PCS FRIED CHICKEN 2X CHIPS + Bottle of soft drink",
       price: 26.90,
       image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
     }
