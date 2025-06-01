@@ -16,38 +16,39 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      # 1. Checkout the repository code
+      # 1. Checkout the repository code so the job has access to your files
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js (adjust the version if needed)
+      # 2. Setup Node.js using version 18
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
-      # 3. Install Dependencies
+      # 3. Install Dependencies using a clean install
       - name: Install Dependencies
         run: npm ci
 
-      # 4. Build the Project
+      # 4. Build the Project using your build command (make sure the build outputs to dist/public)
       - name: Build Project
         run: npm run build
 
-      # 5. Copy the Build Output to the docs folder
+      # 5. Copy the Build Output to the docs folder (used for GitHub Pages)
       - name: Copy Build Output to Docs Folder
         run: |
           rm -rf docs/*
           cp -R dist/public/* docs/
 
-      # 6. Upload the docs folder as an artifact for GitHub Pages deployment
+      # 6. Upload the docs folder as an artifact for the GitHub Pages deployment step
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
-      # 7. Deploy to GitHub Pages
+      # 7. Deploy to GitHub Pages using the uploaded artifact
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
