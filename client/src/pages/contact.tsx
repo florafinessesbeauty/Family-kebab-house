@@ -111,8 +111,8 @@ export default function Contact() {
                       <div>
                         <h3 className="font-semibold text-charcoal mb-1">Opening Hours</h3>
                         <div className="space-y-2">
-                          {openingHours.map((schedule, index) => (
-                            <div key={index} className={`flex justify-between items-center ${schedule.special ? 'text-accent font-semibold' : 'text-gray-700'}`}>
+                          {openingHours.map((schedule) => (
+                            <div key={schedule.day} className={`flex justify-between items-center ${schedule.special ? 'text-accent font-semibold' : 'text-gray-700'}`}>
                               <span>{schedule.day}:</span>
                               <span>{schedule.hours}</span>
                             </div>
@@ -132,8 +132,8 @@ export default function Contact() {
                     Important Information
                   </h3>
                   <div className="grid gap-4">
-                    {importantNotes.map((note, index) => (
-                      <div key={index} className="flex items-start space-x-3">
+                    {importantNotes.map((note) => (
+                      <div key={note.title} className="flex items-start space-x-3">
                         <div className="flex-shrink-0 mt-1">
                           {note.icon}
                         </div>
@@ -206,8 +206,8 @@ export default function Contact() {
                     We're the closest and most trusted choice for authentic flavors.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {searchTerms.map((term, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                    {searchTerms.map((term) => (
+                      <Badge key={term} variant="secondary" className="text-xs">
                         #{term.replace(/\s+/g, '')}
                       </Badge>
                     ))}
