@@ -31,32 +31,48 @@ export default function MenuCategory({ title, description, items, icon }: Readon
           )}
         </div>
       );
-    }
+    }  
 
-    const prices = [];
-    if (item.priceSmall) prices.push({ label: "Sml", price: item.priceSmall });
-    if (item.priceMedium) prices.push({ label: "Med", price: item.priceMedium });
-    if (item.priceLarge) prices.push({ label: "Lrg", price: item.priceLarge });
-    if (item.priceXLarge) prices.push({ label: "XLrg", price: item.priceXLarge });
-
-    if (prices.length === 0) return null;
-
+    // New block: if pizza-specific prices exist, display them
+  if (item.price10inches || item.price12inches) {
     return (
       <div className="text-right ml-4">
-        <div className={`grid grid-cols-${prices.length} gap-2 text-sm text-gray-500 mb-1`}>
-          {prices.map((p) => (
-            <span key={p.label}>{p.label}</span>
-          ))}
+        <div className="grid grid-cols-2 gap-2 text-sm text-gray-500 mb-1">
+          {item.price10inches !== undefined && <span>10&quot;</span>}
+          {item.price12inches !== undefined && <span>12&quot;</span>}
         </div>
-        <div className={`grid grid-cols-${prices.length} gap-2 font-bold text-primary`}>
-          {prices.map((p) => (
-            <span key={p.label}>{formatPrice(p.price)}</span>
-          ))}
+        <div className="grid grid-cols-2 gap-2 font-bold text-primary">
+          {item.price10inches !== undefined && <span>{formatPrice(item.price10inches)}</span>}
+          {item.price12inches !== undefined && <span>{formatPrice(item.price12inches)}</span>}
         </div>
       </div>
     );
-  };
+  }
 
+    // Fallback: check for standard sizes (Small, Medium, Large, XLarge)
+  const prices = [];
+  if (item.priceSmall) prices.push({ label: "Sml", price: item.priceSmall });
+  if (item.priceMedium) prices.push({ label: "Med", price: item.priceMedium });
+  if (item.priceLarge) prices.push({ label: "Lrg", price: item.priceLarge });
+  if (item.priceXLarge) prices.push({ label: "XLrg", price: item.priceXLarge });
+  
+  if (prices.length === 0) return null;
+  
+  return (
+    <div className="text-right ml-4">
+      <div className={`grid grid-cols-${prices.length} gap-2 text-sm text-gray-500 mb-1`}>
+        {prices.map((p) => (
+          <span key={p.label}>{p.label}</span>
+        ))}
+      </div>
+      <div className={`grid grid-cols-${prices.length} gap-2 font-bold text-primary`}>
+        {prices.map((p) => (
+          <span key={p.label}>{formatPrice(p.price)}</span>
+        ))}
+      </div>
+    </div>
+  );
+};
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
