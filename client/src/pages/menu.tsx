@@ -8,9 +8,8 @@ import { Phone } from "lucide-react";
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("kebabs");
 
-  const getItemsByCategory = (category: string) => {
-    return menuData.filter(item => item.category === category);
-  };
+  const getItemsByCategory = (category: string) =>
+  menuData.filter(item => item.category === category);
 
   const getCategoryInfo = (categoryId: string) => {
     const category = categories.find(c => c.id === categoryId);
