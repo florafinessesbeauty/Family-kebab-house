@@ -1,99 +1,111 @@
-# Family Kebab House - Replit.md
+# Family Kebab House - Website Project
 
-## Overview
+## Project Overview
+Family Kebab House is a premier kebab and pizza restaurant located in Stalham, Norwich, serving the community for over 20 years. This website showcases their authentic Mediterranean cuisine, including fresh kebabs, pizzas, and various meal options.
 
-Family Kebab House is a restaurant website for a kebab and pizza shop located in Stalham, Norwich. The application is built as a full-stack web application featuring a modern React frontend with a Node.js/Express backend, utilizing PostgreSQL for data persistence and Drizzle ORM for database operations.
+## Business Information
+- **Name**: Family Kebab House
+- **Location**: 79 High Street, Stalham NR12 9BB
+- **Phone**: 01692 584 100
+- **Payment**: Cash only
+- **Service**: Orders ready in 15 minutes
+- **Special**: Party orders welcome
 
-## System Architecture
+### Opening Hours
+- **Mon-Thu-Sun**: 12noon to 10:30pm
+- **Fri-Sat**: 12noon to 11pm
+- **Closed**: Christmas Day and Boxing Day only
 
-### Frontend Architecture
-- **Framework**: React 18 with TypeScript
-- **Routing**: React Router with hash-based routing for GitHub Pages compatibility
-- **UI Framework**: Tailwind CSS with shadcn/ui components
-- **State Management**: TanStack Query (React Query) for server state management
-- **Build Tool**: Vite for development and production builds
-- **Styling**: Tailwind CSS with custom color scheme and Google Fonts (Poppins, Inter, Dancing Script)
+### Lunch Time Offers
+Available 12:00 - 14:30 daily with special pricing on selected items.
 
-### Backend Architecture
-- **Runtime**: Node.js with Express.js framework
-- **Language**: TypeScript with ES modules
-- **API Structure**: RESTful API with `/api` prefix (currently minimal implementation)
-- **Development**: tsx for TypeScript execution in development
-- **Production**: esbuild for server bundling
+## Brand Identity
+### Color Palette
+- **Brand Primary Red**: #E10600
+- **Brand Dark Charcoal**: #222222
+- **Accent Gold**: #F7B733
+- **Text Light**: #FFFFFF (on dark backgrounds)
+- **Text Dark**: #333333 (on light backgrounds)
+- **Link/Button Hover**: #C80000
 
-### Database Layer
-- **Database**: PostgreSQL (configured for Neon serverless)
-- **ORM**: Drizzle ORM with Drizzle Kit for migrations
-- **Connection**: @neondatabase/serverless with connection pooling
-- **Schema**: Centralized schema definitions in `shared/schema.ts`
+### Key Messaging
+- "NATURAL FOOD • FRESH DAILY 100%"
+- "PARTY ORDER WELCOME"
+- "CASH PAYMENT ONLY"
+- "YOUR ORDER WILL BE READY IN 15 MIN"
 
-## Key Components
+## Technical Architecture
+### Frontend Stack
+- **Framework**: React with TypeScript
+- **Styling**: Tailwind CSS with custom brand colors
+- **Routing**: React Router DOM
+- **UI Components**: Custom components with Shadcn/UI
+- **Build Tool**: Vite
 
-### Database Schema
-- **Menu Items Table**: Supports flexible pricing (small/medium/large/XL, single price, pizza sizes)
-- **Users Table**: Basic user authentication structure
-- **Schema Features**: Zod validation integration, TypeScript type inference
+### Backend Stack
+- **Server**: Express.js with TypeScript
+- **Database**: PostgreSQL (Neon-backed)
+- **ORM**: Drizzle ORM
+- **Development**: tsx for TypeScript execution
 
-### Frontend Components
-- **Layout**: Header with responsive navigation, Footer with business information
-- **Pages**: Home, Menu, About, Contact, and 404 error handling
-- **UI Components**: Full shadcn/ui component library implementation
-- **Responsive Design**: Mobile-first approach with breakpoint-based layouts
-
-### Business Logic
-- **Menu System**: Category-based menu organization with special offers support
-- **Storage Interface**: Abstracted database operations through IStorage interface
-- **Menu Categories**: Kebabs, Pizzas, Burgers, Fried Chicken, Wings, Extras, Desserts
-
-## Data Flow
-
-1. **Client Requests**: React frontend makes API calls using TanStack Query
-2. **API Layer**: Express server handles requests with middleware for logging and error handling
-3. **Data Access**: Storage layer abstracts database operations using Drizzle ORM
-4. **Response**: JSON responses sent back to client with appropriate error handling
-5. **UI Updates**: React Query manages cache invalidation and UI updates
-
-## External Dependencies
-
-### Core Dependencies
-- **@neondatabase/serverless**: PostgreSQL connection for serverless environments
-- **drizzle-orm & drizzle-kit**: Database ORM and migration tooling
-- **@tanstack/react-query**: Server state management
-- **@radix-ui/***: Accessible UI primitives
-- **react-router-dom**: Client-side routing
-
-### Development Tools
-- **Vite**: Development server and build tool with React plugin
-- **TypeScript**: Type safety and development experience
-- **Tailwind CSS**: Utility-first CSS framework
-- **@replit/vite-plugin-***: Replit-specific development enhancements
-
-## Deployment Strategy
-
-### Development Environment
-- **Command**: `npm run dev`
-- **Port**: 5000 (configured in .replit)
-- **Hot Reload**: Vite HMR with Replit integration
-
-### Production Build
-- **Frontend Build**: Vite builds static assets to `dist/public`
-- **Backend Build**: esbuild bundles server code to `dist/index.js`
-- **Base Path**: Configured for GitHub Pages deployment (`/Family-kebab-house/`)
-
-### Deployment Targets
-- **Replit**: Autoscale deployment with build/run configuration
-- **GitHub Pages**: Static site deployment from `docs/` folder
-- **Database**: Requires DATABASE_URL environment variable for PostgreSQL connection
-
-## Changelog
-
+### Project Structure
 ```
-Changelog:
-- June 19, 2025. Initial setup
+/client - Frontend React application
+/server - Backend Express server
+/shared - Shared TypeScript schemas
+/attached_assets - Restaurant logo and menu images
 ```
+
+## Recent Changes
+**2024-12-20**: Complete Family Kebab House transformation and database integration
+- ✅ Complete rebrand to authentic Family Kebab House colors (#E10600, #F7B733, #222222)
+- ✅ Added authentic restaurant logo from uploaded image
+- ✅ Replaced entire menu with exact pricing from menu photos (109 items, 20 categories)
+- ✅ Updated all business information: phone (01692 584 100), address, hours
+- ✅ Added lunch time offers section (12 NOON TO 2:30PM)
+- ✅ Implemented food allergies notice and "100% DAILY FRESH DOUGH" messaging
+- ✅ Updated homepage with "NATURAL FOOD • FRESH DAILY 100%", "PARTY ORDER WELCOME"
+- ✅ Added "CASH PAYMENT ONLY" and "YOUR ORDER WILL BE READY IN 15 MIN" messaging
+- ✅ Created PostgreSQL database and populated with complete menu
+- ✅ All components now use authentic Family Kebab House branding
+
+## Menu Categories
+The website features a comprehensive menu with the following sections:
+- Lunch Time Offers (12:00-14:30)
+- Burgers
+- Fried Chicken
+- Chicken Bargain Meals
+- Chicken Wings & Strips
+- Chicken Nuggets
+- Scampi
+- Desserts
+- Extras (Sides & Add-Ons)
+- Drinks
+- Kids Meals
+- Pizzas (10" and 12" options)
+- Garlic Bread & Pizza Extras
+- Pizza Offers
+- Family Deals
+- Chicken Combo Meals
+- Kebabs (Medium, Large, X-Large)
+- Kebab Feast
+- Wraps
+- Combination Kebabs
+
+## Key Features
+- Responsive design optimized for mobile and desktop
+- Phone integration (tel: links for direct calling)
+- Clear pricing display with multiple size options
+- Special offers prominently featured
+- Restaurant information and hours clearly displayed
+- SEO optimized with proper meta tags and structured data
 
 ## User Preferences
+*No specific user preferences documented yet*
 
-```
-Preferred communication style: Simple, everyday language.
-```
+## Important Notes
+- All pricing is authentic and matches the physical menu
+- Cash payment only policy is emphasized throughout
+- 15-minute preparation time is highlighted
+- Party orders are welcomed
+- Natural food and fresh daily ingredients are key selling points
