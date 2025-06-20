@@ -10,20 +10,65 @@ export interface MenuItemData {
   price10inches?: number;
   price12inches?: number;
   singlePrice?: number;
-  isSpecial?: boolean;
   withChips?: number;
-  withDrink?: number;
+  mealPrice?: number;
+  isSpecial?: boolean;
   extras?: {
-    skewer?: number;
-    mozzarella?: number;
-    special?: number;
-    [key: string]: number | undefined;
+    [key: string]: number;
   };
-  extraPrice10inches?: number;
-  extraPrice12inches?: number;
 }
 
 export const menuData: MenuItemData[] = [
+  // LUNCH TIME OFFERS (Available 12:00 - 14:30)
+  {
+    id: "lunch-chicken-burger",
+    name: "Chicken Burger + Chips & Drink",
+    category: "lunch-offers",
+    singlePrice: 7.90,
+    isSpecial: true,
+  },
+  {
+    id: "lunch-quarter-pounder",
+    name: "1/4 Pounder with Cheese + Chips & Drink",
+    category: "lunch-offers",
+    singlePrice: 7.90,
+    isSpecial: true,
+  },
+  {
+    id: "lunch-half-pounder",
+    name: "1/2 Pounder with Double Cheese + Chips & Drink",
+    category: "lunch-offers",
+    singlePrice: 9.50,
+    isSpecial: true,
+  },
+  {
+    id: "lunch-medium-doner",
+    name: "Medium Doner Meat + Chips & Drink",
+    category: "lunch-offers",
+    singlePrice: 7.90,
+    isSpecial: true,
+  },
+  {
+    id: "lunch-large-doner",
+    name: "Large Doner Meat + Chips & Drink",
+    category: "lunch-offers",
+    singlePrice: 9.50,
+    isSpecial: true,
+  },
+  {
+    id: "lunch-12inch-pizza",
+    name: "12\" Margherita with 3 Toppings & Drink",
+    category: "lunch-offers",
+    singlePrice: 12.50,
+    isSpecial: true,
+  },
+  {
+    id: "lunch-10inch-pizza",
+    name: "10\" Margherita with 3 Toppings & Drink",
+    category: "lunch-offers",
+    singlePrice: 9.50,
+    isSpecial: true,
+  },
   // KEBABS
   {
     id: "doner-kebab",

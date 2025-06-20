@@ -1,12 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap');
-
 :root {
   --background: 0 0% 100%; /* #FFFFFF */
-  --foreground: 0 0% 18%; /* #2E2E2E */
+  --foreground: 0 0% 20%; /* #333333 */
   --muted: 60 4.8% 95.9%;
   --muted-foreground: 25 5.3% 44.7%;
   --popover: 0 0% 100%;
@@ -15,19 +15,24 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  --primary: 351 87% 50%; /* #D32F2F */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 130 49% 45%; /* #388E3C */
-  --secondary-foreground: 0 0% 100%;
-  --accent: 32 100% 50%; /* #FF6F00 */
-  --accent-foreground: 0 0% 100%;
+  --primary: 0 98% 44%; /* #E10600 Brand Primary Red */
+  --primary-foreground: 0 0% 100%; /* #FFFFFF */
+  --secondary: 34 96% 59%; /* #F7B733 Accent Gold */
+  --secondary-foreground: 0 0% 20%; /* #333333 */
+  --accent: 34 96% 59%; /* #F7B733 Accent Gold */
+  --accent-foreground: 0 0% 20%; /* #333333 */
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
   
-  /* Custom colors */
-  --charcoal: 0 0% 18%; /* #2E2E2E */
+  /* Family Kebab House Brand Colors */
+  --brand-primary: 0 98% 44%; /* #E10600 */
+  --brand-charcoal: 0 0% 13%; /* #222222 */
+  --accent-gold: 34 96% 59%; /* #F7B733 */
+  --text-light: 0 0% 100%; /* #FFFFFF */
+  --text-dark: 0 0% 20%; /* #333333 */
+  --link-hover: 0 100% 39%; /* #C80000 */
 }
 
 .dark {
@@ -64,11 +69,31 @@
 
   /* Custom utility classes */
   .text-charcoal {
-    color: hsl(var(--charcoal));
+    color: hsl(var(--brand-charcoal));
   }
 
   .bg-charcoal {
-    background-color: hsl(var(--charcoal));
+    background-color: hsl(var(--brand-charcoal));
+  }
+
+  .text-brand-primary {
+    color: hsl(var(--brand-primary));
+  }
+
+  .bg-brand-primary {
+    background-color: hsl(var(--brand-primary));
+  }
+
+  .text-accent-gold {
+    color: hsl(var(--accent-gold));
+  }
+
+  .bg-accent-gold {
+    background-color: hsl(var(--accent-gold));
+  }
+
+  .hover-brand-primary:hover {
+    color: hsl(var(--link-hover));
   }
 
   .font-poppins {

@@ -26,11 +26,13 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <Utensils className="text-white text-xl" />
-            </div>
+            <img 
+              src="/logo.jpg" 
+              alt="Family Kebab House Logo"
+              className="w-12 h-12 rounded-full object-cover"
+            />
             <div>
-              <h1 className="font-dancing text-2xl font-bold text-charcoal">Family Kebab House</h1>
+              <h1 className="font-dancing text-2xl font-bold text-charcoal">Family Kebab</h1>
               <p className="text-sm text-gray-600">Kebab & Pizza</p>
             </div>
           </Link>
@@ -53,9 +55,9 @@ export default function Header() {
 
           <div className="flex items-center space-x-4">
             <a href="tel:01692584100">
-              <Button className="bg-accent text-white hover:bg-orange-600 transition-colors">
+              <Button className="bg-accent-gold text-charcoal hover:bg-yellow-600 transition-colors font-semibold">
                 <Phone className="mr-2 h-4 w-4" />
-                Call Now
+                01692 584 100
               </Button>
             </a>
             

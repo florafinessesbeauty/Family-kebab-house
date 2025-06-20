@@ -44,46 +44,58 @@ export default function Home() {
         <div className="relative container mx-auto px-4 py-20">
           <div className="max-w-4xl mx-auto text-center text-white">
             <div className="mb-6">
-              <Badge className="bg-secondary text-white px-4 py-2 text-sm font-semibold">
+              <Badge className="bg-accent-gold text-charcoal px-4 py-2 text-sm font-semibold">
                 <Star className="mr-2 h-4 w-4" />
-                Serving Norwich for 20+ Years
+                NATURAL FOOD • FRESH DAILY 100%
               </Badge>
             </div>
             
             <h1 className="font-poppins text-5xl md:text-7xl font-bold mb-6">
-              Authentic <span className="text-accent">Kebabs</span> &nbsp;
-              <span className="text-primary">Fresh Pizzas</span>
+              Family <span className="text-accent-gold">Kebab</span>
             </h1>
             
-            <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-              Stalham in Norwich's premier kebab shop offering mouth-watering doner kebabs, crispy pizzas, and more. 
-              {" "}
-              <strong>Open now</strong> for dine-in and takeaway!
+            <p className="text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed font-semibold">
+              Kebab & Pizza
+            </p>
+            
+            <p className="text-lg mb-2 text-accent-gold font-bold">
+              PARTY ORDER WELCOME
+            </p>
+            
+            <p className="text-base mb-8 text-gray-200">
+              CASH PAYMENT ONLY • YOUR ORDER WILL BE READY IN 15 MIN
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <a href="tel:01692584100">
-                <Button size="lg" className="bg-primary text-white hover:bg-red-700 transform hover:scale-105 transition-all">
+                <Button size="lg" className="bg-brand-primary text-white hover:bg-red-700 transform hover:scale-105 transition-all font-semibold">
                   <Phone className="mr-3 h-5 w-5" />
-                  Order Now: 01692 584100
+                  01692 584 100
                 </Button>
               </a>
               <Link to="/menu">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-charcoal">
-                  <span className="mr-3">📋</span>{" "}
-                  View Menu
+                <Button size="lg" className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-semibold">
+                  View Full Menu
                 </Button>
               </Link>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm">
+            <div className="flex flex-col gap-4 justify-center items-center text-sm">
               <div className="flex items-center">
-                <MapPin className="text-accent mr-2 h-4 w-4" />
-                <span>79 High Street, Stalham, Norwich NR12 9BB</span>
+                <MapPin className="text-accent-gold mr-2 h-4 w-4" />
+                <span className="font-semibold">79 HIGH STREET, STALHAM NR12 9BB</span>
+              </div>
+              <div className="text-center">
+                <p className="text-accent-gold font-bold mb-2">WE ARE OPEN 7 DAYS WEEK</p>
+                <p className="text-white">ONLY CLOSED CHRISTMAS DAY AND BOXING DAY</p>
+                <div className="mt-2 space-y-1">
+                  <p className="text-white"><strong>MON-THU-SUN:</strong> 12noon to 10:30pm</p>
+                  <p className="text-white"><strong>FRI-SAT:</strong> 12noon to 11pm</p>
+                </div>
               </div>
               <div className="flex items-center">
-                <Clock className="text-accent mr-2 h-4 w-4" />
-                <span>Lunch Offers: 12:00 - 14:30</span>
+                <Clock className="text-accent-gold mr-2 h-4 w-4" />
+                <span className="text-accent-gold font-bold">LUNCH TIME OFFERS: 12 NOON TO 2:30PM</span>
               </div>
             </div>
           </div>
