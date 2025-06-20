@@ -9,9 +9,11 @@ export default function About() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary to-accent text-white py-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-poppins text-5xl font-bold mb-6">About Family Kebab House</h1>
-          <p className="text-xl text-orange-100 mb-8 max-w-3xl mx-auto">
-            Norwich & Stalham's Premier Kebab & Pizza Shop - Serving authentic Mediterranean cuisine for over 20 years
+          <h1 className="font-poppins text-5xl font-bold mb-6 flex items-center justify-center gap-3">
+            🏛️ About Family Kebab House 🏛️
+          </h1>
+          <p className="text-xl text-orange-100 mb-8 max-w-3xl mx-auto flex items-center justify-center gap-2">
+            🥙 Norwich & Stalham's Premier Kebab & Pizza Shop - Serving authentic Mediterranean cuisine for over 20 years 🍕
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <Badge className="bg-white text-primary px-4 py-2 text-lg">

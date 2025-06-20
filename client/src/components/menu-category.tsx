@@ -12,6 +12,31 @@ interface MenuCategoryProps {
 export default function MenuCategory({ title, description, items, icon }: Readonly<MenuCategoryProps>) {
   const formatPrice = (price: number) => `£${price.toFixed(2)}`;
 
+  const getItemEmoji = (item: MenuItemData) => {
+    const name = item.name.toLowerCase();
+    if (name.includes('chicken') && name.includes('burger')) return '🍔';
+    if (name.includes('doner')) return '🥙';
+    if (name.includes('shish')) return '🍢';
+    if (name.includes('chicken') && name.includes('kebab')) return '🍗';
+    if (name.includes('kofte')) return '🥩';
+    if (name.includes('pizza')) return '🍕';
+    if (name.includes('burger')) return '🍔';
+    if (name.includes('wrap')) return '🌯';
+    if (name.includes('nuggets')) return '🍿';
+    if (name.includes('wings')) return '🔥';
+    if (name.includes('scampi')) return '🍤';
+    if (name.includes('chips')) return '🍟';
+    if (name.includes('onion rings')) return '🧅';
+    if (name.includes('garlic')) return '🧄';
+    if (name.includes('cake')) return '🍰';
+    if (name.includes('drink') || name.includes('can') || name.includes('bottle')) return '🥤';
+    if (name.includes('family')) return '👨‍👩‍👧‍👦';
+    if (name.includes('combo') || name.includes('meal')) return '🍱';
+    if (name.includes('salad')) return '🥗';
+    if (item.category === 'lunch-offers') return '⏰';
+    return '🍽️';
+  };
+
   const renderPriceDisplay = (item: MenuItemData) => {
     if (item.singlePrice) {
       return (
@@ -89,18 +114,21 @@ export default function MenuCategory({ title, description, items, icon }: Readon
         {items.map((item) => (
           <Card 
             key={item.id} 
-            className={`hover:shadow-md transition-shadow ${
-              item.isSpecial ? "border-accent border-2 bg-accent/5" : ""
+            className={`hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${
+              item.isSpecial ? "border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md" : "hover:border-accent/30"
             }`}
           >
             <CardContent className="p-4">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-charcoal text-lg">{item.name}</h3>
+                    <h3 className="font-semibold text-charcoal text-lg flex items-center gap-2">
+                      {getItemEmoji(item)}
+                      {item.name}
+                    </h3>
                     {item.isSpecial && (
-                      <Badge variant="secondary" className="bg-accent text-white">
-                        Special
+                      <Badge variant="secondary" className="bg-accent text-white animate-pulse">
+                        🌟 Special
                       </Badge>
                     )}
                   </div>
