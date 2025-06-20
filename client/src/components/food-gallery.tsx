@@ -93,15 +93,16 @@ interface FoodGalleryProps {
   selectedCategory?: string;
 }
 
-export default function FoodGallery({ selectedCategory = "all" }: FoodGalleryProps) {
+export default function FoodGallery({ selectedCategory: initialCategory = "all" }: FoodGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
 
   const filteredImages = selectedCategory === "all" 
     ? galleryImages 
     : galleryImages.filter(img => img.category.toLowerCase() === selectedCategory.toLowerCase());
 
-  const categories = ["all", "kebabs", "pizzas", "burgers", "wings", "wraps"];
+  const categories = ["all", "kebabs", "pizzas", "burgers", "wings", "wraps", "specials", "salads"];
 
   return (
     <div className="space-y-8">
@@ -111,6 +112,7 @@ export default function FoodGallery({ selectedCategory = "all" }: FoodGalleryPro
           <Badge
             key={category}
             variant={selectedCategory === category ? "default" : "outline"}
+            onClick={() => setSelectedCategory(category)}
             className={`cursor-pointer px-4 py-2 text-sm font-semibold transition-all duration-300 hover:scale-105 ${
               selectedCategory === category
                 ? "bg-primary text-white"
@@ -124,7 +126,14 @@ export default function FoodGallery({ selectedCategory = "all" }: FoodGalleryPro
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredImages.map((image) => (
+        {filteredImages.length === 0 ? (
+          <div className="col-span-full text-center py-12">
+            <div className="text-4xl mb-4">🍽️</div>
+            <h3 className="text-xl font-semibold text-charcoal mb-2">No dishes found</h3>
+            <p className="text-gray-600">Try selecting a different category</p>
+          </div>
+        ) : (
+          filteredImages.map((image) => (
           <Card
             key={image.id}
             className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105"
@@ -166,7 +175,8 @@ export default function FoodGallery({ selectedCategory = "all" }: FoodGalleryPro
               </Badge>
             </div>
           </Card>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Lightbox Modal */}
