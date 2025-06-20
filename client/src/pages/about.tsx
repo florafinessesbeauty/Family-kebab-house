@@ -1,231 +1,241 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
-import { Heart, Check, Award, Users, Clock, Star } from "lucide-react";
+import { Phone, MapPin, Clock, Star, Award, Users } from "lucide-react";
 
 export default function About() {
-  const achievements = [
-    { icon: "🏆", value: "20+", label: "Years of Excellence" },
-    { icon: "👨‍👩‍👧‍👦", value: "1000+", label: "Happy Families Served" },
-    { icon: "🥇", value: "100%", label: "Fresh Ingredients Daily" },
-    { icon: "⭐", value: "5★", label: "Local Community Favorite" }
-  ];
-
-  const whyChooseUs = [
-    {
-      icon: <Heart className="h-6 w-6 text-primary" />,
-      title: "Family Tradition",
-      description: "Authentic recipes passed down through generations, ensuring every dish carries the true taste of tradition."
-    },
-    {
-      icon: <Check className="h-6 w-6 text-secondary" />,
-      title: "Quality Ingredients",
-      description: "We source only the freshest ingredients daily, never compromising on quality for our valued customers."
-    },
-    {
-      icon: <Clock className="h-6 w-6 text-accent" />,
-      title: "Quick Service",
-      description: "Your order will be ready in just 15 minutes, perfect for busy lifestyles without sacrificing taste."
-    },
-    {
-      icon: <Users className="h-6 w-6 text-primary" />,
-      title: "Community Focus",
-      description: "We've been part of the Stalham and Norwich community for over 20 years, building lasting relationships."
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <Badge className="bg-secondary text-white px-4 py-2 text-sm font-semibold mb-6">
-              <Star className="mr-2 h-4 w-4" />
-              Established 2004
+      <section className="bg-gradient-to-br from-primary to-accent text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="font-poppins text-5xl font-bold mb-6">About Family Kebab House</h1>
+          <p className="text-xl text-orange-100 mb-8 max-w-3xl mx-auto">
+            Norwich & Stalham's Premier Kebab & Pizza Shop - Serving authentic Mediterranean cuisine for over 20 years
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <Badge className="bg-white text-primary px-4 py-2 text-lg">
+              <Award className="mr-2 h-5 w-5" />
+              20+ Years Experience
             </Badge>
-            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-6">About Family Kebab House</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              For over two decades, we've been Norwich's premier destination for authentic kebabs, 
-              fresh pizzas, and exceptional service. Our story is one of family, tradition, and 
-              unwavering commitment to quality.
-            </p>
+            <Badge className="bg-white text-primary px-4 py-2 text-lg">
+              <Star className="mr-2 h-5 w-5" />
+              100% Fresh Daily
+            </Badge>
+            <Badge className="bg-white text-primary px-4 py-2 text-lg">
+              <Users className="mr-2 h-5 w-5" />
+              Family Run
+            </Badge>
           </div>
         </div>
       </section>
 
-      {/* Our Story */}
-      <section className="py-20">
+      {/* Main Content */}
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <h2 className="font-poppins text-4xl font-bold text-charcoal mb-8">Our Journey</h2>
-              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                <p>
-                  Family Kebab House opened its doors in <strong className="text-primary">2004</strong> with a simple mission: 
-                  to bring authentic, delicious food to the wonderful community of Stalham and Norwich. 
-                  What started as a small family dream has grown into the area's most trusted kebab shop.
-                </p>
-                <p>
-                  Every day, we prepare our dishes using <strong className="text-secondary">traditional recipes</strong>{" "}
-                  and the freshest ingredients available. Our doner kebabs are carved fresh, our pizzas are 
-                  made to order, and every meal is prepared with the same care and attention we'd give our own family.
-                </p>
-                <p>
-                  Located at <strong>79 High Street in Stalham</strong>, we've become more than just a restaurant - 
-                  we're a cornerstone of the community, serving generations of families who trust us with their 
-                  dining experience.
-                </p>
-                <p>
-                  Our commitment to <strong className="text-accent">exceptional service</strong> means your order 
-                  is always ready in 15 minutes, whether you're dining in or taking away. We welcome party orders 
-                  and take pride in being part of your special occasions.
-                </p>
+              <h2 className="font-poppins text-3xl font-bold text-charcoal mb-6">Our Story</h2>
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                For over 20 years, Family Kebab House has stood proud on 79 High Street, Stalham NR12 9BB—your go-to Norwich kebab shop, Stalham kebab house and Norwich premier kebab shop. We're family-run, serving 100% fresh daily dough, premium halal meats and crisp salads.
+              </p>
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                Whether you're hunting for a late-night bite in Norwich city or picking up party platters in Stalham, we've got you covered. Our commitment to quality and authentic flavors has made us a local legend, celebrating two decades with loyal fans from Norwich, Aylsham Road, Magdalen Street and beyond.
+              </p>
+              <a href="tel:01692584100">
+                <Button className="bg-primary hover:bg-red-700 text-white px-8 py-3 text-lg">
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call 01692 584100
+                </Button>
+              </a>
+            </div>
+            <div className="relative">
+              <img 
+                src="/Family-kebab-house/attached_assets/FAMILY KEBAB HOUSE STALHAM LOGO_1750363798831.jpg"
+                alt="Family Kebab House Logo"
+                className="rounded-2xl shadow-2xl w-full max-w-md mx-auto"
+              />
+              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-4 rounded-2xl shadow-lg">
+                <div className="text-2xl font-bold">20+</div>
+                <div className="text-sm">Years Serving</div>
               </div>
             </div>
-            
-            <div className="space-y-6">
-              <img 
-                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
-                alt="Family restaurant kitchen with fresh food preparation" 
-                className="rounded-2xl shadow-xl w-full h-80 object-cover"
-              />
-              
-              <img 
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
-                alt="Warm restaurant interior with family atmosphere" 
-                className="rounded-2xl shadow-xl w-full h-80 object-cover"
-              />
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Achievements */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-poppins text-4xl font-bold text-charcoal mb-4">Our Achievements</h2>
-            <p className="text-lg text-gray-600">Numbers that speak to our commitment to excellence</p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {achievements.map((achievement) => (
-              <div key={achievement.label} className="text-center">
-                <div className="text-5xl mb-4">{achievement.icon}</div>
-                <div className="text-4xl font-bold text-primary mb-2">{achievement.value}</div>
-                <div className="text-gray-600 font-medium">{achievement.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-poppins text-4xl font-bold text-charcoal mb-4">Why Choose Family Kebab House?</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We're not just another kebab shop - we're your neighbors, committed to serving 
-              the best food with genuine care and authentic flavors.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {whyChooseUs.map((item) => (
-              <Card key={item.title} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-poppins text-xl font-bold text-charcoal mb-3">{item.title}</h3>
-                      <p className="text-gray-600 leading-relaxed">{item.description}</p>
-                    </div>
+          {/* Why We Rank #1 */}
+          <div className="mb-16">
+            <h2 className="font-poppins text-3xl font-bold text-charcoal text-center mb-12">Why We Rank #1 for "Kebab Shop Near Me"</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Award className="h-8 w-8 text-accent" />
                   </div>
+                  <h3 className="font-bold text-xl text-charcoal mb-3">Local Legends</h3>
+                  <p className="text-gray-600">Celebrating two decades with loyal fans from Norwich, Aylsham Road, Magdalen Street and beyond.</p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* What Makes Us Special */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <img 
-                src="https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
-                alt="Authentic doner kebab preparation with traditional methods" 
-                className="rounded-2xl shadow-xl w-full h-96 object-cover"
-              />
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Star className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-xl text-charcoal mb-3">Always Fresh</h3>
+                  <p className="text-gray-600">Our artisan flatbreads are hand-stretched each morning; all proteins and produce are never frozen.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-xl text-charcoal mb-3">Natural Ingredients</h3>
+                  <p className="text-gray-600">Hormone-free chicken, prime lamb, seasonal veggies—nothing artificial.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-xl text-charcoal mb-3">Party Orders Welcome</h3>
+                  <p className="text-gray-600">Large gatherings love our Kebab Feast, Family Deal platters and lunchtime combos.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Clock className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-xl text-charcoal mb-3">Extended Hours</h3>
+                  <p className="text-gray-600">Open 7 days a week with convenient hours to serve you when you need us most.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MapPin className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-xl text-charcoal mb-3">Perfect Location</h3>
+                  <p className="text-gray-600">Conveniently located on High Street, Stalham - easy to find and visit.</p>
+                </CardContent>
+              </Card>
             </div>
-            
-            <div>
-              <h2 className="font-poppins text-4xl font-bold text-charcoal mb-8">What Makes Us Special</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <Award className="h-6 w-6 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-charcoal text-lg mb-2">Authentic Recipes</h3>
-                    <p className="text-gray-600">Our recipes have been perfected over generations, ensuring every bite delivers authentic Mediterranean flavors.</p>
-                  </div>
+          </div>
+
+          {/* Signature Menu Highlights */}
+          <div className="mb-16">
+            <h2 className="font-poppins text-3xl font-bold text-charcoal text-center mb-12">Our Signature Menu Highlights</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-primary mb-3">Doner Kebab</h3>
+                  <p className="text-gray-600">Thinly sliced lamb, seasoned & spit-roasted, wrapped in warm pitta.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-primary mb-3">Shish Kebab</h3>
+                  <p className="text-gray-600">Oriental-herb-marinated lamb fillet cubes, flame-grilled to juicy perfection.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-primary mb-3">Chicken Kebab</h3>
+                  <p className="text-gray-600">Breast of chicken, marinated and char-grilled for that signature smoky edge.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-primary mb-3">Kofte Kebab</h3>
+                  <p className="text-gray-600">Hand-crafted lamb patties with parsley & spices, barbecued over an open flame.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-primary mb-3">Arda Mix</h3>
+                  <p className="text-gray-600">A generous platter of Doner, Shish, Chicken & Kofte—ideal for sharing.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-primary mb-3">Gourmet Pizzas</h3>
+                  <p className="text-gray-600">10″ & 12″ pizzas on 100% daily-fresh dough. From Margherita to our signature Doner Pizza.</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* FAQs */}
+          <div className="mb-16">
+            <h2 className="font-poppins text-3xl font-bold text-charcoal text-center mb-12">Frequently Asked Questions</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg text-primary mb-3">Do you deliver?</h3>
+                  <p className="text-gray-600">We do not offer delivery—our focus is on fastest takeaway & in-house service.</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg text-primary mb-3">Are your salads gluten-free?</h3>
+                  <p className="text-gray-600">Yes, all salads are naturally gluten-free; full allergen info is available on request.</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg text-primary mb-3">What are your opening hours?</h3>
+                  <p className="text-gray-600">Mon–Thu & Sun: 12:00–22:30 | Fri–Sat: 12:00–23:00. Closed only Christmas Day and Boxing Day.</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg text-primary mb-3">Can I order party platters?</h3>
+                  <p className="text-gray-600">Absolutely—call us at 01692 584 100 to arrange your Kebab Feast or Family Deal.</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="bg-gradient-to-br from-accent to-orange-600 rounded-2xl p-12 text-center text-white">
+            <h2 className="font-poppins text-3xl font-bold mb-4">Ready to Dig In?</h2>
+            <p className="text-xl text-orange-100 mb-8">Experience Norwich & Stalham's premier kebab shop today!</p>
+            <div className="grid md:grid-cols-3 gap-6">
+              <a href="tel:01692584100">
+                <Button className="bg-white text-accent hover:bg-gray-100 w-full py-3">
+                  <Phone className="mr-2 h-5 w-5" />
+                  01692 584 100
+                </Button>
+              </a>
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <MapPin className="mr-2 h-5 w-5" />
+                  <span className="font-semibold">Visit Us</span>
                 </div>
-                
-                <div className="flex items-start space-x-4">
-                  <Check className="h-6 w-6 text-secondary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-charcoal text-lg mb-2">Fresh Daily Preparation</h3>
-                    <p className="text-gray-600">Everything is prepared fresh each day - from our marinated meats to our hand-rolled pizza dough.</p>
-                  </div>
+                <p>79 High St, Stalham NR12 9BB</p>
+              </div>
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Clock className="mr-2 h-5 w-5" />
+                  <span className="font-semibold">Order Ready</span>
                 </div>
-                
-                <div className="flex items-start space-x-4">
-                  <Heart className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-charcoal text-lg mb-2">Community Commitment</h3>
-                    <p className="text-gray-600">We're proud to be part of the local community, supporting local events and serving families for over 20 years.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <Clock className="h-6 w-6 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-charcoal text-lg mb-2">Reliable Service</h3>
-                    <p className="text-gray-600">Consistent quality and timing you can depend on - your order ready in 15 minutes, every time.</p>
-                  </div>
-                </div>
+                <p>In just 15 minutes</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-primary to-red-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-poppins text-4xl font-bold text-white mb-4">Experience the Family Kebab House Difference</h2>
-          <p className="text-red-100 text-lg mb-8 max-w-2xl mx-auto">
-            Join the thousands of satisfied customers who have made us their go-to choice for 
-            authentic kebabs and fresh pizzas in Norwich.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/menu">
-              <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
-                View Our Menu
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Visit Us Today
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

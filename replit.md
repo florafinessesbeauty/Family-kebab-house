@@ -67,6 +67,7 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Updated homepage with "NATURAL FOOD • FRESH DAILY 100%", "PARTY ORDER WELCOME"
 - ✅ Added "CASH PAYMENT ONLY" and "YOUR ORDER WILL BE READY IN 15 MIN" messaging
 - ✅ Created PostgreSQL database and populated with complete menu
+- ✅ Added comprehensive About page with SEO content and FAQs
 - ✅ All components now use authentic Family Kebab House branding
 
 ## Menu Categories
