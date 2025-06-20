@@ -29,10 +29,13 @@ const foodPreferences: FoodPreference[] = [
   { id: "meat-lover", label: "Meat Lover", icon: "🥩", category: "protein" },
   { id: "chicken", label: "Chicken", icon: "🍗", category: "protein" },
   { id: "vegetarian", label: "Vegetarian", icon: "🥬", category: "diet" },
+  { id: "seafood", label: "Seafood", icon: "🦐", category: "diet" },
   { id: "quick-bite", label: "Quick Bite", icon: "⚡", category: "time" },
   { id: "hearty-meal", label: "Hearty Meal", icon: "🍽️", category: "portion" },
+  { id: "family-sharing", label: "Family Sharing", icon: "👨‍👩‍👧‍👦", category: "portion" },
   { id: "budget-friendly", label: "Budget Friendly", icon: "💰", category: "price" },
   { id: "premium", label: "Premium Choice", icon: "⭐", category: "price" },
+  { id: "lunch-special", label: "Lunch Special", icon: "⏰", category: "price" },
   { id: "traditional", label: "Traditional", icon: "🏛️", category: "style" },
   { id: "modern", label: "Modern Twist", icon: "✨", category: "style" }
 ];
@@ -103,6 +106,105 @@ const allDishes: RecommendedDish[] = [
     emoji: "🌯",
     tags: ["chicken", "quick-bite", "mild", "budget-friendly"],
     preparationTime: "8 min"
+  },
+  {
+    id: "chicken-nuggets",
+    name: "Crispy Chicken Nuggets",
+    description: "Golden crispy nuggets made from tender chicken breast",
+    price: "From £4.00",
+    image: "https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "chicken",
+    emoji: "🍗",
+    tags: ["chicken", "quick-bite", "budget-friendly", "mild"],
+    preparationTime: "8 min"
+  },
+  {
+    id: "family-deal",
+    name: "Family Deal Special",
+    description: "Perfect sharing feast with kebab, pizza, chips and drinks",
+    price: "From £26.90",
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "deals",
+    emoji: "👨‍👩‍👧‍👦",
+    tags: ["hearty-meal", "premium", "meat-lover", "traditional"],
+    preparationTime: "20 min"
+  },
+  {
+    id: "pepperoni-pizza",
+    name: "Classic Pepperoni Pizza",
+    description: "Traditional pepperoni with fresh mozzarella on our signature base",
+    price: "From £9.50",
+    image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "pizzas",
+    emoji: "🍕",
+    tags: ["meat-lover", "traditional", "hearty-meal", "mild"],
+    preparationTime: "15 min"
+  },
+  {
+    id: "mixed-kebab",
+    name: "Mixed Kebab Platter",
+    description: "Combination of our finest doner and shish kebabs",
+    price: "From £15.50",
+    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "kebabs",
+    emoji: "🍽️",
+    tags: ["meat-lover", "premium", "hearty-meal", "traditional"],
+    preparationTime: "18 min"
+  },
+  {
+    id: "chicken-meal",
+    name: "Chicken Combo Meal",
+    description: "Succulent fried chicken with chips and drink",
+    price: "From £7.90",
+    image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "meals",
+    emoji: "🍗",
+    tags: ["chicken", "hearty-meal", "budget-friendly", "mild"],
+    preparationTime: "12 min"
+  },
+  {
+    id: "garlic-bread",
+    name: "Cheesy Garlic Bread",
+    description: "Freshly baked garlic bread topped with melted cheese",
+    price: "From £3.50",
+    image: "https://images.unsplash.com/photo-1573821663912-6df460f9c684?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "sides",
+    emoji: "🧄",
+    tags: ["vegetarian", "quick-bite", "budget-friendly", "mild"],
+    preparationTime: "5 min"
+  },
+  {
+    id: "scampi",
+    name: "Golden Scampi",
+    description: "Crispy breaded scampi served with tartare sauce",
+    price: "From £6.00",
+    image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "seafood",
+    emoji: "🦐",
+    tags: ["quick-bite", "budget-friendly", "mild", "modern"],
+    preparationTime: "10 min"
+  },
+  {
+    id: "lunch-special",
+    name: "Lunch Time Special",
+    description: "Chicken burger with chips and drink - lunch offer",
+    price: "£7.90",
+    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "lunch",
+    emoji: "⏰",
+    tags: ["chicken", "budget-friendly", "quick-bite", "hearty-meal"],
+    preparationTime: "10 min"
+  },
+  {
+    id: "dessert-donut",
+    name: "Sweet Donuts",
+    description: "Freshly made donuts, perfect ending to your meal",
+    price: "From £2.50",
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    category: "desserts",
+    emoji: "🍩",
+    tags: ["vegetarian", "quick-bite", "budget-friendly", "modern"],
+    preparationTime: "3 min"
   }
 ];
 
@@ -119,16 +221,28 @@ export default function FoodRecommendation() {
   };
 
   const getRecommendations = () => {
-    if (selectedPreferences.length === 0) return allDishes.slice(0, 3);
+    if (selectedPreferences.length === 0) {
+      // Show popular dishes when no preferences selected
+      return [
+        allDishes.find(d => d.id === "doner-kebab")!,
+        allDishes.find(d => d.id === "margherita-pizza")!,
+        allDishes.find(d => d.id === "spicy-wings")!,
+        allDishes.find(d => d.id === "chicken-burger")!
+      ].slice(0, 4);
+    }
 
     const scoredDishes = allDishes.map(dish => {
       const matchingTags = dish.tags.filter(tag => selectedPreferences.includes(tag)).length;
       return { ...dish, score: matchingTags };
     });
 
-    return scoredDishes
+    // Return top 4-6 recommendations based on preferences
+    const topMatches = scoredDishes
       .sort((a, b) => b.score - a.score)
-      .slice(0, 3);
+      .filter(dish => dish.score > 0);
+    
+    // If we have good matches, return 4-6, otherwise return top 4
+    return topMatches.length >= 4 ? topMatches.slice(0, 6) : topMatches.slice(0, 4);
   };
 
   const recommendations = getRecommendations();
@@ -150,7 +264,7 @@ export default function FoodRecommendation() {
             🤖 AI Food Recommendations
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tell us your preferences and we'll recommend the perfect dishes for you from our authentic menu
+            Tell us your preferences and we'll recommend the perfect dishes from our full menu of {allDishes.length} authentic items
           </p>
         </div>
 
@@ -226,7 +340,7 @@ export default function FoodRecommendation() {
             </div>
 
             {/* Recommendations Grid */}
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
               {recommendations.map((dish, index) => (
                 <Card key={dish.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
                   <div className="relative">
@@ -285,8 +399,9 @@ export default function FoodRecommendation() {
                   🧠 Why These Recommendations?
                 </h4>
                 <p className="text-gray-700">
-                  Our AI matched your preferences with our most popular dishes. Each recommendation is based on 
-                  flavor profile, preparation style, and customer favorites that align with your taste!
+                  Our AI analyzed {allDishes.length} dishes from our authentic menu and matched your preferences with 
+                  flavor profiles, preparation styles, and customer favorites. Each recommendation comes from our 
+                  real menu with accurate pricing and preparation times!
                 </p>
               </CardContent>
             </Card>
