@@ -1,12 +1,30 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+  // API route to get all menu items
+  app.get("/api/menu", async (req, res) => {
+    try {
+      const menuItems = await storage.getAllMenuItems();
+      res.json(menuItems);
+    } catch (error) {
+      console.error("Error fetching menu items:", error);
+      res.status(500).json({ error: "Failed to fetch menu items" });
+    }
+  });
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+  // API route to get menu items by category
+  app.get("/api/menu/:category", async (req, res) => {
+    try {
+      const { category } = req.params;
+      const menuItems = await storage.getMenuItemsByCategory(category);
+      res.json(menuItems);
+    } catch (error) {
+      console.error("Error fetching menu items by category:", error);
+      res.status(500).json({ error: "Failed to fetch menu items" });
+    }
+  });
 
   const httpServer = createServer(app);
 
