@@ -7,9 +7,17 @@ import { Phone, MapPin, Clock, Star, Heart, Check, ChevronLeft, ChevronRight } f
 import Testimonials from "@/components/testimonials";
 import FoodGallery from "@/components/food-gallery";
 import FoodRecommendation from "@/components/food-recommendation";
+import AIRecommendationPopup from "@/components/ai-recommendation-popup";
+import FloatingAIButton from "@/components/floating-ai-button";
 
-export default function Home() {
+interface HomeProps {
+  scrollToAIRecommendations?: () => void;
+}
+
+export default function Home({ scrollToAIRecommendations }: HomeProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showAIPopup, setShowAIPopup] = useState(false);
+  const [hasVisitedAI, setHasVisitedAI] = useState(false);
 
   const foodSlides = [
     {
@@ -62,12 +70,38 @@ export default function Home() {
     return () => clearInterval(slideTimer);
   }, [foodSlides.length]);
 
+  useEffect(() => {
+    // Show AI popup after 10 seconds if user hasn't interacted with AI recommendations
+    const popupTimer = setTimeout(() => {
+      if (!hasVisitedAI) {
+        setShowAIPopup(true);
+      }
+    }, 10000);
+
+    return () => clearInterval(popupTimer);
+  }, [hasVisitedAI]);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % foodSlides.length);
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + foodSlides.length) % foodSlides.length);
+  };
+
+  const handleAIRecommendationsClick = () => {
+    setHasVisitedAI(true);
+    setShowAIPopup(false);
+    
+    // Scroll to AI recommendations section
+    const aiSection = document.getElementById('ai-recommendations');
+    if (aiSection) {
+      aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleClosePopup = () => {
+    setShowAIPopup(false);
   };
 
   const specialOffers = [
@@ -445,7 +479,9 @@ export default function Home() {
         </div>
       </section>
 
-      <FoodRecommendation />
+      <div id="ai-recommendations">
+        <FoodRecommendation />
+      </div>
       
       <Testimonials />
 
@@ -474,6 +510,17 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* AI Recommendation Popup */}
+      {showAIPopup && (
+        <AIRecommendationPopup
+          onClose={handleClosePopup}
+          onGetRecommendations={handleAIRecommendationsClick}
+        />
+      )}
+
+      {/* Floating AI Button */}
+      <FloatingAIButton onClick={handleAIRecommendationsClick} />
     </div>
   );
 }

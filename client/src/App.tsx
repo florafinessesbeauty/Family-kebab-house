@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { useLocation } from "react-router-dom";
 
 // Import your page components (adjust the paths and capitalization as needed)
 import Home from "@/pages/home";
@@ -14,11 +15,26 @@ import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
 function App() {
+  const location = useLocation();
+
+  const handleAIRecommendationsClick = () => {
+    // If not on home page, navigate to home first
+    if (location.pathname !== '/') {
+      window.location.href = '/#ai-recommendations';
+    } else {
+      // If on home page, scroll to AI recommendations
+      const aiSection = document.getElementById('ai-recommendations');
+      if (aiSection) {
+        aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <div className="min-h-screen flex flex-col">
-          <Header />
+          <Header onAIRecommendationsClick={handleAIRecommendationsClick} />
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />

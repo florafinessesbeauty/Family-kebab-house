@@ -2,9 +2,13 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone, Utensils } from "lucide-react";
+import { Menu, Phone, Utensils, Zap } from "lucide-react";
 
-export default function Header() {
+interface HeaderProps {
+  onAIRecommendationsClick?: () => void;
+}
+
+export default function Header({ onAIRecommendationsClick }: HeaderProps) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -53,7 +57,16 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            {/* AI Recommendations Button */}
+            <Button
+              onClick={onAIRecommendationsClick}
+              className="hidden lg:flex bg-gradient-to-r from-primary to-accent hover:from-red-700 hover:to-orange-600 text-white font-semibold animate-pulse hover:animate-none transition-all duration-300"
+            >
+              <Zap className="mr-2 h-4 w-4" />
+              🤖 AI Picks
+            </Button>
+
             <a href="tel:01692584100">
               <Button className="bg-accent-gold text-charcoal hover:bg-yellow-600 transition-colors font-semibold">
                 <Phone className="mr-2 h-4 w-4" />
@@ -83,7 +96,19 @@ export default function Header() {
                       {item.name}
                     </Link>
                   ))}
-                  <div className="mt-8">
+                  <div className="mt-8 space-y-3">
+                    {/* AI Recommendations for Mobile */}
+                    <Button
+                      onClick={() => {
+                        onAIRecommendationsClick?.();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full bg-gradient-to-r from-primary to-accent text-white hover:from-red-700 hover:to-orange-600"
+                    >
+                      <Zap className="mr-2 h-4 w-4" />
+                      🤖 AI Recommendations
+                    </Button>
+                    
                     <a href="tel:01692584100">
                       <Button className="w-full bg-primary text-white hover:bg-red-700">
                         <Phone className="mr-2 h-4 w-4" />
