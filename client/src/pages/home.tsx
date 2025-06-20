@@ -1,11 +1,73 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Clock, Star, Heart, Check } from "lucide-react";
+import { Phone, MapPin, Clock, Star, Heart, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import Testimonials from "@/components/testimonials";
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const foodSlides = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      title: "🥙 Authentic Doner Kebabs",
+      description: "Tender lamb, perfectly seasoned and slow-cooked on our traditional spit",
+      emoji: "🤤",
+      price: "From £8.50"
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      title: "🍕 Fresh Daily Pizza",
+      description: "Hand-stretched dough made fresh every morning with premium toppings",
+      emoji: "😋",
+      price: "From £8.00"
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      title: "🍔 Gourmet Burgers",
+      description: "Juicy, flame-grilled perfection with fresh ingredients",
+      emoji: "🔥",
+      price: "From £5.50"
+    },
+    {
+      id: 4,
+      image: "https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      title: "🔥 Spicy Wings",
+      description: "Crispy wings with our secret blend of spices that'll make you crave more",
+      emoji: "🌶️",
+      price: "From £4.40"
+    },
+    {
+      id: 5,
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+      title: "🌯 Fresh Wraps",
+      description: "Packed with flavor and fresh ingredients in our warm tortillas",
+      emoji: "🤗",
+      price: "From £8.50"
+    }
+  ];
+
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % foodSlides.length);
+    }, 4000);
+
+    return () => clearInterval(slideTimer);
+  }, [foodSlides.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % foodSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + foodSlides.length) % foodSlides.length);
+  };
+
   const specialOffers = [
     {
       id: "lunch-chicken-burger",
@@ -97,6 +159,132 @@ export default function Home() {
                 <Clock className="text-accent-gold mr-2 h-4 w-4" />
                 <span className="text-accent-gold font-bold">LUNCH TIME OFFERS: 12 NOON TO 2:30PM</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Food Slideshow Section */}
+      <section className="py-16 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <h2 className="font-poppins text-4xl font-bold text-center text-white mb-12">
+            🤤 Craving Something Delicious? 🤤
+          </h2>
+          
+          <div className="relative max-w-6xl mx-auto">
+            {/* Main Slideshow */}
+            <div className="relative h-96 md:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+              {foodSlides.map((slide, index) => (
+                <div
+                  key={slide.id}
+                  className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                    index === currentSlide 
+                      ? 'opacity-100 scale-100' 
+                      : 'opacity-0 scale-105'
+                  }`}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                  
+                  {/* Content Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                    <div className="max-w-2xl">
+                      <div className="text-6xl md:text-8xl mb-4 animate-bounce">
+                        {slide.emoji}
+                      </div>
+                      <h3 className="font-poppins text-3xl md:text-5xl font-bold text-white mb-4 transform animate-slide-up">
+                        {slide.title}
+                      </h3>
+                      <p className="text-lg md:text-xl text-gray-200 mb-6 transform animate-slide-up animation-delay-200">
+                        {slide.description}
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center transform animate-slide-up animation-delay-400">
+                        <div className="text-2xl md:text-3xl font-bold text-accent-gold">
+                          {slide.price}
+                        </div>
+                        <a href="tel:01692584100">
+                          <Button size="lg" className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-4 transform hover:scale-110 transition-all duration-300 shadow-lg">
+                            <Phone className="mr-2 h-5 w-5" />
+                            📞 Order Now!
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Slide Indicators */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+              {foodSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'bg-accent-gold scale-125' 
+                      : 'bg-white/50 hover:bg-white/75'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Thumbnail Preview */}
+          <div className="mt-8 flex justify-center gap-4 overflow-x-auto pb-4">
+            {foodSlides.map((slide, index) => (
+              <button
+                key={slide.id}
+                onClick={() => setCurrentSlide(index)}
+                className={`flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden transition-all duration-300 ${
+                  index === currentSlide 
+                    ? 'ring-4 ring-accent-gold scale-110' 
+                    : 'ring-2 ring-white/30 hover:ring-white/60 hover:scale-105'
+                }`}
+              >
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Hunger-Inducing Call to Action */}
+          <div className="text-center mt-12">
+            <div className="bg-gradient-to-r from-primary to-accent p-8 rounded-2xl max-w-3xl mx-auto">
+              <h3 className="font-poppins text-2xl md:text-3xl font-bold text-white mb-4">
+                🤤 Can't Decide? We Don't Blame You! 🤤
+              </h3>
+              <p className="text-lg md:text-xl text-orange-100 mb-6">
+                Every dish is prepared with love and the freshest ingredients. Call now and treat yourself to something amazing!
+              </p>
+              <a href="tel:01692584100">
+                <Button size="lg" className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-bold px-8 py-4 text-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                  <Phone className="mr-2 h-5 w-5" />
+                  🍽️ I'm Hungry - Call Now!
+                </Button>
+              </a>
             </div>
           </div>
         </div>
