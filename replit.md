@@ -79,6 +79,10 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added smart popup to promote AI recommendations after 10 seconds
 - ✅ Implemented floating AI button that appears when scrolling
 - ✅ Added prominent AI recommendations button in header navigation
+- ✅ Enhanced AI picks section with live menu database integration
+- ✅ AI now analyzes all authentic menu items from database in real-time
+- ✅ Improved recommendation algorithm with smart category and name-based tagging
+- ✅ Added visual indicators showing live database connection
 - ✅ Fixed all image loading issues across the website
 - ✅ All components now use authentic Family Kebab House branding
 

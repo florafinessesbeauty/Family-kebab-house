@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Heart, Zap, Clock, DollarSign } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 interface FoodPreference {
   id: string;
@@ -40,177 +41,135 @@ const foodPreferences: FoodPreference[] = [
   { id: "modern", label: "Modern Twist", icon: "✨", category: "style" }
 ];
 
-const allDishes: RecommendedDish[] = [
-  {
-    id: "doner-kebab",
-    name: "Authentic Doner Kebab",
-    description: "Tender lamb, perfectly seasoned and slow-cooked on our traditional spit",
-    price: "From £8.50",
-    image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "kebabs",
-    emoji: "🥙",
-    tags: ["meat-lover", "traditional", "hearty-meal", "spicy"],
-    preparationTime: "10 min"
-  },
-  {
-    id: "spicy-wings",
-    name: "Fiery Spicy Wings",
-    description: "Crispy wings with our secret blend of spices that'll make you crave more",
-    price: "From £4.40",
-    image: "https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "wings",
-    emoji: "🔥",
-    tags: ["spicy", "chicken", "quick-bite", "budget-friendly"],
-    preparationTime: "12 min"
-  },
-  {
-    id: "margherita-pizza",
-    name: "Fresh Margherita Pizza",
-    description: "Hand-stretched dough made fresh daily with premium mozzarella",
-    price: "From £8.00",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "pizzas",
-    emoji: "🍕",
-    tags: ["vegetarian", "traditional", "mild", "hearty-meal"],
-    preparationTime: "15 min"
-  },
-  {
-    id: "chicken-burger",
-    name: "Gourmet Chicken Burger",
-    description: "Juicy, flame-grilled chicken breast with fresh ingredients",
-    price: "From £6.00",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "burgers",
-    emoji: "🍔",
-    tags: ["chicken", "modern", "hearty-meal", "mild"],
-    preparationTime: "12 min"
-  },
-  {
-    id: "lamb-shish",
-    name: "Premium Lamb Shish",
-    description: "Marinated lamb cubes grilled over open flame with herbs",
-    price: "From £13.50",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "kebabs",
-    emoji: "🍢",
-    tags: ["meat-lover", "premium", "traditional", "spicy"],
-    preparationTime: "18 min"
-  },
-  {
-    id: "chicken-wrap",
-    name: "Grilled Chicken Wrap",
-    description: "Tender chicken with fresh salad in a warm tortilla",
-    price: "From £6.50",
-    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "wraps",
-    emoji: "🌯",
-    tags: ["chicken", "quick-bite", "mild", "budget-friendly"],
-    preparationTime: "8 min"
-  },
-  {
-    id: "chicken-nuggets",
-    name: "Crispy Chicken Nuggets",
-    description: "Golden crispy nuggets made from tender chicken breast",
-    price: "From £4.00",
-    image: "https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "chicken",
-    emoji: "🍗",
-    tags: ["chicken", "quick-bite", "budget-friendly", "mild"],
-    preparationTime: "8 min"
-  },
-  {
-    id: "family-deal",
-    name: "Family Deal Special",
-    description: "Perfect sharing feast with kebab, pizza, chips and drinks",
-    price: "From £26.90",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "deals",
-    emoji: "👨‍👩‍👧‍👦",
-    tags: ["hearty-meal", "premium", "meat-lover", "traditional"],
-    preparationTime: "20 min"
-  },
-  {
-    id: "pepperoni-pizza",
-    name: "Classic Pepperoni Pizza",
-    description: "Traditional pepperoni with fresh mozzarella on our signature base",
-    price: "From £9.50",
-    image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "pizzas",
-    emoji: "🍕",
-    tags: ["meat-lover", "traditional", "hearty-meal", "mild"],
-    preparationTime: "15 min"
-  },
-  {
-    id: "mixed-kebab",
-    name: "Mixed Kebab Platter",
-    description: "Combination of our finest doner and shish kebabs",
-    price: "From £15.50",
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "kebabs",
-    emoji: "🍽️",
-    tags: ["meat-lover", "premium", "hearty-meal", "traditional"],
-    preparationTime: "18 min"
-  },
-  {
-    id: "chicken-meal",
-    name: "Chicken Combo Meal",
-    description: "Succulent fried chicken with chips and drink",
-    price: "From £7.90",
-    image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "meals",
-    emoji: "🍗",
-    tags: ["chicken", "hearty-meal", "budget-friendly", "mild"],
-    preparationTime: "12 min"
-  },
-  {
-    id: "garlic-bread",
-    name: "Cheesy Garlic Bread",
-    description: "Freshly baked garlic bread topped with melted cheese",
-    price: "From £3.50",
-    image: "https://images.unsplash.com/photo-1573821663912-6df460f9c684?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "sides",
-    emoji: "🧄",
-    tags: ["vegetarian", "quick-bite", "budget-friendly", "mild"],
-    preparationTime: "5 min"
-  },
-  {
-    id: "scampi",
-    name: "Golden Scampi",
-    description: "Crispy breaded scampi served with tartare sauce",
-    price: "From £6.00",
-    image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "seafood",
-    emoji: "🦐",
-    tags: ["quick-bite", "budget-friendly", "mild", "modern"],
-    preparationTime: "10 min"
-  },
-  {
-    id: "lunch-special",
-    name: "Lunch Time Special",
-    description: "Chicken burger with chips and drink - lunch offer",
-    price: "£7.90",
-    image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "lunch",
-    emoji: "⏰",
-    tags: ["chicken", "budget-friendly", "quick-bite", "hearty-meal"],
-    preparationTime: "10 min"
-  },
-  {
-    id: "dessert-donut",
-    name: "Sweet Donuts",
-    description: "Freshly made donuts, perfect ending to your meal",
-    price: "From £2.50",
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
-    category: "desserts",
-    emoji: "🍩",
-    tags: ["vegetarian", "quick-bite", "budget-friendly", "modern"],
-    preparationTime: "3 min"
-  }
-];
+// Function to map menu items to AI recommendation format
+const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
+  const category = item.category.toLowerCase();
+  const name = item.name;
+  const price = item.priceSmall ? `From £${item.priceSmall.toFixed(2)}` : 
+               item.priceMedium ? `From £${item.priceMedium.toFixed(2)}` : 
+               item.priceLarge ? `From £${item.priceLarge.toFixed(2)}` : 
+               item.price ? `£${item.price.toFixed(2)}` : "Price on request";
+
+  // Enhanced category-based tagging system
+  const categoryTags: Record<string, string[]> = {
+    "lunch-time-offers": ["budget-friendly", "quick-bite", "lunch-special"],
+    "burgers": ["hearty-meal", "modern"],
+    "fried-chicken": ["chicken", "hearty-meal", "spicy"],
+    "chicken-bargain-meals": ["chicken", "budget-friendly", "hearty-meal"],
+    "chicken-wings-strips": ["chicken", "spicy", "quick-bite"],
+    "chicken-nuggets": ["chicken", "quick-bite", "budget-friendly", "mild"],
+    "scampi": ["seafood", "quick-bite", "mild"],
+    "desserts": ["vegetarian", "quick-bite", "budget-friendly"],
+    "extras": ["quick-bite", "budget-friendly"],
+    "drinks": ["quick-bite", "budget-friendly"],
+    "kids-meals": ["chicken", "mild", "budget-friendly"],
+    "pizzas": ["vegetarian", "traditional", "hearty-meal"],
+    "garlic-bread-pizza-extras": ["vegetarian", "quick-bite"],
+    "pizza-offers": ["budget-friendly", "hearty-meal", "traditional"],
+    "family-deals": ["family-sharing", "premium", "hearty-meal"],
+    "chicken-combo-meals": ["chicken", "hearty-meal", "budget-friendly"],
+    "kebabs": ["meat-lover", "traditional", "hearty-meal"],
+    "kebab-feast": ["meat-lover", "premium", "hearty-meal", "family-sharing"],
+    "wraps": ["quick-bite", "budget-friendly"],
+    "combination-kebabs": ["meat-lover", "premium", "hearty-meal"]
+  };
+
+  // Name-based additional tags
+  const nameTags = [];
+  const lowerName = name.toLowerCase();
+  
+  if (lowerName.includes('spicy') || lowerName.includes('hot')) nameTags.push('spicy');
+  else nameTags.push('mild');
+  
+  if (lowerName.includes('chicken')) nameTags.push('chicken');
+  if (lowerName.includes('lamb') || lowerName.includes('doner') || lowerName.includes('kebab')) nameTags.push('meat-lover');
+  if (lowerName.includes('vegetarian') || lowerName.includes('margherita') || lowerName.includes('cheese')) nameTags.push('vegetarian');
+  if (price.includes('From £') && parseFloat(price.replace('From £', '')) > 15) nameTags.push('premium');
+  else if (price.includes('From £') && parseFloat(price.replace('From £', '')) < 8) nameTags.push('budget-friendly');
+
+  const tags = [...(categoryTags[category] || []), ...nameTags];
+
+  // Category-based emojis and images
+  const getEmoji = (category: string, name: string): string => {
+    if (name.toLowerCase().includes('doner')) return '🥙';
+    if (name.toLowerCase().includes('pizza')) return '🍕';
+    if (name.toLowerCase().includes('burger')) return '🍔';
+    if (name.toLowerCase().includes('wing')) return '🔥';
+    if (name.toLowerCase().includes('wrap')) return '🌯';
+    if (name.toLowerCase().includes('kebab')) return '🍢';
+    if (name.toLowerCase().includes('family')) return '👨‍👩‍👧‍👦';
+    if (name.toLowerCase().includes('chicken')) return '🍗';
+    if (name.toLowerCase().includes('scampi')) return '🦐';
+    if (name.toLowerCase().includes('donut')) return '🍩';
+    if (name.toLowerCase().includes('garlic')) return '🧄';
+    
+    // Fallback by category
+    switch (category) {
+      case 'kebabs': return '🥙';
+      case 'pizzas': return '🍕';
+      case 'burgers': return '🍔';
+      case 'wraps': return '🌯';
+      case 'fried-chicken': return '🍗';
+      case 'chicken-wings-strips': return '🔥';
+      case 'desserts': return '🍩';
+      case 'drinks': return '🥤';
+      case 'family-deals': return '👨‍👩‍👧‍👦';
+      default: return '🍽️';
+    }
+  };
+
+  const getImage = (category: string, name: string): string => {
+    const images: Record<string, string> = {
+      'doner': 'https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'burger': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'wings': 'https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'wrap': 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'kebab': 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'chicken': 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'scampi': 'https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'family': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
+      'dessert': 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'
+    };
+
+    const lowerName = name.toLowerCase();
+    for (const [key, url] of Object.entries(images)) {
+      if (lowerName.includes(key)) return url;
+    }
+    
+    // Default image
+    return 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400';
+  };
+
+  return {
+    id: `menu-${item.id}`,
+    name: name,
+    description: item.description || `Delicious ${name.toLowerCase()} made fresh with authentic ingredients`,
+    price: price,
+    image: getImage(category, name),
+    category: category,
+    emoji: getEmoji(category, name),
+    tags: [...new Set(tags)], // Remove duplicates
+    preparationTime: tags.includes('quick-bite') ? '8 min' : tags.includes('family-sharing') ? '20 min' : '12 min'
+  };
+};
 
 export default function FoodRecommendation() {
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   const [showRecommendations, setShowRecommendations] = useState(false);
+
+  // Fetch menu data from your database
+  const { data: menuItems = [], isLoading } = useQuery({
+    queryKey: ['/api/menu'],
+    queryFn: async () => {
+      const response = await fetch('/api/menu');
+      if (!response.ok) throw new Error('Failed to fetch menu');
+      return response.json();
+    }
+  });
+
+  // Convert menu items to recommendation format
+  const allDishes = menuItems.map(mapMenuItemToRecommendation);
 
   const togglePreference = (preferenceId: string) => {
     setSelectedPreferences(prev => 
@@ -221,14 +180,20 @@ export default function FoodRecommendation() {
   };
 
   const getRecommendations = () => {
+    if (allDishes.length === 0) return [];
+    
     if (selectedPreferences.length === 0) {
-      // Show popular dishes when no preferences selected
-      return [
-        allDishes.find(d => d.id === "doner-kebab")!,
-        allDishes.find(d => d.id === "margherita-pizza")!,
-        allDishes.find(d => d.id === "spicy-wings")!,
-        allDishes.find(d => d.id === "chicken-burger")!
-      ].slice(0, 4);
+      // Show popular dishes when no preferences selected - pick variety from different categories
+      const popularDishes = allDishes.filter(dish => 
+        dish.name.toLowerCase().includes('doner') ||
+        dish.name.toLowerCase().includes('margherita') ||
+        dish.name.toLowerCase().includes('chicken burger') ||
+        dish.name.toLowerCase().includes('wings') ||
+        dish.name.toLowerCase().includes('family') ||
+        dish.name.toLowerCase().includes('mixed kebab')
+      ).slice(0, 6);
+      
+      return popularDishes.length >= 4 ? popularDishes : allDishes.slice(0, 6);
     }
 
     const scoredDishes = allDishes.map(dish => {
@@ -236,13 +201,13 @@ export default function FoodRecommendation() {
       return { ...dish, score: matchingTags };
     });
 
-    // Return top 4-6 recommendations based on preferences
+    // Return top 4-8 recommendations based on preferences
     const topMatches = scoredDishes
       .sort((a, b) => b.score - a.score)
       .filter(dish => dish.score > 0);
     
-    // If we have good matches, return 4-6, otherwise return top 4
-    return topMatches.length >= 4 ? topMatches.slice(0, 6) : topMatches.slice(0, 4);
+    // If we have good matches, return 6-8, otherwise return top 6
+    return topMatches.length >= 6 ? topMatches.slice(0, 8) : topMatches.slice(0, 6);
   };
 
   const recommendations = getRecommendations();
@@ -256,6 +221,16 @@ export default function FoodRecommendation() {
     setShowRecommendations(false);
   };
 
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-gradient-to-br from-primary/5 to-accent/5">
+        <div className="container mx-auto px-4 text-center">
+          <div className="text-2xl">🤖 Loading AI Recommendations...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 bg-gradient-to-br from-primary/5 to-accent/5">
       <div className="container mx-auto px-4">
@@ -264,8 +239,11 @@ export default function FoodRecommendation() {
             🤖 AI Food Recommendations
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tell us your preferences and we'll recommend the perfect dishes from our full menu of {allDishes.length} authentic items
+            Tell us your preferences and we'll recommend the perfect dishes from our authentic menu of {allDishes.length} real items
           </p>
+          <div className="mt-4 text-sm text-primary font-semibold">
+            🔄 Live data from Family Kebab House menu database
+          </div>
         </div>
 
         {!showRecommendations ? (
@@ -340,7 +318,7 @@ export default function FoodRecommendation() {
             </div>
 
             {/* Recommendations Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
               {recommendations.map((dish, index) => (
                 <Card key={dish.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
                   <div className="relative">
@@ -399,9 +377,9 @@ export default function FoodRecommendation() {
                   🧠 Why These Recommendations?
                 </h4>
                 <p className="text-gray-700">
-                  Our AI analyzed {allDishes.length} dishes from our authentic menu and matched your preferences with 
-                  flavor profiles, preparation styles, and customer favorites. Each recommendation comes from our 
-                  real menu with accurate pricing and preparation times!
+                  Our AI analyzed all {allDishes.length} authentic dishes from Family Kebab House's live menu database and matched your preferences with 
+                  flavor profiles, preparation styles, and customer favorites. Each recommendation shows real prices and items 
+                  you can order right now by calling 01692 584 100!
                 </p>
               </CardContent>
             </Card>
