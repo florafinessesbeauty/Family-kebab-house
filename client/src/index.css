@@ -160,7 +160,6 @@
   .font-dancing {
     font-family: 'Dancing Script', cursive;
   }
-}
 
 @layer components {
   /* Smooth scrolling for anchor links */
