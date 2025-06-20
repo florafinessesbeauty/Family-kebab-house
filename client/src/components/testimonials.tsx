@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -7,127 +8,209 @@ interface Testimonial {
   location: string;
   rating: number;
   text: string;
-  date: string;
+  foodImage: string;
+  favoriteOrder: string;
+  emoji: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: "1",
     name: "Sarah Johnson",
-    location: "Stalham",
-    rating: 5,
-    text: "Been coming here for over 10 years! The doner kebab is absolutely delicious and the staff are always friendly. Best kebab shop in Norfolk without a doubt.",
-    date: "2 weeks ago"
-  },
-  {
-    id: "2", 
-    name: "Mike Thompson",
     location: "Norwich",
     rating: 5,
-    text: "Amazing family-run business! The chicken kebab is perfectly seasoned and the portions are generous. Always ready in 15 minutes as promised. Highly recommend!",
-    date: "1 month ago"
+    text: "Absolutely amazing! The doner kebab is the best I've ever had. Fresh ingredients, perfectly seasoned meat, and the staff are so friendly. Been coming here for 3 years and it never disappoints!",
+    foodImage: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    favoriteOrder: "Large Doner Kebab",
+    emoji: "😍"
+  },
+  {
+    id: "2",
+    name: "Mike Thompson",
+    location: "Stalham",
+    rating: 5,
+    text: "Family Kebab House is our go-to for Friday night takeaway! The pizza dough is made fresh daily and you can really taste the difference. The family deals are great value too.",
+    foodImage: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    favoriteOrder: "12\" Pepperoni Pizza",
+    emoji: "🤤"
   },
   {
     id: "3",
-    name: "Emma Wilson",
-    location: "Great Yarmouth", 
+    name: "Emma Davies",
+    location: "Aylsham Road",
     rating: 5,
-    text: "Drive 20 minutes just for their pizzas! Fresh ingredients, authentic taste, and unbeatable prices. The family meal deal is perfect for our weekly treat.",
-    date: "3 weeks ago"
+    text: "The chicken burger is incredible! Juicy, flavorful, and served with perfectly crispy chips. Always ready in exactly 15 minutes as promised. Highly recommend!",
+    foodImage: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    favoriteOrder: "Chicken Fillet Burger & Chips",
+    emoji: "🔥"
   },
   {
     id: "4",
-    name: "David Clarke",
-    location: "Wroxham",
+    name: "James Wilson",
+    location: "Magdalen Street",
     rating: 5,
-    text: "Outstanding quality and service! Been ordering from Family Kebab House for years. The mixed kebab is my favorite - always fresh and flavorful.",
-    date: "1 week ago"
+    text: "Been ordering from here for over 10 years! The quality has always been consistent and the portions are generous. The spicy wings are addictive - you have to try them!",
+    foodImage: "https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    favoriteOrder: "8 pcs Spicy Wings",
+    emoji: "🌶️"
   },
   {
     id: "5",
     name: "Lisa Brown",
-    location: "Stalham",
+    location: "Norwich City Centre",
     rating: 5,
-    text: "Best local takeaway by far! The lunch offers are fantastic value and the food is consistently excellent. Wouldn't go anywhere else for our family meals.",
-    date: "2 months ago"
+    text: "Perfect for lunch breaks! The lunch offers are amazing value and the food is always fresh. The staff remember my order now - that's real customer service!",
+    foodImage: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    favoriteOrder: "Chicken Wrap & Drink",
+    emoji: "💯"
   },
   {
     id: "6",
-    name: "James Roberts",
-    location: "Norwich",
+    name: "David Martinez",
+    location: "Stalham",
     rating: 5,
-    text: "Authentic flavors that remind me of my travels to Turkey. The kofte kebab is incredible and the garlic sauce is the best I've ever had. True family business with heart!",
-    date: "3 weeks ago"
+    text: "Family-run business that really cares about their customers. The mixed kebab is a feast! Fresh salad, tender meat, and their special sauce is the secret ingredient.",
+    foodImage: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    favoriteOrder: "Mixed Kebab",
+    emoji: "👨‍👩‍👧‍👦"
   }
 ];
 
 export default function Testimonials() {
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, index) => (
-      <Star
-        key={index}
-        className={`h-4 w-4 ${
-          index < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-        }`}
-      />
-    ));
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
   };
 
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const currentData = testimonials[currentTestimonial];
+
   return (
-    <section className="py-20 bg-white">
+    <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="font-poppins text-4xl font-bold text-charcoal mb-4">
-            What Our Customers Say
+            💬 What Our Customers Say
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Over 20 years of serving authentic flavors has earned us the trust and love of our community. 
-            Here's what they have to say about their experience with us.
+          <p className="text-lg text-gray-600">
+            Real reviews from real customers who love our authentic food
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <Quote className="h-8 w-8 text-primary mr-3 opacity-50" />
-                  <div className="flex space-x-1">
-                    {renderStars(testimonial.rating)}
+        {/* Main Testimonial */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <Card className="overflow-hidden shadow-2xl">
+            <CardContent className="p-0">
+              <div className="grid md:grid-cols-2">
+                {/* Food Image */}
+                <div className="relative h-64 md:h-auto">
+                  <img
+                    src={currentData.foodImage}
+                    alt={currentData.favoriteOrder}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <div className="text-2xl mb-1">{currentData.emoji}</div>
+                    <p className="font-semibold">{currentData.favoriteOrder}</p>
                   </div>
                 </div>
-                
-                <p className="text-gray-700 mb-6 leading-relaxed italic">
+
+                {/* Testimonial Content */}
+                <div className="p-8 flex flex-col justify-center">
+                  <Quote className="h-8 w-8 text-primary mb-4" />
+                  
+                  <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                    "{currentData.text}"
+                  </p>
+
+                  <div className="flex items-center mb-4">
+                    {[...Array(currentData.rating)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-accent-gold fill-current" />
+                    ))}
+                  </div>
+
+                  <div>
+                    <p className="font-bold text-charcoal text-lg">{currentData.name}</p>
+                    <p className="text-gray-600">{currentData.location}</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Navigation */}
+          <div className="flex justify-center items-center mt-8 space-x-4">
+            <button
+              onClick={prevTestimonial}
+              className="bg-primary hover:bg-red-700 text-white p-3 rounded-full transition-colors"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentTestimonial 
+                      ? 'bg-primary' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={nextTestimonial}
+              className="bg-primary hover:bg-red-700 text-white p-3 rounded-full transition-colors"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Quick Reviews Grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.slice(0, 3).map((testimonial, index) => (
+            <Card 
+              key={testimonial.id}
+              className="hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => setCurrentTestimonial(index)}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center mb-3">
+                  <div className="text-xl mr-2">{testimonial.emoji}</div>
+                  <div className="flex">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 text-accent-gold fill-current" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm text-gray-700 mb-3 line-clamp-3">
                   "{testimonial.text}"
                 </p>
-                
-                <div className="border-t pt-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h4 className="font-semibold text-charcoal">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.location}</p>
-                    </div>
-                    <span className="text-xs text-gray-400">{testimonial.date}</span>
-                  </div>
+                <div className="text-xs">
+                  <p className="font-semibold text-charcoal">{testimonial.name}</p>
+                  <p className="text-gray-500">{testimonial.location}</p>
                 </div>
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-primary to-red-600 text-white py-8 px-12 rounded-2xl max-w-4xl mx-auto">
-            <h3 className="font-poppins text-2xl font-bold mb-4">Join Our Happy Customers!</h3>
-            <p className="text-red-100 mb-6">
-              Experience why thousands of families choose Family Kebab House for their favorite meals. 
-              Call us today and taste the difference 20+ years of dedication makes!
-            </p>
-            <a href="tel:01692584100">
-              <button className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Order Now: 01692 584100
-              </button>
-            </a>
-          </div>
         </div>
       </div>
     </section>

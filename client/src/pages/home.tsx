@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Phone, MapPin, Clock, Star, Heart, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import Testimonials from "@/components/testimonials";
+import FoodGallery from "@/components/food-gallery";
+import FoodRecommendation from "@/components/food-recommendation";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -428,6 +430,23 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
+      {/* High-Resolution Food Gallery */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-poppins text-4xl font-bold text-charcoal mb-4">
+              📸 Our Delicious Food Gallery
+            </h2>
+            <p className="text-lg text-gray-600">
+              Feast your eyes on our mouth-watering dishes - all made fresh daily with authentic ingredients
+            </p>
+          </div>
+          <FoodGallery />
+        </div>
+      </section>
+
+      <FoodRecommendation />
+      
       <Testimonials />
 
       {/* Quick Contact */}

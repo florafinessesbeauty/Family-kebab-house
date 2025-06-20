@@ -114,16 +114,21 @@ export default function MenuCategory({ title, description, items, icon }: Readon
         {items.map((item) => (
           <Card 
             key={item.id} 
-            className={`hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${
+            className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer relative overflow-hidden ${
               item.isSpecial ? "border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md" : "hover:border-accent/30"
             }`}
           >
-            <CardContent className="p-4">
-              <div className="flex justify-between items-start">
+            <CardContent className="p-4 relative">
+              {/* Hover Effect Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              
+              <div className="flex justify-between items-start relative z-10">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-charcoal text-lg flex items-center gap-2">
-                      {getItemEmoji(item)}
+                    <h3 className="font-semibold text-charcoal text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <span className="group-hover:scale-125 transition-transform duration-300">
+                        {getItemEmoji(item)}
+                      </span>
                       {item.name}
                     </h3>
                     {item.isSpecial && (
@@ -133,10 +138,23 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                     )}
                   </div>
                   {item.description && (
-                    <p className="text-gray-600 text-sm">{item.description}</p>
+                    <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">
+                      {item.description}
+                    </p>
                   )}
+                  
+                  {/* Interactive Order Button on Hover */}
+                  <div className="mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <a href="tel:01692584100">
+                      <button className="text-xs bg-primary text-white px-3 py-1 rounded-full hover:bg-red-700 transition-colors">
+                        📞 Order This
+                      </button>
+                    </a>
+                  </div>
                 </div>
-                {renderPriceDisplay(item)}
+                <div className="group-hover:scale-110 transition-transform duration-300">
+                  {renderPriceDisplay(item)}
+                </div>
               </div>
             </CardContent>
           </Card>
