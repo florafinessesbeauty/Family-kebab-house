@@ -1,15 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
-import { menuData, categories } from "@/data/menu-data";
+import { categories } from "@/data/menu-data";
+import type { MenuItemData } from "@/data/menu-data";
 import { Phone } from "lucide-react";
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("kebabs");
+  const [menuData, setMenuData] = useState<MenuItemData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      try {
+        const response = await fetch("/api/menu");
+        const data = await response.json();
+        
+        // Transform database items to match frontend interface
+        const transformedData: MenuItemData[] = data.map((item: any) => ({
+          id: item.id.toString(),
+          name: item.name,
+          description: item.description,
+          category: item.category,
+          singlePrice: item.singlePrice,
+          priceSmall: item.priceSmall,
+          priceMedium: item.priceMedium,
+          priceLarge: item.priceLarge,
+          priceXLarge: item.priceXLarge,
+          isSpecial: item.isSpecial || false
+        }));
+        
+        setMenuData(transformedData);
+      } catch (error) {
+        console.error("Error fetching menu data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMenuData();
+  }, []);
 
   const getItemsByCategory = (category: string) =>
-  menuData.filter(item => item.category === category);
+    menuData.filter(item => item.category === category);
 
   const getCategoryInfo = (categoryId: string) => {
     const category = categories.find(c => c.id === categoryId);
@@ -27,6 +61,17 @@ export default function Menu() {
   };
 
   const specialDeals = menuData.filter(item => item.isSpecial);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading delicious menu...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
