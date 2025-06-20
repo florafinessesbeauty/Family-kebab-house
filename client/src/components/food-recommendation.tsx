@@ -98,7 +98,7 @@ const allDishes: RecommendedDish[] = [
     name: "Grilled Chicken Wrap",
     description: "Tender chicken with fresh salad in a warm tortilla",
     price: "From £6.50",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+    image: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
     category: "wraps",
     emoji: "🌯",
     tags: ["chicken", "quick-bite", "mild", "budget-friendly"],

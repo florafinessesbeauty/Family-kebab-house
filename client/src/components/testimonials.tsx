@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
     location: "Norwich City Centre",
     rating: 5,
     text: "Perfect for lunch breaks! The lunch offers are amazing value and the food is always fresh. The staff remember my order now - that's real customer service!",
-    foodImage: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
+    foodImage: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
     favoriteOrder: "Chicken Wrap & Drink",
     emoji: "💯"
   },

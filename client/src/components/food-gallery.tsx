@@ -53,7 +53,7 @@ const galleryImages: GalleryImage[] = [
   },
   {
     id: "chicken-wrap",
-    src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
+    src: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
     title: "Chicken Wrap",
     category: "Wraps",
     description: "Packed with flavor and fresh ingredients",
