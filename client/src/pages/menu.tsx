@@ -163,12 +163,17 @@ export default function Menu() {
                       )}
                       
                       <div className="relative z-10">
-                        <h3 className={`font-bold text-lg mb-2 transition-all duration-300 ${
-                          isKebabFeast ? 'text-yellow-100 text-xl' : 
-                          isFamilyDeal ? 'text-pink-100 group-hover:text-white group-hover:text-xl' : ''
-                        }`}>
-                          {deal.name}
-                        </h3>
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <h3 className={`font-bold text-lg transition-all duration-300 ${
+                            isKebabFeast ? 'text-yellow-100 text-xl' : 
+                            isFamilyDeal ? 'text-pink-100 group-hover:text-white group-hover:text-xl' : ''
+                          }`}>
+                            {deal.name}
+                          </h3>
+                          <div className="text-white/70 hover:text-white">
+                            <NutritionalInfoTooltip itemName={deal.name} category={deal.category} />
+                          </div>
+                        </div>
                         <p className={`text-sm mb-4 transition-all duration-300 ${
                           isKebabFeast ? 'text-yellow-100' : 
                           isFamilyDeal ? 'text-pink-100 group-hover:text-white' : 'text-orange-100'
