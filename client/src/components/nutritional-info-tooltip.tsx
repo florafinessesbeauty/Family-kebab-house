@@ -148,32 +148,55 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
         onMouseLeave={() => setIsVisible(false)}
         onTouchStart={() => setIsVisible(!isVisible)}
         onClick={() => setIsVisible(!isVisible)}
-        className="p-2 rounded-full bg-white/80 backdrop-blur-sm border border-primary/20 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg flex-shrink-0 group"
+        className="p-2 rounded-full bg-white/90 backdrop-blur-sm border-2 border-primary/30 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl flex-shrink-0 group"
+        style={{ 
+          position: 'relative',
+          zIndex: 99997
+        }}
         aria-label="View Nutritional Information"
         type="button"
       >
         <InfoIcon size={16} className="group-hover:animate-pulse" />
-        <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+        <span 
+          className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none"
+          style={{ zIndex: 99998 }}
+        >
           Nutrition Info
         </span>
       </button>
 
       {isVisible && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 flex items-center justify-center p-4"
+          style={{ 
+            zIndex: 99999,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+          }}
           onMouseEnter={() => setIsVisible(true)}
           onMouseLeave={() => setIsVisible(false)}
         >
           {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            style={{ zIndex: 99999 }}
             onClick={() => setIsVisible(false)}
           />
           
           {/* Tooltip Content */}
-          <div className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm animate-in zoom-in-95 duration-300">
+          <div 
+            className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm"
+            style={{ 
+              zIndex: 100000,
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
+            }}
+          >
             {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl -z-10 blur-xl scale-110" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl scale-110" style={{ zIndex: -1 }} />
             
             {/* Header with close button */}
             <div className="flex justify-between items-start mb-4">

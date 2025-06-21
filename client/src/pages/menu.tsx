@@ -179,7 +179,13 @@ export default function Menu() {
                           }`}>
                             {deal.name}
                           </h3>
-                          <div className="text-white/70 hover:text-white flex-shrink-0 z-50 relative">
+                          <div 
+                            className="text-white/70 hover:text-white flex-shrink-0"
+                            style={{ 
+                              position: 'relative',
+                              zIndex: 99998
+                            }}
+                          >
                             <NutritionalInfoTooltip 
                               itemName={deal.name} 
                               category={deal.category}
