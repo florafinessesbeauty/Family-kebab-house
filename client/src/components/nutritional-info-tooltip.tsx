@@ -137,7 +137,7 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
       </button>
 
       {isVisible && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-50 animate-in fade-in-0 zoom-in-95 duration-200">
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-50">
           <div className="bg-white border border-gray-200 rounded-lg shadow-xl p-4 min-w-64 max-w-80 text-sm">
             <div className="absolute top-full left-1/2 transform -translate-x-1/2">
               <div className="border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white drop-shadow-sm"></div>

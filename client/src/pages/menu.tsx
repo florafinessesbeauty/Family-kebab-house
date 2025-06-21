@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
+import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import { categories } from "@/data/menu-data";
 import type { MenuItemData } from "@/data/menu-data";
 import { Phone } from "lucide-react";

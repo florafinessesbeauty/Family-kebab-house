@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MenuItemData } from "@/data/menu-data";
+import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 
 interface MenuCategoryProps {
   title: string;
