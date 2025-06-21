@@ -40,7 +40,15 @@ export default function Menu() {
           priceLarge: item.priceLarge,
           priceXLarge: item.priceXLarge,
           singlePrice: item.singlePrice,
-          isSpecial: Boolean(item.isSpecial)
+          isSpecial: Boolean(item.isSpecial),
+          calories: item.calories,
+          protein: item.protein,
+          carbs: item.carbs,
+          fat: item.fat,
+          fiber: item.fiber,
+          sodium: item.sodium,
+          allergens: item.allergens,
+          ingredients: item.ingredients
         }));
         
         setMenuData(transformedData);
@@ -172,7 +180,20 @@ export default function Menu() {
                             {deal.name}
                           </h3>
                           <div className="text-white/70 hover:text-white flex-shrink-0">
-                            <NutritionalInfoTooltip itemName={deal.name} category={deal.category} />
+                            <NutritionalInfoTooltip 
+                              itemName={deal.name} 
+                              category={deal.category}
+                              nutritionalData={{
+                                calories: deal.calories,
+                                protein: deal.protein,
+                                carbs: deal.carbs,
+                                fat: deal.fat,
+                                fiber: deal.fiber,
+                                sodium: deal.sodium,
+                                allergens: deal.allergens,
+                                ingredients: deal.ingredients
+                              }}
+                            />
                           </div>
                         </div>
                         <p className={`text-sm mb-4 transition-all duration-300 ${

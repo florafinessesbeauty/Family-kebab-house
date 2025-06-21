@@ -133,7 +133,20 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       </span>
                       {item.name}
                     </h3>
-                    <NutritionalInfoTooltip itemName={item.name} category={title} />
+                    <NutritionalInfoTooltip 
+                      itemName={item.name} 
+                      category={title} 
+                      nutritionalData={{
+                        calories: item.calories,
+                        protein: item.protein,
+                        carbs: item.carbs,
+                        fat: item.fat,
+                        fiber: item.fiber,
+                        sodium: item.sodium,
+                        allergens: item.allergens,
+                        ingredients: item.ingredients
+                      }}
+                    />
                     {item.isSpecial && (
                       <Badge variant="secondary" className="bg-accent text-white animate-pulse">
                         🌟 Special

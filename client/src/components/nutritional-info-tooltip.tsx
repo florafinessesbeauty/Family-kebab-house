@@ -1,16 +1,144 @@
 import React, { useState } from 'react';
 import { InfoIcon } from 'lucide-react';
-import { getNutritionalInfo, type NutritionalInfo } from '../data/nutritional-data';
+
+interface NutritionalInfo {
+  calories: number;
+  protein: string;
+  carbs: string;
+  fat: string;
+  fiber: string;
+  sodium: string;
+  allergens: string[];
+  ingredients?: string[];
+}
 
 interface NutritionalInfoTooltipProps {
   itemName: string;
   category: string;
+  nutritionalData?: {
+    calories?: number;
+    protein?: string;
+    carbs?: string;
+    fat?: string;
+    fiber?: string;
+    sodium?: string;
+    allergens?: string[];
+    ingredients?: string[];
+  };
 }
 
-const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemName, category }) => {
+const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemName, category, nutritionalData }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const nutritionalInfo = getNutritionalInfo(itemName, category);
+  // Use database nutritional data if available, otherwise estimate
+  const nutritionalInfo: NutritionalInfo = nutritionalData && nutritionalData.calories ? {
+    calories: nutritionalData.calories,
+    protein: nutritionalData.protein || "0g",
+    carbs: nutritionalData.carbs || "0g", 
+    fat: nutritionalData.fat || "0g",
+    fiber: nutritionalData.fiber || "0g",
+    sodium: nutritionalData.sodium || "0mg",
+    allergens: nutritionalData.allergens || [],
+    ingredients: nutritionalData.ingredients || []
+  } : estimateNutritionByCategory(itemName, category);
+
+  function estimateNutritionByCategory(name: string, cat: string): NutritionalInfo {
+    const lowerName = name.toLowerCase();
+    const lowerCat = cat.toLowerCase();
+    
+    // Kebab estimates
+    if (lowerCat.includes('kebab') || lowerName.includes('kebab')) {
+      if (lowerName.includes('feast')) {
+        return {
+          calories: 1850,
+          protein: "95g",
+          carbs: "120g",
+          fat: "85g",
+          fiber: "12g",
+          sodium: "3200mg",
+          allergens: ["Gluten", "Dairy", "Sesame"],
+          ingredients: ["Doner meat", "Shish kebab", "Chicken shish", "Kofte", "3 pitta breads", "Large chips", "Mixed salad", "2 sauces"]
+        };
+      }
+      if (lowerName.includes('large') || lowerName.includes('xl')) {
+        return {
+          calories: 720,
+          protein: "42g",
+          carbs: "56g",
+          fat: "32g",
+          fiber: "7g",
+          sodium: "1380mg",
+          allergens: ["Gluten", "Dairy", "Sesame"],
+          ingredients: ["Meat", "Pitta bread", "Fresh salad", "Sauce"]
+        };
+      }
+      return {
+        calories: 550,
+        protein: "32g",
+        carbs: "44g",
+        fat: "25g",
+        fiber: "6g",
+        sodium: "1050mg",
+        allergens: ["Gluten", "Dairy", "Sesame"],
+        ingredients: ["Meat", "Pitta bread", "Fresh salad", "Sauce"]
+      };
+    }
+    
+    // Pizza estimates
+    if (lowerCat.includes('pizza') || lowerName.includes('pizza')) {
+      const is12Inch = lowerName.includes('12"') || lowerName.includes('12 inch');
+      return {
+        calories: is12Inch ? 1200 : 850,
+        protein: is12Inch ? "45g" : "32g",
+        carbs: is12Inch ? "140g" : "98g",
+        fat: is12Inch ? "48g" : "34g",
+        fiber: is12Inch ? "8g" : "6g",
+        sodium: is12Inch ? "2200mg" : "1550mg",
+        allergens: ["Gluten", "Dairy"],
+        ingredients: ["Fresh pizza dough", "Tomato sauce", "Cheese", "Toppings"]
+      };
+    }
+    
+    // Burger estimates
+    if (lowerCat.includes('burger') || lowerName.includes('burger')) {
+      return {
+        calories: 480,
+        protein: "25g",
+        carbs: "35g",
+        fat: "28g",
+        fiber: "4g",
+        sodium: "950mg",
+        allergens: ["Gluten", "Dairy", "Eggs"],
+        ingredients: ["Meat patty", "Burger bun", "Fresh vegetables", "Sauce"]
+      };
+    }
+    
+    // Chicken estimates
+    if (lowerCat.includes('chicken') || lowerName.includes('chicken')) {
+      return {
+        calories: 380,
+        protein: "32g",
+        carbs: "15g",
+        fat: "24g",
+        fiber: "1g",
+        sodium: "820mg",
+        allergens: ["Gluten"],
+        ingredients: ["Chicken", "Seasoning", "Coating"]
+      };
+    }
+    
+    // Default estimate
+    return {
+      calories: 420,
+      protein: "22g",
+      carbs: "35g",
+      fat: "25g",
+      fiber: "4g",
+      sodium: "850mg",
+      allergens: ["Check with staff"],
+      ingredients: ["Various ingredients - ask staff for details"]
+    };
+  }
 
 
   return (

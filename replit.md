@@ -98,6 +98,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added hover and click functionality with allergen information and calorie details
 - ✅ Fixed tooltip integration across all menu components with mobile-responsive design
 - ✅ Added nutritional info icons to every menu item with proper touch and hover support
+- ✅ Implemented dynamic nutritional data fetching from restaurant database
+- ✅ Added comprehensive nutritional columns to database schema with real data for all menu items
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
