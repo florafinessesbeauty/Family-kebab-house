@@ -106,6 +106,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added scale, shadow, color, and position transforms for engaging user interaction
 - ✅ Enhanced nutritional tooltip with modal-style display and improved hover visibility
 - ✅ Added interactive grid layout, animated elements, and professional allergen warnings
+- ✅ Implemented animated nutrition info reveal effect with staggered animations and smooth transitions
+- ✅ Added slide-in, zoom-in, fade-in effects for all nutritional components with timing delays
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
