@@ -33,7 +33,7 @@ export default function Menu() {
           name: item.name,
           description: item.description,
           category: item.category,
-          price: item.price,
+          price: item.singlePrice || item.price,
           priceSmall: item.priceSmall,
           priceMedium: item.priceMedium,
           priceLarge: item.priceLarge,
@@ -110,8 +110,22 @@ export default function Menu() {
                     <p className="text-orange-100 text-sm mb-4">{deal.description}</p>
                     <div className="text-2xl font-bold mb-3">
                       £{(() => {
-                        const price = deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
-                        console.log(`Deal: ${deal.name}, Price: ${price}`); // Debug log
+                        // Create a hardcoded price mapping for special offers based on your menu specification
+                        const specialOfferPrices: { [key: string]: number } = {
+                          "Chicken Burger + Chips & Drink": 7.90,
+                          "¼ Pounder with Cheese + Chips & Drink": 7.90,
+                          "½ Pounder with Double Cheese + Chips & Drink": 9.50,
+                          "Medium Doner Meat + Chips & Drink": 7.90,
+                          "Large Doner Meat + Chips & Drink": 9.50,
+                          "10\" Margherita with 3 Toppings + Drink": 9.50,
+                          "12\" Margherita with 3 Toppings + Drink": 12.50,
+                          "2× 10\" Pizzas from Set-Menu": 17.20,
+                          "2× 12\" Pizzas from Set-Menu": 22.50,
+                          "Family Deal (10\" Pizza)": 26.90,
+                          "Family Deal (12\" Pizza)": 28.90
+                        };
+                        
+                        const price = specialOfferPrices[deal.name] || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
                         return price ? price.toFixed(2) : "0.00";
                       })()}
                     </div>
