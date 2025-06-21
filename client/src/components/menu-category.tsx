@@ -38,11 +38,12 @@ export default function MenuCategory({ title, description, items, icon }: Readon
   };
 
   const renderPriceDisplay = (item: MenuItemData) => {
-    if (item.singlePrice) {
+    // Check for single price first (includes regular price and singlePrice)
+    if (item.singlePrice || item.price) {
       return (
         <div className="text-right">
           <div className="text-xl font-bold text-primary">
-            {formatPrice(item.singlePrice)}
+            {formatPrice(item.singlePrice || item.price)}
           </div>
           {item.withChips && (
             <div className="text-sm text-gray-500">

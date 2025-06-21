@@ -33,11 +33,12 @@ export default function Menu() {
           name: item.name,
           description: item.description,
           category: item.category,
-          price: item.singlePrice || item.price,
+          price: item.singlePrice,
           priceSmall: item.priceSmall,
           priceMedium: item.priceMedium,
           priceLarge: item.priceLarge,
           priceXLarge: item.priceXLarge,
+          singlePrice: item.singlePrice,
           isSpecial: item.isSpecial || false
         }));
         
