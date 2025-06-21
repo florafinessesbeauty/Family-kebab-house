@@ -199,25 +199,25 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl scale-110" style={{ zIndex: -1 }} />
             
             {/* Header with close button and slide-in animation */}
-            <div className="flex justify-between items-start mb-4 animate-in slide-in-from-top-4 fade-in-0" 
+            <div className="flex justify-between items-start mb-6 animate-in slide-in-from-top-4 fade-in-0" 
                  style={{ animationDuration: '500ms', animationFillMode: 'both' }}>
-              <div>
-                <h4 className="font-bold text-charcoal text-lg animate-in fade-in-0" 
+              <div className="flex-1 pr-4">
+                <h4 className="font-bold text-charcoal text-xl mb-1 animate-in fade-in-0" 
                     style={{ animationDelay: '200ms', animationDuration: '400ms', animationFillMode: 'both' }}>
                   Nutritional Information
                 </h4>
-                <p className="text-primary font-semibold animate-in slide-in-from-left-2 fade-in-0" 
+                <p className="text-primary font-semibold text-base animate-in slide-in-from-left-2 fade-in-0" 
                    style={{ animationDelay: '400ms', animationDuration: '500ms', animationFillMode: 'both' }}>
                   {itemName}
                 </p>
               </div>
               <button 
                 onClick={() => setIsVisible(false)}
-                className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-300 animate-in zoom-in-50"
+                className="p-3 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-300 animate-in zoom-in-50 flex-shrink-0"
                 style={{ animationDelay: '300ms', animationDuration: '400ms', animationFillMode: 'both' }}
                 aria-label="Close"
               >
-                <svg className="w-5 h-5 hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -225,35 +225,32 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
             
 
             {/* Nutritional Grid with Staggered Animation */}
-            <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="grid grid-cols-2 gap-4 mb-6">
               {[
-                { label: "🔥 Calories", value: nutritionalInfo.calories, color: "blue", delay: "0ms" },
-                { label: "💪 Protein", value: nutritionalInfo.protein, color: "green", delay: "100ms" },
-                { label: "🌾 Carbs", value: nutritionalInfo.carbs, color: "yellow", delay: "200ms" },
-                { label: "🧈 Fat", value: nutritionalInfo.fat, color: "red", delay: "300ms" },
-                { label: "🌿 Fiber", value: nutritionalInfo.fiber, color: "purple", delay: "400ms" },
-                { label: "🧂 Sodium", value: nutritionalInfo.sodium, color: "orange", delay: "500ms" }
+                { label: "🔥 Calories", value: nutritionalInfo.calories, bgColor: "bg-blue-50", borderColor: "border-blue-200", textColor: "text-blue-700", valueColor: "text-blue-900", delay: "0ms" },
+                { label: "💪 Protein", value: nutritionalInfo.protein, bgColor: "bg-green-50", borderColor: "border-green-200", textColor: "text-green-700", valueColor: "text-green-900", delay: "100ms" },
+                { label: "🌾 Carbs", value: nutritionalInfo.carbs, bgColor: "bg-yellow-50", borderColor: "border-yellow-200", textColor: "text-yellow-700", valueColor: "text-yellow-900", delay: "200ms" },
+                { label: "🧈 Fat", value: nutritionalInfo.fat, bgColor: "bg-red-50", borderColor: "border-red-200", textColor: "text-red-700", valueColor: "text-red-900", delay: "300ms" },
+                { label: "🌿 Fiber", value: nutritionalInfo.fiber, bgColor: "bg-purple-50", borderColor: "border-purple-200", textColor: "text-purple-700", valueColor: "text-purple-900", delay: "400ms" },
+                { label: "🧂 Sodium", value: nutritionalInfo.sodium, bgColor: "bg-orange-50", borderColor: "border-orange-200", textColor: "text-orange-700", valueColor: "text-orange-900", delay: "500ms" }
               ].map((item, index) => (
                 <div 
                   key={index}
-                  className={`bg-gradient-to-br from-${item.color}-50 to-${item.color}-100 p-3 rounded-xl border border-${item.color}-200 hover:scale-105 transition-all duration-300 animate-in slide-in-from-bottom-4 fade-in-0`}
+                  className={`${item.bgColor} p-4 rounded-xl ${item.borderColor} border hover:scale-105 transition-all duration-300 animate-in slide-in-from-bottom-4 fade-in-0 relative`}
                   style={{ 
                     animationDelay: item.delay,
                     animationDuration: '600ms',
                     animationFillMode: 'both'
                   }}
                 >
-                  <div className={`text-${item.color}-700 font-semibold text-xs mb-1 animate-in fade-in-0`} 
+                  <div className={`${item.textColor} font-semibold text-sm mb-2 animate-in fade-in-0`} 
                        style={{ animationDelay: `${parseInt(item.delay) + 200}ms`, animationDuration: '400ms', animationFillMode: 'both' }}>
                     {item.label}
                   </div>
-                  <div className={`text-${item.color}-900 font-bold text-lg animate-in zoom-in-50`}
+                  <div className={`${item.valueColor} font-bold text-xl animate-in zoom-in-50`}
                        style={{ animationDelay: `${parseInt(item.delay) + 400}ms`, animationDuration: '500ms', animationFillMode: 'both' }}>
                     {item.value}
                   </div>
-                  {/* Pulse effect overlay */}
-                  <div className={`absolute inset-0 bg-${item.color}-200 rounded-xl opacity-0 animate-ping`}
-                       style={{ animationDelay: `${parseInt(item.delay) + 600}ms`, animationDuration: '1s', animationIterationCount: '1' }}></div>
                 </div>
               ))}
             </div>
