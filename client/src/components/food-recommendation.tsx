@@ -213,7 +213,7 @@ export default function FoodRecommendation() {
     return topMatches.length >= 6 ? topMatches.slice(0, 8) : topMatches.slice(0, 6);
   };
 
-  const recommendations = getRecommendations();
+
 
   const handleGetRecommendations = () => {
     if (selectedPreferences.length === 0) {
