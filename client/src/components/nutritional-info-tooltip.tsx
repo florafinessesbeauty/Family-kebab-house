@@ -129,21 +129,35 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
       <button
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
+        onTouchStart={() => setIsVisible(!isVisible)}
         onClick={() => setIsVisible(!isVisible)}
-        className="p-1 text-gray-400 hover:text-blue-600 transition-colors duration-200"
+        className="p-2 text-gray-400 hover:text-blue-600 active:text-blue-800 transition-colors duration-200 touch-manipulation"
         aria-label="Nutritional Information"
+        type="button"
       >
-        <InfoIcon size={16} />
+        <InfoIcon size={18} />
       </button>
 
       {isVisible && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-50">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-xl p-4 min-w-64 max-w-80 text-sm">
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2">
+        <div className="fixed sm:absolute bottom-4 left-4 right-4 sm:bottom-full sm:left-1/2 sm:right-auto sm:transform sm:-translate-x-1/2 mb-2 z-50">
+          <div className="bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-full sm:min-w-64 sm:max-w-80 text-sm">
+            <div className="hidden sm:block absolute top-full left-1/2 transform -translate-x-1/2">
               <div className="border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white drop-shadow-sm"></div>
             </div>
             
-            <h4 className="font-bold text-gray-800 mb-3 border-b pb-2">Nutritional Information</h4>
+            {/* Close button for mobile */}
+            <div className="flex justify-between items-center mb-3 sm:block">
+              <h4 className="font-bold text-gray-800 border-b pb-2 sm:mb-3">Nutritional Information</h4>
+              <button 
+                onClick={() => setIsVisible(false)}
+                className="sm:hidden p-1 text-gray-400 hover:text-gray-600"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+            
+
             
             <div className="space-y-2">
               <div className="flex justify-between">
@@ -184,6 +198,12 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
               *Approximate values. Please inform staff of allergies.
             </div>
           </div>
+          
+          {/* Mobile backdrop */}
+          <div 
+            className="sm:hidden fixed inset-0 bg-black bg-opacity-25 -z-10"
+            onClick={() => setIsVisible(false)}
+          ></div>
         </div>
       )}
     </div>
