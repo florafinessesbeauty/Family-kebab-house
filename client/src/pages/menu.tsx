@@ -98,7 +98,9 @@ export default function Menu() {
                   <div key={deal.id} className="bg-gradient-to-br from-accent to-orange-600 rounded-2xl p-6 text-white text-center">
                     <h3 className="font-bold text-lg mb-2">{deal.name}</h3>
                     <p className="text-orange-100 text-sm mb-4">{deal.description}</p>
-                    <div className="text-2xl font-bold mb-3">£{deal.singlePrice?.toFixed(2)}</div>
+                    <div className="text-2xl font-bold mb-3">
+                      £{(deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge || 0).toFixed(2)}
+                    </div>
                     <a href="tel:01692584100">
                       <Button className="bg-white text-accent hover:bg-gray-100 w-full">
                         Order Now
