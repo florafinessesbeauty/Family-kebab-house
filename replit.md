@@ -111,6 +111,10 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Fixed nutritional tooltip button hover label with proper text wrapping and improved spacing
 - ✅ Added missing Chicken Combo Meal (3 Pcs Chicken + 4 Spicy Wings + Chips & Drink) to special offers section
 - ✅ Implemented custom styling and animations for chicken combo with spicy theme and orange gradient
+- ✅ Implemented dynamic pricing display with size-based color coding and interactive hover effects
+- ✅ Added PriceBadge component with discount indicators and special offer highlighting
+- ✅ Created SizeSelector component for multi-size items with visual feedback
+- ✅ Enhanced special offers with savings display and original price strikethrough
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

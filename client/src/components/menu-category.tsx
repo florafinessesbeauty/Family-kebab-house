@@ -183,8 +183,40 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                     </a>
                   </div>
                 </div>
-                <div className="group-hover:scale-110 transition-transform duration-300">
+                <div className="relative">
                   {renderPriceDisplay(item)}
+                  
+                  {/* Interactive price selector for multi-size items */}
+                  {(item.priceSmall || item.priceMedium || item.priceLarge || item.priceXLarge) && 
+                   [item.priceSmall, item.priceMedium, item.priceLarge, item.priceXLarge].filter(Boolean).length > 1 && (
+                    <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                      <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-2 mt-2">
+                        <div className="text-xs text-gray-500 mb-2 font-medium">Quick Select:</div>
+                        <div className="space-y-1">
+                          {item.priceSmall && (
+                            <button className="block w-full text-left px-2 py-1 text-xs hover:bg-green-50 hover:text-green-700 rounded transition-colors">
+                              Small - £{item.priceSmall.toFixed(2)}
+                            </button>
+                          )}
+                          {item.priceMedium && (
+                            <button className="block w-full text-left px-2 py-1 text-xs hover:bg-blue-50 hover:text-blue-700 rounded transition-colors">
+                              Medium - £{item.priceMedium.toFixed(2)}
+                            </button>
+                          )}
+                          {item.priceLarge && (
+                            <button className="block w-full text-left px-2 py-1 text-xs hover:bg-orange-50 hover:text-orange-700 rounded transition-colors">
+                              Large - £{item.priceLarge.toFixed(2)}
+                            </button>
+                          )}
+                          {item.priceXLarge && (
+                            <button className="block w-full text-left px-2 py-1 text-xs hover:bg-red-50 hover:text-red-700 rounded transition-colors">
+                              X-Large - £{item.priceXLarge.toFixed(2)}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>

@@ -240,7 +240,7 @@ export default function Menu() {
                           isChickenCombo ? 'text-2xl text-orange-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse' :
                           'text-2xl'
                         }`}>
-                          £{(() => {
+                          {(() => {
                             // Create a hardcoded price mapping for special offers based on your menu specification
                             const specialOfferPrices: { [key: string]: number } = {
                               "Chicken Burger + Chips & Drink": 7.90,
@@ -258,8 +258,26 @@ export default function Menu() {
                               "3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
                             };
                             
-                            const price = specialOfferPrices[deal.name] || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
-                            return price ? price.toFixed(2) : "0.00";
+                            const price = specialOfferPrices[deal.name] || deal.singlePrice || deal.priceSmall || deal.priceMedium || deal.priceLarge;
+                            const originalPrice = price ? price * 1.25 : null; // Show savings
+                            
+                            return (
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-center gap-2">
+                                  <span className="text-3xl">£{price ? price.toFixed(2) : "0.00"}</span>
+                                  {originalPrice && (
+                                    <span className="text-lg text-white/60 line-through">
+                                      £{originalPrice.toFixed(2)}
+                                    </span>
+                                  )}
+                                </div>
+                                {originalPrice && (
+                                  <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
+                                    Save £{(originalPrice - price!).toFixed(2)}
+                                  </div>
+                                )}
+                              </div>
+                            );
                           })()}
                         </div>
                         <a href="tel:01692584100">
