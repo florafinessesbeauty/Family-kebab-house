@@ -106,8 +106,6 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added scale, shadow, color, and position transforms for engaging user interaction
 - ✅ Enhanced nutritional tooltip with modal-style display and improved hover visibility
 - ✅ Added interactive grid layout, animated elements, and professional allergen warnings
-- ✅ Fixed tooltip blinking issues with proper hover state management and timeout handling
-- ✅ Improved mobile compatibility with touch events and responsive design optimizations
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

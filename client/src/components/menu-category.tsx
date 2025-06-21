@@ -134,7 +134,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       {item.name}
                     </h3>
                     <div 
-                      className="transition-transform duration-300"
+                      className="group-hover:scale-110 transition-transform duration-300"
                       style={{ 
                         position: 'relative',
                         zIndex: 99998
