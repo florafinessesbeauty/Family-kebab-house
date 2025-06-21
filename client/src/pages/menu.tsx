@@ -107,6 +107,7 @@ export default function Menu() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {specialDeals.map((deal) => {
                   const isKebabFeast = deal.name === "Kebab Feast";
+                  console.log(`Deal: ${deal.name}, isKebabFeast: ${isKebabFeast}`); // Debug log
                   return (
                     <div 
                       key={deal.id} 
