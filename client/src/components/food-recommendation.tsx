@@ -317,58 +317,168 @@ export default function FoodRecommendation() {
               </Button>
             </div>
 
-            {/* Recommendations Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-              {recommendations.map((dish, index) => (
-                <Card key={dish.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
-                  <div className="relative">
-                    <img
-                      src={dish.image}
-                      alt={dish.name}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <Badge className="absolute top-3 left-3 bg-primary text-white">
-                      #{index + 1} Match
-                    </Badge>
-                    <div className="absolute top-3 right-3 text-2xl">
-                      {dish.emoji}
-                    </div>
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <h4 className="font-bold text-xl text-charcoal mb-2">{dish.name}</h4>
-                    <p className="text-gray-600 text-sm mb-4">{dish.description}</p>
-                    
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-lg font-bold text-primary">{dish.price}</div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Clock className="h-4 w-4 mr-1" />
-                        {dish.preparationTime}
+            {/* Top Recommendations Grid */}
+            <div className="mb-8">
+              <h4 className="text-xl font-bold text-charcoal mb-6 text-center">
+                🌟 Top Matches For You
+              </h4>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {recommendations.map((dish, index) => (
+                  <Card key={dish.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
+                    <div className="relative">
+                      <img
+                        src={dish.image}
+                        alt={dish.name}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <Badge className="absolute top-3 left-3 bg-primary text-white">
+                        #{index + 1} Match
+                      </Badge>
+                      <div className="absolute top-3 right-3 text-2xl">
+                        {dish.emoji}
                       </div>
                     </div>
+                    
+                    <CardContent className="p-6">
+                      <h4 className="font-bold text-xl text-charcoal mb-2">{dish.name}</h4>
+                      <p className="text-gray-600 text-sm mb-4">{dish.description}</p>
+                      
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-lg font-bold text-primary">{dish.price}</div>
+                        <div className="flex items-center text-sm text-gray-500">
+                          <Clock className="h-4 w-4 mr-1" />
+                          {dish.preparationTime}
+                        </div>
+                      </div>
 
-                    {/* Matching Tags */}
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {dish.tags
-                        .filter(tag => selectedPreferences.includes(tag))
-                        .slice(0, 3)
-                        .map(tag => (
-                          <Badge key={tag} variant="secondary" className="text-xs bg-accent/20 text-accent">
-                            {foodPreferences.find(p => p.id === tag)?.icon}
-                          </Badge>
-                        ))}
+                      {/* Matching Tags */}
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {dish.tags
+                          .filter(tag => selectedPreferences.includes(tag))
+                          .slice(0, 3)
+                          .map(tag => (
+                            <Badge key={tag} variant="secondary" className="text-xs bg-accent/20 text-accent">
+                              {foodPreferences.find(p => p.id === tag)?.icon}
+                            </Badge>
+                          ))}
+                      </div>
+
+                      <a href="tel:01692584100">
+                        <Button className="w-full bg-primary hover:bg-red-700 text-white">
+                          <Phone className="mr-2 h-4 w-4" />
+                          Order Now
+                        </Button>
+                      </a>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* More Options Section */}
+            {additionalRecommendations.length > 0 && (
+              <div className="mb-8">
+                <div className="text-center mb-6">
+                  {!showMoreOptions ? (
+                    <Button
+                      onClick={handleShowMoreOptions}
+                      variant="outline"
+                      size="lg"
+                      className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/30 hover:border-primary hover:bg-primary/10 text-charcoal font-semibold px-8 py-4"
+                    >
+                      <span className="mr-2">🍽️</span>
+                      Show More Options ({additionalRecommendations.length} more dishes)
+                      <span className="ml-2">⬇️</span>
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleHideMoreOptions}
+                      variant="outline"
+                      className="border-gray-300 hover:border-gray-400 text-gray-600"
+                    >
+                      <span className="mr-2">⬆️</span>
+                      Show Less
+                    </Button>
+                  )}
+                </div>
+
+                {showMoreOptions && (
+                  <div className="space-y-6">
+                    <h4 className="text-xl font-bold text-charcoal text-center">
+                      🔍 More Great Options For You
+                    </h4>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {additionalRecommendations.map((dish, index) => (
+                        <Card key={dish.id} className="overflow-hidden hover:shadow-xl transition-shadow group border-accent/20">
+                          <div className="relative">
+                            <img
+                              src={dish.image}
+                              alt={dish.name}
+                              className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                            <Badge className="absolute top-3 left-3 bg-accent text-white">
+                              Option #{index + 9}
+                            </Badge>
+                            <div className="absolute top-3 right-3 text-2xl">
+                              {dish.emoji}
+                            </div>
+                          </div>
+                          
+                          <CardContent className="p-6">
+                            <h4 className="font-bold text-lg text-charcoal mb-2">{dish.name}</h4>
+                            <p className="text-gray-600 text-sm mb-4">{dish.description}</p>
+                            
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="text-lg font-bold text-primary">{dish.price}</div>
+                              <div className="flex items-center text-sm text-gray-500">
+                                <Clock className="h-4 w-4 mr-1" />
+                                {dish.preparationTime}
+                              </div>
+                            </div>
+
+                            {/* Matching Tags */}
+                            <div className="flex flex-wrap gap-1 mb-4">
+                              {dish.tags
+                                .filter(tag => selectedPreferences.includes(tag))
+                                .slice(0, 3)
+                                .map(tag => (
+                                  <Badge key={tag} variant="secondary" className="text-xs bg-accent/20 text-accent">
+                                    {foodPreferences.find(p => p.id === tag)?.icon}
+                                  </Badge>
+                                ))}
+                            </div>
+
+                            <a href="tel:01692584100">
+                              <Button className="w-full bg-accent hover:bg-orange-600 text-white">
+                                <Phone className="mr-2 h-4 w-4" />
+                                Order Now
+                              </Button>
+                            </a>
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
 
-                    <a href="tel:01692584100">
-                      <Button className="w-full bg-primary hover:bg-red-700 text-white">
-                        <Phone className="mr-2 h-4 w-4" />
-                        Order Now
-                      </Button>
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    {/* Browse Full Menu Link */}
+                    <div className="text-center mt-8 p-6 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl">
+                      <h5 className="font-bold text-lg text-charcoal mb-2">
+                        🍴 Want Even More Choices?
+                      </h5>
+                      <p className="text-gray-600 mb-4">
+                        Explore our complete menu with {allDishes.length} authentic dishes from Family Kebab House
+                      </p>
+                      <a href="#menu-content">
+                        <Button className="bg-primary hover:bg-red-700 text-white font-semibold px-6 py-3">
+                          <span className="mr-2">📋</span>
+                          Browse Full Menu
+                          <span className="ml-2">→</span>
+                        </Button>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Why These Recommendations */}
             <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20">
@@ -376,11 +486,28 @@ export default function FoodRecommendation() {
                 <h4 className="font-bold text-lg text-charcoal mb-2">
                   🧠 Why These Recommendations?
                 </h4>
-                <p className="text-gray-700">
+                <p className="text-gray-700 mb-4">
                   Our AI analyzed all {allDishes.length} authentic dishes from Family Kebab House's live menu database and matched your preferences with 
                   flavor profiles, preparation styles, and customer favorites. Each recommendation shows real prices and items 
                   you can order right now by calling 01692 584 100!
                 </p>
+                <div className="grid md:grid-cols-3 gap-4 text-sm">
+                  <div className="bg-white/50 rounded-lg p-3">
+                    <div className="text-lg mb-1">🎯</div>
+                    <div className="font-semibold">Smart Matching</div>
+                    <div className="text-gray-600">Preferences + Menu Analysis</div>
+                  </div>
+                  <div className="bg-white/50 rounded-lg p-3">
+                    <div className="text-lg mb-1">🔄</div>
+                    <div className="font-semibold">Live Database</div>
+                    <div className="text-gray-600">Real-time Menu Data</div>
+                  </div>
+                  <div className="bg-white/50 rounded-lg p-3">
+                    <div className="text-lg mb-1">📞</div>
+                    <div className="font-semibold">Ready to Order</div>
+                    <div className="text-gray-600">Call 01692 584 100</div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>

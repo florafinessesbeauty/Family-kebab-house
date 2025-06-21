@@ -100,6 +100,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added nutritional info icons to every menu item with proper touch and hover support
 - ✅ Implemented dynamic nutritional data fetching from restaurant database
 - ✅ Added comprehensive nutritional columns to database schema with real data for all menu items
+- ✅ Enhanced AI food recommendations with "Show More Options" feature for better customer choice variety
+- ✅ Added expandable section showing 12 additional menu recommendations with smart categorization
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
