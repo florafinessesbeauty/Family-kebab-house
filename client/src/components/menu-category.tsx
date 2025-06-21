@@ -119,6 +119,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
             className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer relative overflow-hidden ${
               item.isSpecial ? "border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md" : "hover:border-accent/30"
             }`}
+            style={{ isolation: 'isolate', position: 'relative' }}
           >
             <CardContent className="p-4 relative">
               {/* Hover Effect Overlay */}
@@ -137,7 +138,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       className="group-hover:scale-110 transition-transform duration-300"
                       style={{ 
                         position: 'relative',
-                        zIndex: 99998
+                        zIndex: 1000000
                       }}
                     >
                       <NutritionalInfoTooltip 
