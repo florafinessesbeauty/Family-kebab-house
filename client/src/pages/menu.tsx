@@ -23,7 +23,7 @@ export default function Menu() {
           name: item.name,
           description: item.description,
           category: item.category,
-          singlePrice: item.singlePrice,
+          price: item.price,
           priceSmall: item.priceSmall,
           priceMedium: item.priceMedium,
           priceLarge: item.priceLarge,
