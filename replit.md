@@ -90,6 +90,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ All 25+ categories with complete authentic Family Kebab House pricing structure
 - ✅ Fixed all image loading issues across the website
 - ✅ All components now use authentic Family Kebab House branding
+- ✅ Added Kebab Feast special offer with premium animations (£30.00)
+- ✅ Implemented eye-catching animations: rotating border, floating sparkles, premium badge, pulsing effects
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

@@ -105,39 +105,77 @@ export default function Menu() {
             <div className="mb-16">
               <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {specialDeals.map((deal) => (
-                  <div key={deal.id} className="bg-gradient-to-br from-accent to-orange-600 rounded-2xl p-6 text-white text-center">
-                    <h3 className="font-bold text-lg mb-2">{deal.name}</h3>
-                    <p className="text-orange-100 text-sm mb-4">{deal.description}</p>
-                    <div className="text-2xl font-bold mb-3">
-                      £{(() => {
-                        // Create a hardcoded price mapping for special offers based on your menu specification
-                        const specialOfferPrices: { [key: string]: number } = {
-                          "Chicken Burger + Chips & Drink": 7.90,
-                          "¼ Pounder with Cheese + Chips & Drink": 7.90,
-                          "½ Pounder with Double Cheese + Chips & Drink": 9.50,
-                          "Medium Doner Meat + Chips & Drink": 7.90,
-                          "Large Doner Meat + Chips & Drink": 9.50,
-                          "10\" Margherita with 3 Toppings + Drink": 9.50,
-                          "12\" Margherita with 3 Toppings + Drink": 12.50,
-                          "2× 10\" Pizzas from Set-Menu": 17.20,
-                          "2× 12\" Pizzas from Set-Menu": 22.50,
-                          "Family Deal (10\" Pizza)": 26.90,
-                          "Family Deal (12\" Pizza)": 28.90,
-                          "Kebab Feast": 30.00
-                        };
-                        
-                        const price = specialOfferPrices[deal.name] || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
-                        return price ? price.toFixed(2) : "0.00";
-                      })()}
+                {specialDeals.map((deal) => {
+                  const isKebabFeast = deal.name === "Kebab Feast";
+                  return (
+                    <div 
+                      key={deal.id} 
+                      className={`relative rounded-2xl p-6 text-white text-center transition-all duration-500 ${
+                        isKebabFeast 
+                          ? "bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 animate-pulse shadow-2xl transform scale-105 border-4 border-yellow-300" 
+                          : "bg-gradient-to-br from-accent to-orange-600"
+                      }`}
+                    >
+                      {/* Special Animation for Kebab Feast */}
+                      {isKebabFeast && (
+                        <>
+                          {/* Rotating ring animation */}
+                          <div className="absolute inset-0 rounded-2xl border-4 border-yellow-300 animate-spin" style={{ animationDuration: '3s' }}></div>
+                          
+                          {/* Floating sparkles */}
+                          <div className="absolute top-2 right-2 text-yellow-300 animate-bounce" style={{ animationDelay: '0s' }}>✨</div>
+                          <div className="absolute top-4 left-2 text-yellow-300 animate-bounce" style={{ animationDelay: '0.5s' }}>⭐</div>
+                          <div className="absolute bottom-4 right-4 text-yellow-300 animate-bounce" style={{ animationDelay: '1s' }}>💫</div>
+                          
+                          {/* Premium badge */}
+                          <div className="absolute -top-3 -right-3 bg-yellow-400 text-red-800 px-3 py-1 rounded-full text-xs font-bold animate-pulse border-2 border-white">
+                            PREMIUM FEAST
+                          </div>
+                        </>
+                      )}
+                      
+                      <div className="relative z-10">
+                        <h3 className={`font-bold text-lg mb-2 ${isKebabFeast ? 'text-yellow-100 text-xl' : ''}`}>
+                          {deal.name}
+                        </h3>
+                        <p className={`text-sm mb-4 ${isKebabFeast ? 'text-yellow-100' : 'text-orange-100'}`}>
+                          {deal.description}
+                        </p>
+                        <div className={`font-bold mb-3 ${isKebabFeast ? 'text-3xl text-yellow-200 animate-pulse' : 'text-2xl'}`}>
+                          £{(() => {
+                            // Create a hardcoded price mapping for special offers based on your menu specification
+                            const specialOfferPrices: { [key: string]: number } = {
+                              "Chicken Burger + Chips & Drink": 7.90,
+                              "¼ Pounder with Cheese + Chips & Drink": 7.90,
+                              "½ Pounder with Double Cheese + Chips & Drink": 9.50,
+                              "Medium Doner Meat + Chips & Drink": 7.90,
+                              "Large Doner Meat + Chips & Drink": 9.50,
+                              "10\" Margherita with 3 Toppings + Drink": 9.50,
+                              "12\" Margherita with 3 Toppings + Drink": 12.50,
+                              "2× 10\" Pizzas from Set-Menu": 17.20,
+                              "2× 12\" Pizzas from Set-Menu": 22.50,
+                              "Family Deal (10\" Pizza)": 26.90,
+                              "Family Deal (12\" Pizza)": 28.90,
+                              "Kebab Feast": 30.00
+                            };
+                            
+                            const price = specialOfferPrices[deal.name] || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
+                            return price ? price.toFixed(2) : "0.00";
+                          })()}
+                        </div>
+                        <a href="tel:01692584100">
+                          <Button className={`w-full transition-all duration-300 ${
+                            isKebabFeast 
+                              ? "bg-yellow-400 text-red-800 hover:bg-yellow-300 font-bold transform hover:scale-105 shadow-lg" 
+                              : "bg-white text-accent hover:bg-gray-100"
+                          }`}>
+                            {isKebabFeast ? "🔥 Order Premium Feast!" : "Order Now"}
+                          </Button>
+                        </a>
+                      </div>
                     </div>
-                    <a href="tel:01692584100">
-                      <Button className="bg-white text-accent hover:bg-gray-100 w-full">
-                        Order Now
-                      </Button>
-                    </a>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
