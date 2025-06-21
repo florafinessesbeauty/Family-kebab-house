@@ -148,58 +148,76 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
         onMouseLeave={() => setIsVisible(false)}
         onTouchStart={() => setIsVisible(!isVisible)}
         onClick={() => setIsVisible(!isVisible)}
-        className="p-1 text-gray-400 hover:text-blue-600 active:text-blue-800 transition-colors duration-200 touch-manipulation flex-shrink-0"
-        aria-label="Nutritional Information"
+        className="p-2 rounded-full bg-white/80 backdrop-blur-sm border border-primary/20 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg flex-shrink-0 group"
+        aria-label="View Nutritional Information"
         type="button"
       >
-        <InfoIcon size={16} />
+        <InfoIcon size={16} className="group-hover:animate-pulse" />
+        <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+          Nutrition Info
+        </span>
       </button>
 
       {isVisible && (
-        <div className="fixed sm:absolute bottom-4 left-4 right-4 sm:bottom-full sm:left-1/2 sm:right-auto sm:transform sm:-translate-x-1/2 sm:mb-2 z-50">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-full sm:min-w-64 sm:max-w-80 text-sm">
-            <div className="hidden sm:block absolute top-full left-1/2 transform -translate-x-1/2">
-              <div className="border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white drop-shadow-sm"></div>
-            </div>
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onMouseEnter={() => setIsVisible(true)}
+          onMouseLeave={() => setIsVisible(false)}
+        >
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300"
+            onClick={() => setIsVisible(false)}
+          />
+          
+          {/* Tooltip Content */}
+          <div className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm animate-in zoom-in-95 duration-300">
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl -z-10 blur-xl scale-110" />
             
-            {/* Close button for mobile */}
-            <div className="flex justify-between items-center mb-3 sm:block">
-              <h4 className="font-bold text-gray-800 border-b pb-2 sm:mb-3">Nutritional Information</h4>
+            {/* Header with close button */}
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h4 className="font-bold text-charcoal text-lg">Nutritional Information</h4>
+                <p className="text-primary font-semibold">{itemName}</p>
+              </div>
               <button 
                 onClick={() => setIsVisible(false)}
-                className="sm:hidden p-1 text-gray-400 hover:text-gray-600"
+                className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
                 aria-label="Close"
               >
-                ✕
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </div>
             
 
-            
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Calories:</span>
-                <span className="font-semibold text-gray-800">{nutritionalInfo.calories}</span>
+            {/* Nutritional Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-xl border border-blue-200 hover:scale-105 transition-transform">
+                <div className="text-blue-700 font-semibold text-xs mb-1">🔥 Calories</div>
+                <div className="text-blue-900 font-bold text-lg">{nutritionalInfo.calories}</div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Protein:</span>
-                <span className="font-semibold text-gray-800">{nutritionalInfo.protein}</span>
+              <div className="bg-gradient-to-br from-green-50 to-green-100 p-3 rounded-xl border border-green-200 hover:scale-105 transition-transform">
+                <div className="text-green-700 font-semibold text-xs mb-1">💪 Protein</div>
+                <div className="text-green-900 font-bold text-lg">{nutritionalInfo.protein}</div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Carbs:</span>
-                <span className="font-semibold text-gray-800">{nutritionalInfo.carbs}</span>
+              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-3 rounded-xl border border-yellow-200 hover:scale-105 transition-transform">
+                <div className="text-yellow-700 font-semibold text-xs mb-1">🌾 Carbs</div>
+                <div className="text-yellow-900 font-bold text-lg">{nutritionalInfo.carbs}</div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Fat:</span>
-                <span className="font-semibold text-gray-800">{nutritionalInfo.fat}</span>
+              <div className="bg-gradient-to-br from-red-50 to-red-100 p-3 rounded-xl border border-red-200 hover:scale-105 transition-transform">
+                <div className="text-red-700 font-semibold text-xs mb-1">🧈 Fat</div>
+                <div className="text-red-900 font-bold text-lg">{nutritionalInfo.fat}</div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Fiber:</span>
-                <span className="font-semibold text-gray-800">{nutritionalInfo.fiber}</span>
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl border border-purple-200 hover:scale-105 transition-transform">
+                <div className="text-purple-700 font-semibold text-xs mb-1">🌿 Fiber</div>
+                <div className="text-purple-900 font-bold text-lg">{nutritionalInfo.fiber}</div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Sodium:</span>
-                <span className="font-semibold text-gray-800">{nutritionalInfo.sodium}</span>
+              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-3 rounded-xl border border-orange-200 hover:scale-105 transition-transform">
+                <div className="text-orange-700 font-semibold text-xs mb-1">🧂 Sodium</div>
+                <div className="text-orange-900 font-bold text-lg">{nutritionalInfo.sodium}</div>
               </div>
             </div>
 

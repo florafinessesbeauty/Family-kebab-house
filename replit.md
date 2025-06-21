@@ -104,6 +104,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added expandable section showing 12 additional menu recommendations with smart categorization
 - ✅ Implemented dynamic menu item highlight on hover with smooth animations and visual feedback
 - ✅ Added scale, shadow, color, and position transforms for engaging user interaction
+- ✅ Enhanced nutritional tooltip with modal-style display and improved hover visibility
+- ✅ Added interactive grid layout, animated elements, and professional allergen warnings
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
