@@ -15,7 +15,17 @@ export default function Menu() {
     const fetchMenuData = async () => {
       try {
         const response = await fetch("/api/menu");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        
+        // Ensure data is an array
+        if (!Array.isArray(data)) {
+          console.error("Expected array but got:", data);
+          setMenuData([]);
+          return;
+        }
         
         // Transform database items to match frontend interface
         const transformedData: MenuItemData[] = data.map((item: any) => ({
