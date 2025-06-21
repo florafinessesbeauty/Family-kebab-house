@@ -123,7 +123,8 @@ export default function Menu() {
                           "2× 10\" Pizzas from Set-Menu": 17.20,
                           "2× 12\" Pizzas from Set-Menu": 22.50,
                           "Family Deal (10\" Pizza)": 26.90,
-                          "Family Deal (12\" Pizza)": 28.90
+                          "Family Deal (12\" Pizza)": 28.90,
+                          "Kebab Feast": 30.00
                         };
                         
                         const price = specialOfferPrices[deal.name] || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
