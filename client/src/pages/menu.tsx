@@ -297,10 +297,10 @@ export default function Menu() {
       </section>
 
       {/* Menu Content */}
-      <section id="menu-content" className="py-12">
+      <section id="menu-content" className="py-12 relative">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 relative">
               <MenuCategory
                 title={getCategoryInfo(activeCategory).name}
                 description={
