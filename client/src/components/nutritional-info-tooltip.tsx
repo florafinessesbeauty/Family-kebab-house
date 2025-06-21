@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 import { InfoIcon } from 'lucide-react';
-
-interface NutritionalInfo {
-  calories: number;
-  protein: string;
-  carbs: string;
-  fat: string;
-  allergens: string[];
-}
+import { getNutritionalInfo, type NutritionalInfo } from '../data/nutritional-data';
 
 interface NutritionalInfoTooltipProps {
   itemName: string;
@@ -17,112 +10,8 @@ interface NutritionalInfoTooltipProps {
 const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemName, category }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Generate realistic nutritional info based on item type and category
-  const getNutritionalInfo = (name: string, cat: string): NutritionalInfo => {
-    const lowerName = name.toLowerCase();
-    const lowerCat = cat.toLowerCase();
-
-    // Base nutritional values for different food types
-    if (lowerCat.includes('kebab') || lowerName.includes('kebab')) {
-      if (lowerName.includes('feast')) {
-        return {
-          calories: 1850,
-          protein: '95g',
-          carbs: '120g',
-          fat: '85g',
-          allergens: ['Gluten', 'Dairy', 'Sesame']
-        };
-      }
-      return {
-        calories: lowerName.includes('large') ? 750 : lowerName.includes('medium') ? 580 : 450,
-        protein: lowerName.includes('large') ? '45g' : lowerName.includes('medium') ? '35g' : '28g',
-        carbs: lowerName.includes('large') ? '65g' : lowerName.includes('medium') ? '50g' : '38g',
-        fat: lowerName.includes('large') ? '35g' : lowerName.includes('medium') ? '28g' : '22g',
-        allergens: ['Gluten', 'Dairy', 'Sesame']
-      };
-    }
-    
-    if (lowerCat.includes('pizza') || lowerName.includes('pizza')) {
-      const is12Inch = lowerName.includes('12"') || lowerName.includes('12 inch');
-      return {
-        calories: is12Inch ? 1200 : 850,
-        protein: is12Inch ? '45g' : '32g',
-        carbs: is12Inch ? '140g' : '98g',
-        fat: is12Inch ? '48g' : '34g',
-        allergens: ['Gluten', 'Dairy']
-      };
-    }
-
-    if (lowerCat.includes('burger') || lowerName.includes('burger')) {
-      const isDouble = lowerName.includes('½') || lowerName.includes('double');
-      return {
-        calories: isDouble ? 720 : 480,
-        protein: isDouble ? '38g' : '25g',
-        carbs: isDouble ? '45g' : '35g',
-        fat: isDouble ? '42g' : '28g',
-        allergens: ['Gluten', 'Dairy', 'Eggs']
-      };
-    }
-
-    if (lowerCat.includes('chicken') || lowerName.includes('chicken')) {
-      if (lowerName.includes('wings')) {
-        return {
-          calories: 320,
-          protein: '28g',
-          carbs: '8g',
-          fat: '22g',
-          allergens: ['None (check seasoning)']
-        };
-      }
-      return {
-        calories: 380,
-        protein: '32g',
-        carbs: '15g',
-        fat: '24g',
-        allergens: ['Gluten (if breaded)']
-      };
-    }
-
-    if (lowerCat.includes('dessert') || lowerName.includes('cake') || lowerName.includes('ice')) {
-      return {
-        calories: 285,
-        protein: '4g',
-        carbs: '45g',
-        fat: '12g',
-        allergens: ['Gluten', 'Dairy', 'Eggs']
-      };
-    }
-
-    if (lowerCat.includes('drink') || lowerName.includes('drink')) {
-      if (lowerName.includes('coke') || lowerName.includes('pepsi') || lowerName.includes('sprite')) {
-        return {
-          calories: 140,
-          protein: '0g',
-          carbs: '39g',
-          fat: '0g',
-          allergens: ['None']
-        };
-      }
-      return {
-        calories: 0,
-        protein: '0g',
-        carbs: '0g',
-        fat: '0g',
-        allergens: ['None']
-      };
-    }
-
-    // Default values for other items
-    return {
-      calories: 420,
-      protein: '22g',
-      carbs: '35g',
-      fat: '25g',
-      allergens: ['Check with staff']
-    };
-  };
-
   const nutritionalInfo = getNutritionalInfo(itemName, category);
+
 
   return (
     <div className="relative inline-block">
@@ -176,6 +65,14 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
                 <span className="text-gray-600">Fat:</span>
                 <span className="font-semibold text-gray-800">{nutritionalInfo.fat}</span>
               </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Fiber:</span>
+                <span className="font-semibold text-gray-800">{nutritionalInfo.fiber}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Sodium:</span>
+                <span className="font-semibold text-gray-800">{nutritionalInfo.sodium}</span>
+              </div>
             </div>
 
             <div className="mt-3 pt-2 border-t">
@@ -194,8 +91,19 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
               </div>
             </div>
 
+            {nutritionalInfo.ingredients && (
+              <div className="mt-3 pt-2 border-t">
+                <div className="text-gray-600 text-xs">
+                  <strong>Main Ingredients:</strong>
+                  <div className="mt-1 text-gray-500">
+                    {nutritionalInfo.ingredients.join(', ')}
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="mt-2 text-xs text-gray-500 italic">
-              *Approximate values. Please inform staff of allergies.
+              *Nutritional values based on standard portions. Please inform staff of allergies.
             </div>
           </div>
           
