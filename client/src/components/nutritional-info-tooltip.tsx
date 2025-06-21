@@ -159,7 +159,7 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
         <InfoIcon size={16} className="group-hover:animate-pulse" />
         <span 
           className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none"
-          style={{ zIndex: 99998 }}
+          style={{ zIndex: 2147483647 }}
         >
           Nutrition Info
         </span>
@@ -169,7 +169,7 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
         <div 
           className="fixed inset-0 flex items-center justify-center p-4"
           style={{ 
-            zIndex: 99999,
+            zIndex: 2147483647,
             position: 'fixed',
             top: 0,
             left: 0,

@@ -116,14 +116,19 @@ export default function MenuCategory({ title, description, items, icon }: Readon
         {items.map((item) => (
           <Card 
             key={item.id} 
-            className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer relative overflow-hidden ${
+            className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer relative ${
               item.isSpecial ? "border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md" : "hover:border-accent/30"
             }`}
-            style={{ isolation: 'isolate', position: 'relative' }}
+            style={{ 
+              isolation: 'isolate', 
+              position: 'relative',
+              zIndex: 1,
+              overflow: 'visible'
+            }}
           >
-            <CardContent className="p-4 relative">
+            <CardContent className="p-4 relative" style={{ overflow: 'visible' }}>
               {/* Hover Effect Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ zIndex: 0 }}></div>
               
               <div className="flex justify-between items-start relative z-10">
                 <div className="flex-1">
@@ -138,7 +143,8 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       className="group-hover:scale-110 transition-transform duration-300"
                       style={{ 
                         position: 'relative',
-                        zIndex: 1000000
+                        zIndex: 2147483647,
+                        transform: 'translateZ(999px)'
                       }}
                     >
                       <NutritionalInfoTooltip 
