@@ -133,7 +133,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       </span>
                       {item.name}
                     </h3>
-                    <div className="z-50 relative">
+                    <div className="z-50 relative group-hover:scale-110 transition-transform duration-300">
                       <NutritionalInfoTooltip 
                         itemName={item.name} 
                         category={title} 
