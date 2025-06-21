@@ -131,15 +131,15 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
         onMouseLeave={() => setIsVisible(false)}
         onTouchStart={() => setIsVisible(!isVisible)}
         onClick={() => setIsVisible(!isVisible)}
-        className="p-2 text-gray-400 hover:text-blue-600 active:text-blue-800 transition-colors duration-200 touch-manipulation"
+        className="p-1 text-gray-400 hover:text-blue-600 active:text-blue-800 transition-colors duration-200 touch-manipulation flex-shrink-0"
         aria-label="Nutritional Information"
         type="button"
       >
-        <InfoIcon size={18} />
+        <InfoIcon size={16} />
       </button>
 
       {isVisible && (
-        <div className="fixed sm:absolute bottom-4 left-4 right-4 sm:bottom-full sm:left-1/2 sm:right-auto sm:transform sm:-translate-x-1/2 mb-2 z-50">
+        <div className="fixed sm:absolute bottom-4 left-4 right-4 sm:bottom-full sm:left-1/2 sm:right-auto sm:transform sm:-translate-x-1/2 sm:mb-2 z-50">
           <div className="bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-full sm:min-w-64 sm:max-w-80 text-sm">
             <div className="hidden sm:block absolute top-full left-1/2 transform -translate-x-1/2">
               <div className="border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white drop-shadow-sm"></div>

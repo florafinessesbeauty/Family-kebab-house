@@ -171,7 +171,7 @@ export default function Menu() {
                           }`}>
                             {deal.name}
                           </h3>
-                          <div className="text-white/70 hover:text-white">
+                          <div className="text-white/70 hover:text-white flex-shrink-0">
                             <NutritionalInfoTooltip itemName={deal.name} category={deal.category} />
                           </div>
                         </div>
