@@ -109,6 +109,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Implemented animated nutrition info reveal effect with staggered animations and smooth transitions
 - ✅ Added slide-in, zoom-in, fade-in effects for all nutritional components with timing delays
 - ✅ Fixed nutritional tooltip button hover label with proper text wrapping and improved spacing
+- ✅ Added missing Chicken Combo Meal (3 Pcs Chicken + 4 Spicy Wings + Chips & Drink) to special offers section
+- ✅ Implemented custom styling and animations for chicken combo with spicy theme and orange gradient
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

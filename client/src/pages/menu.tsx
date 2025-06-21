@@ -121,6 +121,7 @@ export default function Menu() {
                 {specialDeals.map((deal) => {
                   const isKebabFeast = deal.name === "Kebab Feast";
                   const isFamilyDeal = deal.name.includes("Family Deal");
+                  const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
                   console.log(`Deal: ${deal.name}, isKebabFeast: ${isKebabFeast}, isFamilyDeal: ${isFamilyDeal}`); // Debug log
                   return (
                     <div 
@@ -130,6 +131,8 @@ export default function Menu() {
                           ? "bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 animate-pulse shadow-2xl transform scale-105 border-4 border-yellow-300" 
                           : isFamilyDeal
                           ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
+                          : isChickenCombo
+                          ? "bg-gradient-to-br from-red-600 via-orange-600 to-yellow-600 hover:scale-105 shadow-xl border-2 border-orange-300"
                           : "bg-gradient-to-br from-accent to-orange-600 hover:scale-105"
                       }`}
                     >
@@ -170,12 +173,34 @@ export default function Menu() {
                           <div className="absolute inset-0 bg-gradient-to-t from-pink-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
                         </>
                       )}
+
+                      {/* Interactive Chicken Combo Highlights */}
+                      {isChickenCombo && (
+                        <>
+                          {/* Pulsing border on hover */}
+                          <div className="absolute inset-0 rounded-2xl border-2 border-orange-300 opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300"></div>
+                          
+                          {/* Chicken icons */}
+                          <div className="absolute top-2 left-2 text-orange-200 group-hover:animate-bounce">🍗</div>
+                          <div className="absolute top-2 right-2 text-orange-200 group-hover:animate-bounce" style={{ animationDelay: '0.2s' }}>🔥</div>
+                          <div className="absolute bottom-2 left-2 text-orange-200 group-hover:animate-bounce" style={{ animationDelay: '0.4s' }}>🍟</div>
+                          
+                          {/* Spicy badge */}
+                          <div className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold transform rotate-12 group-hover:animate-pulse">
+                            SPICY COMBO
+                          </div>
+                          
+                          {/* Price highlight overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-red-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                        </>
+                      )}
                       
                       <div className="relative z-10">
                         <div className="flex items-center justify-center gap-2 mb-2">
                           <h3 className={`font-bold text-lg transition-all duration-300 ${
                             isKebabFeast ? 'text-yellow-100 text-xl' : 
-                            isFamilyDeal ? 'text-pink-100 group-hover:text-white group-hover:text-xl' : ''
+                            isFamilyDeal ? 'text-pink-100 group-hover:text-white group-hover:text-xl' : 
+                            isChickenCombo ? 'text-orange-100 group-hover:text-white group-hover:text-xl' : ''
                           }`}>
                             {deal.name}
                           </h3>
@@ -204,13 +229,15 @@ export default function Menu() {
                         </div>
                         <p className={`text-sm mb-4 transition-all duration-300 ${
                           isKebabFeast ? 'text-yellow-100' : 
-                          isFamilyDeal ? 'text-pink-100 group-hover:text-white' : 'text-orange-100'
+                          isFamilyDeal ? 'text-pink-100 group-hover:text-white' : 
+                          isChickenCombo ? 'text-orange-100 group-hover:text-white' : 'text-orange-100'
                         }`}>
                           {deal.description}
                         </p>
                         <div className={`font-bold mb-3 transition-all duration-300 ${
                           isKebabFeast ? 'text-3xl text-yellow-200 animate-pulse' : 
                           isFamilyDeal ? 'text-2xl text-pink-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse' : 
+                          isChickenCombo ? 'text-2xl text-orange-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse' :
                           'text-2xl'
                         }`}>
                           £{(() => {
@@ -227,7 +254,8 @@ export default function Menu() {
                               "2× 12\" Pizzas from Set-Menu": 22.50,
                               "Family Deal (10\" Pizza)": 26.90,
                               "Family Deal (12\" Pizza)": 28.90,
-                              "Kebab Feast": 30.00
+                              "Kebab Feast": 30.00,
+                              "3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
                             };
                             
                             const price = specialOfferPrices[deal.name] || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge;
@@ -240,10 +268,13 @@ export default function Menu() {
                               ? "bg-yellow-400 text-red-800 hover:bg-yellow-300 font-bold transform hover:scale-105 shadow-lg" 
                               : isFamilyDeal
                               ? "bg-pink-400 text-purple-900 hover:bg-pink-300 font-bold transform group-hover:scale-105 shadow-lg group-hover:animate-bounce"
+                              : isChickenCombo
+                              ? "bg-orange-400 text-red-900 hover:bg-orange-300 font-bold transform group-hover:scale-105 shadow-lg group-hover:animate-bounce"
                               : "bg-white text-accent hover:bg-gray-100"
                           }`}>
                             {isKebabFeast ? "🔥 Order Premium Feast!" : 
                              isFamilyDeal ? "👨‍👩‍👧‍👦 Order Family Deal!" : 
+                             isChickenCombo ? "🍗 Order Spicy Combo!" :
                              "Order Now"}
                           </Button>
                         </a>
