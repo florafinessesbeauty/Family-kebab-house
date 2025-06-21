@@ -157,6 +157,9 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
 export default function FoodRecommendation() {
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   const [showRecommendations, setShowRecommendations] = useState(false);
+  const [recommendations, setRecommendations] = useState<RecommendedDish[]>([]);
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const [additionalRecommendations, setAdditionalRecommendations] = useState<RecommendedDish[]>([]);
 
   // Fetch menu data from your database
   const { data: menuItems = [], isLoading } = useQuery({
@@ -213,12 +216,42 @@ export default function FoodRecommendation() {
   const recommendations = getRecommendations();
 
   const handleGetRecommendations = () => {
+    if (selectedPreferences.length === 0) {
+      alert("Please select at least one preference to get recommendations!");
+      return;
+    }
+
+    // Smart recommendation based on preferences
+    const scoredDishes = allDishes.map(dish => {
+      const matchingTags = dish.tags.filter(tag => selectedPreferences.includes(tag));
+      const score = matchingTags.length + (Math.random() * 0.1);
+      return { ...dish, score };
+    }).filter(dish => dish.score > 0);
+    
+    const sortedDishes = scoredDishes.sort((a, b) => b.score - a.score);
+    const topRecommendations = sortedDishes.slice(0, 8);
+    const moreOptions = sortedDishes.slice(8, 20);
+
+    setRecommendations(topRecommendations);
+    setAdditionalRecommendations(moreOptions);
     setShowRecommendations(true);
+    setShowMoreOptions(false);
   };
 
   const resetPreferences = () => {
     setSelectedPreferences([]);
     setShowRecommendations(false);
+    setShowMoreOptions(false);
+    setRecommendations([]);
+    setAdditionalRecommendations([]);
+  };
+
+  const handleShowMoreOptions = () => {
+    setShowMoreOptions(true);
+  };
+
+  const handleHideMoreOptions = () => {
+    setShowMoreOptions(false);
   };
 
   if (isLoading) {
