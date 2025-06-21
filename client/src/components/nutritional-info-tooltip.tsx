@@ -29,6 +29,7 @@ interface NutritionalInfoTooltipProps {
 
 const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemName, category, nutritionalData }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
   // Use database nutritional data if available, otherwise estimate
   const nutritionalInfo: NutritionalInfo = nutritionalData && nutritionalData.calories ? {
@@ -141,14 +142,43 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
   }
 
 
+  const handleMouseEnter = () => {
+    if (hoverTimeout) clearTimeout(hoverTimeout);
+    setIsVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsVisible(false);
+    }, 150); // Small delay to prevent flickering
+    setHoverTimeout(timeout);
+  };
+
+  const handleModalMouseEnter = () => {
+    if (hoverTimeout) clearTimeout(hoverTimeout);
+  };
+
+  const handleModalMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsVisible(false);
+    }, 150);
+    setHoverTimeout(timeout);
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsVisible(!isVisible);
+  };
+
   return (
     <div className="relative inline-block">
       <button
-        onMouseEnter={() => setIsVisible(true)}
-        onMouseLeave={() => setIsVisible(false)}
-        onTouchStart={() => setIsVisible(!isVisible)}
-        onClick={() => setIsVisible(!isVisible)}
-        className="p-2 rounded-full bg-white/90 backdrop-blur-sm border-2 border-primary/30 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl flex-shrink-0 group"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleClick}
+        onClick={handleClick}
+        className="p-2 rounded-full bg-white/90 backdrop-blur-sm border-2 border-primary/30 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl flex-shrink-0 group"
         style={{ 
           position: 'relative',
           zIndex: 99997
@@ -158,7 +188,7 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
       >
         <InfoIcon size={16} className="group-hover:animate-pulse" />
         <span 
-          className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none"
+          className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
           style={{ zIndex: 99998 }}
         >
           Nutrition Info
@@ -196,8 +226,8 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
               width: '100vw',
               height: '100vh'
             }}
-            onMouseEnter={() => setIsVisible(true)}
-            onMouseLeave={() => setIsVisible(false)}
+            onMouseEnter={handleModalMouseEnter}
+            onMouseLeave={handleModalMouseLeave}
           >
             {/* Tooltip Content */}
             <div 
@@ -209,6 +239,8 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(224, 6, 0, 0.2)',
                 background: 'white'
               }}
+              onMouseEnter={handleModalMouseEnter}
+              onMouseLeave={handleModalMouseLeave}
             >
             
               {/* Header with close button */}
@@ -300,6 +332,12 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
                 <p className="text-xs text-gray-500">
                   💡 Nutritional values are approximate and may vary
                 </p>
+                <button 
+                  onClick={() => setIsVisible(false)}
+                  className="mt-2 text-xs text-primary hover:text-red-600 underline sm:hidden"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
