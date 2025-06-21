@@ -166,122 +166,144 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
       </button>
 
       {isVisible && (
-        <div 
-          className="fixed inset-0 flex items-center justify-center p-4"
-          style={{ 
-            zIndex: 99999,
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0
-          }}
-          onMouseEnter={() => setIsVisible(true)}
-          onMouseLeave={() => setIsVisible(false)}
-        >
-          {/* Backdrop */}
+        <>
+          {/* Full-screen backdrop overlay */}
           <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            style={{ zIndex: 99999 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            style={{ 
+              zIndex: 999999,
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: '100vw',
+              height: '100vh'
+            }}
             onClick={() => setIsVisible(false)}
           />
           
-          {/* Tooltip Content */}
+          {/* Modal container */}
           <div 
-            className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm"
+            className="fixed inset-0 flex items-center justify-center p-4 pointer-events-none"
             style={{ 
-              zIndex: 100000,
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden'
+              zIndex: 1000000,
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: '100vw',
+              height: '100vh'
             }}
+            onMouseEnter={() => setIsVisible(true)}
+            onMouseLeave={() => setIsVisible(false)}
           >
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl scale-110" style={{ zIndex: -1 }} />
+            {/* Tooltip Content */}
+            <div 
+              className="bg-white border-2 border-primary rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm pointer-events-auto relative"
+              style={{ 
+                zIndex: 1000001,
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(224, 6, 0, 0.2)',
+                background: 'white'
+              }}
+            >
             
-            {/* Header with close button */}
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h4 className="font-bold text-charcoal text-lg">Nutritional Information</h4>
-                <p className="text-primary font-semibold">{itemName}</p>
+              {/* Header with close button */}
+              <div className="flex justify-between items-start mb-4" style={{ zIndex: 1000002 }}>
+                <div>
+                  <h4 className="font-bold text-charcoal text-lg">Nutritional Information</h4>
+                  <p className="text-primary font-semibold">{itemName}</p>
+                </div>
+                <button 
+                  onClick={() => setIsVisible(false)}
+                  className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Close"
+                  style={{ zIndex: 1000003 }}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
-              <button 
-                onClick={() => setIsVisible(false)}
-                className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Close"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
             
 
-            {/* Nutritional Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-xl border border-blue-200 hover:scale-105 transition-transform">
-                <div className="text-blue-700 font-semibold text-xs mb-1">🔥 Calories</div>
-                <div className="text-blue-900 font-bold text-lg">{nutritionalInfo.calories}</div>
-              </div>
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-3 rounded-xl border border-green-200 hover:scale-105 transition-transform">
-                <div className="text-green-700 font-semibold text-xs mb-1">💪 Protein</div>
-                <div className="text-green-900 font-bold text-lg">{nutritionalInfo.protein}</div>
-              </div>
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-3 rounded-xl border border-yellow-200 hover:scale-105 transition-transform">
-                <div className="text-yellow-700 font-semibold text-xs mb-1">🌾 Carbs</div>
-                <div className="text-yellow-900 font-bold text-lg">{nutritionalInfo.carbs}</div>
-              </div>
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-3 rounded-xl border border-red-200 hover:scale-105 transition-transform">
-                <div className="text-red-700 font-semibold text-xs mb-1">🧈 Fat</div>
-                <div className="text-red-900 font-bold text-lg">{nutritionalInfo.fat}</div>
-              </div>
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl border border-purple-200 hover:scale-105 transition-transform">
-                <div className="text-purple-700 font-semibold text-xs mb-1">🌿 Fiber</div>
-                <div className="text-purple-900 font-bold text-lg">{nutritionalInfo.fiber}</div>
-              </div>
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-3 rounded-xl border border-orange-200 hover:scale-105 transition-transform">
-                <div className="text-orange-700 font-semibold text-xs mb-1">🧂 Sodium</div>
-                <div className="text-orange-900 font-bold text-lg">{nutritionalInfo.sodium}</div>
-              </div>
-            </div>
-
-            <div className="mt-3 pt-2 border-t">
-              <div className="text-gray-600 text-xs">
-                <strong>Allergens:</strong>
-                <div className="mt-1">
-                  {nutritionalInfo.allergens.map((allergen, index) => (
-                    <span
-                      key={index}
-                      className="inline-block bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs mr-1 mb-1"
-                    >
-                      {allergen}
-                    </span>
-                  ))}
+              {/* Nutritional Grid */}
+              <div className="grid grid-cols-2 gap-3 mb-4" style={{ zIndex: 1000002 }}>
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-xl border-2 border-blue-200 hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)' }}>
+                  <div className="text-blue-700 font-semibold text-xs mb-1">🔥 Calories</div>
+                  <div className="text-blue-900 font-bold text-lg">{nutritionalInfo.calories}</div>
+                </div>
+                <div className="bg-gradient-to-br from-green-50 to-green-100 p-3 rounded-xl border-2 border-green-200 hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)' }}>
+                  <div className="text-green-700 font-semibold text-xs mb-1">💪 Protein</div>
+                  <div className="text-green-900 font-bold text-lg">{nutritionalInfo.protein}</div>
+                </div>
+                <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-3 rounded-xl border-2 border-yellow-200 hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)' }}>
+                  <div className="text-yellow-700 font-semibold text-xs mb-1">🌾 Carbs</div>
+                  <div className="text-yellow-900 font-bold text-lg">{nutritionalInfo.carbs}</div>
+                </div>
+                <div className="bg-gradient-to-br from-red-50 to-red-100 p-3 rounded-xl border-2 border-red-200 hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #fef2f2 0%, #fecaca 100%)' }}>
+                  <div className="text-red-700 font-semibold text-xs mb-1">🧈 Fat</div>
+                  <div className="text-red-900 font-bold text-lg">{nutritionalInfo.fat}</div>
+                </div>
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl border-2 border-purple-200 hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%)' }}>
+                  <div className="text-purple-700 font-semibold text-xs mb-1">🌿 Fiber</div>
+                  <div className="text-purple-900 font-bold text-lg">{nutritionalInfo.fiber}</div>
+                </div>
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-3 rounded-xl border-2 border-orange-200 hover:scale-105 transition-transform" style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%)' }}>
+                  <div className="text-orange-700 font-semibold text-xs mb-1">🧂 Sodium</div>
+                  <div className="text-orange-900 font-bold text-lg">{nutritionalInfo.sodium}</div>
                 </div>
               </div>
-            </div>
 
-            {nutritionalInfo.ingredients && (
-              <div className="mt-3 pt-2 border-t">
-                <div className="text-gray-600 text-xs">
-                  <strong>Main Ingredients:</strong>
-                  <div className="mt-1 text-gray-500">
-                    {nutritionalInfo.ingredients.join(', ')}
+              {/* Allergens */}
+              {nutritionalInfo.allergens && nutritionalInfo.allergens.length > 0 && (
+                <div className="mb-4 p-4 rounded-xl border-2" style={{ background: 'linear-gradient(135deg, #fef2f2 0%, #fecaca 100%)', borderColor: '#f87171', zIndex: 1000002 }}>
+                  <div className="font-bold text-red-800 text-sm mb-2 flex items-center">
+                    <span className="mr-2">⚠️</span>
+                    Allergen Warning
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {nutritionalInfo.allergens.map((allergen, index) => (
+                      <span 
+                        key={index} 
+                        className="px-2 py-1 rounded-full text-xs font-medium"
+                        style={{ background: '#fee2e2', color: '#7f1d1d', border: '1px solid #fca5a5' }}
+                      >
+                        {allergen}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            <div className="mt-2 text-xs text-gray-500 italic">
-              *Nutritional values based on standard portions. Please inform staff of allergies.
+              {/* Ingredients */}
+              {nutritionalInfo.ingredients && nutritionalInfo.ingredients.length > 0 && (
+                <div className="mb-4 p-4 rounded-xl border" style={{ background: 'linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%)', borderColor: '#d1d5db', zIndex: 1000002 }}>
+                  <div className="font-bold text-gray-800 text-sm mb-2 flex items-center">
+                    <span className="mr-2">🥘</span>
+                    Key Ingredients
+                  </div>
+                  <div className="text-gray-700 text-sm">
+                    {nutritionalInfo.ingredients.slice(0, 6).join(', ')}
+                    {nutritionalInfo.ingredients.length > 6 && (
+                      <span className="text-gray-500 italic"> +{nutritionalInfo.ingredients.length - 6} more</span>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Footer */}
+              <div className="text-center pt-2 border-t border-gray-200" style={{ zIndex: 1000002 }}>
+                <p className="text-xs text-gray-500">
+                  💡 Nutritional values are approximate and may vary
+                </p>
+              </div>
             </div>
           </div>
-          
-          {/* Mobile backdrop */}
-          <div 
-            className="sm:hidden fixed inset-0 bg-black bg-opacity-25 -z-10"
-            onClick={() => setIsVisible(false)}
-          ></div>
-        </div>
+        </>
       )}
     </div>
   );
