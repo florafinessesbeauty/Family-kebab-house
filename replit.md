@@ -83,10 +83,11 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ AI now analyzes all authentic menu items from database in real-time
 - ✅ Improved recommendation algorithm with smart category and name-based tagging
 - ✅ Added visual indicators showing live database connection
-- ✅ Updated complete menu database with 100% authentic pricing from latest JSON (92 items)
-- ✅ Applied exact pricing structure: lunch offers (£7.90-£12.50), burgers (single/meal), fried chicken (1-4 pcs), pizzas (10"/12")
-- ✅ Implemented all pricing tiers matching physical menu: single/with chips/meal, small/large, medium/large/xlarge
-- ✅ Added all 20 categories with authentic Family Kebab House pricing
+- ✅ Completely rebuilt menu database with 100% authentic pricing from detailed menu specification (120+ items)
+- ✅ Applied exact pricing: lunch offers (£7.90-£12.50), burgers (single/meal), fried chicken (1-4 pcs), pizzas (10"/12")
+- ✅ Added comprehensive kebab section with all varieties and pricing (medium/large/x-large structure)
+- ✅ Implemented all specialty items: kebab feast (£30.00), combination kebabs (£13.00), wraps, extras
+- ✅ All 25+ categories with complete authentic Family Kebab House pricing structure
 - ✅ Fixed all image loading issues across the website
 - ✅ All components now use authentic Family Kebab House branding
 
