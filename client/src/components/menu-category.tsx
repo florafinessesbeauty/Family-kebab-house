@@ -82,6 +82,11 @@ export default function MenuCategory({ title, description, items, icon }: Readon
   if (item.category === 'pizzas') {
     if (item.priceSmall) prices.push({ label: "10\"", price: item.priceSmall });
     if (item.priceLarge) prices.push({ label: "12\"", price: item.priceLarge });
+  } else if (item.category === 'chicken-wings-strips') {
+    // For wings & strips: Single, With Chips, Meal
+    if (item.singlePrice) prices.push({ label: "Single", price: item.singlePrice });
+    if (item.priceMedium) prices.push({ label: "With Chips", price: item.priceMedium });
+    if (item.priceLarge) prices.push({ label: "Meal", price: item.priceLarge });
   } else {
     if (item.priceSmall) prices.push({ label: "Sml", price: item.priceSmall });
     if (item.priceMedium) prices.push({ label: "Med", price: item.priceMedium });
