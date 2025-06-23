@@ -529,7 +529,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
 
       {/* Floating AI Button */}
       <FloatingAIButton onClick={handleAIRecommendationsClick} />
-    </div>
+      </div>
     </AccessibleLandmark>
   );
 }
