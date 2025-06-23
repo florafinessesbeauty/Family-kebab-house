@@ -256,7 +256,6 @@ export default function Menu() {
 
           {/* Special Deals First */}
           {specialDeals.length > 0 && (
-            <AccessibleLandmark role="region" ariaLabel="Special offers and featured deals">
               <div className="mb-16">
                 <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -486,7 +485,6 @@ export default function Menu() {
           </div>
         </div>
       </section>
-        </AccessibleLandmark>
 
       {/* Menu Content */}
       <AccessibleLandmark role="region" ariaLabel={`${getCategoryInfo(activeCategory).name} menu items`} id="menu-content">

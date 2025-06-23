@@ -334,8 +334,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
       </section>
 
       {/* Special Offers */}
-      <AccessibleLandmark role="region" ariaLabel="Special offers and deals">
-        <section className="py-16 bg-gradient-to-r from-primary to-red-600">
+      <section className="py-16 bg-gradient-to-r from-primary to-red-600">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="font-poppins text-4xl font-bold text-white mb-4">Special Offers</h2>
