@@ -503,6 +503,12 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/meal-builder">
+              <Button size="lg" className="bg-accent text-charcoal hover:bg-yellow-600 font-semibold">
+                <Utensils className="mr-3 h-5 w-5" />
+                Build Your Meal
+              </Button>
+            </Link>
             <a href="tel:01692584100">
               <Button size="lg" className="bg-brand-primary text-white hover:bg-red-700 font-semibold">
                 <Phone className="mr-3 h-5 w-5" />
@@ -510,7 +516,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
               </Button>
             </a>
             <Link to="/contact">
-              <Button size="lg" className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-semibold">
+              <Button size="lg" className="bg-gray-600 text-white hover:bg-gray-700 font-semibold">
                 <MapPin className="mr-3 h-5 w-5" />
                 Get Directions
               </Button>

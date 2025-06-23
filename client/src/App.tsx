@@ -6,6 +6,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import GlobalVoiceControl from "@/components/global-voice-control";
+import BasketDrawer from "@/components/basket-drawer";
+import ChefsRecommendationPopup from "@/components/chefs-recommendation-popup";
+import { BasketProvider } from "@/hooks/use-basket";
 import { useLocation } from "react-router-dom";
 
 // Import your page components (adjust the paths and capitalization as needed)
@@ -14,6 +17,7 @@ import Menu from "@/pages/menu";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import NutritionalInfo from "@/pages/nutritional-info";
+import MealBuilderPage from "@/pages/meal-builder-page";
 import NotFound from "@/pages/not-found";
 
 function App() {
@@ -44,14 +48,18 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/nutritional-info" element={<NutritionalInfo />} />
+              <Route path="/meal-builder" element={<MealBuilderPage />} />
               {/* Catch-all route for any unmatched paths */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
         </div>
+        <BasketDrawer />
+        <ChefsRecommendationPopup />
         <GlobalVoiceControl />
         <Toaster />
+      </BasketProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
