@@ -42,6 +42,27 @@ export default function MenuCategory({ title, description, items, icon }: Readon
   };
 
   const renderPriceDisplay = (item: MenuItemData) => {
+    // Check if item has multiple sizes
+    const hasSizes = item.priceMedium || item.priceLarge || item.priceXLarge;
+    
+    if (hasSizes) {
+      const sizes = [];
+      if (item.priceMedium) sizes.push({ label: 'Medium', price: item.priceMedium });
+      if (item.priceLarge) sizes.push({ label: 'Large', price: item.priceLarge });
+      if (item.priceXLarge) sizes.push({ label: 'X-Large', price: item.priceXLarge });
+      
+      return (
+        <div className="text-right space-y-1">
+          {sizes.map((size, index) => (
+            <div key={size.label} className="flex justify-between items-center text-sm">
+              <span className="text-gray-600 mr-2">{size.label}:</span>
+              <span className="font-bold text-primary">{formatPrice(size.price)}</span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+    
     // Check for single price first (includes regular price and singlePrice)
     if (item.singlePrice || item.price) {
       return (
