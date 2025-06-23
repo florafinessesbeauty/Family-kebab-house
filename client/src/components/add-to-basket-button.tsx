@@ -253,14 +253,80 @@ export default function AddToBasketButton({ item, variant = 'default', className
   if (variant === 'small') {
     return (
       <div className="flex gap-2">
-        <Button
-          size="sm"
-          onClick={handleQuickAdd}
-          className={`bg-primary hover:bg-red-700 text-white ${className}`}
-        >
-          <ShoppingBasket className="mr-1 h-3 w-3" />
-          Add
-        </Button>
+        {sizeOptions.length > 1 ? (
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button
+                size="sm"
+                className={`bg-primary hover:bg-red-700 text-white ${className}`}
+              >
+                <ShoppingBasket className="mr-1 h-3 w-3" />
+                Add
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <p className="text-sm text-gray-600">{item.description}</p>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Choose Size:</label>
+                  <div className="grid gap-2">
+                    {sizeOptions.map((size) => (
+                      <Button
+                        key={size.value}
+                        variant={selectedSize === size.value ? "default" : "outline"}
+                        onClick={() => setSelectedSize(size.value)}
+                        className="justify-between"
+                      >
+                        <span>{size.label}</span>
+                        <span className="font-bold">£{size.price.toFixed(2)}</span>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t">
+                  <div className="text-lg font-bold">
+                    Total: £{(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0).toFixed(2)}
+                  </div>
+                  <Button 
+                    onClick={() => {
+                      const selectedSizeOption = sizeOptions.find(s => s.value === selectedSize) || sizeOptions[0];
+                      if (selectedSizeOption) {
+                        const basketItem = {
+                          id: `${item.id}-${Date.now()}`,
+                          name: `${item.name} (${selectedSizeOption.label})`,
+                          price: selectedSizeOption.price,
+                          category: item.category,
+                          emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
+                        };
+                        addItem(basketItem);
+                        setIsOpen(true);
+                        setIsDialogOpen(false);
+                        setSelectedSize('');
+                      }
+                    }}
+                    className="bg-primary hover:bg-red-700"
+                    disabled={!selectedSize}
+                  >
+                    <ShoppingBasket className="w-4 h-4 mr-2" />
+                    Add to Basket
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        ) : (
+          <Button
+            size="sm"
+            onClick={handleQuickAdd}
+            className={`bg-primary hover:bg-red-700 text-white ${className}`}
+          >
+            <ShoppingBasket className="mr-1 h-3 w-3" />
+            Add
+          </Button>
+        )}
         <Button
           size="sm"
           variant="outline"
@@ -276,11 +342,11 @@ export default function AddToBasketButton({ item, variant = 'default', className
   return (
     <div className="flex gap-2">
       <Button
-        onClick={handleQuickAdd}
+        onClick={sizeOptions.length > 1 ? () => setIsDialogOpen(true) : handleQuickAdd}
         className={`bg-primary hover:bg-red-700 text-white flex-1 ${className}`}
       >
         <ShoppingBasket className="mr-2 h-4 w-4" />
-        Add to Basket
+        {sizeOptions.length > 1 ? 'Choose Size' : 'Add to Basket'}
       </Button>
 
       <Button

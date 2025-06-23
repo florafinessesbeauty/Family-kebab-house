@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -22,11 +22,19 @@ import NotFound from "@/pages/not-found";
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleAIRecommendationsClick = () => {
-    // If not on home page, navigate to home first
+    // If not on home page, navigate to home first using React Router
     if (location.pathname !== '/') {
-      window.location.href = '/#ai-recommendations';
+      navigate('/');
+      // Set a timeout to scroll after navigation
+      setTimeout(() => {
+        const aiSection = document.getElementById('ai-recommendations');
+        if (aiSection) {
+          aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
     } else {
       // If on home page, scroll to AI recommendations
       const aiSection = document.getElementById('ai-recommendations');
