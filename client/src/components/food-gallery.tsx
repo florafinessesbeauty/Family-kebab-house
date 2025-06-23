@@ -34,11 +34,11 @@ const galleryImages: GalleryImage[] = [
     emoji: "🍕"
   },
   {
-    id: "gourmet-burger",
+    id: "2oz-burger",
     src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
-    title: "Gourmet Burger",
+    title: "2oz Burger",
     category: "Burgers",
-    description: "Juicy, flame-grilled perfection with fresh ingredients",
+    description: "Classic 2oz beef burger with fresh ingredients",
     price: "From £5.50",
     emoji: "🍔"
   },
