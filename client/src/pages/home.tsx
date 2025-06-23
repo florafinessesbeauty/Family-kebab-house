@@ -257,11 +257,11 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
                             item={{
                               id: `slideshow-${slide.id}`,
                               name: slide.title,
-                              category: slide.category || 'featured',
-                              singlePrice: parseFloat(slide.price.replace('£', '')),
+                              category: 'featured',
+                              singlePrice: parseFloat(slide.price.replace(/[£From ]/g, '')) || 0,
                               description: slide.description
                             }}
-                            className="flex-1"
+                            className="flex-1 bg-accent-gold text-charcoal hover:bg-yellow-600"
                           />
                           <a href="tel:01692584100">
                             <Button size="lg" variant="outline" className="bg-white/90 hover:bg-white text-charcoal font-bold px-6 py-4 transition-all duration-300">

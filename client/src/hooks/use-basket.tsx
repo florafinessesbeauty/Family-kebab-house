@@ -48,9 +48,7 @@ export function BasketProvider({ children }: { children: ReactNode }) {
   }, [items]);
 
   const addItem = (newItem: Omit<BasketItem, 'quantity'>) => {
-    console.log('useBasket addItem called with:', newItem);
     setItems(prevItems => {
-      console.log('Current basket items:', prevItems);
       const existingItemIndex = prevItems.findIndex(
         item => item.id === newItem.id && item.size === newItem.size
       );
@@ -59,13 +57,10 @@ export function BasketProvider({ children }: { children: ReactNode }) {
         // Item exists, increase quantity
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex].quantity += 1;
-        console.log('Updated existing item quantity:', updatedItems);
         return updatedItems;
       } else {
         // New item, add with quantity 1
-        const newItems = [...prevItems, { ...newItem, quantity: 1 }];
-        console.log('Added new item to basket:', newItems);
-        return newItems;
+        return [...prevItems, { ...newItem, quantity: 1 }];
       }
     });
   };

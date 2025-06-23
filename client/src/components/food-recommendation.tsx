@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Heart, Zap, Clock, DollarSign } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import AddToBasketButton from "@/components/add-to-basket-button";
 
 interface FoodPreference {
   id: string;
@@ -396,12 +397,25 @@ export default function FoodRecommendation() {
                           ))}
                       </div>
 
-                      <a href="tel:01692584100">
-                        <Button className="w-full bg-primary hover:bg-red-700 text-white">
-                          <Phone className="mr-2 h-4 w-4" />
-                          Order Now
-                        </Button>
-                      </a>
+                      <div className="space-y-2">
+                        <AddToBasketButton 
+                          item={{
+                            id: dish.id,
+                            name: dish.name,
+                            category: dish.category,
+                            singlePrice: parseFloat(dish.price.replace(/[£From ]/g, '')) || 0,
+                            description: dish.description
+                          }}
+                          variant="small"
+                          className="w-full"
+                        />
+                        <a href="tel:01692584100">
+                          <Button variant="outline" className="w-full">
+                            <Phone className="mr-2 h-4 w-4" />
+                            Call to Order
+                          </Button>
+                        </a>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
