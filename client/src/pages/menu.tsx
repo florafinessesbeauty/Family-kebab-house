@@ -362,6 +362,8 @@ export default function Menu() {
                     ? "⏰ Available 12:00 - 14:30 daily"
                     : activeCategory === "family-deals"
                     ? "👨‍👩‍👧‍👦 Perfect for sharing with loved ones"
+                    : activeCategory === "wraps"
+                    ? "🌯 Fresh wraps with your choice of fillings, salad & sauce"
                     : undefined
                 }
                 items={getItemsByCategory(activeCategory)}

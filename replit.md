@@ -122,6 +122,9 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added detailed specification: Doner, Shish, Chicken & Kofte kebabs with salad, pitta, sauces & chips
 - ✅ Fixed DialogContent accessibility warning by adding proper ARIA labels and screen reader support
 - ✅ Created Dialog UI components with DialogTitle and DialogDescription for accessibility compliance
+- ✅ Added complete Wraps category with 8 authentic menu items
+- ✅ Updated Kebab Feast to display in kebabs category (£30.00)
+- ✅ Added wraps description and navigation to menu page
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
