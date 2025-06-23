@@ -138,6 +138,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added nuggets with Single/With Chips/Meal pricing structure
 - ✅ Added Drinks category with 3 beverage options
 - ✅ Added sauce descriptions to extras category with complete sauce list
+- ✅ Added Kids Meals category with 2 child-friendly options
+- ✅ Added drink items to both Drinks and Extras categories
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

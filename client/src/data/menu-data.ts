@@ -1534,6 +1534,7 @@ export const categories = [
   { id: "scampi", name: "Scampi", icon: "🦐" },
   { id: "extras", name: "Extras", icon: "🍟" },
   { id: "drinks", name: "Drinks", icon: "🥤" },
+  { id: "kids-meals", name: "Kids Meals", icon: "👶" },
   { id: "desserts", name: "Desserts", icon: "🍰" },
   { id: "meal-deals", name: "Meal Deals", icon: "💝" },
 ];
