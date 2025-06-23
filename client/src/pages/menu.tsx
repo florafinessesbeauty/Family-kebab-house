@@ -472,22 +472,48 @@ export default function Menu() {
                             );
                           })()}
                         </div>
-                        <a href="tel:01692584100">
-                          <Button className={`w-full transition-all duration-300 ${
-                            isKebabFeast 
-                              ? "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white hover:from-yellow-300 hover:via-orange-300 hover:to-red-400 font-black text-lg transform hover:scale-110 shadow-2xl animate-pulse hover:animate-none border-4 border-white" 
-                              : isFamilyDeal
-                              ? "bg-pink-400 text-purple-900 hover:bg-pink-300 font-bold transform group-hover:scale-105 shadow-lg group-hover:animate-bounce"
-                              : isChickenCombo
-                              ? "bg-orange-400 text-red-900 hover:bg-orange-300 font-bold transform group-hover:scale-105 shadow-lg group-hover:animate-bounce"
-                              : "bg-white text-accent hover:bg-gray-100"
-                          }`}>
-                            {isKebabFeast ? "🏆 ORDER ULTIMATE FEAST NOW! 🏆" : 
-                             isFamilyDeal ? "👨‍👩‍👧‍👦 Order Family Deal!" : 
-                             isChickenCombo ? "🍗 Order Spicy Combo!" :
-                             "Order Now"}
-                          </Button>
-                        </a>
+                        <div className="space-y-3">
+                          <AddToBasketButton 
+                            item={{
+                              id: `special-deal-${deal.id}`,
+                              name: deal.name,
+                              category: deal.category || 'special-offers',
+                              singlePrice: (() => {
+                                const specialOfferPrices: { [key: string]: number } = {
+                                  "⏰ Chicken Burger + Chips & Drink": 7.90,
+                                  "⏰ ¼ Pounder with Cheese + Chips & Drink": 7.90,
+                                  "⏰ ½ Pounder with Double Cheese + Chips & Drink": 9.50,
+                                  "⏰ Medium Doner Meat + Chips & Drink": 7.90,
+                                  "⏰ Large Doner Meat + Chips & Drink": 9.50,
+                                  "⏰ 10\" Margherita with 3 Toppings + Drink": 9.50,
+                                  "⏰ 12\" Margherita with 3 Toppings + Drink": 12.50,
+                                  "🍕 2× 10\" Pizzas from Set-Menu": 17.20,
+                                  "🍕 2× 12\" Pizzas from Set-Menu": 22.50,
+                                  "👨‍👩‍👧‍👦 Family Deal (10\" Pizza)": 26.90,
+                                  "👨‍👩‍👧‍👦 Family Deal (12\" Pizza)": 28.90,
+                                  "🎉 Kebab Feast": 30.00,
+                                  "🍗 3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
+                                };
+                                return specialOfferPrices[deal.name] || deal.singlePrice || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge || 0;
+                              })(),
+                              description: deal.description
+                            }}
+                            className={`w-full transition-all duration-300 ${
+                              isKebabFeast 
+                                ? "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white hover:from-yellow-300 hover:via-orange-300 hover:to-red-400 font-black text-lg transform hover:scale-110 shadow-2xl animate-pulse hover:animate-none border-4 border-white" 
+                                : isFamilyDeal
+                                ? "bg-pink-400 text-purple-900 hover:bg-pink-300 font-bold transform group-hover:scale-105 shadow-lg"
+                                : isChickenCombo
+                                ? "bg-orange-400 text-red-900 hover:bg-orange-300 font-bold transform group-hover:scale-105 shadow-lg"
+                                : "bg-primary text-white hover:bg-red-700"
+                            }`}
+                          />
+                          <a href="tel:01692584100">
+                            <Button variant="outline" className="w-full bg-white/90 hover:bg-white text-charcoal border-2">
+                              📞 Call to Order
+                            </Button>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   );
