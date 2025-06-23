@@ -19,6 +19,15 @@ export default function Menu() {
   const [accessibilityMode, setAccessibilityMode] = useState(false);
   const menuContainerRef = useRef<HTMLDivElement>(null);
 
+  // Define helper functions first
+  const getItemsByCategory = (category: string) =>
+    menuData.filter(item => item.category === category);
+
+  const getCategoryInfo = (categoryId: string) => {
+    const category = categories.find(c => c.id === categoryId);
+    return category || { name: categoryId, icon: "" };
+  };
+
   const currentCategoryItems = getItemsByCategory(activeCategory);
 
   // Keyboard navigation
@@ -149,14 +158,6 @@ export default function Menu() {
     fetchMenuData();
   }, []);
 
-  const getItemsByCategory = (category: string) =>
-    menuData.filter(item => item.category === category);
-
-  const getCategoryInfo = (categoryId: string) => {
-    const category = categories.find(c => c.id === categoryId);
-    return category || { name: categoryId, icon: "" };
-  };
-
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
     "combination-kebabs": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -176,8 +177,7 @@ export default function Menu() {
     "kids-meals": "https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
     desserts: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
     nuggets: "https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    "combo-meals": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    drinks: "https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+    "combo-meals": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
   };
 
   const specialDeals = menuData.filter(item => item.isSpecial);
