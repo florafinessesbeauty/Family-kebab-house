@@ -115,6 +115,9 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added PriceBadge component with discount indicators and special offer highlighting
 - ✅ Created SizeSelector component for multi-size items with visual feedback
 - ✅ Enhanced special offers with savings display and original price strikethrough
+- ✅ Added complete kebab menu expansion with 9 additional authentic items
+- ✅ Added Special Chicken Kebab, Halep Kebab, Adana, Bursa, and various doner combinations
+- ✅ Implemented proper medium/large pricing structure for doner meat dishes
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
