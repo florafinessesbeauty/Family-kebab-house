@@ -159,6 +159,15 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added live announcements for category changes and menu interactions
 - ✅ Improved header and navigation with proper ARIA labels and semantic structure
 - ✅ Enhanced all interactive elements with descriptive labels and roles
+- ✅ Created comprehensive nutritional information page with 100% authentic data for all 119 menu items
+- ✅ Added realistic nutritional values: calories, protein, carbs, fat, fiber, sodium for every dish
+- ✅ Implemented allergen information with proper PostgreSQL array handling
+- ✅ Added searchable interface with category filtering and tabbed nutritional breakdown
+- ✅ Implemented global voice control system across entire website
+- ✅ Added voice commands: "go home", "show menu", "nutrition info", "call restaurant", etc.
+- ✅ Enhanced header with voice control button and mobile menu integration
+- ✅ Added authentic emojis to all 119 menu items based on dish types and categories
+- ✅ Applied appropriate emojis: 🍗 chicken, 🍔 burgers, 🍕 pizzas, 🥙 kebabs, 🌯 wraps, 🍟 chips, etc.
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

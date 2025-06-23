@@ -11,6 +11,7 @@ interface HeaderProps {
 export default function Header({ onAIRecommendationsClick }: HeaderProps) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { startListening } = useGlobalVoiceControl();
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -59,6 +60,16 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
           </nav>
 
           <div className="flex items-center space-x-2">
+            {/* Voice Control Button */}
+            <Button
+              onClick={startListening}
+              className="hidden lg:flex bg-green-600 hover:bg-green-700 text-white font-semibold transition-all duration-300"
+              title="Voice Commands: Say 'go home', 'show menu', 'nutrition info', etc."
+            >
+              <Mic className="mr-2 h-4 w-4" />
+              🎤 Voice
+            </Button>
+
             {/* AI Recommendations Button */}
             <Button
               onClick={onAIRecommendationsClick}
