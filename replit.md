@@ -134,6 +134,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added 6pcs chicken meal (£14.00) and 8pcs chicken meal (£17.50) with chips & coleslaw
 - ✅ Added Chicken Wings & Strips category with 3 authentic items
 - ✅ Added wings and strips with Single/With Chips/Meal pricing structure
+- ✅ Added Chicken Nuggets category with 2 authentic items
+- ✅ Added nuggets with Single/With Chips/Meal pricing structure
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

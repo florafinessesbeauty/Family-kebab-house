@@ -1528,6 +1528,7 @@ export const categories = [
   { id: "fried-chicken", name: "Fried Chicken", icon: "🍗" },
   { id: "chicken-bargain-meals", name: "Chicken Bargain Meals", icon: "🍱" },
   { id: "chicken-wings-strips", name: "Chicken Wings & Strips", icon: "🔥" },
+  { id: "chicken-nuggets", name: "Chicken Nuggets", icon: "🍗" },
   { id: "wings", name: "Wings", icon: "🔥" },
   { id: "nuggets", name: "Nuggets", icon: "🍗" },
   { id: "scampi", name: "Scampi", icon: "🦐" },
