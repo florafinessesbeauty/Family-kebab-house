@@ -284,6 +284,18 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                   </div>
                   <div className="text-lg font-bold text-primary">£6.00</div>
                 </div>
+                <div className="mt-3">
+                  <AddToBasketButton 
+                    item={{
+                      id: "extra-skewer",
+                      name: "🍢 Add 1 Skewer Extra",
+                      category: "extras",
+                      singlePrice: 6.00,
+                      description: "Extra meat portion"
+                    }}
+                    variant="small"
+                  />
+                </div>
               </div>
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between">
@@ -293,6 +305,18 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                   </div>
                   <div className="text-lg font-bold text-primary">£1.50</div>
                 </div>
+                <div className="mt-3">
+                  <AddToBasketButton 
+                    item={{
+                      id: "extra-mozzarella",
+                      name: "🧀 Add Mozzarella Cheese",
+                      category: "extras",
+                      singlePrice: 1.50,
+                      description: "Melted cheese topping"
+                    }}
+                    variant="small"
+                  />
+                </div>
               </div>
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex items-center justify-between">
@@ -301,6 +325,18 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                     <p className="text-sm text-gray-600">Mushroom, onion & green pepper</p>
                   </div>
                   <div className="text-lg font-bold text-primary">£1.50</div>
+                </div>
+                <div className="mt-3">
+                  <AddToBasketButton 
+                    item={{
+                      id: "extra-special-mix",
+                      name: "🥬 Add \"Special\" Mix",
+                      category: "extras",
+                      singlePrice: 1.50,
+                      description: "Mushroom, onion & green pepper"
+                    }}
+                    variant="small"
+                  />
                 </div>
               </div>
             </div>
@@ -338,11 +374,35 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                   <h4 className="font-semibold text-charcoal mb-1">10" Extra Topping</h4>
                   <div className="text-lg font-bold text-primary">£1.40</div>
                 </div>
+                <div className="mt-3">
+                  <AddToBasketButton 
+                    item={{
+                      id: "pizza-topping-10",
+                      name: "🍕 10\" Extra Topping",
+                      category: "extras",
+                      singlePrice: 1.40,
+                      description: "Add any topping to your 10\" pizza"
+                    }}
+                    variant="small"
+                  />
+                </div>
               </div>
               <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
                 <div className="text-center">
                   <h4 className="font-semibold text-charcoal mb-1">12" Extra Topping</h4>
                   <div className="text-lg font-bold text-primary">£1.80</div>
+                </div>
+                <div className="mt-3">
+                  <AddToBasketButton 
+                    item={{
+                      id: "pizza-topping-12",
+                      name: "🍕 12\" Extra Topping",
+                      category: "extras",
+                      singlePrice: 1.80,
+                      description: "Add any topping to your 12\" pizza"
+                    }}
+                    variant="small"
+                  />
                 </div>
               </div>
             </div>
