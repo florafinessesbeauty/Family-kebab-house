@@ -104,9 +104,11 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleAddToBasket = () => {
+    console.log('handleAddToBasket called', { item, sizeOptions });
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize) || sizeOptions[0];
     
     if (!selectedSizeOption) {
+      console.error('No size option found', { sizeOptions, selectedSize });
       toast({
         title: "Error",
         description: "Unable to determine price for this item.",
@@ -125,6 +127,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
       emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
     };
 
+    console.log('Adding basket item:', basketItem);
     addItem(basketItem);
     
     toast({
@@ -164,18 +167,25 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleQuickAdd = () => {
+    console.log('handleQuickAdd called', { item, hasMultipleSizes, hasExtras, sizeOptions });
+    
     if (hasMultipleSizes || hasExtras) {
+      console.log('Opening dialog for customization');
       setIsDialogOpen(true);
     } else {
       // Quick add for simple items
+      const price = sizeOptions[0]?.price || item.singlePrice || 0;
+      console.log('Quick adding item with price:', price);
+      
       const basketItem = {
         id: `${item.id}-quick`,
         name: item.name,
-        price: sizeOptions[0]?.price || 0,
+        price: price,
         category: item.category,
         emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
       };
       
+      console.log('Quick add basket item:', basketItem);
       addItem(basketItem);
       
       toast({
