@@ -248,16 +248,28 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
                       <p className="text-lg md:text-xl text-gray-200 mb-6 transform animate-slide-up animation-delay-200">
                         {slide.description}
                       </p>
-                      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center transform animate-slide-up animation-delay-400">
+                      <div className="space-y-4 transform animate-slide-up animation-delay-400">
                         <div className="text-2xl md:text-3xl font-bold text-accent-gold">
                           {slide.price}
                         </div>
-                        <a href="tel:01692584100">
-                          <Button size="lg" className="bg-primary hover:bg-red-700 text-white font-bold px-8 py-4 transform hover:scale-110 transition-all duration-300 shadow-lg">
-                            <Phone className="mr-2 h-5 w-5" />
-                            📞 Order Now!
-                          </Button>
-                        </a>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <AddToBasketButton 
+                            item={{
+                              id: `slideshow-${slide.id}`,
+                              name: slide.title,
+                              category: slide.category || 'featured',
+                              singlePrice: parseFloat(slide.price.replace('£', '')),
+                              description: slide.description
+                            }}
+                            className="flex-1"
+                          />
+                          <a href="tel:01692584100">
+                            <Button size="lg" variant="outline" className="bg-white/90 hover:bg-white text-charcoal font-bold px-6 py-4 transition-all duration-300">
+                              <Phone className="mr-2 h-5 w-5" />
+                              Call Now
+                            </Button>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -355,11 +367,23 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
                 <CardContent className="p-6">
                   <h3 className="font-poppins text-xl font-bold text-charcoal mb-2">{offer.name}</h3>
                   <p className="text-gray-600 mb-4">{offer.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl font-bold text-brand-primary">£{offer.price.toFixed(2)}</span>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-3xl font-bold text-brand-primary">£{offer.price.toFixed(2)}</span>
+                    </div>
+                    <AddToBasketButton 
+                      item={{
+                        id: `home-offer-${offer.id}`,
+                        name: offer.name,
+                        category: 'special-offers',
+                        singlePrice: offer.price,
+                        description: offer.description
+                      }}
+                      className="w-full"
+                    />
                     <a href="tel:01692584100" aria-label={`Order ${offer.name} now by calling 01692 584 100`}>
-                      <Button className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-semibold">
-                        Order Now
+                      <Button variant="outline" className="w-full">
+                        Call to Order
                       </Button>
                     </a>
                   </div>

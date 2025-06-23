@@ -481,12 +481,24 @@ export default function FoodRecommendation() {
                                 ))}
                             </div>
 
-                            <a href="tel:01692584100">
-                              <Button className="w-full bg-accent hover:bg-orange-600 text-white">
-                                <Phone className="mr-2 h-4 w-4" />
-                                Order Now
-                              </Button>
-                            </a>
+                            <div className="space-y-2">
+                              <AddToBasketButton 
+                                item={{
+                                  id: `ai-rec-${dish.id}`,
+                                  name: dish.name,
+                                  category: dish.category,
+                                  singlePrice: parseFloat(dish.price.replace('From £', '').replace('£', '')),
+                                  description: dish.description
+                                }}
+                                className="w-full"
+                              />
+                              <a href="tel:01692584100">
+                                <Button variant="outline" className="w-full">
+                                  <Phone className="mr-2 h-4 w-4" />
+                                  Call to Order
+                                </Button>
+                              </a>
+                            </div>
                           </CardContent>
                         </Card>
                       ))}
