@@ -13,6 +13,7 @@ export interface MenuItemData {
   extraPrice12inches?: number;
   singlePrice?: number;
   withChips?: number;
+  withDrink?: number;
   mealPrice?: number;
   isSpecial?: boolean;
   extras?: {
