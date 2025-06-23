@@ -490,8 +490,8 @@ export default function Menu() {
       <AccessibleLandmark role="region" ariaLabel={`${getCategoryInfo(activeCategory).name} menu items`} id="menu-content">
         <section className="py-12 relative">
           <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2 relative">
+            <div className="grid lg:grid-cols-3 gap-12">
+              <div className="lg:col-span-2 relative">
               <MenuCategory
                 title={getCategoryInfo(activeCategory).name}
                 description={
@@ -522,9 +522,9 @@ export default function Menu() {
                 items={getItemsByCategory(activeCategory)}
                 icon={getCategoryInfo(activeCategory).icon}
               />
-            </div>
+              </div>
 
-            <div className="space-y-6">
+              <div className="lg:col-span-1 space-y-6">
               {/* Category Image */}
               {menuImages[activeCategory as keyof typeof menuImages] && (
                 <img 
@@ -570,9 +570,11 @@ export default function Menu() {
                 </ul>
               </div>
             </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </AccessibleLandmark>
 
       {/* Voice Control Button */}
       <VoiceControlButton
@@ -580,7 +582,5 @@ export default function Menu() {
         onReadMenu={handleReadMenu}
         onOrderItem={handleOrderItem}
       />
-    </div>
-    </AccessibleLandmark>
   );
 }
