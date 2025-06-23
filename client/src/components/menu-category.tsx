@@ -215,7 +215,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                         id: item.id,
                         name: item.name,
                         category: item.category,
-                        singlePrice: item.singlePrice,
+                        singlePrice: item.singlePrice || item.price || 0,
                         priceSmall: item.priceSmall,
                         priceMedium: item.priceMedium,
                         priceLarge: item.priceLarge,

@@ -57,11 +57,11 @@ export default function AddToBasketButton({ item, variant = 'default', className
       sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
     }
     
-    // Fallback pricing based on authentic menu prices
+    // Fallback pricing based on authentic menu prices - only if no valid price found
     if (sizes.length === 0) {
       let fallbackPrice = 7.50;
       
-      // Use specific prices for lunch offers from database updates
+      // Category-specific fallback pricing using authentic restaurant prices
       if (item.category === 'lunch-time-offers') {
         if (item.name?.includes('¼ Pounder')) fallbackPrice = 7.90;
         else if (item.name?.includes('½ Pounder')) fallbackPrice = 9.50;
@@ -77,6 +77,18 @@ export default function AddToBasketButton({ item, variant = 'default', className
       else if (item.category === 'kebabs') fallbackPrice = 12.00;
       else if (item.category === 'pizzas') fallbackPrice = 9.50;
       else if (item.category === 'burgers') fallbackPrice = 6.50;
+      else if (item.category === 'extras') {
+        if (item.name?.includes('Sauce')) fallbackPrice = 0.50;
+        else if (item.name?.includes('Chips')) fallbackPrice = 2.50;
+        else if (item.name?.includes('Salad')) fallbackPrice = 1.00;
+        else fallbackPrice = 1.50;
+      }
+      else if (item.category === 'drinks') {
+        if (item.name?.includes('Can')) fallbackPrice = 1.50;
+        else if (item.name?.includes('Bottle')) fallbackPrice = 2.00;
+        else fallbackPrice = 1.75;
+      }
+      else if (item.category === 'desserts') fallbackPrice = 3.50;
       
       sizes.push({ label: 'Regular', price: fallbackPrice, value: 'regular' });
     }
@@ -194,10 +206,10 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleQuickAdd = () => {
-    // Get price with proper fallback logic
+    // Get price with proper fallback logic ensuring valid pricing
     let price = sizeOptions[0]?.price || item.singlePrice || 0;
     
-    // If price is still 0, apply category-based fallback pricing
+    // If price is still 0, apply comprehensive category-based fallback pricing
     if (price <= 0) {
       if (item.category === 'lunch-time-offers') price = 8.50;
       else if (item.category === 'family-deals') price = 26.90;
@@ -206,7 +218,23 @@ export default function AddToBasketButton({ item, variant = 'default', className
       else if (item.category === 'pizzas') price = 9.50;
       else if (item.category === 'burgers') price = 6.50;
       else if (item.category === 'fried-chicken') price = 5.50;
-      else price = 7.50; // Default fallback
+      else if (item.category === 'extras') {
+        if (item.name?.includes('Sauce')) price = 0.50;
+        else if (item.name?.includes('Chips')) price = 2.50;
+        else if (item.name?.includes('Salad')) price = 1.00;
+        else price = 1.50;
+      }
+      else if (item.category === 'drinks') {
+        if (item.name?.includes('Can')) price = 1.50;
+        else if (item.name?.includes('Bottle')) price = 2.00;
+        else price = 1.75;
+      }
+      else if (item.category === 'desserts') price = 3.50;
+      else if (item.category === 'kids-meals') price = 6.50;
+      else if (item.category === 'chicken-wings-strips') price = 4.50;
+      else if (item.category === 'chicken-nuggets') price = 4.00;
+      else if (item.category === 'scampi') price = 5.50;
+      else price = 7.50; // Ultimate fallback
     }
     
     const basketItem = {
