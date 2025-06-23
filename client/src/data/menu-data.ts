@@ -16,6 +16,15 @@ export interface MenuItemData {
   extras?: {
     [key: string]: number;
   };
+  // Nutritional information
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+  fiber?: number;
+  sodium?: number;
+  allergens?: string;
+  ingredients?: string;
 }
 
 export const menuData: MenuItemData[] = [
