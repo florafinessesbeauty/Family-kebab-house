@@ -11,9 +11,20 @@ export const menuItems = pgTable("menu_items", {
   priceMedium: real("price_medium"),
   priceLarge: real("price_large"),
   priceXLarge: real("price_x_large"),
+  price10inches: real("price_10_inches"),
+  price12inches: real("price_12_inches"),
   singlePrice: real("single_price"),
   isSpecial: boolean("is_special").default(false),
   isAvailable: boolean("is_available").default(true),
+  // Nutritional information
+  calories: real("calories"),
+  protein: real("protein"),
+  carbs: real("carbs"),
+  fat: real("fat"),
+  fiber: real("fiber"),
+  sodium: real("sodium"),
+  allergens: text("allergens"),
+  ingredients: text("ingredients"),
 });
 
 export const insertMenuItemSchema = createInsertSchema(menuItems).omit({

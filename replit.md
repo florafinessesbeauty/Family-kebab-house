@@ -127,6 +127,9 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added wraps description and navigation to menu page
 - ✅ Added Combination Kebabs category with 6 authentic pairings (all £13.00)
 - ✅ Added combination kebabs navigation with extras information
+- ✅ Added pizza extras to pizzas category: garlic bread, stuffed crust, extra toppings
+- ✅ Added 17 available pizza toppings with pricing (10": £1.40, 12": £1.80)
+- ✅ Added "100% DAILY FRESH DOUGH" messaging to pizza section
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

@@ -269,6 +269,47 @@ export default function MenuCategory({ title, description, items, icon }: Readon
           </CardContent>
         </Card>
       )}
+
+      {/* Pizza Extras Section */}
+      {title === "Pizzas" && (
+        <Card className="mt-8 border-2 border-orange-400 bg-gradient-to-r from-orange-50 to-yellow-50">
+          <CardContent className="p-6">
+            <h3 className="font-poppins text-2xl font-bold text-charcoal mb-4 flex items-center gap-2">
+              <span className="text-xl">🍕</span>
+              Available Extra Toppings
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+              {[
+                "Ham", "Chicken", "Pepperoni", "Spicy beef", "Tuna", "Prawns", "Olives", "Bacon",
+                "Anchovies", "Red onion", "Mushroom", "Fresh tomato", "Salami", "Sweetcorn",
+                "Green peppers", "Jalapeño", "Pineapple"
+              ].map((topping) => (
+                <div key={topping} className="bg-white p-2 rounded-lg border border-gray-200 text-center">
+                  <span className="text-sm font-medium text-charcoal">{topping}</span>
+                </div>
+              ))}
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
+                <div className="text-center">
+                  <h4 className="font-semibold text-charcoal mb-1">10" Extra Topping</h4>
+                  <div className="text-lg font-bold text-primary">£1.40</div>
+                </div>
+              </div>
+              <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
+                <div className="text-center">
+                  <h4 className="font-semibold text-charcoal mb-1">12" Extra Topping</h4>
+                  <div className="text-lg font-bold text-primary">£1.80</div>
+                </div>
+              </div>
+            </div>
+            <div className="text-center p-4 bg-orange-100 border border-orange-300 rounded-lg">
+              <h4 className="font-poppins text-xl font-bold text-charcoal mb-2">🍞 100% DAILY FRESH DOUGH</h4>
+              <p className="text-sm text-gray-700">All our pizzas and garlic bread are made with freshly prepared dough every single day!</p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
