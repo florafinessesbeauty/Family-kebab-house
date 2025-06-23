@@ -15,6 +15,7 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Menu", href: "/menu" },
+    { name: "Nutrition", href: "/nutritional-info" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
