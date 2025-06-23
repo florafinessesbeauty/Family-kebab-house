@@ -1,16 +1,102 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
+import VoiceControlButton from "@/components/voice-control-button";
+import AccessibleMenuItem from "@/components/accessible-menu-item";
+import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { categories } from "@/data/menu-data";
 import type { MenuItemData } from "@/data/menu-data";
-import { Phone } from "lucide-react";
+import { Phone, Keyboard, Eye } from "lucide-react";
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("kebabs");
   const [menuData, setMenuData] = useState<MenuItemData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
+  const [accessibilityMode, setAccessibilityMode] = useState(false);
+  const menuContainerRef = useRef<HTMLDivElement>(null);
+
+  const currentCategoryItems = getItemsByCategory(activeCategory);
+
+  // Keyboard navigation
+  useKeyboardNavigation({
+    onNavigateUp: () => {
+      if (focusedItemIndex > 0) {
+        setFocusedItemIndex(focusedItemIndex - 1);
+      }
+    },
+    onNavigateDown: () => {
+      if (focusedItemIndex < currentCategoryItems.length - 1) {
+        setFocusedItemIndex(focusedItemIndex + 1);
+      }
+    },
+    onNavigateLeft: () => {
+      const currentIndex = categories.findIndex(cat => cat.id === activeCategory);
+      if (currentIndex > 0) {
+        setActiveCategory(categories[currentIndex - 1].id);
+        setFocusedItemIndex(0);
+      }
+    },
+    onNavigateRight: () => {
+      const currentIndex = categories.findIndex(cat => cat.id === activeCategory);
+      if (currentIndex < categories.length - 1) {
+        setActiveCategory(categories[currentIndex + 1].id);
+        setFocusedItemIndex(0);
+      }
+    },
+    onSelect: () => {
+      if (focusedItemIndex >= 0 && currentCategoryItems[focusedItemIndex]) {
+        window.location.href = 'tel:01692584100';
+      }
+    },
+    onHome: () => {
+      setFocusedItemIndex(0);
+    },
+    onEnd: () => {
+      setFocusedItemIndex(currentCategoryItems.length - 1);
+    },
+    disabled: !accessibilityMode
+  });
+
+  // Voice control handlers
+  const handleNavigateToCategory = (category: string) => {
+    const categoryMap: { [key: string]: string } = {
+      'kebabs': 'kebabs',
+      'pizzas': 'pizzas', 
+      'burgers': 'burgers',
+      'chicken': 'fried-chicken',
+      'drinks': 'drinks',
+      'lunch': 'lunch-time-offers',
+      'offers': 'lunch-time-offers'
+    };
+    
+    const targetCategory = categoryMap[category] || category;
+    if (categories.find(cat => cat.id === targetCategory)) {
+      setActiveCategory(targetCategory);
+      setFocusedItemIndex(0);
+    }
+  };
+
+  const handleReadMenu = () => {
+    const items = currentCategoryItems;
+    if (items.length > 0) {
+      const menuText = items.map(item => 
+        `${item.name}, ${item.description}, Price: £${item.singlePrice || item.price || 'varies'}`
+      ).join('. ');
+      
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(`Menu items in ${getCategoryInfo(activeCategory).name}: ${menuText}`);
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+    }
+  };
+
+  const handleOrderItem = () => {
+    window.location.href = 'tel:01692584100';
+  };
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -112,6 +198,45 @@ export default function Menu() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Accessibility Controls */}
+      <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <h2 className="text-sm font-medium">Accessibility Features:</h2>
+              <Button
+                onClick={() => setAccessibilityMode(!accessibilityMode)}
+                variant="outline"
+                size="sm"
+                className={`border-white text-white hover:bg-white hover:text-charcoal ${
+                  accessibilityMode ? 'bg-white text-charcoal' : ''
+                }`}
+                aria-pressed={accessibilityMode}
+              >
+                <Keyboard className="h-4 w-4 mr-2" />
+                Keyboard Navigation {accessibilityMode ? 'ON' : 'OFF'}
+              </Button>
+              <Button
+                onClick={handleReadMenu}
+                variant="outline"
+                size="sm"
+                className="border-white text-white hover:bg-white hover:text-charcoal"
+                aria-label="Read current menu category aloud"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                Read Menu
+              </Button>
+            </div>
+            
+            {accessibilityMode && (
+              <div className="text-xs text-gray-300">
+                Use arrow keys to navigate • Enter to order • O for quick order • I for info
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
       <section className="bg-white py-20">
         <div className="container mx-auto px-4">
