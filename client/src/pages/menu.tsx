@@ -6,7 +6,9 @@ import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
 import AccessibleMenuItem from "@/components/accessible-menu-item";
 import AccessibilityHelpModal from "@/components/accessibility-help-modal";
+import AccessibleLandmark from "@/components/accessible-landmark";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
+import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 import { categories } from "@/data/menu-data";
 import type { MenuItemData } from "@/data/menu-data";
 import { Phone, Keyboard, Eye } from "lucide-react";
@@ -18,6 +20,7 @@ export default function Menu() {
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
   const menuContainerRef = useRef<HTMLDivElement>(null);
+  const { announce } = useScreenReaderAnnouncements();
 
   // Define helper functions first
   const getItemsByCategory = (category: string) =>
@@ -86,6 +89,7 @@ export default function Menu() {
     if (categories.find(cat => cat.id === targetCategory)) {
       setActiveCategory(targetCategory);
       setFocusedItemIndex(0);
+      announce(`Navigated to ${getCategoryInfo(targetCategory).name} menu`);
     }
   };
 
@@ -198,13 +202,15 @@ export default function Menu() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Accessibility Controls */}
-      <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h2 className="text-sm font-medium">Accessibility Features:</h2>
+    <AccessibleLandmark role="main" id="main-content">
+      <div className="min-h-screen bg-gray-50">
+        {/* Accessibility Controls */}
+        <AccessibleLandmark role="region" ariaLabel="Accessibility controls and features">
+          <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <h2 className="text-sm font-medium">Accessibility Features:</h2>
               <Button
                 onClick={() => setAccessibilityMode(!accessibilityMode)}
                 variant="outline"
@@ -240,17 +246,19 @@ export default function Menu() {
       </div>
 
       {/* Header */}
-      <section className="bg-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
-          </div>
+      <AccessibleLandmark role="banner" ariaLabel="Menu page header">
+        <section className="bg-white py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
+            </div>
 
           {/* Special Deals First */}
           {specialDeals.length > 0 && (
-            <div className="mb-16">
-              <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
+            <AccessibleLandmark role="region" ariaLabel="Special offers and featured deals">
+              <div className="mb-16">
+                <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {specialDeals.map((deal) => {
                   const isKebabFeast = deal.name === "Kebab Feast";
@@ -480,8 +488,9 @@ export default function Menu() {
       </section>
 
       {/* Menu Content */}
-      <section id="menu-content" className="py-12 relative">
-        <div className="container mx-auto px-4">
+      <AccessibleLandmark role="region" ariaLabel={`${getCategoryInfo(activeCategory).name} menu items`} id="menu-content">
+        <section className="py-12 relative">
+          <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 relative">
               <MenuCategory
@@ -573,5 +582,6 @@ export default function Menu() {
         onOrderItem={handleOrderItem}
       />
     </div>
+    </AccessibleLandmark>
   );
 }

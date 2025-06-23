@@ -9,6 +9,8 @@ import FoodGallery from "@/components/food-gallery";
 import FoodRecommendation from "@/components/food-recommendation";
 import AIRecommendationPopup from "@/components/ai-recommendation-popup";
 import FloatingAIButton from "@/components/floating-ai-button";
+import AccessibleLandmark from "@/components/accessible-landmark";
+import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 
 interface HomeProps {
   scrollToAIRecommendations?: () => void;
@@ -18,6 +20,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showAIPopup, setShowAIPopup] = useState(false);
   const [hasVisitedAI, setHasVisitedAI] = useState(false);
+  const { announce } = useScreenReaderAnnouncements();
 
   const foodSlides = [
     {
@@ -82,11 +85,15 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
   }, [hasVisitedAI]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % foodSlides.length);
+    const nextIndex = (currentSlide + 1) % foodSlides.length;
+    setCurrentSlide(nextIndex);
+    announce(`Showing slide ${nextIndex + 1} of ${foodSlides.length}: ${foodSlides[nextIndex].title}`);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + foodSlides.length) % foodSlides.length);
+    const prevIndex = (currentSlide - 1 + foodSlides.length) % foodSlides.length;
+    setCurrentSlide(prevIndex);
+    announce(`Showing slide ${prevIndex + 1} of ${foodSlides.length}: ${foodSlides[prevIndex].title}`);
   };
 
   const handleAIRecommendationsClick = () => {
@@ -327,12 +334,13 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
       </section>
 
       {/* Special Offers */}
-      <section className="py-16 bg-gradient-to-r from-primary to-red-600">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-poppins text-4xl font-bold text-white mb-4">Special Offers</h2>
-            <p className="text-red-100 text-lg">Fresh ingredients • Unbeatable value • Ready in 15 minutes</p>
-          </div>
+      <AccessibleLandmark role="region" ariaLabel="Special offers and deals">
+        <section className="py-16 bg-gradient-to-r from-primary to-red-600">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="font-poppins text-4xl font-bold text-white mb-4">Special Offers</h2>
+              <p className="text-red-100 text-lg">Fresh ingredients • Unbeatable value • Ready in 15 minutes</p>
+            </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {specialOffers.map((offer) => (
@@ -347,7 +355,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
                   <p className="text-gray-600 mb-4">{offer.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-3xl font-bold text-brand-primary">£{offer.price.toFixed(2)}</span>
-                    <a href="tel:01692584100">
+                    <a href="tel:01692584100" aria-label={`Order ${offer.name} now by calling 01692 584 100`}>
                       <Button className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-semibold">
                         Order Now
                       </Button>
@@ -522,5 +530,6 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
       {/* Floating AI Button */}
       <FloatingAIButton onClick={handleAIRecommendationsClick} />
     </div>
+    </AccessibleLandmark>
   );
 }

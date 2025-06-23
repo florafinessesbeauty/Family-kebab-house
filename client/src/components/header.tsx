@@ -123,5 +123,7 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
         </div>
       </div>
     </header>
+      </AccessibleLandmark>
+    </>
   );
 }
