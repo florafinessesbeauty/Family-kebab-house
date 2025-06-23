@@ -441,11 +441,11 @@ export default function Menu() {
                     </div>
                   );
                 })}
-              </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Menu Categories Navigation */}
+        {/* Menu Categories Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {categories.map((category) => {
               const itemCount = getItemsByCategory(category.id).length;
@@ -569,7 +569,6 @@ export default function Menu() {
                   </li>
                 </ul>
               </div>
-            </div>
               </div>
             </div>
           </div>
@@ -582,5 +581,7 @@ export default function Menu() {
         onReadMenu={handleReadMenu}
         onOrderItem={handleOrderItem}
       />
+      </div>
+    </AccessibleLandmark>
   );
 }
