@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import GlobalVoiceControl from "@/components/global-voice-control";
 import { useLocation } from "react-router-dom";
 
 // Import your page components (adjust the paths and capitalization as needed)
@@ -49,6 +50,7 @@ function App() {
           </main>
           <Footer />
         </div>
+        <GlobalVoiceControl />
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
