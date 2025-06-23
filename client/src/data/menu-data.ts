@@ -9,6 +9,8 @@ export interface MenuItemData {
   priceXLarge?: number;
   price10inches?: number;
   price12inches?: number;
+  extraPrice10inches?: number;
+  extraPrice12inches?: number;
   singlePrice?: number;
   withChips?: number;
   mealPrice?: number;
