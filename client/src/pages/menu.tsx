@@ -202,10 +202,8 @@ export default function Menu() {
   }
 
   return (
-    <AccessibleLandmark role="main" id="main-content">
-      <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
         {/* Accessibility Controls */}
-        <AccessibleLandmark role="region" ariaLabel="Accessibility controls and features">
           <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
             <div className="container mx-auto px-4">
               <div className="flex items-center justify-between">
@@ -487,9 +485,9 @@ export default function Menu() {
 
       {/* Menu Content */}
       <section className="py-12 relative" id="menu-content">
-          <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2 relative">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2 relative">
               <MenuCategory
                 title={getCategoryInfo(activeCategory).name}
                 description={
@@ -520,9 +518,9 @@ export default function Menu() {
                 items={getItemsByCategory(activeCategory)}
                 icon={getCategoryInfo(activeCategory).icon}
               />
-              </div>
+            </div>
 
-              <div className="lg:col-span-1 space-y-6">
+            <div className="lg:col-span-1 space-y-6">
               {/* Category Image */}
               {menuImages[activeCategory as keyof typeof menuImages] && (
                 <img 
@@ -569,6 +567,7 @@ export default function Menu() {
               </div>
             </div>
           </div>
+        </div>
       </section>
 
       {/* Voice Control Button */}
@@ -577,7 +576,6 @@ export default function Menu() {
         onReadMenu={handleReadMenu}
         onOrderItem={handleOrderItem}
       />
-      </div>
-    </AccessibleLandmark>
+    </div>
   );
 }
