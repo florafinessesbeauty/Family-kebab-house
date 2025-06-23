@@ -120,6 +120,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Implemented proper medium/large pricing structure for doner meat dishes
 - ✅ Updated Kebab Feast with complete authentic description and £30.00 pricing
 - ✅ Added detailed specification: Doner, Shish, Chicken & Kofte kebabs with salad, pitta, sauces & chips
+- ✅ Fixed DialogContent accessibility warning by adding proper ARIA labels and screen reader support
+- ✅ Created Dialog UI components with DialogTitle and DialogDescription for accessibility compliance
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:

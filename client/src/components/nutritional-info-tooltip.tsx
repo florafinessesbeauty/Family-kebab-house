@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { InfoIcon } from 'lucide-react';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from './ui/dialog';
 
 interface NutritionalInfo {
   calories: number;
