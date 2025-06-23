@@ -97,7 +97,7 @@ export default function Menu() {
     const items = currentCategoryItems;
     if (items.length > 0) {
       const menuText = items.map(item => 
-        `${item.name}, ${item.description}, Price: £${item.singlePrice || item.price || 'varies'}`
+        `${item.name}, ${item.description}, Price: £${item.singlePrice || 'varies'}`
       ).join('. ');
       
       if ('speechSynthesis' in window) {
@@ -246,8 +246,7 @@ export default function Menu() {
       </div>
 
       {/* Header */}
-      <AccessibleLandmark role="banner" ariaLabel="Menu page header">
-        <section className="bg-white py-20">
+      <section className="bg-white py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
@@ -487,8 +486,7 @@ export default function Menu() {
       </section>
 
       {/* Menu Content */}
-      <AccessibleLandmark role="region" ariaLabel={`${getCategoryInfo(activeCategory).name} menu items`} id="menu-content">
-        <section className="py-12 relative">
+      <section className="py-12 relative" id="menu-content">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2 relative">
@@ -569,11 +567,9 @@ export default function Menu() {
                   </li>
                 </ul>
               </div>
-              </div>
             </div>
           </div>
-        </section>
-      </AccessibleLandmark>
+      </section>
 
       {/* Voice Control Button */}
       <VoiceControlButton
