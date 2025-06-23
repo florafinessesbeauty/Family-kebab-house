@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
-import AccessibleMenuItem from "@/components/accessible-menu-item";
+
 import AccessibilityHelpModal from "@/components/accessibility-help-modal";
 import AccessibleLandmark from "@/components/accessible-landmark";
 import AddToBasketButton from "@/components/add-to-basket-button";
