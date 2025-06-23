@@ -565,6 +565,13 @@ export default function Menu() {
           </div>
         </div>
       </section>
+
+      {/* Voice Control Button */}
+      <VoiceControlButton
+        onNavigateToCategory={handleNavigateToCategory}
+        onReadMenu={handleReadMenu}
+        onOrderItem={handleOrderItem}
+      />
     </div>
   );
 }

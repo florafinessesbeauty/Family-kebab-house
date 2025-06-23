@@ -141,6 +141,18 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added Kids Meals category with 2 child-friendly options
 - ✅ Added drink items to both Drinks and Extras categories
 
+**2024-12-23**: Implemented comprehensive accessibility-friendly menu navigation with voice control
+- ✅ Created voice control system with speech recognition and synthesis APIs
+- ✅ Added keyboard navigation support (arrow keys, Enter, O for order, I for info)
+- ✅ Built floating voice control button with commands: "Show kebabs", "Show pizzas", "Read menu", "Order now"
+- ✅ Added accessibility toolbar with keyboard navigation toggle and menu reader functionality
+- ✅ Created accessible menu items with proper ARIA labels and focus management
+- ✅ Implemented comprehensive help modal with accessibility instructions
+- ✅ Added screen reader support with descriptive labels and structured navigation
+- ✅ Enhanced menu category navigation with voice commands and audio feedback
+- ✅ Fixed food gallery and slideshow to show accurate "2oz Burger" instead of "Gourmet Burger"
+- ✅ Updated burger pricing and description: "2oz beef burger with cheese and choice of fresh salad - £3.50"
+
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
 - Lunch Time Offers (12:00-14:30)
