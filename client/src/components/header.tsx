@@ -114,8 +114,13 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
                     {/* AI Recommendations for Mobile */}
                     <Button
                       onClick={() => {
-                        startListening();
-                        setMobileMenuOpen(false);
+                        try {
+                          startListening();
+                          setMobileMenuOpen(false);
+                        } catch (error) {
+                          console.warn('Voice control not available:', error);
+                          setMobileMenuOpen(false);
+                        }
                       }}
                       className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold"
                     >
