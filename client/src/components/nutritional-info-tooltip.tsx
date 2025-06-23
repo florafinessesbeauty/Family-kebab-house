@@ -166,20 +166,21 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
         </span>
       </button>
 
-      {isVisible && (
-        <div 
-          className="fixed inset-0 flex items-center justify-center p-4"
-          style={{ 
-            zIndex: 2147483647,
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0
-          }}
-          onMouseEnter={() => setIsVisible(true)}
-          onMouseLeave={() => setIsVisible(false)}
-        >
+      <Dialog open={isVisible} onOpenChange={setIsVisible}>
+        {isVisible && (
+          <div 
+            className="fixed inset-0 flex items-center justify-center p-4"
+            style={{ 
+              zIndex: 2147483647,
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0
+            }}
+            onMouseEnter={() => setIsVisible(true)}
+            onMouseLeave={() => setIsVisible(false)}
+          >
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -187,8 +188,8 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
             onClick={() => setIsVisible(false)}
           />
           
-          {/* Tooltip Content */}
-          <div 
+          {/* Tooltip Content with proper accessibility */}
+          <DialogContent 
             className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm"
             style={{ 
               zIndex: 100000,
@@ -196,6 +197,16 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
               backfaceVisibility: 'hidden'
             }}
           >
+            {/* Required DialogTitle for accessibility */}
+            <DialogTitle className="sr-only">
+              Nutritional Information for {itemName}
+            </DialogTitle>
+            
+            {/* Required DialogDescription for accessibility */}
+            <DialogDescription className="sr-only">
+              Detailed nutritional facts, allergens, and ingredients information for {itemName}
+            </DialogDescription>
+            
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl scale-110" style={{ zIndex: -1 }} />
             
@@ -286,15 +297,10 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
             <div className="mt-2 text-xs text-gray-500 italic">
               *Nutritional values based on standard portions. Please inform staff of allergies.
             </div>
+          </DialogContent>
           </div>
-          
-          {/* Mobile backdrop */}
-          <div 
-            className="sm:hidden fixed inset-0 bg-black bg-opacity-25 -z-10"
-            onClick={() => setIsVisible(false)}
-          ></div>
-        </div>
-      )}
+        )}
+      </Dialog>
     </div>
   );
 };
