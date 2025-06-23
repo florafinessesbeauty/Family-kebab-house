@@ -62,7 +62,10 @@ export default function NutritionalInfo({}: NutritionalInfoProps) {
   // Helper function to format allergens
   const formatAllergens = (allergens: string | null) => {
     if (!allergens) return "None specified";
-    return allergens.split(",").map(a => a.trim()).join(", ");
+    if (typeof allergens === 'string') {
+      return allergens.includes(',') ? allergens.split(",").map(a => a.trim()).join(", ") : allergens;
+    }
+    return "None specified";
   };
 
   // Helper function to get nutritional completeness
