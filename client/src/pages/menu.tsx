@@ -380,8 +380,32 @@ export default function Menu() {
                           'text-2xl'
                         }`}>
                           {(() => {
-                            // Create a hardcoded price mapping for special offers based on your menu specification
+                            // Create a comprehensive price mapping for special offers matching exact database names
                             const specialOfferPrices: { [key: string]: number } = {
+                              // Lunch Time Offers
+                              "⏰ Chicken Burger + Chips & Drink": 7.90,
+                              "⏰ ¼ Pounder with Cheese + Chips & Drink": 7.90,
+                              "⏰ ½ Pounder with Double Cheese + Chips & Drink": 9.50,
+                              "⏰ Medium Doner Meat + Chips & Drink": 7.90,
+                              "⏰ Large Doner Meat + Chips & Drink": 9.50,
+                              "⏰ 10\" Margherita with 3 Toppings + Drink": 9.50,
+                              "⏰ 12\" Margherita with 3 Toppings + Drink": 12.50,
+                              
+                              // Pizza Offers
+                              "🍕 2× 10\" Pizzas from Set-Menu": 17.20,
+                              "🍕 2× 12\" Pizzas from Set-Menu": 22.50,
+                              
+                              // Family Deals
+                              "👨‍👩‍👧‍👦 Family Deal (10\" Pizza)": 26.90,
+                              "👨‍👩‍👧‍👦 Family Deal (12\" Pizza)": 28.90,
+                              
+                              // Kebab Feast
+                              "🎉 Kebab Feast": 30.00,
+                              
+                              // Chicken Combo Meals
+                              "🍗 3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50,
+                              
+                              // Fallback for names without emojis
                               "Chicken Burger + Chips & Drink": 7.90,
                               "¼ Pounder with Cheese + Chips & Drink": 7.90,
                               "½ Pounder with Double Cheese + Chips & Drink": 9.50,
@@ -397,22 +421,35 @@ export default function Menu() {
                               "3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
                             };
                             
-                            const price = specialOfferPrices[deal.name] || deal.singlePrice || deal.priceSmall || deal.priceMedium || deal.priceLarge;
+                            // Try multiple price sources
+                            let price = specialOfferPrices[deal.name] || 
+                                       deal.singlePrice || 
+                                       deal.price || 
+                                       deal.priceSmall || 
+                                       deal.priceMedium || 
+                                       deal.priceLarge;
+                            
+                            // If still no price, try removing emoji prefix for matching
+                            if (!price) {
+                              const nameWithoutEmoji = deal.name.replace(/^[^\w\s]+\s*/, '').trim();
+                              price = specialOfferPrices[nameWithoutEmoji];
+                            }
+                            
                             const originalPrice = price ? price * 1.25 : null; // Show savings
                             
                             return (
                               <div className="space-y-2">
                                 <div className="flex items-center justify-center gap-2">
-                                  <span className="text-3xl">£{price ? price.toFixed(2) : "0.00"}</span>
-                                  {originalPrice && (
+                                  <span className="text-3xl">£{price ? price.toFixed(2) : "Contact Us"}</span>
+                                  {originalPrice && price && (
                                     <span className="text-lg text-white/60 line-through">
                                       £{originalPrice.toFixed(2)}
                                     </span>
                                   )}
                                 </div>
-                                {originalPrice && (
+                                {originalPrice && price && (
                                   <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
-                                    Save £{(originalPrice - price!).toFixed(2)}
+                                    Save £{(originalPrice - price).toFixed(2)}
                                   </div>
                                 )}
                               </div>
