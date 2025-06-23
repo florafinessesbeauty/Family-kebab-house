@@ -10,6 +10,7 @@ import FoodRecommendation from "@/components/food-recommendation";
 import AIRecommendationPopup from "@/components/ai-recommendation-popup";
 import FloatingAIButton from "@/components/floating-ai-button";
 import AccessibleLandmark from "@/components/accessible-landmark";
+import AddToBasketButton from "@/components/add-to-basket-button";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
 
