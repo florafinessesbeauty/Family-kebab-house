@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone, Utensils, Zap } from "lucide-react";
+import { Menu, Phone, Utensils, Zap, Mic } from "lucide-react";
+import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
 
 interface HeaderProps {
   onAIRecommendationsClick?: () => void;
@@ -67,7 +68,7 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
               title="Voice Commands: Say 'go home', 'show menu', 'nutrition info', etc."
             >
               <Mic className="mr-2 h-4 w-4" />
-              🎤 Voice
+              Voice
             </Button>
 
             {/* AI Recommendations Button */}
@@ -76,7 +77,7 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
               className="hidden lg:flex bg-gradient-to-r from-primary to-accent hover:from-red-700 hover:to-orange-600 text-white font-semibold animate-pulse hover:animate-none transition-all duration-300"
             >
               <Zap className="mr-2 h-4 w-4" />
-              🤖 AI Picks
+              AI Picks
             </Button>
 
             <a href="tel:01692584100">
@@ -112,13 +113,24 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
                     {/* AI Recommendations for Mobile */}
                     <Button
                       onClick={() => {
+                        startListening();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold"
+                    >
+                      <Mic className="mr-2 h-4 w-4" />
+                      Voice Commands
+                    </Button>
+
+                    <Button
+                      onClick={() => {
                         onAIRecommendationsClick?.();
                         setMobileMenuOpen(false);
                       }}
                       className="w-full bg-gradient-to-r from-primary to-accent text-white hover:from-red-700 hover:to-orange-600"
                     >
                       <Zap className="mr-2 h-4 w-4" />
-                      🤖 AI Recommendations
+                      AI Recommendations
                     </Button>
                     
                     <a href="tel:01692584100">
