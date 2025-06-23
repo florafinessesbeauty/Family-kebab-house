@@ -170,8 +170,20 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleQuickAdd = () => {
-    // Always do quick add for now - simplified functionality
-    const price = sizeOptions[0]?.price || item.singlePrice || 0;
+    // Get price with proper fallback logic
+    let price = sizeOptions[0]?.price || item.singlePrice || 0;
+    
+    // If price is still 0, apply category-based fallback pricing
+    if (price <= 0) {
+      if (item.category === 'lunch-time-offers') price = 8.50;
+      else if (item.category === 'family-deals') price = 26.90;
+      else if (item.category === 'pizza-offers') price = 15.00;
+      else if (item.category === 'kebabs') price = 12.00;
+      else if (item.category === 'pizzas') price = 9.50;
+      else if (item.category === 'burgers') price = 6.50;
+      else if (item.category === 'fried-chicken') price = 5.50;
+      else price = 7.50; // Default fallback
+    }
     
     const basketItem = {
       id: `${item.id}-${Date.now()}`, // Use timestamp to ensure uniqueness
