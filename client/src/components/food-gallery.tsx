@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X, ZoomIn, Phone } from "lucide-react";
+import AddToBasketButton from "@/components/add-to-basket-button";
 
 interface GalleryImage {
   id: string;
@@ -223,10 +224,20 @@ export default function FoodGallery({ selectedCategory: initialCategory = "all" 
 
                 {/* Call to Action */}
                 <div className="space-y-4">
+                  <AddToBasketButton 
+                    item={{
+                      id: `gallery-${selectedImage.id}`,
+                      name: selectedImage.title,
+                      category: selectedImage.category.toLowerCase(),
+                      singlePrice: parseFloat(selectedImage.price?.replace(/[£From ]/g, '') || '0') || 0,
+                      description: selectedImage.description
+                    }}
+                    className="w-full"
+                  />
                   <a href="tel:01692584100">
-                    <Button size="lg" className="w-full bg-primary hover:bg-red-700 text-white font-bold py-4">
+                    <Button size="lg" variant="outline" className="w-full py-4">
                       <Phone className="mr-2 h-5 w-5" />
-                      Order This Dish Now!
+                      Call to Order
                     </Button>
                   </a>
                   <p className="text-center text-sm text-gray-500">
