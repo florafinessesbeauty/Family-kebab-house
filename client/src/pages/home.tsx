@@ -11,6 +11,7 @@ import AIRecommendationPopup from "@/components/ai-recommendation-popup";
 import FloatingAIButton from "@/components/floating-ai-button";
 import AccessibleLandmark from "@/components/accessible-landmark";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
+import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
 
 interface HomeProps {
   scrollToAIRecommendations?: () => void;
@@ -21,6 +22,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
   const [showAIPopup, setShowAIPopup] = useState(false);
   const [hasVisitedAI, setHasVisitedAI] = useState(false);
   const { announce } = useScreenReaderAnnouncements();
+  const { startListening } = useGlobalVoiceControl();
 
   const foodSlides = [
     {

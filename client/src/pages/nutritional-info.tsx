@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Info, AlertTriangle, Zap, Activity } from "lucide-react";
 import { MenuItem } from "@/types";
+import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
 
 interface NutritionalInfoProps {}
 
@@ -16,6 +17,7 @@ export default function NutritionalInfo({}: NutritionalInfoProps) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { startListening } = useGlobalVoiceControl();
 
   // Fetch menu items with nutritional data
   useEffect(() => {
