@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Heart, Zap, Clock, DollarSign } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import AddToBasketButton from "@/components/add-to-basket-button";
 
 interface FoodPreference {
@@ -546,13 +547,13 @@ export default function FoodRecommendation() {
                       <p className="text-gray-600 mb-4">
                         Explore our complete menu with {allDishes.length} authentic dishes from Family Kebab House
                       </p>
-                      <a href="#menu-content">
+                      <Link to="/menu">
                         <Button className="bg-primary hover:bg-red-700 text-white font-semibold px-6 py-3">
                           <span className="mr-2">📋</span>
                           Browse Full Menu
                           <span className="ml-2">→</span>
                         </Button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 )}
