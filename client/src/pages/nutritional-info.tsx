@@ -60,9 +60,16 @@ export default function NutritionalInfo({}: NutritionalInfoProps) {
   const categories = ["all", ...Array.from(new Set(menuItems.map(item => item.category)))];
 
   // Helper function to format allergens
-  const formatAllergens = (allergens: string | null) => {
+  const formatAllergens = (allergens: string | string[] | null) => {
     if (!allergens) return "None specified";
+    if (Array.isArray(allergens)) {
+      return allergens.join(", ");
+    }
     if (typeof allergens === 'string') {
+      // Handle PostgreSQL array strings like "{Gluten,Dairy,Soy}"
+      if (allergens.startsWith('{') && allergens.endsWith('}')) {
+        return allergens.slice(1, -1).split(',').join(', ');
+      }
       return allergens.includes(',') ? allergens.split(",").map(a => a.trim()).join(", ") : allergens;
     }
     return "None specified";
