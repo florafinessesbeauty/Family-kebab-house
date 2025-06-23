@@ -486,6 +486,7 @@ export default function Menu() {
           </div>
         </div>
       </section>
+        </AccessibleLandmark>
 
       {/* Menu Content */}
       <AccessibleLandmark role="region" ariaLabel={`${getCategoryInfo(activeCategory).name} menu items`} id="menu-content">

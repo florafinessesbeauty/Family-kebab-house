@@ -471,7 +471,6 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
         </div>
       </section>
 
-      {/* Testimonials */}
       {/* High-Resolution Food Gallery */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -529,7 +528,6 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
 
       {/* Floating AI Button */}
       <FloatingAIButton onClick={handleAIRecommendationsClick} />
-      </div>
-    </AccessibleLandmark>
+    </div>
   );
 }
