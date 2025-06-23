@@ -50,13 +50,12 @@ export default function BasketDrawer() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button 
-          className="fixed bottom-6 left-6 z-50 bg-primary hover:bg-red-700 text-white shadow-2xl"
+          className="fixed bottom-6 right-6 z-50 bg-primary hover:bg-red-700 text-white shadow-2xl rounded-full p-4"
           size="lg"
         >
-          <ShoppingBasket className="mr-2 h-5 w-5" />
-          Basket
+          <ShoppingBasket className="h-6 w-6" />
           {totalItems > 0 && (
-            <Badge className="ml-2 bg-accent text-charcoal">
+            <Badge className="absolute -top-2 -right-2 bg-accent text-charcoal min-w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">
               {totalItems}
             </Badge>
           )}

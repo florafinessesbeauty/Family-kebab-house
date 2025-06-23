@@ -91,7 +91,8 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const sizeOptions = getSizeOptions();
   const extrasOptions = getExtrasOptions();
   const hasMultipleSizes = sizeOptions.length > 1;
-  const hasExtras = extrasOptions.length > 0;
+  // Disable extras for now to ensure quick add functionality works
+  const hasExtras = false;
 
   const getSelectedPrice = () => {
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize);
@@ -104,6 +105,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleAddToBasket = () => {
+    console.log('DEBUG: handleAddToBasket called from dialog');
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize) || sizeOptions[0];
     
     if (!selectedSizeOption) {
@@ -125,7 +127,11 @@ export default function AddToBasketButton({ item, variant = 'default', className
       emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
     };
 
+    console.log('DEBUG: Adding basket item from dialog', basketItem);
     addItem(basketItem);
+    
+    // Open basket drawer to show the item was added
+    setIsOpen(true);
     
     toast({
       title: "Added to basket!",
@@ -166,33 +172,28 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const handleQuickAdd = () => {
     console.log('DEBUG: handleQuickAdd called', { item, hasMultipleSizes, hasExtras, sizeOptions });
     
-    if (hasMultipleSizes || hasExtras) {
-      console.log('DEBUG: Opening dialog for customization');
-      setIsDialogOpen(true);
-    } else {
-      // Quick add for simple items
-      const price = sizeOptions[0]?.price || item.singlePrice || 0;
-      console.log('DEBUG: Quick add price calculation', { price, sizeOptionsPrice: sizeOptions[0]?.price, itemSinglePrice: item.singlePrice });
-      
-      const basketItem = {
-        id: `${item.id}-quick`,
-        name: item.name,
-        price: price,
-        category: item.category,
-        emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
-      };
-      
-      console.log('DEBUG: Adding basket item', basketItem);
-      addItem(basketItem);
-      
-      // Open basket drawer to show the item was added
-      setIsOpen(true);
-      
-      toast({
-        title: "Added to basket!",
-        description: `${item.name} has been added to your basket.`,
-      });
-    }
+    // Always do quick add for now - simplified functionality
+    const price = sizeOptions[0]?.price || item.singlePrice || 0;
+    console.log('DEBUG: Quick add price calculation', { price, sizeOptionsPrice: sizeOptions[0]?.price, itemSinglePrice: item.singlePrice });
+    
+    const basketItem = {
+      id: `${item.id}-${Date.now()}`, // Use timestamp to ensure uniqueness
+      name: item.name,
+      price: price,
+      category: item.category,
+      emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
+    };
+    
+    console.log('DEBUG: Adding basket item', basketItem);
+    addItem(basketItem);
+    
+    // Open basket drawer to show the item was added
+    setIsOpen(true);
+    
+    toast({
+      title: "Added to basket!",
+      description: `${item.name} has been added to your basket.`,
+    });
   };
 
   if (variant === 'icon') {
@@ -242,89 +243,14 @@ export default function AddToBasketButton({ item, variant = 'default', className
 
   return (
     <div className="flex gap-2">
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button
-            onClick={hasMultipleSizes || hasExtras ? undefined : handleQuickAdd}
-            className={`bg-primary hover:bg-red-700 text-white flex-1 ${className}`}
-          >
-            <ShoppingBasket className="mr-2 h-4 w-4" />
-            Add to Basket
-          </Button>
-        </DialogTrigger>
-        
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Customize Your Order</DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-semibold mb-2">{item.name}</h4>
-              <p className="text-sm text-gray-600">{item.description}</p>
-            </div>
+      <Button
+        onClick={handleQuickAdd}
+        className={`bg-primary hover:bg-red-700 text-white flex-1 ${className}`}
+      >
+        <ShoppingBasket className="mr-2 h-4 w-4" />
+        Add to Basket
+      </Button>
 
-            {hasMultipleSizes && (
-              <div>
-                <label className="text-sm font-medium mb-2 block">Size</label>
-                <Select value={selectedSize} onValueChange={setSelectedSize}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select size" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sizeOptions.map((size) => (
-                      <SelectItem key={size.value} value={size.value}>
-                        {size.label} - £{size.price.toFixed(2)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-
-            {hasExtras && (
-              <div>
-                <label className="text-sm font-medium mb-2 block">Extras</label>
-                <div className="space-y-2">
-                  {extrasOptions.map((extra) => (
-                    <div key={extra.label} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={extra.label}
-                        checked={selectedExtras.includes(extra.label)}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            setSelectedExtras([...selectedExtras, extra.label]);
-                          } else {
-                            setSelectedExtras(selectedExtras.filter(e => e !== extra.label));
-                          }
-                        }}
-                      />
-                      <label htmlFor={extra.label} className="text-sm flex-1">
-                        {extra.label}
-                      </label>
-                      <span className="text-sm font-medium">
-                        +£{extra.price.toFixed(2)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="border-t pt-4">
-              <div className="flex justify-between items-center text-lg font-bold">
-                <span>Total:</span>
-                <span className="text-primary">£{getSelectedPrice().toFixed(2)}</span>
-              </div>
-            </div>
-
-            <Button onClick={handleAddToBasket} className="w-full bg-primary hover:bg-red-700">
-              <ShoppingBasket className="mr-2 h-4 w-4" />
-              Add to Basket
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       <Button
         variant="outline"
