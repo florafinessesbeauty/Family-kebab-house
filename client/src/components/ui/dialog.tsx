@@ -48,3 +48,30 @@ export const DialogDescription: React.FC<{ children: React.ReactNode; className?
     </p>
   );
 };
+
+export const DialogHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
+  children, 
+  className = "" 
+}) => {
+  return (
+    <div className={`flex flex-col space-y-1.5 text-center sm:text-left ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+export const DialogTrigger: React.FC<{ 
+  children: React.ReactNode; 
+  asChild?: boolean;
+  onClick?: () => void;
+}> = ({ children, asChild, onClick }) => {
+  if (asChild) {
+    return React.cloneElement(children as React.ReactElement, { onClick });
+  }
+  
+  return (
+    <button onClick={onClick}>
+      {children}
+    </button>
+  );
+};

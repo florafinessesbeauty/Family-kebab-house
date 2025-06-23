@@ -5,6 +5,7 @@ import MenuCategory from "@/components/menu-category";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
 import AccessibleMenuItem from "@/components/accessible-menu-item";
+import AccessibilityHelpModal from "@/components/accessibility-help-modal";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { categories } from "@/data/menu-data";
 import type { MenuItemData } from "@/data/menu-data";
@@ -226,6 +227,7 @@ export default function Menu() {
                 <Eye className="h-4 w-4 mr-2" />
                 Read Menu
               </Button>
+              <AccessibilityHelpModal />
             </div>
             
             {accessibilityMode && (
