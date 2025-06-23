@@ -130,6 +130,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added pizza extras to pizzas category: garlic bread, stuffed crust, extra toppings
 - ✅ Added 17 available pizza toppings with pricing (10": £1.40, 12": £1.80)
 - ✅ Added "100% DAILY FRESH DOUGH" messaging to pizza section
+- ✅ Added Chicken Bargain Meals category with 2 authentic meal deals
+- ✅ Added 6pcs chicken meal (£14.00) and 8pcs chicken meal (£17.50) with chips & coleslaw
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
