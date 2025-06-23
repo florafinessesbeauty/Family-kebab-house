@@ -258,7 +258,7 @@ export default function Menu() {
                 <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {specialDeals.map((deal) => {
-                  const isKebabFeast = deal.name === "Kebab Feast";
+                  const isKebabFeast = deal.name === "Kebab Feast" || deal.name === "🎉 Kebab Feast";
                   const isFamilyDeal = deal.name.includes("Family Deal");
                   const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
                   console.log(`Deal: ${deal.name}, isKebabFeast: ${isKebabFeast}, isFamilyDeal: ${isFamilyDeal}`); // Debug log
@@ -267,7 +267,7 @@ export default function Menu() {
                       key={deal.id} 
                       className={`relative rounded-2xl p-6 text-white text-center transition-all duration-500 cursor-pointer group ${
                         isKebabFeast 
-                          ? "bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 animate-pulse shadow-2xl transform scale-105 border-4 border-yellow-300" 
+                          ? "bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 animate-pulse shadow-2xl transform scale-110 border-8 border-yellow-300 hover:scale-115 hover:shadow-3xl" 
                           : isFamilyDeal
                           ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
                           : isChickenCombo
@@ -278,18 +278,34 @@ export default function Menu() {
                       {/* Special Animation for Kebab Feast */}
                       {isKebabFeast && (
                         <>
-                          {/* Rotating ring animation */}
-                          <div className="absolute inset-0 rounded-2xl border-4 border-yellow-300 animate-spin" style={{ animationDuration: '3s' }}></div>
+                          {/* Multiple rotating rings */}
+                          <div className="absolute inset-0 rounded-2xl border-8 border-yellow-300 animate-spin" style={{ animationDuration: '3s' }}></div>
+                          <div className="absolute inset-2 rounded-2xl border-4 border-orange-400 animate-spin" style={{ animationDuration: '2s', animationDirection: 'reverse' }}></div>
+                          <div className="absolute inset-4 rounded-2xl border-2 border-red-400 animate-spin" style={{ animationDuration: '4s' }}></div>
                           
-                          {/* Floating sparkles */}
-                          <div className="absolute top-2 right-2 text-yellow-300 animate-bounce" style={{ animationDelay: '0s' }}>✨</div>
-                          <div className="absolute top-4 left-2 text-yellow-300 animate-bounce" style={{ animationDelay: '0.5s' }}>⭐</div>
-                          <div className="absolute bottom-4 right-4 text-yellow-300 animate-bounce" style={{ animationDelay: '1s' }}>💫</div>
+                          {/* Enhanced floating sparkles */}
+                          <div className="absolute top-1 right-1 text-yellow-300 animate-bounce text-2xl" style={{ animationDelay: '0s' }}>✨</div>
+                          <div className="absolute top-3 left-1 text-yellow-300 animate-bounce text-xl" style={{ animationDelay: '0.5s' }}>⭐</div>
+                          <div className="absolute bottom-3 right-3 text-yellow-300 animate-bounce text-2xl" style={{ animationDelay: '1s' }}>💫</div>
+                          <div className="absolute bottom-1 left-3 text-orange-300 animate-bounce text-xl" style={{ animationDelay: '1.5s' }}>🌟</div>
+                          <div className="absolute top-1/2 left-1 text-red-300 animate-bounce text-lg" style={{ animationDelay: '2s' }}>⚡</div>
+                          <div className="absolute top-1/2 right-1 text-yellow-200 animate-bounce text-lg" style={{ animationDelay: '2.5s' }}>🔥</div>
                           
-                          {/* Premium badge */}
-                          <div className="absolute -top-3 -right-3 bg-yellow-400 text-red-800 px-3 py-1 rounded-full text-xs font-bold animate-pulse border-2 border-white">
-                            PREMIUM FEAST
+                          {/* Glowing effect */}
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-red-600/20 animate-pulse"></div>
+                          
+                          {/* Premium badge enhanced */}
+                          <div className="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-red-900 px-4 py-2 rounded-full text-sm font-black animate-pulse border-4 border-white shadow-2xl transform rotate-12 hover:rotate-0 transition-transform duration-300">
+                            🏆 ULTIMATE FEAST 🏆
                           </div>
+                          
+                          {/* Value highlight */}
+                          <div className="absolute -top-4 -left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-green-900 px-3 py-1 rounded-full text-xs font-bold animate-bounce border-2 border-white transform -rotate-12">
+                            BEST VALUE!
+                          </div>
+                          
+                          {/* Pulsing glow border */}
+                          <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-3xl opacity-75 blur-sm animate-pulse"></div>
                         </>
                       )}
 
@@ -337,7 +353,7 @@ export default function Menu() {
                       <div className="relative z-10">
                         <div className="flex items-center justify-center gap-2 mb-2">
                           <h3 className={`font-bold text-lg transition-all duration-300 ${
-                            isKebabFeast ? 'text-yellow-100 text-xl' : 
+                            isKebabFeast ? 'text-yellow-100 text-2xl font-black animate-pulse' : 
                             isFamilyDeal ? 'text-pink-100 group-hover:text-white group-hover:text-xl' : 
                             isChickenCombo ? 'text-orange-100 group-hover:text-white group-hover:text-xl' : ''
                           }`}>
@@ -367,14 +383,14 @@ export default function Menu() {
                           </div>
                         </div>
                         <p className={`text-sm mb-4 transition-all duration-300 ${
-                          isKebabFeast ? 'text-yellow-100' : 
+                          isKebabFeast ? 'text-yellow-100 font-bold text-base' : 
                           isFamilyDeal ? 'text-pink-100 group-hover:text-white' : 
                           isChickenCombo ? 'text-orange-100 group-hover:text-white' : 'text-orange-100'
                         }`}>
                           {deal.description}
                         </p>
                         <div className={`font-bold mb-3 transition-all duration-300 ${
-                          isKebabFeast ? 'text-3xl text-yellow-200 animate-pulse' : 
+                          isKebabFeast ? 'text-4xl text-yellow-200 animate-pulse font-black' : 
                           isFamilyDeal ? 'text-2xl text-pink-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse' : 
                           isChickenCombo ? 'text-2xl text-orange-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse' :
                           'text-2xl'
@@ -459,14 +475,14 @@ export default function Menu() {
                         <a href="tel:01692584100">
                           <Button className={`w-full transition-all duration-300 ${
                             isKebabFeast 
-                              ? "bg-yellow-400 text-red-800 hover:bg-yellow-300 font-bold transform hover:scale-105 shadow-lg" 
+                              ? "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white hover:from-yellow-300 hover:via-orange-300 hover:to-red-400 font-black text-lg transform hover:scale-110 shadow-2xl animate-pulse hover:animate-none border-4 border-white" 
                               : isFamilyDeal
                               ? "bg-pink-400 text-purple-900 hover:bg-pink-300 font-bold transform group-hover:scale-105 shadow-lg group-hover:animate-bounce"
                               : isChickenCombo
                               ? "bg-orange-400 text-red-900 hover:bg-orange-300 font-bold transform group-hover:scale-105 shadow-lg group-hover:animate-bounce"
                               : "bg-white text-accent hover:bg-gray-100"
                           }`}>
-                            {isKebabFeast ? "🔥 Order Premium Feast!" : 
+                            {isKebabFeast ? "🏆 ORDER ULTIMATE FEAST NOW! 🏆" : 
                              isFamilyDeal ? "👨‍👩‍👧‍👦 Order Family Deal!" : 
                              isChickenCombo ? "🍗 Order Spicy Combo!" :
                              "Order Now"}
