@@ -1533,6 +1533,7 @@ export const categories = [
   { id: "nuggets", name: "Nuggets", icon: "🍗" },
   { id: "scampi", name: "Scampi", icon: "🦐" },
   { id: "extras", name: "Extras", icon: "🍟" },
+  { id: "drinks", name: "Drinks", icon: "🥤" },
   { id: "desserts", name: "Desserts", icon: "🍰" },
   { id: "meal-deals", name: "Meal Deals", icon: "💝" },
 ];

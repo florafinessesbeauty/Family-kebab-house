@@ -136,6 +136,8 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added wings and strips with Single/With Chips/Meal pricing structure
 - ✅ Added Chicken Nuggets category with 2 authentic items
 - ✅ Added nuggets with Single/With Chips/Meal pricing structure
+- ✅ Added Drinks category with 3 beverage options
+- ✅ Added sauce descriptions to extras category with complete sauce list
 
 ## Menu Categories
 The website features a comprehensive menu with the following sections:
