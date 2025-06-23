@@ -1,7 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Phone } from "lucide-react";
 import { MenuItemData } from "@/data/menu-data";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
+import AddToBasketButton from "@/components/add-to-basket-button";
 
 interface MenuCategoryProps {
   title: string;
@@ -185,13 +188,21 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                     </p>
                   )}
                   
-                  {/* Interactive Order Button on Hover */}
-                  <div className="mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <a href="tel:01692584100">
-                      <button className="text-xs bg-primary text-white px-3 py-1 rounded-full hover:bg-red-700 transition-colors">
-                        📞 Order This
-                      </button>
-                    </a>
+                  <div className="space-y-2 mt-4">
+                    <AddToBasketButton 
+                      item={{
+                        id: item.id,
+                        name: item.name,
+                        category: item.category,
+                        singlePrice: item.singlePrice,
+                        priceSmall: item.priceSmall,
+                        priceMedium: item.priceMedium,
+                        priceLarge: item.priceLarge,
+                        priceXLarge: item.priceXLarge,
+                        description: item.description
+                      }}
+                      variant="small"
+                    />
                   </div>
                 </div>
                 <div className="relative">

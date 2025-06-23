@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Clock, Star, Heart, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Phone, MapPin, Clock, Star, Heart, Check, ChevronLeft, ChevronRight, ChefHat } from "lucide-react";
 import Testimonials from "@/components/testimonials";
 import FoodGallery from "@/components/food-gallery";
 import FoodRecommendation from "@/components/food-recommendation";
@@ -505,7 +505,7 @@ export default function Home({ scrollToAIRecommendations }: HomeProps) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/meal-builder">
               <Button size="lg" className="bg-accent text-charcoal hover:bg-yellow-600 font-semibold">
-                <Utensils className="mr-3 h-5 w-5" />
+                <ChefHat className="mr-3 h-5 w-5" />
                 Build Your Meal
               </Button>
             </Link>

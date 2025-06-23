@@ -39,27 +39,28 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen flex flex-col">
-          <Header onAIRecommendationsClick={handleAIRecommendationsClick} />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/nutritional-info" element={<NutritionalInfo />} />
-              <Route path="/meal-builder" element={<MealBuilderPage />} />
-              {/* Catch-all route for any unmatched paths */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-        <BasketDrawer />
-        <ChefsRecommendationPopup />
-        <GlobalVoiceControl />
-        <Toaster />
-      </BasketProvider>
+        <BasketProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header onAIRecommendationsClick={handleAIRecommendationsClick} />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/nutritional-info" element={<NutritionalInfo />} />
+                <Route path="/meal-builder" element={<MealBuilderPage />} />
+                {/* Catch-all route for any unmatched paths */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+          <BasketDrawer />
+          <ChefsRecommendationPopup />
+          <GlobalVoiceControl />
+          <Toaster />
+        </BasketProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
