@@ -12,6 +12,7 @@ import Home from "@/pages/home";
 import Menu from "@/pages/menu";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
+import NutritionalInfo from "@/pages/nutritional-info";
 import NotFound from "@/pages/not-found";
 
 function App() {
