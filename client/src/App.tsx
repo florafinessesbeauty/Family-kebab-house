@@ -42,6 +42,7 @@ function App() {
               <Route path="/menu" element={<Menu />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/nutritional-info" element={<NutritionalInfo />} />
               {/* Catch-all route for any unmatched paths */}
               <Route path="*" element={<NotFound />} />
             </Routes>
