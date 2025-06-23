@@ -223,6 +223,52 @@ export default function MenuCategory({ title, description, items, icon }: Readon
           </Card>
         ))}
       </div>
+
+      {/* Combination Kebabs Extras Section */}
+      {title === "Combination Kebabs" && (
+        <Card className="mt-8 border-2 border-accent bg-gradient-to-r from-accent/5 to-orange-50">
+          <CardContent className="p-6">
+            <h3 className="font-poppins text-2xl font-bold text-charcoal mb-4 flex items-center gap-2">
+              <span className="text-xl">➕</span>
+              Extras Available
+            </h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-semibold text-charcoal">🍢 Add 1 Skewer Extra</h4>
+                    <p className="text-sm text-gray-600">Extra meat portion</p>
+                  </div>
+                  <div className="text-lg font-bold text-primary">£6.00</div>
+                </div>
+              </div>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-semibold text-charcoal">🧀 Add Mozzarella Cheese</h4>
+                    <p className="text-sm text-gray-600">Melted cheese topping</p>
+                  </div>
+                  <div className="text-lg font-bold text-primary">£1.50</div>
+                </div>
+              </div>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-semibold text-charcoal">🥬 Add "Special" Mix</h4>
+                    <p className="text-sm text-gray-600">Mushroom, onion & green pepper</p>
+                  </div>
+                  <div className="text-lg font-bold text-primary">£1.50</div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <p className="text-sm text-gray-700">
+                <strong>💡 Tip:</strong> All combination kebabs come with fresh salad and delicious sauce. Add any extras above to customize your meal!
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

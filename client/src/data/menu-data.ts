@@ -1509,6 +1509,7 @@ export const menuData: MenuItemData[] = [
 
 export const categories = [
   { id: "kebabs", name: "Kebabs", icon: "🔥" },
+  { id: "combination-kebabs", name: "Combination Kebabs", icon: "🥩" },
   { id: "wraps", name: "Wraps", icon: "🌯" },
   { id: "pizzas", name: "Pizzas", icon: "🍕" },
   { id: "burgers", name: "Burgers", icon: "🍔" },
