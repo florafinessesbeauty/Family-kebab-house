@@ -164,11 +164,15 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleQuickAdd = () => {
+    console.log('DEBUG: handleQuickAdd called', { item, hasMultipleSizes, hasExtras, sizeOptions });
+    
     if (hasMultipleSizes || hasExtras) {
+      console.log('DEBUG: Opening dialog for customization');
       setIsDialogOpen(true);
     } else {
       // Quick add for simple items
       const price = sizeOptions[0]?.price || item.singlePrice || 0;
+      console.log('DEBUG: Quick add price calculation', { price, sizeOptionsPrice: sizeOptions[0]?.price, itemSinglePrice: item.singlePrice });
       
       const basketItem = {
         id: `${item.id}-quick`,
@@ -178,7 +182,11 @@ export default function AddToBasketButton({ item, variant = 'default', className
         emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
       };
       
+      console.log('DEBUG: Adding basket item', basketItem);
       addItem(basketItem);
+      
+      // Open basket drawer to show the item was added
+      setIsOpen(true);
       
       toast({
         title: "Added to basket!",
