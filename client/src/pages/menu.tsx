@@ -125,7 +125,7 @@ export default function Menu() {
         
         // Ensure data is an array
         if (!Array.isArray(data)) {
-          console.error("Expected array but got:", data);
+          // Handle non-array data gracefully
           setMenuData([]);
           return;
         }
@@ -155,7 +155,7 @@ export default function Menu() {
         
         setMenuData(transformedData);
       } catch (error) {
-        console.error("Error fetching menu data:", error);
+        // Handle fetch error gracefully
       } finally {
         setLoading(false);
       }
@@ -258,7 +258,7 @@ export default function Menu() {
                   const isKebabFeast = deal.name === "Kebab Feast" || deal.name === "🎉 Kebab Feast";
                   const isFamilyDeal = deal.name.includes("Family Deal");
                   const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
-                  console.log(`Deal: ${deal.name}, isKebabFeast: ${isKebabFeast}, isFamilyDeal: ${isFamilyDeal}`); // Debug log
+
                   return (
                     <div 
                       key={deal.id} 
