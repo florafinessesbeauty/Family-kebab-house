@@ -4,7 +4,7 @@ import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API route to get all menu items
-  app.get("/api/menu", async (req, res) => {
+  app.get("/api/menu", async (_req, res) => {
     try {
       const menuItems = await storage.getAllMenuItems();
       res.json(menuItems);
