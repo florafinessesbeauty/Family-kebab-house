@@ -10,7 +10,6 @@ import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip';
 
 interface AccessibleMenuItemProps {
   item: MenuItem;
-  index: number;
   isFocused: boolean;
   onFocus: () => void;
   onSelect: () => void;
@@ -20,7 +19,6 @@ interface AccessibleMenuItemProps {
 
 export default function AccessibleMenuItem({
   item,
-  index,
   isFocused,
   onFocus,
   onSelect,
