@@ -53,7 +53,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
       
       return (
         <div className="text-right space-y-1">
-          {sizes.map((size, index) => (
+          {sizes.map((size) => (
             <div key={size.label} className="flex justify-between items-center text-sm">
               <span className="text-gray-600 mr-2">{size.label}:</span>
               <span className="font-bold text-primary">{formatPrice(size.price)}</span>
@@ -192,8 +192,8 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                           fat: item.fat,
                           fiber: item.fiber,
                           sodium: item.sodium,
-                          allergens: item.allergens ? item.allergens.split(',').map(a => a.trim()) : [],
-                          ingredients: item.ingredients ? item.ingredients.split(',').map(i => i.trim()) : []
+                          allergens: item.allergens ? (Array.isArray(item.allergens) ? item.allergens : item.allergens.split(',').map(a => a.trim())) : [],
+                          ingredients: item.ingredients ? (Array.isArray(item.ingredients) ? item.ingredients : item.ingredients.split(',').map(i => i.trim())) : []
                         }}
                       />
                     </div>
