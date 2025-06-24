@@ -334,22 +334,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
                     Total: £{(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0).toFixed(2)}
                   </div>
                   <Button 
-                    onClick={() => {
-                      const selectedSizeOption = sizeOptions.find(s => s.value === selectedSize) || sizeOptions[0];
-                      if (selectedSizeOption) {
-                        const basketItem = {
-                          id: `${item.id}-${Date.now()}`,
-                          name: `${item.name} (${selectedSizeOption.label})`,
-                          price: selectedSizeOption.price,
-                          category: item.category,
-                          emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
-                        };
-                        addItem(basketItem);
-                        setIsOpen(true);
-                        setIsDialogOpen(false);
-                        setSelectedSize('');
-                      }
-                    }}
+                    onClick={handleAddToBasket}
                     className="bg-primary hover:bg-red-700"
                     disabled={!selectedSize}
                   >
