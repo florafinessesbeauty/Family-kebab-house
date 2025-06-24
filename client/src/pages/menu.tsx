@@ -129,7 +129,7 @@ export default function Menu() {
     };
     
     const targetCategory = categoryMap[category] || category;
-    if (categories.find(cat => cat.id === targetCategory)) {
+    if (availableCategories.includes(targetCategory)) {
       setActiveCategory(targetCategory);
       setFocusedItemIndex(0);
       announce(`Navigated to ${getCategoryInfo(targetCategory).name} menu`);
@@ -197,9 +197,11 @@ export default function Menu() {
         setMenuData(transformedData);
         
         // Generate available categories from API data
-        const apiCategories = [...new Set(transformedData.map(item => item.category))].filter(cat => 
-          transformedData.filter(item => item.category === cat).length > 0
-        );
+        const apiCategories = Array.from(
+  new Set(transformedData.map(item => item.category))
+);
+setAvailableCategories(apiCategories);
+
         
         console.log('API Categories:', apiCategories);
         console.log('Total items:', transformedData.length);
@@ -511,8 +513,8 @@ export default function Menu() {
                               price = specialOfferPrices[nameWithoutEmoji];
                             }
                             
-                            const originalPrice = price ? price * 1.25 : null; // Show savings
-                            
+                            const numPrice = typeof price === 'string' ? parseFloat(price) : price ?? 0;
+const originalPrice = numPrice * 1.25; // Show savings                          
                             return (
                               <div className="space-y-2">
                                 <div className="flex items-center justify-center gap-2">
@@ -525,7 +527,8 @@ export default function Menu() {
                                 </div>
                                 {originalPrice && price && (
                                   <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
-                                    Save £{safeToFixed(originalPrice - price)}
+                                    Save £let priceNum = safeToNumber(price);
+                                    const originalPrice = priceNum * 1.25;
                                   </div>
                                 )}
                               </div>
@@ -584,7 +587,7 @@ export default function Menu() {
 
         {/* Menu Categories Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {availableCategories.map((categoryId) => {
+            {availableCategories.map((categoryId: string) => {
               const itemCount = getItemsByCategory(categoryId).length;
               const categoryInfo = getCategoryInfo(categoryId);
               
