@@ -43,6 +43,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
     
     // Handle kebab category with proper size labels
     if (item.category === 'kebabs') {
+      if (item.priceMedium && item.priceMedium > 0) {
         sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
       }
       if (item.priceLarge && item.priceLarge > 0) {
@@ -52,6 +53,23 @@ export default function AddToBasketButton({ item, variant = 'default', className
         sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
       }
     } else {
+      // Handle other categories with standard pricing
+      if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Regular', price: item.singlePrice, value: 'regular' });
+      }
+      if (item.priceSmall && item.priceSmall > 0) {
+        sizes.push({ label: 'Small', price: item.priceSmall, value: 'small' });
+      }
+      if (item.priceMedium && item.priceMedium > 0) {
+        sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
+      }
+      if (item.priceXLarge && item.priceXLarge > 0) {
+        sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
+      }
+    }
 
     
     // Fallback pricing based on authentic menu prices - only if no valid price found
