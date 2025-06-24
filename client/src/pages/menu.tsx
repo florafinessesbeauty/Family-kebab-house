@@ -12,14 +12,23 @@ import AddToBasketButton from "@/components/add-to-basket-button";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 
-import { categories } from "@/data/menu-data";
 import type { MenuItemData } from "@/data/menu-data";
 import { Phone, Keyboard, Eye } from "lucide-react";
 
+// Unified category mapping that aligns with actual API data
+const UNIFIED_CATEGORIES = {
+  "burgers": { name: "Burgers", icon: "🍔" },
+  "drinks": { name: "Drinks", icon: "🥤" },
+  "kebabs": { name: "Kebabs", icon: "🥙" }, 
+  "pizzas": { name: "Pizzas", icon: "🍕" },
+  "sides": { name: "Sides & Extras", icon: "🍟" },
+  "specials": { name: "Special Offers", icon: "⭐" }
+} as const;
+
 export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState("burgers");
+  const [activeCategory, setActiveCategory] = useState("");
   const [menuData, setMenuData] = useState<MenuItemData[]>([]);
-  const [dynamicCategories, setDynamicCategories] = useState<Array<{id: string, name: string, icon: string, count: number}>>([]);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
@@ -32,27 +41,22 @@ export default function Menu() {
     return items;
   };
 
-  const getCategoryIcon = (categoryId: string): string => {
-    const iconMap: { [key: string]: string } = {
-      "kebabs": "🥙",
-      "burgers": "🍔", 
-      "pizzas": "🍕",
-      "drinks": "🥤",
-      "sides": "🍟",
-      "specials": "⭐"
-    };
-    return iconMap[categoryId] || "🍽️";
-  };
-
   const getCategoryInfo = (categoryId: string) => {
-    const dynamicCategory = dynamicCategories.find(c => c.id === categoryId);
-    if (dynamicCategory) return dynamicCategory;
+    const unifiedCategory = UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES];
+    if (unifiedCategory) {
+      return {
+        id: categoryId,
+        name: unifiedCategory.name,
+        icon: unifiedCategory.icon,
+        count: getItemsByCategory(categoryId).length
+      };
+    }
     
     return { 
       id: categoryId,
       name: categoryId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), 
-      icon: getCategoryIcon(categoryId),
-      count: 0
+      icon: "🍽️",
+      count: getItemsByCategory(categoryId).length
     };
   };
 
@@ -178,23 +182,20 @@ export default function Menu() {
         
         setMenuData(transformedData);
         
-        // Generate dynamic categories from API data
-        const apiCategories = [...new Set(transformedData.map(item => item.category))];
-        const dynamicCats = apiCategories.map(categoryId => {
-          const itemCount = transformedData.filter(item => item.category === categoryId).length;
-          return {
-            id: categoryId,
-            name: categoryId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-            icon: getCategoryIcon(categoryId),
-            count: itemCount
-          };
-        }).filter(cat => cat.count > 0);
+        // Generate available categories from API data
+        const apiCategories = [...new Set(transformedData.map(item => item.category))].filter(cat => 
+          transformedData.filter(item => item.category === cat).length > 0
+        );
         
-        setDynamicCategories(dynamicCats);
+        console.log('API Categories:', apiCategories);
+        console.log('Total items:', transformedData.length);
+        
+        setAvailableCategories(apiCategories);
         
         // Set activeCategory to first available category
-        if (dynamicCats.length > 0) {
-          setActiveCategory(dynamicCats[0].id);
+        if (apiCategories.length > 0 && !activeCategory) {
+          setActiveCategory(apiCategories[0]);
+          console.log('Setting active category to:', apiCategories[0]);
         }
       } catch (error) {
         // Handle fetch error gracefully
@@ -571,8 +572,9 @@ export default function Menu() {
 
         {/* Menu Categories Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {dynamicCategories.map((category) => {
-              const itemCount = category.count;
+            {availableCategories.map((categoryId) => {
+              const itemCount = getItemsByCategory(categoryId).length;
+              const categoryInfo = getCategoryInfo(categoryId);
               
               return (
                 <Button

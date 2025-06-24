@@ -1,117 +1,165 @@
-# Menu Display Issue Analysis & Fix Plan
+# Category System Mismatch Analysis & Comprehensive Fix Plan
 
-## PROBLEM ANALYSIS
+## CRITICAL MISMATCHES IDENTIFIED
 
-After deep inspection of the Menu page code, I've identified the core issues preventing categories, dishes, and special offers from displaying:
+### 1. **API Categories vs Static Categories**
+**API Returns**: `burgers`, `drinks`, `kebabs`, `pizzas`, `sides`, `specials`
+**Static categories array**: `kebabs`, `combination-kebabs`, `wraps`, `pizzas`, `burgers`, `fried-chicken`, `chicken-bargain-meals`, etc.
+**categoryNames.ts keys**: `lunch-offers`, `burgers`, `fried-chicken`, `chicken-bargain`, `wings`, `nuggets`, etc.
 
-### 1. **Category Mismatch Issue**
-- **Problem**: Default `activeCategory` is set to `"kebabs"` but API returns categories like `"burgers"`, `"drinks"`, etc.
-- **Evidence**: API categories don't match the hardcoded default
-- **Impact**: `getItemsByCategory("kebabs")` returns empty array, so no items display
+### 2. **Key Naming Inconsistencies**
+- API: `sides` vs categoryNames: `extras` 
+- API: `specials` vs categoryNames: `kebab-specials`
+- categoryNames: `chicken-bargain` vs menu-data: `chicken-bargain-meals`
+- categoryNames: `wings` vs menu-data: `chicken-wings-strips`
+- categoryNames: `kids` vs menu-data: `kids-meals`
 
-### 2. **Special Deals Filter Issue**  
-- **Problem**: `specialDeals = menuData.filter(item => item.isSpecial)` depends on API returning `isSpecial: true`
-- **Evidence**: API data shows `"isSpecial": false` for all items
-- **Impact**: Special offers section never renders because array is empty
-
-### 3. **Categories Navigation Issue**
-- **Problem**: Navigation buttons are generated from imported `categories` constant but filter against API data with different category names
-- **Evidence**: Static categories vs dynamic API categories mismatch
-- **Impact**: Category buttons may show "0 items" and filtering fails
-
-### 4. **Data Transformation Issue**
-- **Problem**: API data structure doesn't perfectly match expected `MenuItemData` interface
-- **Evidence**: API has different field names/structure than expected
-- **Impact**: Category filtering and price display inconsistencies
+### 3. **Current Implementation Issues**
+- `menu.tsx` imports static `categories` from `menu-data.ts` but API returns different category names
+- `activeCategory` defaults to "kebabs" but filters against API data with potentially different structure
+- Navigation loops over static categories that don't match API categories
+- `getItemsByCategory` filters `menuData` by category but category IDs are misaligned
 
 ## ROOT CAUSE
+The system has THREE different category systems:
+1. **Static categories array** in `menu-data.ts` (legacy static data)
+2. **categoryNames object** in `categoryNames.ts` (display names)  
+3. **API category values** (actual database categories)
 
-The code was originally written to work with static menu data from `menu-data.ts` but now fetches from API with different data structure and category names. The filtering logic, default category, and special offers detection all depend on the old static data format.
+These are not synchronized, causing zero matches in filtering.
 
-## PRECISE FIX PLAN
+## STEP-BY-STEP FIX PLAN
 
-### Step 1: Fix Category System
+### Step 1: Audit and Align Category Systems
 ```typescript
-// In menu.tsx useEffect, after fetching data:
-const apiCategories = [...new Set(transformedData.map(item => item.category))];
-const firstCategory = apiCategories[0] || "burgers"; 
-setActiveCategory(firstCategory); // Set to actual API category instead of "kebabs"
+// Create unified category mapping that aligns all three systems
+const UNIFIED_CATEGORIES = {
+  "burgers": { name: "Burgers", icon: "🍔" },
+  "drinks": { name: "Drinks", icon: "🥤" },
+  "kebabs": { name: "Kebabs", icon: "🥙" }, 
+  "pizzas": { name: "Pizzas", icon: "🍕" },
+  "sides": { name: "Sides & Extras", icon: "🍟" },
+  "specials": { name: "Special Offers", icon: "⭐" }
+};
 ```
 
-### Step 2: Fix Special Deals Detection
+### Step 2: Update menu.tsx to Use API-First Approach
 ```typescript
-// Update specialDeals calculation to work with actual API data:
+// Replace static categories import with dynamic approach
+// Remove: import { categories } from "@/data/menu-data";
+
+// Update initialization
+const [activeCategory, setActiveCategory] = useState(""); // Start empty, set from API
+const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+
+// In fetchMenuData useEffect:
+const apiCategories = [...new Set(transformedData.map(item => item.category))];
+setAvailableCategories(apiCategories);
+if (apiCategories.length > 0 && !activeCategory) {
+  setActiveCategory(apiCategories[0]);
+}
+```
+
+### Step 3: Update Navigation to Loop Over API Categories
+```typescript
+// Replace categories.map() with availableCategories.map()
+{availableCategories.map((categoryId) => {
+  const itemCount = getItemsByCategory(categoryId).length;
+  const categoryInfo = UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES] || {
+    name: categoryId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+    icon: "🍽️"
+  };
+  
+  if (itemCount === 0) return null;
+  
+  return (
+    <Button key={categoryId} onClick={() => setActiveCategory(categoryId)}>
+      <span>{categoryInfo.icon}</span>
+      {categoryInfo.name}
+      <Badge>{itemCount}</Badge>
+    </Button>
+  );
+})}
+```
+
+### Step 4: Fix getItemsByCategory and specialDeals
+```typescript
+// getItemsByCategory should already work since it filters menuData by category
+// Just ensure proper debugging
+const getItemsByCategory = (category: string) => {
+  const items = menuData.filter(item => item.category === category);
+  console.log(`Category "${category}" has ${items.length} items`);
+  return items;
+};
+
+// Update specialDeals to match API structure
 const specialDeals = menuData.filter(item => 
   item.isSpecial === true || 
-  item.category === "lunch-offers" || 
-  item.name.includes("Family Deal") ||
-  item.name.includes("Kebab Feast") ||
-  item.singlePrice && parseFloat(item.singlePrice.toString()) < 10 // lunch offers under £10
+  item.category === "specials" ||
+  (item.singlePrice && parseFloat(item.singlePrice.toString()) < 8)
 );
 ```
 
-### Step 3: Dynamic Categories Navigation
+### Step 5: Update MenuCategory Component Call
 ```typescript
-// Replace static categories with dynamic ones from API:
-const dynamicCategories = apiCategories.map(categoryId => {
-  const itemCount = getItemsByCategory(categoryId).length;
-  return {
-    id: categoryId,
+// Ensure proper category info is passed
+const getCategoryInfo = (categoryId: string) => {
+  return UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES] || {
     name: categoryId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-    icon: getCategoryIcon(categoryId), // Helper function for icons
-    count: itemCount
+    icon: "🍽️"
   };
-}).filter(cat => cat.count > 0); // Only show categories with items
-```
+};
 
-### Step 4: Update Data Transformation
-```typescript
-// In fetchMenuData, ensure complete transformation:
-const transformedData: MenuItemData[] = data.map((item: any) => ({
-  id: item.id.toString(),
-  name: item.name,
-  description: item.description,
-  category: item.category,
-  singlePrice: item.singlePrice ? parseFloat(item.singlePrice) : null,
-  priceSmall: item.priceSmall ? parseFloat(item.priceSmall) : null,
-  priceMedium: item.priceMedium ? parseFloat(item.priceMedium) : null,
-  priceLarge: item.priceLarge ? parseFloat(item.priceLarge) : null,
-  priceXLarge: item.priceXLarge ? parseFloat(item.priceXLarge) : null,
-  isSpecial: Boolean(item.isSpecial), // Ensure boolean conversion
-  calories: item.calories,
-  protein: item.protein,
-  carbs: item.carbs,
-  fat: item.fat,
-  fiber: item.fiber,
-  sodium: item.sodium,
-  allergens: item.allergens,
-  ingredients: item.ingredients
-}));
-```
-
-### Step 5: Fix Menu Category Component Integration
-```typescript
-// Ensure MenuCategory receives properly filtered items:
 <MenuCategory
   title={getCategoryInfo(activeCategory).name}
   description={getCategoryDescription(activeCategory)}
-  items={getItemsByCategory(activeCategory)} // This should now return actual items
+  items={getItemsByCategory(activeCategory)}
   icon={getCategoryInfo(activeCategory).icon}
 />
 ```
 
+### Step 6: Remove/Update categoryNames.ts (Optional)
+```typescript
+// Either update categoryNames.ts to match API categories exactly:
+export const categoryNames = {
+  "burgers": "Burgers",
+  "drinks": "Drinks", 
+  "kebabs": "Kebabs",
+  "pizzas": "Pizzas",
+  "sides": "Sides & Extras",
+  "specials": "Special Offers"
+};
+
+// Or integrate it into the unified system above
+```
+
 ## IMPLEMENTATION ORDER
 
-1. **First**: Fix data transformation to ensure consistent data structure
-2. **Second**: Update activeCategory to use actual API categories  
-3. **Third**: Fix specialDeals filtering logic
-4. **Fourth**: Update categories navigation to be dynamic
-5. **Fifth**: Test that all sections now display properly
+1. **First**: Create UNIFIED_CATEGORIES mapping in menu.tsx
+2. **Second**: Update state management (availableCategories, dynamic activeCategory)
+3. **Third**: Update fetchMenuData to set categories from API response
+4. **Fourth**: Replace static categories loop with availableCategories loop
+5. **Fifth**: Update getCategoryInfo to use unified mapping
+6. **Sixth**: Test that navigation shows all API categories with correct counts
+7. **Seventh**: Verify clicking categories populates MenuCategory with items
+8. **Eighth**: Confirm specialDeals section displays flagged items
 
-## EXPECTED RESULT
+## EXPECTED RESULTS
 
-After implementing these fixes:
-- Categories navigation will show actual API categories with correct item counts
-- Special offers section will display based on actual menu items
-- MenuCategory component will receive and display items properly
-- No more empty arrays causing blank sections
+After implementation:
+- Navigation will show exactly the categories returned by API: burgers, drinks, kebabs, pizzas, sides, specials
+- Each category button will show correct item count (1-2 items each based on current API)
+- Clicking category buttons will filter and display items in that category
+- Special offers section will show items where isSpecial=true or category="specials"
+- No more zero-match filtering due to category ID misalignment
+
+## DEBUGGING VERIFICATION
+
+Add temporary logging to verify:
+```typescript
+console.log('API Categories:', [...new Set(transformedData.map(item => item.category))]);
+console.log('Available Categories State:', availableCategories);
+console.log('Active Category:', activeCategory);
+console.log('Items for Active Category:', getItemsByCategory(activeCategory));
+console.log('Special Deals Found:', specialDeals.length);
+```
