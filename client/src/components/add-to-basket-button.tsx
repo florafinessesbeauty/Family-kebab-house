@@ -262,7 +262,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
           url: window.location.href,
         });
       } catch (error) {
-        console.log('Share cancelled');
+
       }
     } else {
       navigator.clipboard.writeText(dishText);

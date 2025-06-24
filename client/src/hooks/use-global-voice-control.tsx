@@ -87,7 +87,7 @@ export function useGlobalVoiceControl() {
 
   const startListening = useCallback(() => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      console.warn('Speech recognition not supported');
+      // Speech recognition not supported in this browser
       return;
     }
 
@@ -100,7 +100,7 @@ export function useGlobalVoiceControl() {
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript;
-      console.log('Voice command:', transcript);
+
       
       const commandExecuted = processVoiceCommand(transcript);
       
@@ -126,7 +126,7 @@ export function useGlobalVoiceControl() {
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       // Only log actual errors, not user cancellations or expected states
       if (event.error !== 'aborted' && event.error !== 'no-speech' && event.error !== 'network') {
-        console.error('Speech recognition error:', event.error);
+        // Handle speech recognition errors gracefully
       }
     };
 

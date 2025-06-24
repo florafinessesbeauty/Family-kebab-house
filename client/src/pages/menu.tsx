@@ -187,10 +187,6 @@ export default function Menu() {
   };
 
   const specialDeals = menuData.filter(item => item.isSpecial);
-  
-  console.log("All menu data:", menuData);
-  console.log("Special deals found:", specialDeals);
-  console.log("Kebab Feast in data:", menuData.find(item => item.name === "Kebab Feast"));
 
   if (loading) {
     return (

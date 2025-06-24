@@ -118,7 +118,7 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
                           startListening();
                           setMobileMenuOpen(false);
                         } catch (error) {
-                          console.warn('Voice control not available:', error);
+                          // Voice control not available
                           setMobileMenuOpen(false);
                         }
                       }}

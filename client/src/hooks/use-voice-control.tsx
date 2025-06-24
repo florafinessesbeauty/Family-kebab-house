@@ -40,7 +40,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
         };
 
         recognition.current.onerror = (event: SpeechRecognitionErrorEvent) => {
-          console.error('Speech recognition error:', event.error);
+          // Handle speech recognition errors gracefully
           setIsListening(false);
         };
       }

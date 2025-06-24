@@ -37,7 +37,7 @@ export function BasketProvider({ children }: { children: ReactNode }) {
       try {
         setItems(JSON.parse(savedBasket));
       } catch (error) {
-        console.error('Error loading basket from localStorage:', error);
+        // Silently handle localStorage errors - basket will remain empty
       }
     }
   }, []);

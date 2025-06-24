@@ -27,7 +27,7 @@ export default function BasketDrawer() {
         url: window.location.href,
       });
     } catch (error) {
-      console.log('Share cancelled');
+
     }
   };
 
