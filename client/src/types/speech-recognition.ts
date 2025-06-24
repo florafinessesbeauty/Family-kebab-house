@@ -1,23 +1,4 @@
 // Type declarations for SpeechRecognition API
-export interface SpeechRecognition extends EventTarget {
-  continuous: boolean;
-  interimResults: boolean;
-  lang: string;
-  start(): void;
-  stop(): void;
-  abort(): void;
-  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
-  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
-  onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
-  onend: ((this: SpeechRecognition, ev: Event) => any) | null;
-}
-
-declare global {
-  interface Window {
-    SpeechRecognition: new () => SpeechRecognition;
-    webkitSpeechRecognition: new () => SpeechRecognition;
-  }
-}
 
 export interface SpeechRecognitionEvent extends Event {
   results: SpeechRecognitionResultList;
@@ -29,15 +10,28 @@ export interface SpeechRecognitionErrorEvent extends Event {
   message: string;
 }
 
-export interface SpeechRecognition extends EventTarget {
+export interface SpeechRecognitionInterface extends EventTarget {
   continuous: boolean;
   interimResults: boolean;
   lang: string;
   start(): void;
   stop(): void;
   abort(): void;
-  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
-  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
-  onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
-  onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onerror: ((this: SpeechRecognitionInterface, ev: SpeechRecognitionErrorEvent) => any) | null;
+  onresult: ((this: SpeechRecognitionInterface, ev: SpeechRecognitionEvent) => any) | null;
+  onstart: ((this: SpeechRecognitionInterface, ev: Event) => any) | null;
+  onend: ((this: SpeechRecognitionInterface, ev: Event) => any) | null;
 }
+
+declare global {
+  interface Window {
+    SpeechRecognition: {
+      new(): SpeechRecognitionInterface;
+    };
+    webkitSpeechRecognition: {
+      new(): SpeechRecognitionInterface;
+    };
+  }
+}
+
+export {};
