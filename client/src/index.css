@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: 0 0% 100%; /* #FFFFFF */
   --foreground: 0 0% 20%; /* #333333 */
@@ -54,17 +58,14 @@
   --radius: 0.5rem;
 }
 
-* {
-  border: 1px solid hsl(var(--border));
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-body {
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
+  body {
+    @apply font-inter antialiased bg-background text-foreground;
+  }
 
   /* Custom utility classes */
   .text-charcoal {
@@ -160,7 +161,7 @@ body {
     font-family: 'Dancing Script', cursive;
   }
 
-/* Components */
+@layer components {
   /* Smooth scrolling for anchor links */
   html {
     scroll-behavior: smooth;
@@ -168,15 +169,12 @@ body {
 
   /* Custom button hover effects */
   .hover-lift {
-    transition: transform 0.2s ease;
-  }
-  .food-card:hover {
-    transform: scale(1.05);
+    @apply transition-transform duration-200 hover:scale-105;
   }
 
   /* Menu category transition */
   .menu-category {
-    transition: all 0.3s ease-in-out;
+    @apply transition-all duration-300 ease-in-out;
   }
 
   /* Image overlay effects */
