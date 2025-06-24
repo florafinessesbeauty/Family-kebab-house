@@ -196,20 +196,28 @@ export default function Menu() {
         
         setMenuData(transformedData);
         
-        // Generate available categories from API data
+        // Use all defined categories from categoryNames, not just API data
+        const allDefinedCategories = Object.keys(categoryNames);
         const apiCategories = Array.from(
           new Set(transformedData.map(item => item.category))
         );
         
         console.log('API Categories:', apiCategories);
+        console.log('All Defined Categories:', allDefinedCategories);
         console.log('Total items:', transformedData.length);
         
-        setAvailableCategories(apiCategories);
+        // Show all defined categories, whether they have items or not
+        setAvailableCategories(allDefinedCategories);
         
-        // Set activeCategory to first available category
-        if (apiCategories.length > 0 && !activeCategory) {
-          setActiveCategory(apiCategories[0]);
-          console.log('Setting active category to:', apiCategories[0]);
+        // Set activeCategory to first category with items, or first defined category
+        const firstCategoryWithItems = allDefinedCategories.find(cat => 
+          transformedData.some(item => item.category === cat)
+        );
+        const defaultCategory = firstCategoryWithItems || allDefinedCategories[0];
+        
+        if (!activeCategory && defaultCategory) {
+          setActiveCategory(defaultCategory);
+          console.log('Setting active category to:', defaultCategory);
         }
       } catch (error) {
         // Handle fetch error gracefully
@@ -589,7 +597,8 @@ const originalPrice = numPrice * 1.25; // Show savings
               const itemCount = getItemsByCategory(categoryId).length;
               const categoryInfo = getCategoryInfo(categoryId);
               
-              if (itemCount === 0) return null;
+              // Show all categories, even if they have 0 items
+              // if (itemCount === 0) return null;
               
               return (
                 <Button
