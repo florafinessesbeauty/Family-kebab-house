@@ -194,24 +194,44 @@ export default function Menu() {
           ingredients: item.ingredients
         }));
         
-        setMenuData(transformedData);
+        // This will be set above in the combined data logic
         
-        // Use all defined categories from categoryNames, not just API data
+        // Import static menu data for categories not in API
+        const { menuData: staticMenuData } = await import('@/data/menu-data');
+        
+        // Combine API data with static data for complete menu
+        const combinedData = [...transformedData];
+        
+        // Add static menu items for categories not covered by API
+        staticMenuData.forEach(staticItem => {
+          const existsInApi = transformedData.some(apiItem => apiItem.id === staticItem.id);
+          if (!existsInApi) {
+            combinedData.push(staticItem);
+          }
+        });
+        
+        setMenuData(combinedData);
+        
+        // Use all defined categories from categoryNames
         const allDefinedCategories = Object.keys(categoryNames);
         const apiCategories = Array.from(
           new Set(transformedData.map(item => item.category))
         );
+        const staticCategories = Array.from(
+          new Set(staticMenuData.map(item => item.category))
+        );
         
         console.log('API Categories:', apiCategories);
+        console.log('Static Categories:', staticCategories);
         console.log('All Defined Categories:', allDefinedCategories);
-        console.log('Total items:', transformedData.length);
+        console.log('Total combined items:', combinedData.length);
         
-        // Show all defined categories, whether they have items or not
+        // Show all defined categories
         setAvailableCategories(allDefinedCategories);
         
-        // Set activeCategory to first category with items, or first defined category
+        // Set activeCategory to first category with items from combined data
         const firstCategoryWithItems = allDefinedCategories.find(cat => 
-          transformedData.some(item => item.category === cat)
+          combinedData.some(item => item.category === cat)
         );
         const defaultCategory = firstCategoryWithItems || allDefinedCategories[0];
         
