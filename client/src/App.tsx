@@ -15,6 +15,7 @@ import { useLocation } from "react-router-dom";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
 import LoadingSkeleton from "@/components/loading-skeleton";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Lazy load non-critical pages for bundle optimization
 import { lazy, Suspense } from "react";
@@ -60,9 +61,11 @@ function App() {
                 <Route 
                   path="/menu" 
                   element={
-                    <Suspense fallback={<LoadingSkeleton />}>
-                      <Menu />
-                    </Suspense>
+                    <ErrorBoundary>
+                      <Suspense fallback={<LoadingSkeleton />}>
+                        <Menu />
+                      </Suspense>
+                    </ErrorBoundary>
                   } 
                 />
                 <Route 

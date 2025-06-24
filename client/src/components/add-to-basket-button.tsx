@@ -388,7 +388,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t">
                   <div className="text-lg font-bold">
-                    Total: £{(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0).toFixed(2)}
+                    Total: £{safeToFixed(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0)}
                   </div>
                   <Button 
                     onClick={handleAddToBasket}
@@ -461,7 +461,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
               </div>
               <div className="flex justify-between items-center pt-2 border-t">
                 <div className="text-lg font-bold">
-                  Total: £{(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0).toFixed(2)}
+                  Total: £{safeToFixed(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0)}
                 </div>
                 <Button 
                   onClick={handleAddToBasket}
