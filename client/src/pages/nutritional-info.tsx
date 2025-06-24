@@ -17,7 +17,7 @@ export default function NutritionalInfo({}: NutritionalInfoProps) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { startListening } = useGlobalVoiceControl();
+  useGlobalVoiceControl();
 
   // Fetch menu items with nutritional data
   useEffect(() => {
