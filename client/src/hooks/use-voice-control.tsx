@@ -12,11 +12,15 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const recognition = useRef<SpeechRecognition | null>(null);
+    type NewType_1 = SpeechRecognition;
+
+    type NewType = NewType_1;
+
+  const recognition = useRef<NewType | null>(null);
 
   useEffect(() => {
     // Check if speech recognition is supported
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     
     if (SpeechRecognition) {
       setIsSupported(true);
@@ -25,7 +29,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
       recognition.current.interimResults = false;
       recognition.current.lang = 'en-US';
 
-      recognition.current.onresult = (event) => {
+      recognition.current.onresult = (event: { results: string | any[]; }) => {
         const lastResult = event.results[event.results.length - 1];
         const transcript = lastResult[0].transcript.toLowerCase().trim();
         setTranscript(transcript);
@@ -36,7 +40,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
         setIsListening(false);
       };
 
-      recognition.current.onerror = (event) => {
+      recognition.current.onerror = (event: { error: any; }) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
       };
