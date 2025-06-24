@@ -12,7 +12,7 @@ import AddToBasketButton from "@/components/add-to-basket-button";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 
-import type { MenuItemData } from "@/data/menu-data";
+import type { MenuItemData } from "@/data/menu-data-new";
 import { categoryNames } from "@/data/categoryNames";
 import { Phone, Keyboard, Eye } from "lucide-react";
 
@@ -213,7 +213,7 @@ export default function Menu() {
         // Menu data is set above in the combined data logic
         
         // Import static menu data for categories not in API
-        const { menuData: staticMenuData } = await import('@/data/menu-data');
+        const { menuData: staticMenuData } = await import('@/data/menu-data-new');
         
         // Create a Map to track unique items by ID to prevent duplicates
         const itemMap = new Map();
