@@ -14,7 +14,10 @@ interface MenuCategoryProps {
 }
 
 // helpers at module scope
-const formatPrice = (price: number) => `£${price.toFixed(2)}`
+const formatPrice = (price: number | string) => {
+  const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+  return `£${numPrice.toFixed(2)}`;
+}
 
 const getItemEmoji = (item: MenuItemData) => {
   const name = item.name.toLowerCase()
@@ -46,7 +49,7 @@ function renderPriceDisplay(item: MenuItemData) {
       item.priceMedium  != null && { label: 'Medium',  price: item.priceMedium  },
       item.priceLarge   != null && { label: 'Large',   price: item.priceLarge   },
       item.priceXLarge  != null && { label: 'X-Large', price: item.priceXLarge  }
-    ].filter(Boolean) as { label: string; price: number }[]
+    ].filter(Boolean) as { label: string; price: number | string }[]
 
     return (
       <div className="text-right space-y-2">
@@ -103,7 +106,7 @@ function renderPriceDisplay(item: MenuItemData) {
     const inches = [
       item.price10inches != null && { label: '10\"', price: item.price10inches },
       item.price12inches != null && { label: '12\"', price: item.price12inches }
-    ].filter(Boolean) as { label: string; price: number }[]
+    ].filter(Boolean) as { label: string; price: number | string }[]
 
     return (
       <div className="text-right space-y-2">
@@ -133,7 +136,7 @@ function renderPriceDisplay(item: MenuItemData) {
   }
 
   // 4) Fallback small/med/lg/xl
-  const prices: { label: string; price: number }[] = []
+  const prices: { label: string; price: number | string }[] = []
   if (item.priceSmall  != null) prices.push({ label: 'Sml', price: item.priceSmall })
   if (item.priceMedium != null) prices.push({ label: 'Med', price: item.priceMedium })
   if (item.priceLarge  != null) prices.push({ label: 'Lrg', price: item.priceLarge })

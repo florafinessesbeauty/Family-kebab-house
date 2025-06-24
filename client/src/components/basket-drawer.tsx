@@ -13,7 +13,8 @@ export default function BasketDrawer() {
   const handleShare = async () => {
     if (!navigator.share) {
       // Fallback for browsers that don't support Web Share API
-      const text = `Check out my order from Family Kebab House! Total: £${totalPrice.toFixed(2)}`;
+      const formattedPrice = typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2);
+      const text = `Check out my order from Family Kebab House! Total: £${formattedPrice}`;
       navigator.clipboard.writeText(text);
       setIsSharing(true);
       setTimeout(() => setIsSharing(false), 2000);
@@ -21,9 +22,10 @@ export default function BasketDrawer() {
     }
 
     try {
+      const formattedPrice = typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2);
       await navigator.share({
         title: 'My Family Kebab House Order',
-        text: `Check out my delicious order! Total: £${totalPrice.toFixed(2)}`,
+        text: `Check out my delicious order! Total: £${formattedPrice}`,
         url: window.location.href,
       });
     } catch (error) {
@@ -37,7 +39,8 @@ export default function BasketDrawer() {
       `${item.quantity}x ${item.name}${item.size ? ` (${item.size})` : ''}`
     ).join(', ');
     
-    const message = `Order: ${orderSummary}. Total: £${totalPrice.toFixed(2)}`;
+    const formattedPrice = typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2);
+    const message = `Order: ${orderSummary}. Total: £${formattedPrice}`;
     
     // Copy to clipboard for easy reference during phone call
     navigator.clipboard.writeText(message);
