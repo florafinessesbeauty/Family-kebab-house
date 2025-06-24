@@ -495,7 +495,7 @@ export default function Menu() {
                                   "🎉 Kebab Feast": 30.00,
                                   "🍗 3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
                                 };
-                                return specialOfferPrices[deal.name] || deal.singlePrice || deal.price || deal.priceSmall || deal.priceMedium || deal.priceLarge || 0;
+                                return specialOfferPrices[deal.name] || deal.singlePrice || deal.priceSmall || deal.priceMedium || deal.priceLarge || 0;
                               })(),
                               description: deal.description
                             }}
