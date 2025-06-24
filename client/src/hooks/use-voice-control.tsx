@@ -35,7 +35,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
           processVoiceCommand(transcript);
         };
 
-        recognition.current.onend = (event: Event) => {
+        recognition.current.onend = () => {
           setIsListening(false);
         };
 
