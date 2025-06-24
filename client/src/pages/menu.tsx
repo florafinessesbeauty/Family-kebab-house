@@ -269,17 +269,84 @@ export default function Menu() {
                 ))}
               </div>
               </div>
-          )} 
-                      className={`relative rounded-2xl p-6 text-white text-center transition-all duration-500 cursor-pointer group ${
-                        isKebabFeast 
-                          ? "bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 animate-pulse shadow-2xl transform scale-110 border-8 border-yellow-300 hover:scale-115 hover:shadow-3xl" 
-                          : isFamilyDeal
-                          ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
-                          : isChickenCombo
-                          ? "bg-gradient-to-br from-red-600 via-orange-600 to-yellow-600 hover:scale-105 shadow-xl border-2 border-orange-300"
-                          : "bg-gradient-to-br from-accent to-orange-600 hover:scale-105"
+          )}
+
+          {/* Category Navigation */}
+          <div className="bg-white shadow-lg py-8 sticky top-0 z-30">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-wrap justify-center gap-4">
+                {categories.map((category) => {
+                  const itemCount = getItemsByCategory(category.id).length;
+                  
+                  return (
+                    <Button
+                      key={category.id}
+                      onClick={() => {
+                        setActiveCategory(category.id);
+                        announce(`Viewing ${category.name} category with ${itemCount} items`);
+                        // Smooth scroll to menu content
+                        setTimeout(() => {
+                          document.getElementById('menu-content')?.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start' 
+                          });
+                        }, 100);
+                      }}
+                      variant={activeCategory === category.id ? "default" : "outline"}
+                      className={`px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 ${
+                        activeCategory === category.id
+                          ? "bg-primary text-white shadow-lg"
+                          : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
                       }`}
                     >
+                      <span className="mr-2 text-lg">{category.icon}</span>
+                      {category.name}
+                      <Badge variant="secondary" className="ml-2 bg-accent text-white">
+                        {itemCount}
+                      </Badge>
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Menu Content */}
+          <section className="py-12 relative" id="menu-content">
+            <div className="container mx-auto px-4">
+              <div className="grid lg:grid-cols-3 gap-12">
+                <div className="lg:col-span-2 relative">
+                  <MenuCategory
+                    title={getCategoryInfo(activeCategory).name}
+                    description={
+                      activeCategory === "kebabs" 
+                        ? "🥙 All kebabs come with fresh salad & delicious sauce"
+                        : activeCategory === "combination-kebabs"
+                        ? "🥩 Choose any two kebab types - all £13.00 + extras available"
+                        : activeCategory === "pizzas"
+                        ? "🍕 Made with 100% fresh daily dough"
+                        : activeCategory === "lunch-offers"
+                        ? "⏰ Available 12:00 - 14:30 daily"
+                        : activeCategory === "family-deals"
+                        ? "👨‍👩‍👧‍👦 Perfect for sharing with loved ones"
+                        : activeCategory === "wraps"
+                        ? "🌯 Fresh wraps with your choice of fillings, salad & sauce"
+                        : activeCategory === "chicken-bargain-meals"
+                        ? "🍱 Great value chicken meals with chips & coleslaw"
+                        : activeCategory === "chicken-wings-strips"
+                        ? "🔥 Spicy wings and tender strips - Single, With Chips, or Meal options"
+                        : activeCategory === "chicken-nuggets"
+                        ? "🍗 Crispy chicken nuggets - Single, With Chips, or Meal options"
+                        : activeCategory === "drinks"
+                        ? "🥤 Refreshing beverages to complement your meal"
+                        : activeCategory === "kids-meals"
+                        ? "🧒 Kid-friendly meals perfect for little ones"
+                        : ""
+                    }
+                    items={currentCategoryItems}
+                    icon={getCategoryInfo(activeCategory).icon}
+                  />
+                </div>
                       {/* Special Animation for Kebab Feast */}
                       {isKebabFeast && (
                         <>
