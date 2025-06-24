@@ -168,7 +168,7 @@ function renderPriceDisplay(item: MenuItemData) {
   )
 }
 
-export default function MenuCategory({
+const MenuCategory = React.memo(function MenuCategory({
   title,
   description,
   items,

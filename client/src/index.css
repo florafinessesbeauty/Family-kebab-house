@@ -194,4 +194,58 @@
   .mobile-margin {
     @apply mb-4 sm:mb-6 lg:mb-8;
   }
+
+  /* Performance optimizations for special deals */
+  .special-deal-card {
+    will-change: transform, opacity;
+    contain: layout style paint;
+  }
+
+  /* Pause animations when not visible */
+  .animation-paused .animate-pulse,
+  .animation-paused .animate-bounce,
+  .animation-paused .animate-spin {
+    animation-play-state: paused;
+  }
+
+  /* Optimized animations with GPU acceleration */
+  .animate-pulse-optimized {
+    animation: pulse-optimized 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce-gpu {
+    animation: bounce-gpu 1s infinite;
+  }
+
+  .animate-spin-gpu {
+    animation: spin-gpu 1s linear infinite;
+  }
+}
+
+/* Optimized keyframes */
+@keyframes pulse-optimized {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes bounce-gpu {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes spin-gpu {
+  from {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
 }

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
+import SpecialDealCard from "@/components/special-deal-card";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
 
@@ -24,16 +25,25 @@ export default function Menu() {
 
   const { announce } = useScreenReaderAnnouncements();
 
-  // Define helper functions first
-  const getItemsByCategory = (category: string) =>
-    menuData.filter(item => item.category === category);
+  // Memoized helper functions for performance
+  const getItemsByCategory = useCallback((category: string) =>
+    menuData.filter(item => item.category === category), [menuData]);
 
-  const getCategoryInfo = (categoryId: string) => {
+  const getCategoryInfo = useCallback((categoryId: string) => {
     const category = categories.find(c => c.id === categoryId);
     return category || { name: categoryId, icon: "" };
-  };
+  }, []);
 
-  const currentCategoryItems = getItemsByCategory(activeCategory);
+  // Memoized expensive calculations
+  const currentCategoryItems = useMemo(
+    () => getItemsByCategory(activeCategory),
+    [getItemsByCategory, activeCategory]
+  );
+
+  const specialDeals = useMemo(
+    () => menuData.filter(item => item.isSpecial),
+    [menuData]
+  );
 
   // Keyboard navigation
   useKeyboardNavigation({
@@ -186,7 +196,7 @@ export default function Menu() {
     "combo-meals": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
   };
 
-  const specialDeals = menuData.filter(item => item.isSpecial);
+
 
   if (loading) {
     return (

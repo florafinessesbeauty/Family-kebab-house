@@ -21,13 +21,21 @@ export default function FloatingAIButton({ onClick }: FloatingAIButtonProps) {
   }, [isDismissed]);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (window.scrollY > 300 && !isDismissed) {
-        setIsVisible(true);
+      if (!ticking && !isDismissed) {
+        requestAnimationFrame(() => {
+          if (window.scrollY > 300) {
+            setIsVisible(true);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isDismissed]);
 
