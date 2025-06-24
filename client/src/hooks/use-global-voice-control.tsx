@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 // Type declarations for SpeechRecognition API
 declare global {
   interface Window {
-    SpeechRecognition: new () => SpeechRecognition;
-    webkitSpeechRecognition: new () => SpeechRecognition;
+    SpeechRecognition: new () => SpeechRecognitionEvent;
+    webkitSpeechRecognition: new () => SpeechRecognitionEvent;
   }
 }
 
@@ -114,7 +114,7 @@ export function useGlobalVoiceControl() {
     recognition.interimResults = false;
     recognition.lang = 'en-US';
 
-    recognition.onresult = (event) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript;
       console.log('Voice command:', transcript);
       

@@ -1,5 +1,36 @@
 import { useState, useEffect, useRef } from 'react';
 
+// Type declarations for SpeechRecognition API
+declare global {
+  interface Window {
+    SpeechRecognition: new () => SpeechRecognition;
+    webkitSpeechRecognition: new () => SpeechRecognition;
+  }
+}
+
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+  resultIndex: number;
+}
+
+interface SpeechRecognitionErrorEvent extends Event {
+  error: string;
+  message: string;
+}
+
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start(): void;
+  stop(): void;
+  abort(): void;
+  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
+  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+  onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+}
+
 interface VoiceControlOptions {
   onNavigateToCategory?: (category: string) => void;
   onSelectItem?: (itemName: string) => void;
@@ -12,7 +43,11 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const recognition = useRef<SpeechRecognition | null>(null);
+    type NewType_1 = SpeechRecognition;
+
+    type NewType = NewType_1;
+
+  const recognition = useRef<NewType | null>(null);
 
   useEffect(() => {
     // Check if speech recognition is supported
@@ -25,7 +60,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
       recognition.current.interimResults = false;
       recognition.current.lang = 'en-US';
 
-      recognition.current.onresult = (event: { results: string | any[]; }) => {
+      recognition.current.onresult = (event: SpeechRecognitionEvent) => {
         const lastResult = event.results[event.results.length - 1];
         const transcript = lastResult[0].transcript.toLowerCase().trim();
         setTranscript(transcript);
