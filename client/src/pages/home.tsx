@@ -370,7 +370,7 @@ export default function Home({}: HomeProps) {
                   <p className="text-gray-600 mb-4">{offer.description}</p>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold text-brand-primary">£{offer.price.toFixed(2)}</span>
+                      <span className="text-3xl font-bold text-brand-primary">£{typeof offer.price === 'string' ? offer.price : offer.price.toFixed(2)}</span>
                     </div>
                     <AddToBasketButton 
                       item={{

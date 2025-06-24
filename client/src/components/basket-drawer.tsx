@@ -103,7 +103,7 @@ export default function BasketDrawer() {
                         </p>
                       )}
                       <p className="text-primary font-bold mt-1">
-                        £{item.price.toFixed(2)} each
+                        £{typeof item.price === 'string' ? item.price : item.price.toFixed(2)} each
                       </p>
                     </div>
                     
@@ -144,7 +144,7 @@ export default function BasketDrawer() {
                   <div className="flex justify-between items-center mt-3 pt-3 border-t">
                     <span className="text-sm text-gray-600">Subtotal:</span>
                     <span className="font-bold text-primary">
-                      £{(item.price * item.quantity).toFixed(2)}
+                      £{((typeof item.price === 'string' ? parseFloat(item.price) : item.price) * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ export default function BasketDrawer() {
           <div className="border-t pt-6 mt-6 space-y-4">
             <div className="flex justify-between items-center text-lg font-bold">
               <span>Total:</span>
-              <span className="text-primary text-2xl">£{totalPrice.toFixed(2)}</span>
+              <span className="text-primary text-2xl">£{typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2)}</span>
             </div>
             
             <Separator />
