@@ -13,10 +13,6 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [transcript, setTranscript] = useState('');
-    type NewType_1 = SpeechRecognition;
-
-    type NewType = NewType_1;
-
   const recognition = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
@@ -139,10 +135,3 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
   };
 }
 
-// Type declarations for browser speech recognition
-declare global {
-  interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
-  }
-}
