@@ -580,8 +580,7 @@ const originalPrice = numPrice * 1.25; // Show savings
                                 </div>
                                 {originalPrice && price && (
                                   <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
-                                    Save £let priceNum = safeToNumber(price);
-                                    const originalPrice = priceNum * 1.25;
+                                    Save £{safeToFixed(originalPrice - numPrice)}
                                   </div>
                                 )}
                               </div>
