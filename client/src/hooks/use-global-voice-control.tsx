@@ -139,7 +139,7 @@ export function useGlobalVoiceControl() {
       }
     };
 
-    recognition.onerror = (event) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       // Only log actual errors, not user cancellations or expected states
       if (event.error !== 'aborted' && event.error !== 'no-speech' && event.error !== 'network') {
         console.error('Speech recognition error:', event.error);

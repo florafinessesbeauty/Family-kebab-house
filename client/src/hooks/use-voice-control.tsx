@@ -32,7 +32,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
         processVoiceCommand(transcript);
       };
 
-      recognition.current.onend = () => {
+      recognition.current.onend = (event: Event) => {
         setIsListening(false);
       };
 
