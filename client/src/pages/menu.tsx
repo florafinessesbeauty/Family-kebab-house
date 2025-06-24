@@ -177,12 +177,12 @@ export default function Menu() {
           name: item.name,
           description: item.description,
           category: item.category,
-          // Convert all price strings to numbers
-          singlePrice: item.singlePrice ? parseFloat(item.singlePrice) : null,
-          priceSmall: item.priceSmall ? parseFloat(item.priceSmall) : null,
-          priceMedium: item.priceMedium ? parseFloat(item.priceMedium) : null,
-          priceLarge: item.priceLarge ? parseFloat(item.priceLarge) : null,
-          priceXLarge: item.priceXLarge ? parseFloat(item.priceXLarge) : null,
+          // Convert all price strings to numbers, using undefined instead of null
+          singlePrice: item.singlePrice ? parseFloat(item.singlePrice) : undefined,
+          priceSmall: item.priceSmall ? parseFloat(item.priceSmall) : undefined,
+          priceMedium: item.priceMedium ? parseFloat(item.priceMedium) : undefined,
+          priceLarge: item.priceLarge ? parseFloat(item.priceLarge) : undefined,
+          priceXLarge: item.priceXLarge ? parseFloat(item.priceXLarge) : undefined,
           isSpecial: Boolean(item.isSpecial),
           calories: item.calories,
           protein: item.protein,
