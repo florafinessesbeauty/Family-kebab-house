@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
+import { parsePrice } from '@/utils/price-utils';
 
 import AccessibilityHelpModal from "@/components/accessibility-help-modal";
 
@@ -99,7 +100,7 @@ export default function Menu() {
     const items = currentCategoryItems;
     if (items.length > 0) {
       const menuText = items.map(item => 
-        `${item.name}, ${item.description}, Price: ${item.singlePrice ? `£${parseFloat(item.singlePrice.toString()).toFixed(2)}` : 'varies'}`
+        `${item.name}, ${item.description}, Price: ${item.singlePrice ? `£${parsePrice(item.singlePrice).toFixed(2)}` : 'varies'}`
       ).join('. ');
       
       if ('speechSynthesis' in window) {

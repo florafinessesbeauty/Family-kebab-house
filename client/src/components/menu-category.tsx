@@ -6,17 +6,13 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip'
 
+import { parsePrice, formatPrice } from '@/utils/price-utils'
+
 interface MenuCategoryProps {
   title: string
   description?: string
   items: MenuItemData[]
   icon?: string
-}
-
-// helpers at module scope
-const formatPrice = (price: number | string) => {
-  const numPrice = typeof price === 'string' ? parseFloat(price) : price;
-  return `£${numPrice.toFixed(2)}`;
 }
 
 const getItemEmoji = (item: MenuItemData) => {
