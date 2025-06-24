@@ -378,7 +378,7 @@ export default function Menu() {
                                 fiber: deal.fiber,
                                 sodium: deal.sodium,
                                 allergens: deal.allergens,
-                                ingredients: deal.ingredients
+                                ingredients: deal.ingredients ? [deal.ingredients] : undefined
                               }}
                             />
                           </div>
