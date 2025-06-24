@@ -6,7 +6,7 @@ import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
 
 import AccessibilityHelpModal from "@/components/accessibility-help-modal";
-import AccessibleLandmark from "@/components/accessible-landmark";
+
 import AddToBasketButton from "@/components/add-to-basket-button";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
