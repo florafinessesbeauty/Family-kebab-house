@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
 import { ShoppingBasket, Plus, Share2 } from 'lucide-react';
 import { useBasket } from '@/hooks/use-basket';
 import { toast } from '@/hooks/use-toast';
