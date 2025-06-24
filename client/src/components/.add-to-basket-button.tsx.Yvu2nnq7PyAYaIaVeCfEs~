@@ -134,10 +134,39 @@ export default function AddToBasketButton({ item, variant = 'default', className
     const sizeOption = getSizeOptions().find(s => s.value === sizeValue);
     return sizeOption ? sizeOption.price : (parsePrice(item.singlePrice) || 0);
   };
+      if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Single', price: item.singlePrice, value: 'single' });
+      }
+      if (item.priceMedium && item.priceMedium > 0) {
+        sizes.push({ label: 'With Chips', price: item.priceMedium, value: 'with-chips' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });
+      }
+    }
+    // Handle all other categories with standard pricing
+    else {
+      if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Regular', price: item.singlePrice, value: 'regular' });
+      }
+      if (item.priceSmall && item.priceSmall > 0) {
+        sizes.push({ label: 'Small', price: item.priceSmall, value: 'small' });
+      }
+      if (item.priceMedium && item.priceMedium > 0) {
+        sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
+      }
+      if (item.priceXLarge && item.priceXLarge > 0) {
+        sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
+      }
+    }
 
-  // Get fallback pricing when no sizes available
-  const getFallbackPrice = (): number => {
-    let fallbackPrice = 7.50;
+
+    // Fallback pricing based on authentic menu prices - only if no valid price found
+    if (sizes.length === 0) {
+      let fallbackPrice = 7.50;
       
       // Category-specific fallback pricing using authentic restaurant prices
       if (item.category === 'lunch-time-offers') {
@@ -168,7 +197,10 @@ export default function AddToBasketButton({ item, variant = 'default', className
       }
       else if (item.category === 'desserts') fallbackPrice = 3.50;
       
-    return fallbackPrice;
+      sizes.push({ label: 'Regular', price: fallbackPrice, value: 'regular' });
+    }
+    
+    return sizes;
   };
 
   // Get available extras based on category
