@@ -12,11 +12,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [transcript, setTranscript] = useState('');
-    type NewType_1 = SpeechRecognition;
-
-    type NewType = NewType_1;
-
-  const recognition = useRef<NewType | null>(null);
+  const recognition = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     // Check if speech recognition is supported
