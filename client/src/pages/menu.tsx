@@ -441,7 +441,7 @@ export default function Menu() {
                             // Try multiple price sources
                             let price = specialOfferPrices[deal.name] || 
                                        deal.singlePrice || 
-                                       deal.price || 
+                                       deal.singlePrice || 
                                        deal.priceSmall || 
                                        deal.priceMedium || 
                                        deal.priceLarge;
