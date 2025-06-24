@@ -180,22 +180,22 @@ export default function AccessibleMenuItem({
             <PriceBadge
               price={getPrice()}
               isSpecial={item.isSpecial}
-              isKebabFeast={isKebabFeast}
-              isFamilyDeal={isFamilyDeal}
+              variant={isKebabFeast ? 'premium' : (item.isSpecial ? 'discount' : 'default')}
+              size="lg"
             />
             
             <NutritionalInfoTooltip 
               itemName={item.name} 
               category={item.category}
               nutritionalData={{
-                calories: item.calories,
-                protein: item.protein,
-                carbs: item.carbs,
-                fat: item.fat,
-                fiber: item.fiber,
-                sodium: item.sodium,
-                allergens: item.allergens,
-                ingredients: item.ingredients
+                calories: item.calories || 0,
+                protein: item.protein?.toString() || '0g',
+                carbs: item.carbs?.toString() || '0g',
+                fat: item.fat?.toString() || '0g',
+                fiber: item.fiber?.toString() || '0g',
+                sodium: item.sodium?.toString() || '0mg',
+                allergens: Array.isArray(item.allergens) ? item.allergens : (item.allergens ? [item.allergens] : []),
+                ingredients: Array.isArray(item.ingredients) ? item.ingredients : (item.ingredients ? [item.ingredients] : [])
               }}
             />
           </div>
