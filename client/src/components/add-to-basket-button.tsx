@@ -126,23 +126,17 @@ export default function AddToBasketButton({ item, variant = 'default', className
         sizes.push({ label: 'Large', price: parsePrice(item.priceLarge), value: 'large' });
       }
     }
-      if (item.priceLarge && parsePrice(item.priceLarge) > 0) {
-        sizes.push({ label: 'Large', price: parsePrice(item.priceLarge), value: 'large' });
-      }
-          sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
-        }
-        if (item.priceLarge && item.priceLarge > 0) {
-          sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
-        }
-        if (item.priceXLarge && item.priceXLarge > 0) {
-          sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
-        }
-      }
-    }
-    // Handle burger category with single/meal options
-    else if (item.category === 'burgers') {
-      if (item.priceSmall && item.priceSmall > 0) {
-        sizes.push({ label: 'Single', price: item.priceSmall, value: 'single' });
+
+    return sizes;
+  };
+
+    
+    return sizes;
+  };
+
+  const getSelectedPrice = (sizeValue: string): number => {
+    const sizeOption = getSizeOptions().find(s => s.value === sizeValue);
+    return sizeOption ? sizeOption.price : (parsePrice(item.singlePrice) || 0);
       }
       if (item.priceLarge && item.priceLarge > 0) {
         sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });

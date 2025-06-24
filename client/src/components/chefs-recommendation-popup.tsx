@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChefHat, Star, Clock, Sparkles, X, Award, TrendingUp, Heart, Phone } from 'lucide-react';
 import AddToBasketButton from '@/components/add-to-basket-button';
+import { parsePrice } from '@/utils/price-utils';
 
 interface DailySpecial {
   id: string;

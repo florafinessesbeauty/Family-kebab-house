@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Minus, ShoppingBasket, Utensils } from 'lucide-react';
 import { useBasket } from '@/hooks/use-basket';
 import { toast } from '@/hooks/use-toast';
+import { parsePrice } from '@/utils/price-utils';
 
 interface MealComponent {
   id: string;
@@ -133,7 +134,7 @@ export default function MealBuilder() {
     addItem(basketItem);
     toast({
       title: "Custom meal added to basket!",
-      description: `Your custom meal has been added for £${totalPrice.toFixed(2)}.`
+      description: `Your custom meal has been added for £${parsePrice(totalPrice).toFixed(2)}.`
     });
     // Reset
     setCustomMeal({ main: null, sides: [], drink: null, extras: [] });

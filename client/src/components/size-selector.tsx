@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MenuItem } from '../../../shared/schema';
+import { parsePrice } from '@/utils/price-utils';
 
 interface SizeSelectorProps {
   item: MenuItem;

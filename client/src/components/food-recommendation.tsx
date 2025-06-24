@@ -6,6 +6,7 @@ import { Phone, Heart, Zap, Clock, DollarSign } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import AddToBasketButton from "@/components/add-to-basket-button";
+import { parsePrice } from '@/utils/price-utils';
 
 interface FoodPreference {
   id: string;
@@ -58,11 +59,11 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
     const priceLarge = parsePrice(item.priceLarge);
     const priceXLarge = parsePrice(item.priceXLarge);
     
-    if (singlePrice > 0) return `£${singlePrice.toFixed(2)}`;
-    if (priceSmall > 0 && priceLarge > 0) return `From £${Math.min(priceSmall, priceLarge).toFixed(2)}`;
-    if (priceMedium > 0 && priceLarge > 0) return `From £${Math.min(priceMedium, priceLarge).toFixed(2)}`;
-    if (priceSmall > 0) return `£${priceSmall.toFixed(2)}`;
-    if (priceMedium > 0) return `£${priceMedium.toFixed(2)}`;
+    if (singlePrice > 0) return `£${parsePrice(singlePrice).toFixed(2)}`;
+    if (priceSmall > 0 && priceLarge > 0) return `From £${Math.min(parsePrice(priceSmall), parsePrice(priceLarge)).toFixed(2)}`;
+    if (priceMedium > 0 && priceLarge > 0) return `From £${Math.min(parsePrice(priceMedium), parsePrice(priceLarge)).toFixed(2)}`;
+    if (priceSmall > 0) return `£${parsePrice(priceSmall).toFixed(2)}`;
+    if (priceMedium > 0) return `£${parsePrice(priceMedium).toFixed(2)}`;
     if (priceLarge > 0) return `£${priceLarge.toFixed(2)}`;
     if (priceXLarge > 0) return `£${priceXLarge.toFixed(2)}`;
     

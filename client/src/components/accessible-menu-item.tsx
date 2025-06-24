@@ -8,6 +8,7 @@ import { MenuItem } from '../../../shared/schema'
 import { PriceBadge } from '@/components/price-badge'
 import { SizeSelector } from '@/components/size-selector'
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip'
+import { parsePrice } from '@/utils/price-utils'
 
 interface AccessibleMenuItemProps {
   item: MenuItem
@@ -79,7 +80,7 @@ export default function AccessibleMenuItem({
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={`${item.name} – ${item.description || ''} – Price: £${getPrice().toFixed(
+      aria-label={`${item.name} – ${item.description || ''} – Price: £${parsePrice(getPrice()).toFixed(
         2
       )}. Press Enter to select, O to order, I for nutrition info`}
       aria-describedby={`item-${item.id}-description`}
