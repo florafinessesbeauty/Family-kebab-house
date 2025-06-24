@@ -32,25 +32,27 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
+        <div className="flex items-center justify-between py-3 sm:py-4">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
             <img 
               src="/logo.jpg" 
               alt="Family Kebab House Logo"
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
+              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover"
             />
-            <div>
-              <h1 className="font-dancing text-xl sm:text-2xl font-bold text-charcoal">Family Kebab</h1>
-              <p className="text-xs sm:text-sm text-gray-600">Kebab & Pizza</p>
+            <div className="min-w-0">
+              <h1 className="font-dancing text-lg sm:text-xl md:text-2xl font-bold text-charcoal leading-tight">
+                Family Kebab
+              </h1>
+              <p className="text-xs sm:text-sm text-gray-600 leading-tight">Kebab & Pizza</p>
             </div>
           </Link>
           
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-4 lg:space-x-6 xl:space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`transition-colors font-medium ${
+                className={`transition-colors font-medium text-sm lg:text-base whitespace-nowrap ${
                   isActive(item.href)
                     ? "text-primary"
                     : "text-charcoal hover:text-primary"
@@ -61,41 +63,33 @@ export default function Header({ onAIRecommendationsClick }: HeaderProps) {
             ))}
           </nav>
 
-          <div className="flex items-center space-x-1 sm:space-x-2">
-            {/* Phone Button - Always Visible */}
-            <a href="tel:01692584100" className="hidden sm:block">
-              <Button size="sm" className="bg-accent-gold text-charcoal hover:bg-yellow-600 transition-colors font-semibold">
-                <Phone className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">01692 584 100</span>
-                <span className="sm:hidden">Call</span>
-              </Button>
-            </a>
-
-            {/* Voice Control Button */}
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+            {/* Voice Control Button - Large Desktop Only */}
             <Button
               onClick={startListening}
               size="sm"
-              className="hidden md:flex bg-green-600 hover:bg-green-700 text-white font-semibold transition-all duration-300"
+              className="hidden xl:flex bg-green-600 hover:bg-green-700 text-white font-semibold transition-all duration-300"
               title="Voice Commands: Say 'go home', 'show menu', 'nutrition info', etc."
             >
-              <Mic className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
-              <span className="hidden lg:inline">Voice</span>
+              <Mic className="mr-1 h-3 w-3" />
+              <span className="text-xs">Voice</span>
             </Button>
 
-            {/* AI Recommendations Button */}
+            {/* AI Recommendations Button - Large Desktop Only */}
             <Button
               onClick={onAIRecommendationsClick}
               size="sm"
-              className="hidden md:flex bg-gradient-to-r from-primary to-accent hover:from-red-700 hover:to-orange-600 text-white font-semibold animate-pulse hover:animate-none transition-all duration-300"
+              className="hidden xl:flex bg-gradient-to-r from-primary to-accent hover:from-red-700 hover:to-orange-600 text-white font-semibold animate-pulse hover:animate-none transition-all duration-300"
             >
-              <Zap className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
-              AI Picks
+              <Zap className="mr-1 h-3 w-3" />
+              <span className="text-xs">AI Picks</span>
             </Button>
 
+            {/* Phone Button - Always Visible */}
             <a href="tel:01692584100">
-              <Button className="bg-accent-gold text-charcoal hover:bg-yellow-600 transition-colors font-semibold">
-                <Phone className="mr-2 h-4 w-4" />
-                01692 584 100
+              <Button size="sm" className="bg-accent-gold text-charcoal hover:bg-yellow-600 transition-colors font-semibold">
+                <Phone className="h-3 w-3 sm:mr-1 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline text-xs sm:text-sm">01692 584 100</span>
               </Button>
             </a>
             
