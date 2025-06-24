@@ -219,7 +219,7 @@ export default function Home({}: HomeProps) {
           
           <div className="relative max-w-6xl mx-auto">
             {/* Main Slideshow */}
-            <div className="relative h-96 md:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
               {foodSlides.map((slide, index) => (
                 <div
                   key={slide.id}
@@ -237,22 +237,22 @@ export default function Home({}: HomeProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                   
                   {/* Content Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 lg:p-12">
                     <div className="max-w-2xl">
-                      <div className="text-6xl md:text-8xl mb-4 animate-bounce">
+                      <div className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl mb-2 sm:mb-4 animate-bounce">
                         {slide.emoji}
                       </div>
-                      <h3 className="font-poppins text-3xl md:text-5xl font-bold text-white mb-4 transform animate-slide-up">
+                      <h3 className="font-poppins text-lg sm:text-2xl md:text-3xl lg:text-5xl font-bold text-white mb-2 sm:mb-4 transform animate-slide-up">
                         {slide.title}
                       </h3>
-                      <p className="text-lg md:text-xl text-gray-200 mb-6 transform animate-slide-up animation-delay-200">
+                      <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 mb-3 sm:mb-6 transform animate-slide-up animation-delay-200">
                         {slide.description}
                       </p>
-                      <div className="space-y-4 transform animate-slide-up animation-delay-400">
-                        <div className="text-2xl md:text-3xl font-bold text-accent-gold">
+                      <div className="space-y-2 sm:space-y-4 transform animate-slide-up animation-delay-400">
+                        <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-accent-gold">
                           {slide.price}
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                           <AddToBasketButton 
                             item={{
                               id: `slideshow-${slide.id}`,
@@ -261,11 +261,12 @@ export default function Home({}: HomeProps) {
                               singlePrice: parseFloat(slide.price.replace(/[£From ]/g, '')) || 0,
                               description: slide.description
                             }}
-                            className="flex-1 bg-accent-gold text-charcoal hover:bg-yellow-600"
+                            className="flex-1 bg-accent-gold text-charcoal hover:bg-yellow-600 text-sm sm:text-base"
+                            size="sm"
                           />
-                          <a href="tel:01692584100">
-                            <Button size="lg" variant="outline" className="bg-white/90 hover:bg-white text-charcoal font-bold px-6 py-4 transition-all duration-300">
-                              <Phone className="mr-2 h-5 w-5" />
+                          <a href="tel:01692584100" className="flex-1 sm:flex-none">
+                            <Button size="sm" variant="outline" className="w-full bg-white/90 hover:bg-white text-charcoal font-bold px-4 py-2 sm:px-6 sm:py-4 transition-all duration-300 text-sm sm:text-base">
+                              <Phone className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                               Call Now
                             </Button>
                           </a>
@@ -280,24 +281,24 @@ export default function Home({}: HomeProps) {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+              className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+              className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
             </button>
 
             {/* Slide Indicators */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <div className="absolute bottom-3 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
               {foodSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                     index === currentSlide 
                       ? 'bg-accent-gold scale-125' 
                       : 'bg-white/50 hover:bg-white/75'

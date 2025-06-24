@@ -177,12 +177,12 @@ export default function MenuCategory({
   return (
     <div className="space-y-6">
       {/* header */}
-      <div className="text-center mb-8">
-        <h2 className="font-poppins text-4xl font-bold text-charcoal mb-2 flex items-center justify-center gap-3">
-          {icon && <span className="text-3xl">{icon}</span>}
+      <div className="text-center mb-6 sm:mb-8">
+        <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-bold text-charcoal mb-2 flex items-center justify-center gap-2 sm:gap-3">
+          {icon && <span className="text-xl sm:text-2xl md:text-3xl">{icon}</span>}
           {title}
         </h2>
-        {description && <p className="text-lg text-gray-600">{description}</p>}
+        {description && <p className="text-base sm:text-lg text-gray-600 px-4">{description}</p>}
       </div>
 
       {/* items grid */}
@@ -196,16 +196,16 @@ export default function MenuCategory({
                 : 'hover:border-accent/30'
             }`}
           >
-            <CardContent className="p-4 relative">
+            <CardContent className="p-3 sm:p-4 relative">
               {/* hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {/* content row */}
-              <div className="flex justify-between items-start relative z-10">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 relative z-10">
                 <div className="flex-1">
                   {/* title + tooltip + special badge */}
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-charcoal text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h3 className="font-semibold text-charcoal text-base sm:text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
                       <span className="group-hover:scale-125 transition-transform duration-300">
                         {getItemEmoji(item)}
                       </span>
@@ -236,15 +236,15 @@ export default function MenuCategory({
 
                   {/* description */}
                   {item.description && (
-                    <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">
+                    <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors mb-3">
                       {item.description}
                     </p>
                   )}
+                </div>
 
-                  {/* prices & Add buttons */}
-                  <div className="relative z-20 mt-4">
-                    {renderPriceDisplay(item)}
-                  </div>
+                {/* prices & Add buttons */}
+                <div className="relative z-20 w-full sm:w-auto sm:min-w-[200px]">
+                  {renderPriceDisplay(item)}
                 </div>
               </div>
             </CardContent>
