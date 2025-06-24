@@ -257,17 +257,17 @@ export default function ChefsRecommendationPopup() {
                 <div className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 rounded-lg p-6 text-center">
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <span className="text-4xl font-bold text-primary animate-pulse">
-                      £{currentSpecial.specialPrice.toFixed(2)}
+                      £{parsePrice(currentSpecial.specialPrice).toFixed(2)}
                     </span>
                     <span className="text-2xl text-gray-500 line-through">
-                      £{currentSpecial.originalPrice.toFixed(2)}
+                      £{parsePrice(currentSpecial.originalPrice).toFixed(2)}
                     </span>
                   </div>
                   
                   <div className="flex justify-center gap-2 mb-3">
                     <Badge className="bg-green-100 text-green-800 animate-pulse">
                       <TrendingUp className="mr-1 h-3 w-3" />
-                      Save £{(currentSpecial.originalPrice - currentSpecial.specialPrice).toFixed(2)}
+                      Save £{(parsePrice(currentSpecial.originalPrice) - parsePrice(currentSpecial.specialPrice)).toFixed(2)}
                     </Badge>
                     <Badge className="bg-orange-100 text-orange-800">
                       <Heart className="mr-1 h-3 w-3" />

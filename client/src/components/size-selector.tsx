@@ -48,7 +48,7 @@ export const SizeSelector: React.FC<SizeSelectorProps> = ({
             <div className={`text-lg font-bold ${
               selectedSize === size.id ? `text-${size.color}-700` : 'text-gray-900'
             }`}>
-              £{size.price!.toFixed(2)}
+              £{parsePrice(size.price!).toFixed(2)}
             </div>
           </button>
         ))}
