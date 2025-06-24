@@ -173,12 +173,15 @@
 
   /* Custom button hover effects */
   .hover-lift {
-    @apply transition-transform duration-200 hover:scale-105;
+    transition: transform 0.2s ease;
+  }
+  .food-card:hover {
+    transform: scale(1.05);
   }
 
   /* Menu category transition */
   .menu-category {
-    @apply transition-all duration-300 ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 
   /* Image overlay effects */
