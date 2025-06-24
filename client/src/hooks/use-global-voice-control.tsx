@@ -1,23 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Type declarations for SpeechRecognition API
-declare global {
-  interface Window {
-    SpeechRecognition: new () => SpeechRecognitionEvent;
-    webkitSpeechRecognition: new () => SpeechRecognitionEvent;
-  }
-}
-
-interface SpeechRecognitionEvent extends Event {
-  results: SpeechRecognitionResultList;
-  resultIndex: number;
-}
-
-interface SpeechRecognitionErrorEvent extends Event {
-  error: string;
-  message: string;
-}
+import type { SpeechRecognition, SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from '../types/speech-recognition';
 
 
 interface VoiceControlCommands {
