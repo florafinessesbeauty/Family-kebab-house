@@ -36,7 +36,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
         setIsListening(false);
       };
 
-      recognition.current.onerror = (event: { error: any; }) => {
+      recognition.current.onerror = (event: SpeechRecognitionErrorEvent) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
       };
