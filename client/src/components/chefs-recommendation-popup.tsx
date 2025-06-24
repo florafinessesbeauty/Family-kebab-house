@@ -39,7 +39,7 @@ export default function ChefsRecommendationPopup() {
           specialPrice: 28.00,
           category: 'family-special',
           emoji: '👨‍👩‍👧‍👦',
-          reason: 'Chef Ahmed recommends this for Sunday family dinners',
+          reason: 'Chef Soner and Bayram recommend this for Sunday family dinners',
           preparationTime: '20-25 minutes',
           isLimited: true,
           ingredients: ['Doner Meat', 'Shish Kebab', 'Chicken Kebab', 'Kofte', 'Fresh Salad', 'Pitta Bread', 'Sauces', 'Chips']
@@ -54,7 +54,7 @@ export default function ChefsRecommendationPopup() {
           specialPrice: 10.00,
           category: 'chef-special',
           emoji: '🍗',
-          reason: 'Made with chicken marinated overnight in Chef\'s secret spices',
+          reason: 'Made with chicken marinated overnight in Chef Soner and Bayram\'s secret spices',
           preparationTime: '15-18 minutes',
           isLimited: false,
           ingredients: ['Marinated Chicken', 'Grilled Vegetables', 'Garlic Sauce', 'Fresh Herbs']
@@ -99,7 +99,7 @@ export default function ChefsRecommendationPopup() {
           specialPrice: 15.00,
           category: 'grill-special',
           emoji: '🥩',
-          reason: 'Chef personally selects the finest cuts for this special',
+          reason: 'Chef Soner and Bayram personally select the finest cuts for this special',
           preparationTime: '20-22 minutes',
           isLimited: true,
           ingredients: ['Premium Lamb', 'Chicken Breast', 'Beef Kofta', 'Grilled Vegetables']
@@ -114,7 +114,7 @@ export default function ChefsRecommendationPopup() {
           specialPrice: 9.00,
           category: 'seafood-special',
           emoji: '🍤',
-          reason: 'Fresh catch prepared with Chef\'s Mediterranean-style seasoning',
+          reason: 'Fresh catch prepared with Chef Soner and Bayram\'s Mediterranean-style seasoning',
           preparationTime: '12-15 minutes',
           isLimited: false,
           ingredients: ['Fresh Scampi', 'Chef\'s Batter', 'Homemade Tartar Sauce', 'Lemon']
@@ -129,7 +129,7 @@ export default function ChefsRecommendationPopup() {
           specialPrice: 13.50,
           category: 'weekend-special',
           emoji: '🎊',
-          reason: 'Chef\'s weekend celebration combo with extra portions',
+          reason: 'Chef Soner and Bayram\'s weekend celebration combo with extra portions',
           preparationTime: '18-20 minutes',
           isLimited: false,
           ingredients: ['Mixed Kebab', 'Chicken Wings', 'Chips', 'Coleslaw', 'Drink']
@@ -182,10 +182,10 @@ export default function ChefsRecommendationPopup() {
       )}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
           {/* Enhanced Header with gradient background */}
           <div className="relative bg-gradient-to-br from-primary via-red-600 to-accent p-6 -m-6 mb-4 text-white rounded-t-lg">
-            <div className="absolute inset-0 bg-black/10 rounded-t-lg"></div>
+            <div className="absolute inset-0 bg-black/20 rounded-t-lg"></div>
             <div className="relative">
               <DialogHeader>
                 <div className="flex items-center justify-between">
@@ -194,7 +194,7 @@ export default function ChefsRecommendationPopup() {
                       <ChefHat className="h-8 w-8 animate-pulse" />
                       <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-ping"></div>
                     </div>
-                    Chef Ahmed's Daily Special
+                    Chef Soner and Bayram's Daily Special
                   </DialogTitle>
                   <Button
                     variant="ghost"
@@ -291,7 +291,7 @@ export default function ChefsRecommendationPopup() {
                     <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full animate-ping"></div>
                   </div>
                   <div>
-                    <p className="font-semibold text-charcoal mb-1">Chef Ahmed says:</p>
+                    <p className="font-semibold text-charcoal mb-1">Chef Soner and Bayram say:</p>
                     <p className="text-gray-700 italic">
                       "{currentSpecial.reason}"
                     </p>
