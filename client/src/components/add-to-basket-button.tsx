@@ -454,7 +454,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
                       className="justify-between"
                     >
                       <span>{size.label}</span>
-                      <span className="font-bold">£{size.price.toFixed(2)}</span>
+                      <span className="font-bold">£{safeToFixed(size.price)}</span>
                     </Button>
                   ))}
                 </div>

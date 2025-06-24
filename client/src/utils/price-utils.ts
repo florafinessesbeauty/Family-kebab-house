@@ -49,4 +49,4 @@ export const getCleanPrice = (price: any): number => {
 export const safeToFixed = (price: any, decimals: number = 2): string => {
   const cleanPrice = getCleanPrice(price);
   return cleanPrice.toFixed(decimals);
-};;
+};
