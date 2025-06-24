@@ -348,255 +348,51 @@ export default function Menu() {
                   />
                 </div>
 
-                              
-                              // Pizza Offers
-                              "🍕 2× 10\" Pizzas from Set-Menu": 17.20,
-                              "🍕 2× 12\" Pizzas from Set-Menu": 22.50,
-                              
-                              // Family Deals
-                              "👨‍👩‍👧‍👦 Family Deal (10\" Pizza)": 26.90,
-                              "👨‍👩‍👧‍👦 Family Deal (12\" Pizza)": 28.90,
-                              
-                              // Kebab Feast
-                              "🎉 Kebab Feast": 30.00,
-                              
-                              // Chicken Combo Meals
-                              "🍗 3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50,
-                              
-                              // Fallback for names without emojis
-                              "Chicken Burger + Chips & Drink": 7.90,
-                              "¼ Pounder with Cheese + Chips & Drink": 7.90,
-                              "½ Pounder with Double Cheese + Chips & Drink": 9.50,
-                              "Medium Doner Meat + Chips & Drink": 7.90,
-                              "Large Doner Meat + Chips & Drink": 9.50,
-                              "10\" Margherita with 3 Toppings + Drink": 9.50,
-                              "12\" Margherita with 3 Toppings + Drink": 12.50,
-                              "2× 10\" Pizzas from Set-Menu": 17.20,
-                              "2× 12\" Pizzas from Set-Menu": 22.50,
-                              "Family Deal (10\" Pizza)": 26.90,
-                              "Family Deal (12\" Pizza)": 28.90,
-                              "Kebab Feast": 30.00,
-                              "3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
-                            };
-                            
-                            // Try multiple price sources
-                            let price = specialOfferPrices[deal.name] || 
-                                       deal.singlePrice || 
-                                       deal.singlePrice || 
-                                       deal.priceSmall || 
-                                       deal.priceMedium || 
-                                       deal.priceLarge;
-                            
-                            // If still no price, try removing emoji prefix for matching
-                            if (!price) {
-                              const nameWithoutEmoji = deal.name.replace(/^[^\w\s]+\s*/, '').trim();
-                              price = specialOfferPrices[nameWithoutEmoji];
-                            }
-                            
-                            const originalPrice = price ? price * 1.25 : null; // Show savings
-                            
-                            return (
-                              <div className="space-y-2">
-                                <div className="flex items-center justify-center gap-2">
-                                  <span className="text-3xl">£{price ? price.toFixed(2) : "Contact Us"}</span>
-                                  {originalPrice && price && (
-                                    <span className="text-lg text-white/60 line-through">
-                                      £{originalPrice.toFixed(2)}
-                                    </span>
-                                  )}
-                                </div>
-                                {originalPrice && price && (
-                                  <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
-                                    Save £{(originalPrice - price).toFixed(2)}
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })()}
-                        </div>
-                        <div className="space-y-3">
-                          <AddToBasketButton 
-                            item={{
-                              id: `special-deal-${deal.id}`,
-                              name: deal.name,
-                              category: deal.category || 'special-offers',
-                              singlePrice: (() => {
-                                const specialOfferPrices: { [key: string]: number } = {
-                                  "⏰ Chicken Burger + Chips & Drink": 7.90,
-                                  "⏰ ¼ Pounder with Cheese + Chips & Drink": 7.90,
-                                  "⏰ ½ Pounder with Double Cheese + Chips & Drink": 9.50,
-                                  "⏰ Medium Doner Meat + Chips & Drink": 7.90,
-                                  "⏰ Large Doner Meat + Chips & Drink": 9.50,
-                                  "⏰ 10\" Margherita with 3 Toppings + Drink": 9.50,
-                                  "⏰ 12\" Margherita with 3 Toppings + Drink": 12.50,
-                                  "🍕 2× 10\" Pizzas from Set-Menu": 17.20,
-                                  "🍕 2× 12\" Pizzas from Set-Menu": 22.50,
-                                  "👨‍👩‍👧‍👦 Family Deal (10\" Pizza)": 26.90,
-                                  "👨‍👩‍👧‍👦 Family Deal (12\" Pizza)": 28.90,
-                                  "🎉 Kebab Feast": 30.00,
-                                  "🍗 3 Pcs Chicken + 4 Spicy Wings + Chips & Drink": 11.50
-                                };
-                                return specialOfferPrices[deal.name] || deal.singlePrice || deal.priceSmall || deal.priceMedium || deal.priceLarge || 0;
-                              })(),
-                              description: deal.description
-                            }}
-                            className={`w-full transition-all duration-300 ${
-                              isKebabFeast 
-                                ? "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white hover:from-yellow-300 hover:via-orange-300 hover:to-red-400 font-black text-lg transform hover:scale-110 shadow-2xl animate-pulse hover:animate-none border-4 border-white" 
-                                : isFamilyDeal
-                                ? "bg-pink-400 text-purple-900 hover:bg-pink-300 font-bold transform group-hover:scale-105 shadow-lg"
-                                : isChickenCombo
-                                ? "bg-orange-400 text-red-900 hover:bg-orange-300 font-bold transform group-hover:scale-105 shadow-lg"
-                                : "bg-primary text-white hover:bg-red-700"
-                            }`}
-                          />
-                          <a href="tel:01692584100">
-                            <Button variant="outline" className="w-full bg-white/90 hover:bg-white text-charcoal border-2">
-                              📞 Call to Order
-                            </Button>
-                          </a>
-                        </div>
+                {/* Sidebar */}
+                <div className="lg:col-span-1">
+                  <div className="sticky top-24 space-y-8">
+                    {/* Category Image */}
+                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                      <img
+                        src={menuImages[activeCategory as keyof typeof menuImages] || menuImages.kebabs}
+                        alt={getCategoryInfo(activeCategory).name}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-4">
+                        <h3 className="font-poppins text-xl font-bold text-charcoal mb-2">
+                          {getCategoryInfo(activeCategory).name}
+                        </h3>
+                        <p className="text-gray-600 text-sm">
+                          Delicious {getCategoryInfo(activeCategory).name.toLowerCase()} made fresh daily
+                        </p>
                       </div>
                     </div>
-                  );
-                })}
-            </div>
-          </div>
-        )}
 
-        {/* Menu Categories Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => {
-              const itemCount = getItemsByCategory(category.id).length;
-              if (itemCount === 0) return null;
-              
-              return (
-                <Button
-                  key={category.id}
-                  onClick={() => {
-                    setActiveCategory(category.id);
-                    // Smooth scroll to menu content section
-                    setTimeout(() => {
-                      const menuSection = document.getElementById('menu-content');
-                      if (menuSection) {
-                        menuSection.scrollIntoView({ 
-                          behavior: 'smooth',
-                          block: 'start'
-                        });
-                      }
-                    }, 100);
-                  }}
-                  variant={activeCategory === category.id ? "default" : "outline"}
-                  className={`px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 ${
-                    activeCategory === category.id
-                      ? "bg-primary text-white shadow-lg"
-                      : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
-                  }`}
-                >
-                  <span className="mr-2 text-lg">{category.icon}</span>
-                  {category.name}
-                  <Badge variant="secondary" className="ml-2 bg-accent text-white">
-                    {itemCount}
-                  </Badge>
-                </Button>
-              );
-            })}
-          </div>
+                    {/* Quick Order */}
+                    <div className="bg-primary text-white rounded-lg p-6 text-center">
+                      <Phone className="h-8 w-8 mx-auto mb-4" />
+                      <h3 className="font-poppins text-xl font-bold mb-2">Quick Order</h3>
+                      <p className="text-sm mb-4">Call us directly to place your order</p>
+                      <a
+                        href="tel:01692584100"
+                        className="inline-block bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                      >
+                        01692 584 100
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </section>
 
-      {/* Menu Content */}
-      <section className="py-12 relative" id="menu-content">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2 relative">
-              <MenuCategory
-                title={getCategoryInfo(activeCategory).name}
-                description={
-                  activeCategory === "kebabs" 
-                    ? "🥙 All kebabs come with fresh salad & delicious sauce"
-                    : activeCategory === "combination-kebabs"
-                    ? "🥩 Choose any two kebab types - all £13.00 + extras available"
-                    : activeCategory === "pizzas"
-                    ? "🍕 Made with 100% fresh daily dough"
-                    : activeCategory === "lunch-offers"
-                    ? "⏰ Available 12:00 - 14:30 daily"
-                    : activeCategory === "family-deals"
-                    ? "👨‍👩‍👧‍👦 Perfect for sharing with loved ones"
-                    : activeCategory === "wraps"
-                    ? "🌯 Fresh wraps with your choice of fillings, salad & sauce"
-                    : activeCategory === "chicken-bargain-meals"
-                    ? "🍱 Great value chicken meals with chips & coleslaw"
-                    : activeCategory === "chicken-wings-strips"
-                    ? "🔥 Spicy wings and tender strips - Single, With Chips, or Meal options"
-                    : activeCategory === "chicken-nuggets"
-                    ? "🍗 Crispy chicken nuggets - Single, With Chips, or Meal options"
-                    : activeCategory === "drinks"
-                    ? "🥤 Refreshing beverages to complement your meal"
-                    : activeCategory === "kids-meals"
-                    ? "👶 Perfect portions for little ones - includes chips and drink"
-                    : undefined
-                }
-                items={getItemsByCategory(activeCategory)}
-                icon={getCategoryInfo(activeCategory).icon}
-              />
-            </div>
-
-            <div className="lg:col-span-1 space-y-6">
-              {/* Category Image */}
-              {menuImages[activeCategory as keyof typeof menuImages] && (
-                <img 
-                  src={menuImages[activeCategory as keyof typeof menuImages]}
-                  alt={`${getCategoryInfo(activeCategory).name} dishes`}
-                  className="rounded-2xl shadow-lg w-full h-80 object-cover"
-                />
-              )}
-
-              {/* Order Now Card */}
-              <div className="bg-gradient-to-br from-accent to-orange-600 p-8 rounded-2xl text-center text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 text-6xl opacity-20">🍽️</div>
-                <h3 className="font-poppins text-2xl font-bold mb-4">🔥 Ready to Order?</h3>
-                <p className="mb-6 text-orange-100">Call us now and your delicious meal will be ready in just 15 minutes! ⏱️</p>
-                <a href="tel:01692584100">
-                  <Button className="bg-white text-accent hover:bg-gray-100 w-full transform hover:scale-105 transition-transform">
-                    <Phone className="mr-2 h-4 w-4" />
-                    📞 Call 01692 584100
-                  </Button>
-                </a>
-              </div>
-
-              {/* Important Info */}
-              <div className="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-primary">
-                <h3 className="font-poppins text-xl font-bold text-charcoal mb-4">📋 Important Information</h3>
-                <ul className="space-y-4 text-gray-700 text-sm">
-                  <li className="flex items-start p-3 bg-red-50 rounded-lg">
-                    <span className="text-2xl mr-3">💰</span>
-                    <span><strong className="text-primary">Cash payment only</strong></span>
-                  </li>
-                  <li className="flex items-start p-3 bg-orange-50 rounded-lg">
-                    <span className="text-2xl mr-3">🎉</span>
-                    <span><strong className="text-primary">Party orders welcome</strong> - Call ahead for large orders</span>
-                  </li>
-                  <li className="flex items-start p-3 bg-yellow-50 rounded-lg">
-                    <span className="text-2xl mr-3">⚠️</span>
-                    <span>Please speak to our staff about <strong className="text-primary">food allergies and intolerances</strong> in your meal when making your order</span>
-                  </li>
-                  <li className="flex items-start p-3 bg-green-50 rounded-lg">
-                    <span className="text-2xl mr-3">🕐</span>
-                    <span><strong className="text-primary">Lunch offers:</strong> Special pricing 12:00 - 14:30</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Voice Control Button */}
+      {/* Voice Control */}
       <VoiceControlButton
         onNavigateToCategory={handleNavigateToCategory}
         onReadMenu={handleReadMenu}
-        onOrderItem={handleOrderItem}
+        onOrderNow={handleOrderItem}
       />
     </div>
   );
