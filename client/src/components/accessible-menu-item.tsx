@@ -122,7 +122,7 @@ export default function AccessibleMenuItem({
             {hasMultipleSizes && (
               <SizeSelector
                 item={item}
-                onSizeSelect={(size, price) => setSelectedSize(size)}
+                onSizeSelect={(size) => setSelectedSize(size)}
                 defaultSize={selectedSize}
               />
             )}
