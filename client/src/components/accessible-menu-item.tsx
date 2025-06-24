@@ -56,7 +56,7 @@ export default function AccessibleMenuItem({
     }
   };
 
-  const getPrice = () => {
+  const getPrice = (): number => {
     if (item.singlePrice) return item.singlePrice;
     if (item.priceMedium && selectedSize === 'medium') return item.priceMedium;
     if (item.priceLarge && selectedSize === 'large') return item.priceLarge;
