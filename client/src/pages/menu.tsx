@@ -10,7 +10,7 @@ import AccessibilityHelpModal from "@/components/accessibility-help-modal";
 import AddToBasketButton from "@/components/add-to-basket-button";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
-import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
+
 import { categories } from "@/data/menu-data";
 import type { MenuItemData } from "@/data/menu-data";
 import { Phone, Keyboard, Eye } from "lucide-react";
