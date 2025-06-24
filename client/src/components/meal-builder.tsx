@@ -93,12 +93,12 @@ export default function MealBuilder() {
   };
 
   // 4) Remove a selected component
-  const removeComponent = (category: keyof CustomMeal, id?: string) => {
+  const removeComponent = (category: keyof CustomMeal | MealComponent['category'], id?: string) => {
     setCustomMeal(prev => {
       if (category === 'main')  return { ...prev, main: null };
       if (category === 'drink') return { ...prev, drink: null };
-      if (category === 'side')  return { ...prev, sides: prev.sides.filter(s => s.id !== id) };
-      if (category === 'extra') return { ...prev, extras: prev.extras.filter(x => x.id !== id) };
+      if (category === 'side' || category === 'sides')  return { ...prev, sides: prev.sides.filter(s => s.id !== id) };
+      if (category === 'extra' || category === 'extras') return { ...prev, extras: prev.extras.filter(x => x.id !== id) };
       return prev;
     });
   };
