@@ -58,12 +58,11 @@ export default function AccessibleMenuItem({
 
   const getPrice = () => {
     if (item.singlePrice) return item.singlePrice;
-    if (item.price) return item.price;
     if (item.priceMedium && selectedSize === 'medium') return item.priceMedium;
     if (item.priceLarge && selectedSize === 'large') return item.priceLarge;
     if (item.priceXLarge && selectedSize === 'x-large') return item.priceXLarge;
     if (item.priceSmall && selectedSize === 'small') return item.priceSmall;
-    return null;
+    return item.singlePrice || 7.50; // fallback price
   };
 
   const hasMultipleSizes = !!(item.priceMedium || item.priceLarge || item.priceXLarge);
@@ -81,7 +80,7 @@ export default function AccessibleMenuItem({
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={`${item.name} - ${item.description} - Price: £${getPrice()?.toFixed(2) || 'N/A'}. Press Enter to select, O to order, I for nutrition info`}
+      aria-label={`${item.name} - ${item.description || ''} - Price: £${getPrice().toFixed(2)}. Press Enter to select, O to order, I for nutrition info`}
       aria-describedby={`item-${item.id}-description`}
     >
       {isKebabFeast && (
@@ -121,16 +120,59 @@ export default function AccessibleMenuItem({
             )}
 
             {hasMultipleSizes && (
-              <SizeSelector
-                sizes={{
-                  ...(item.priceSmall && { small: item.priceSmall }),
-                  ...(item.priceMedium && { medium: item.priceMedium }),
-                  ...(item.priceLarge && { large: item.priceLarge }),
-                  ...(item.priceXLarge && { 'x-large': item.priceXLarge })
-                }}
-                selectedSize={selectedSize}
-                onSizeChange={setSelectedSize}
-              />
+              <div className="mb-3">
+                <p className="text-sm font-medium text-gray-700 mb-2">Choose Size:</p>
+                <div className="flex gap-2 flex-wrap">
+                  {item.priceSmall && (
+                    <button
+                      onClick={() => setSelectedSize('small')}
+                      className={`px-3 py-1 rounded-full text-sm border ${
+                        selectedSize === 'small' 
+                          ? 'bg-primary text-white border-primary' 
+                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
+                      }`}
+                    >
+                      Small £{item.priceSmall.toFixed(2)}
+                    </button>
+                  )}
+                  {item.priceMedium && (
+                    <button
+                      onClick={() => setSelectedSize('medium')}
+                      className={`px-3 py-1 rounded-full text-sm border ${
+                        selectedSize === 'medium' 
+                          ? 'bg-primary text-white border-primary' 
+                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
+                      }`}
+                    >
+                      Medium £{item.priceMedium.toFixed(2)}
+                    </button>
+                  )}
+                  {item.priceLarge && (
+                    <button
+                      onClick={() => setSelectedSize('large')}
+                      className={`px-3 py-1 rounded-full text-sm border ${
+                        selectedSize === 'large' 
+                          ? 'bg-primary text-white border-primary' 
+                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
+                      }`}
+                    >
+                      Large £{item.priceLarge.toFixed(2)}
+                    </button>
+                  )}
+                  {item.priceXLarge && (
+                    <button
+                      onClick={() => setSelectedSize('x-large')}
+                      className={`px-3 py-1 rounded-full text-sm border ${
+                        selectedSize === 'x-large' 
+                          ? 'bg-primary text-white border-primary' 
+                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
+                      }`}
+                    >
+                      X-Large £{item.priceXLarge.toFixed(2)}
+                    </button>
+                  )}
+                </div>
+              </div>
             )}
           </div>
           
@@ -142,7 +184,20 @@ export default function AccessibleMenuItem({
               isFamilyDeal={isFamilyDeal}
             />
             
-            <NutritionalInfoTooltip item={item} />
+            <NutritionalInfoTooltip 
+              itemName={item.name} 
+              category={item.category}
+              nutritionalData={{
+                calories: item.calories,
+                protein: item.protein,
+                carbs: item.carbs,
+                fat: item.fat,
+                fiber: item.fiber,
+                sodium: item.sodium,
+                allergens: item.allergens,
+                ingredients: item.ingredients
+              }}
+            />
           </div>
         </div>
 
