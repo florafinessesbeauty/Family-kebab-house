@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Info, AlertTriangle, Zap, Activity } from "lucide-react";
-import { MenuItem } from "@/types";
+import { MenuItem } from "../../../shared/schema";
 import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
 
 interface NutritionalInfoProps {}
