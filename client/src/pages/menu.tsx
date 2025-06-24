@@ -16,12 +16,28 @@ import type { MenuItemData } from "@/data/menu-data";
 import { categoryNames } from "@/data/categoryNames";
 import { Phone, Keyboard, Eye } from "lucide-react";
 
-// Unified category mapping that aligns with actual API data
+// Unified category mapping for all Family Kebab House categories
 const UNIFIED_CATEGORIES = {
+  "lunch-offers": { name: "Lunch Time Offers (12:00-14:30)", icon: "🌅" },
   "burgers": { name: "Burgers", icon: "🍔" },
+  "fried-chicken": { name: "Fried Chicken", icon: "🍗" },
+  "chicken-bargain": { name: "Chicken Bargain Meals", icon: "🍗" },
+  "wings": { name: "Chicken Wings & Strips", icon: "🍗" },
+  "nuggets": { name: "Chicken Nuggets", icon: "🍗" },
+  "scampi": { name: "Scampi", icon: "🦐" },
+  "desserts": { name: "Desserts", icon: "🍰" },
+  "extras": { name: "Sides & Add-Ons", icon: "🍟" },
   "drinks": { name: "Drinks", icon: "🥤" },
-  "kebabs": { name: "Kebabs", icon: "🥙" }, 
+  "kids": { name: "Kids Meal", icon: "👶" },
   "pizzas": { name: "Pizzas", icon: "🍕" },
+  "garlic-bread": { name: "Garlic Bread & Extras", icon: "🧄" },
+  "pizza-offers": { name: "Pizza Offers", icon: "🍕" },
+  "family-deals": { name: "Family Deal", icon: "👨‍👩‍👧‍👦" },
+  "combo-meals": { name: "Chicken Combo Meal", icon: "🍗" },
+  "kebabs": { name: "Kebabs", icon: "🥙" },
+  "kebab-specials": { name: "Kebab Feast", icon: "🥙" },
+  "wraps": { name: "Wraps", icon: "🌯" },
+  "combination-kebabs": { name: "Combination Kebabs", icon: "🥙" },
   "sides": { name: "Sides & Extras", icon: "🍟" },
   "specials": { name: "Special Offers", icon: "⭐" }
 } as const;
@@ -194,21 +210,32 @@ export default function Menu() {
           ingredients: item.ingredients
         }));
         
-        // This will be set above in the combined data logic
+        // Menu data is set above in the combined data logic
         
         // Import static menu data for categories not in API
         const { menuData: staticMenuData } = await import('@/data/menu-data');
         
-        // Combine API data with static data for complete menu
-        const combinedData = [...transformedData];
+        // Create a Map to track unique items by ID to prevent duplicates
+        const itemMap = new Map();
         
-        // Add static menu items for categories not covered by API
-        staticMenuData.forEach(staticItem => {
-          const existsInApi = transformedData.some(apiItem => apiItem.id === staticItem.id);
-          if (!existsInApi) {
-            combinedData.push(staticItem);
+        // Add API items first (they take priority)
+        transformedData.forEach(item => {
+          itemMap.set(item.id, item);
+        });
+        
+        // Add static items only if they don't already exist, with unique IDs
+        staticMenuData.forEach((staticItem, index) => {
+          if (!itemMap.has(staticItem.id)) {
+            itemMap.set(staticItem.id, staticItem);
+          } else {
+            // Create a unique ID for duplicates
+            const uniqueId = `${staticItem.id}-static-${index}`;
+            itemMap.set(uniqueId, { ...staticItem, id: uniqueId });
           }
         });
+        
+        // Convert Map back to array
+        const combinedData = Array.from(itemMap.values());
         
         setMenuData(combinedData);
         
