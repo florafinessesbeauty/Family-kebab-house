@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { MenuItemData } from "@/data/menu-data";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
