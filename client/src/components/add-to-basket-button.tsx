@@ -15,6 +15,8 @@ interface AddToBasketButtonProps {
     priceMedium?: number;
     priceLarge?: number;
     priceXLarge?: number;
+    price10inches?: number;
+    price12inches?: number;
     description?: string;
   };
   variant?: 'default' | 'small' | 'icon';
@@ -42,23 +44,48 @@ export default function AddToBasketButton({ item, variant = 'default', className
     
     // Handle pizza category with inch-based sizing
     if (item.category === 'pizzas') {
-      if (item.priceSmall && item.priceSmall > 0) {
-        sizes.push({ label: '10"', price: item.priceSmall, value: 'small' });
+      // Check for 10" and 12" specific pricing first
+      if (item.price10inches && item.price10inches > 0) {
+        sizes.push({ label: '10"', price: item.price10inches, value: 'small' });
       }
-      if (item.priceLarge && item.priceLarge > 0) {
-        sizes.push({ label: '12"', price: item.priceLarge, value: 'large' });
+      if (item.price12inches && item.price12inches > 0) {
+        sizes.push({ label: '12"', price: item.price12inches, value: 'large' });
+      }
+      // Fallback to priceSmall/priceLarge if specific inch pricing not available
+      if (sizes.length === 0) {
+        if (item.priceSmall && item.priceSmall > 0) {
+          sizes.push({ label: '10"', price: item.priceSmall, value: 'small' });
+        }
+        if (item.priceLarge && item.priceLarge > 0) {
+          sizes.push({ label: '12"', price: item.priceLarge, value: 'large' });
+        }
       }
     }
     // Handle kebab category with proper size labels
     else if (item.category === 'kebabs') {
-      if (item.priceMedium && item.priceMedium > 0) {
+      // First check if this kebab has multiple sizes (medium/large structure)
+      if (item.priceMedium && item.priceLarge && item.priceMedium > 0 && item.priceLarge > 0) {
         sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
-      }
-      if (item.priceLarge && item.priceLarge > 0) {
         sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
+        if (item.priceXLarge && item.priceXLarge > 0) {
+          sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
+        }
       }
-      if (item.priceXLarge && item.priceXLarge > 0) {
-        sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
+      // If only one size available, use single price
+      else if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Regular', price: item.singlePrice, value: 'regular' });
+      }
+      // Fallback for individual price fields
+      else {
+        if (item.priceMedium && item.priceMedium > 0) {
+          sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
+        }
+        if (item.priceLarge && item.priceLarge > 0) {
+          sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
+        }
+        if (item.priceXLarge && item.priceXLarge > 0) {
+          sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
+        }
       }
     }
     // Handle burger category with single/meal options
