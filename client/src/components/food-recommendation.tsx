@@ -64,8 +64,8 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
     if (priceMedium > 0 && priceLarge > 0) return `From £${Math.min(parsePrice(priceMedium), parsePrice(priceLarge)).toFixed(2)}`;
     if (priceSmall > 0) return `£${parsePrice(priceSmall).toFixed(2)}`;
     if (priceMedium > 0) return `£${parsePrice(priceMedium).toFixed(2)}`;
-    if (priceLarge > 0) return `£${priceLarge.toFixed(2)}`;
-    if (priceXLarge > 0) return `£${priceXLarge.toFixed(2)}`;
+    if (priceLarge > 0) return `£${parsePrice(priceLarge).toFixed(2)}`;
+    if (priceXLarge > 0) return `£${parsePrice(priceXLarge).toFixed(2)}`;
     
     // Category-based fallback pricing (authentic ranges)
     if (category === 'lunch-time-offers') return `£8.50`;

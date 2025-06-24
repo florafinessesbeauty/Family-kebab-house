@@ -292,32 +292,32 @@ export default function MealBuilder() {
         <div className="bg-gray-50 rounded-lg p-4">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-lg">Your Custom Meal</h3>
-            <div className="text-2xl font-bold text-primary">£{totalPrice.toFixed(2)}</div>
+            <div className="text-2xl font-bold text-primary">£{parsePrice(totalPrice).toFixed(2)}</div>
           </div>
           
           <div className="space-y-2 mb-4">
             {customMeal.main && (
               <div className="flex justify-between">
                 <span>{customMeal.main.name}</span>
-                <span>£{customMeal.main.price.toFixed(2)}</span>
+                <span>£{parsePrice(customMeal.main.price).toFixed(2)}</span>
               </div>
             )}
             {customMeal.sides.map(side => (
               <div key={side.id} className="flex justify-between">
                 <span>{side.name}</span>
-                <span>£{side.price.toFixed(2)}</span>
+                <span>£{parsePrice(side.price).toFixed(2)}</span>
               </div>
             ))}
             {customMeal.drink && (
               <div className="flex justify-between">
                 <span>{customMeal.drink.name}</span>
-                <span>£{customMeal.drink.price.toFixed(2)}</span>
+                <span>£{parsePrice(customMeal.drink.price).toFixed(2)}</span>
               </div>
             )}
             {customMeal.extras.map(extra => (
               <div key={extra.id} className="flex justify-between">
                 <span>{extra.name}</span>
-                <span>£{extra.price.toFixed(2)}</span>
+                <span>£{parsePrice(extra.price).toFixed(2)}</span>
               </div>
             ))}
           </div>

@@ -130,17 +130,10 @@ export default function AddToBasketButton({ item, variant = 'default', className
     return sizes;
   };
 
-    
-    return sizes;
-  };
-
   const getSelectedPrice = (sizeValue: string): number => {
     const sizeOption = getSizeOptions().find(s => s.value === sizeValue);
     return sizeOption ? sizeOption.price : (parsePrice(item.singlePrice) || 0);
-      }
-      if (item.priceLarge && item.priceLarge > 0) {
-        sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });
-      }
+  };
     }
     // Handle chicken wings/strips/nuggets with three-tier pricing
     else if (item.category === 'chicken-wings-strips' || item.category === 'chicken-nuggets') {
