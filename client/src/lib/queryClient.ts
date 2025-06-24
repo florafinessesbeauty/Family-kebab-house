@@ -12,12 +12,8 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  // Use new API base URL for backend requests
-  const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://your-production-api.com'  // Update this for production
-    : 'http://localhost:5001';
-  
-  const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+  // Use proxy for API requests in development
+  const fullUrl = url.startsWith('http') ? url : url;
   
   const res = await fetch(fullUrl, {
     method,
@@ -36,13 +32,9 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    // Use new API base URL for backend requests
-    const API_BASE_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://your-production-api.com'  // Update this for production
-      : 'http://localhost:5001';
-    
+    // Use proxy for API requests in development
     const url = queryKey[0] as string;
-    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+    const fullUrl = url.startsWith('http') ? url : url;
     
     const res = await fetch(fullUrl, {
       credentials: "include",
