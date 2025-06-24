@@ -13,6 +13,7 @@ import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 
 import type { MenuItemData } from "@/data/menu-data";
+import { categoryNames } from "@/data/categoryNames";
 import { Phone, Keyboard, Eye } from "lucide-react";
 
 // Unified category mapping that aligns with actual API data
@@ -42,6 +43,19 @@ export default function Menu() {
   };
 
   const getCategoryInfo = (categoryId: string) => {
+    // First try categoryNames.ts for consistent naming
+    const categoryName = categoryNames[categoryId as keyof typeof categoryNames];
+    if (categoryName) {
+      const unifiedCategory = UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES];
+      return {
+        id: categoryId,
+        name: categoryName,
+        icon: unifiedCategory?.icon || "🍽️",
+        count: getItemsByCategory(categoryId).length
+      };
+    }
+    
+    // Fallback to unified categories
     const unifiedCategory = UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES];
     if (unifiedCategory) {
       return {
@@ -229,15 +243,13 @@ export default function Menu() {
     "combo-meals": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
   };
 
-  const specialDeals = menuData.filter(item => {
-    const hasSpecialFlag = item.isSpecial === true;
-    const isSpecialCategory = item.category === "specials";
-    const hasFamilyDeal = item.name && item.name.includes("Family Deal");
-    const hasKebabFeast = item.name && item.name.includes("Kebab Feast");
-    const isLowPrice = item.singlePrice && parseFloat(item.singlePrice.toString()) < 8;
-    
-    return hasSpecialFlag || isSpecialCategory || hasFamilyDeal || hasKebabFeast || isLowPrice;
-  });
+  const specialDeals = menuData.filter(item => 
+    item.isSpecial === true || 
+    item.category === "specials" ||
+    (item.name && item.name.includes("Family Deal")) ||
+    (item.name && item.name.includes("Kebab Feast")) ||
+    (item.singlePrice && parseFloat(item.singlePrice.toString()) < 8)
+  );
 
   if (loading) {
     return (
@@ -576,12 +588,13 @@ export default function Menu() {
               const itemCount = getItemsByCategory(categoryId).length;
               const categoryInfo = getCategoryInfo(categoryId);
               
+              if (itemCount === 0) return null;
+              
               return (
                 <Button
-                  key={category.id}
+                  key={categoryId}
                   onClick={() => {
-                    setActiveCategory(category.id);
-                    // Smooth scroll to menu content section
+                    setActiveCategory(categoryId);
                     setTimeout(() => {
                       const menuSection = document.getElementById('menu-content');
                       if (menuSection) {
@@ -592,17 +605,17 @@ export default function Menu() {
                       }
                     }, 100);
                   }}
-                  variant={activeCategory === category.id ? "default" : "outline"}
+                  variant={activeCategory === categoryId ? "default" : "outline"}
                   className={`px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 ${
-                    activeCategory === category.id
+                    activeCategory === categoryId
                       ? "bg-primary text-white shadow-lg"
                       : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
                   }`}
                 >
-                  <span className="mr-2 text-lg">{category.icon}</span>
-                  {category.name}
+                  <span className="mr-2 text-lg">{categoryInfo.icon}</span>
+                  {categoryInfo.name}
                   <Badge variant="secondary" className="ml-2 bg-accent text-white">
-                    {category.count}
+                    {itemCount}
                   </Badge>
                 </Button>
               );
