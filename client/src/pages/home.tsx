@@ -23,7 +23,7 @@ export default function Home({}: HomeProps) {
   const [showAIPopup, setShowAIPopup] = useState(false);
   const [hasVisitedAI, setHasVisitedAI] = useState(false);
   const { announce } = useScreenReaderAnnouncements();
-  const { startListening } = useGlobalVoiceControl();
+  useGlobalVoiceControl();
 
   const foodSlides = [
     {
