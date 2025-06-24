@@ -142,8 +142,6 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const sizeOptions = getSizeOptions();
   const extrasOptions = getExtrasOptions();
   const hasMultipleSizes = sizeOptions.length > 1;
-  // Disable extras for now to ensure quick add functionality works
-  const hasExtras = false;
 
   const getSelectedPrice = () => {
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize);
