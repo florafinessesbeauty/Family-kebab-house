@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { SpeechRecognition, SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from '../types/speech-recognition';
+import type { SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from '../types/speech-recognition';
 
 
 interface VoiceControlCommands {
