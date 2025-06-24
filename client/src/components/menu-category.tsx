@@ -1,170 +1,209 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { MenuItemData } from "@/data/menu-data";
-import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
-import AddToBasketButton from "@/components/add-to-basket-button";
+// client/src/components/menu-category.tsx
+import React from 'react'
+import AddToBasketButton from '@/components/add-to-basket-button'
+import { MenuItemData } from '@/data/menu-data'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip'
 
 interface MenuCategoryProps {
-  title: string;
-  description?: string;
-  items: MenuItemData[];
-  icon?: string;
+  title: string
+  description?: string
+  items: MenuItemData[]
+  icon?: string
 }
 
-export default function MenuCategory({ title, description, items, icon }: Readonly<MenuCategoryProps>) {
-  const formatPrice = (price: number) => `£${price.toFixed(2)}`;
+// helpers at module scope
+const formatPrice = (price: number) => `£${price.toFixed(2)}`
 
-  const getItemEmoji = (item: MenuItemData) => {
-    const name = item.name.toLowerCase();
-    if (name.includes('chicken') && name.includes('burger')) return '🍔';
-    if (name.includes('doner')) return '🥙';
-    if (name.includes('shish')) return '🍢';
-    if (name.includes('chicken') && name.includes('kebab')) return '🍗';
-    if (name.includes('kofte')) return '🥩';
-    if (name.includes('pizza')) return '🍕';
-    if (name.includes('burger')) return '🍔';
-    if (name.includes('wrap')) return '🌯';
-    if (name.includes('nuggets')) return '🍿';
-    if (name.includes('wings')) return '🔥';
-    if (name.includes('scampi')) return '🍤';
-    if (name.includes('chips')) return '🍟';
-    if (name.includes('onion rings')) return '🧅';
-    if (name.includes('garlic')) return '🧄';
-    if (name.includes('cake')) return '🍰';
-    if (name.includes('drink') || name.includes('can') || name.includes('bottle')) return '🥤';
-    if (name.includes('family')) return '👨‍👩‍👧‍👦';
-    if (name.includes('combo') || name.includes('meal')) return '🍱';
-    if (name.includes('salad')) return '🥗';
-    if (item.category === 'lunch-offers') return '⏰';
-    return '🍽️';
-  };
+const getItemEmoji = (item: MenuItemData) => {
+  const name = item.name.toLowerCase()
+  if (name.includes('chicken') && name.includes('burger')) return '🍔'
+  if (name.includes('doner')) return '🥙'
+  if (name.includes('shish')) return '🍢'
+  if (name.includes('kebab')) return '🍗'
+  if (name.includes('kofte')) return '🥩'
+  if (name.includes('pizza')) return '🍕'
+  if (name.includes('wrap')) return '🌯'
+  if (name.includes('nuggets')) return '🍿'
+  if (name.includes('wings')) return '🔥'
+  if (name.includes('scampi')) return '🍤'
+  if (name.includes('chips')) return '🍟'
+  if (name.includes('onion rings')) return '🧅'
+  if (name.includes('garlic')) return '🧄'
+  if (name.includes('cake')) return '🍰'
+  if (name.includes('drink') || name.includes('can') || name.includes('bottle')) return '🥤'
+  if (name.includes('family')) return '👨‍👩‍👧‍👦'
+  if (name.includes('combo') || name.includes('meal')) return '🍱'
+  if (name.includes('salad')) return '🥗'
+  return '🍽️'
+}
 
-  const renderPriceDisplay = (item: MenuItemData) => {
-    // Check if item has multiple sizes
-    const hasSizes = item.priceMedium || item.priceLarge || item.priceXLarge;
-    
-    if (hasSizes) {
-      const sizes = [];
-      if (item.priceMedium) sizes.push({ label: 'Medium', price: item.priceMedium });
-      if (item.priceLarge) sizes.push({ label: 'Large', price: item.priceLarge });
-      if (item.priceXLarge) sizes.push({ label: 'X-Large', price: item.priceXLarge });
-      
-      return (
-        <div className="text-right space-y-1">
-          {sizes.map((size) => (
-            <div key={size.label} className="flex justify-between items-center text-sm">
-              <span className="text-gray-600 mr-2">{size.label}:</span>
-              <span className="font-bold text-primary">{formatPrice(size.price)}</span>
-            </div>
+function renderPriceDisplay(item: MenuItemData) {
+  // 1) Multi‐size items
+  if (item.priceMedium || item.priceLarge || item.priceXLarge) {
+    const sizes = [
+      item.priceMedium  != null && { label: 'Medium',  price: item.priceMedium  },
+      item.priceLarge   != null && { label: 'Large',   price: item.priceLarge   },
+      item.priceXLarge  != null && { label: 'X-Large', price: item.priceXLarge  }
+    ].filter(Boolean) as { label: string; price: number }[]
+
+    return (
+      <div className="text-right space-y-2">
+        <div className="grid grid-cols-3 gap-2 text-sm text-gray-500">
+          {sizes.map(s => <span key={s.label}>{s.label}</span>)}
+        </div>
+        <div className="grid grid-cols-3 gap-2 font-bold text-primary">
+          {sizes.map(s => <span key={s.label}>{formatPrice(s.price)}</span>)}
+        </div>
+        <div className="grid grid-cols-3 gap-2 mt-2">
+          {sizes.map(s => (
+            <AddToBasketButton
+              key={s.label}
+              item={{
+                id:           `${item.id}-${s.label.toLowerCase()}`,
+                name:         `${item.name} (${s.label})`,
+                category:     item.category,
+                singlePrice:  s.price,
+                description:  item.description
+              }}
+              variant="small"
+              className="w-full"
+            />
           ))}
         </div>
-      );
-    }
-    
-    // Check for single price first
-    if (item.singlePrice) {
-      return (
-        <div className="text-right">
-          <div className="text-xl font-bold text-primary">
-            {formatPrice(item.singlePrice)}
-          </div>
-          {item.withChips && (
-            <div className="text-sm text-gray-500">
-              With chips: {formatPrice(item.withChips)}
-            </div>
-          )}
-          {item.withDrink && (
-            <div className="text-sm text-gray-500">
-              With drink: {formatPrice(item.withDrink)}
-            </div>
-          )}
-        </div>
-      );
-    }  
+      </div>
+    )
+  }
 
-    // New block: if pizza-specific prices exist, display them
-  if (item.price10inches || item.price12inches) {
+  // 2) Single‐price items
+  if (item.singlePrice != null) {
     return (
-      <div className="text-right ml-4">
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-500 mb-1">
-          {item.price10inches !== undefined && item.price10inches !== null && <span>10&quot;</span>}
-          {item.price12inches !== undefined && item.price12inches !== null && <span>12&quot;</span>}
+      <div className="text-right space-y-1">
+        <div className="text-xl font-bold text-primary">
+          {formatPrice(item.singlePrice)}
+        </div>
+        <AddToBasketButton
+          item={{
+            id:          item.id,
+            name:        item.name,
+            category:    item.category,
+            singlePrice: item.singlePrice,
+            description: item.description
+          }}
+          variant="default"
+          className="w-full mt-2"
+        />
+      </div>
+    )
+  }
+
+  // 3) Pizza‐inch logic (10″ / 12″)
+  if (item.price10inches != null || item.price12inches != null) {
+    const inches = [
+      item.price10inches != null && { label: '10\"', price: item.price10inches },
+      item.price12inches != null && { label: '12\"', price: item.price12inches }
+    ].filter(Boolean) as { label: string; price: number }[]
+
+    return (
+      <div className="text-right space-y-2">
+        <div className="grid grid-cols-2 gap-2 text-sm text-gray-500">
+          {inches.map(i => <span key={i.label}>{i.label}</span>)}
         </div>
         <div className="grid grid-cols-2 gap-2 font-bold text-primary">
-          {item.price10inches !== undefined && item.price10inches !== null && <span>{formatPrice(item.price10inches)}</span>}
-          {item.price12inches !== undefined && item.price12inches !== null && <span>{formatPrice(item.price12inches)}</span>}
+          {inches.map(i => <span key={i.label}>{formatPrice(i.price)}</span>)}
+        </div>
+        <div className="flex gap-2 mt-2">
+          {inches.map(i => (
+            <AddToBasketButton
+              key={i.label}
+              item={{
+                id:           `${item.id}-${i.label}`,
+                name:         `${item.name} (${i.label})`,
+                category:     item.category,
+                singlePrice:  i.price,
+                description:  item.description
+              }}
+              variant="small"
+            />
+          ))}
         </div>
       </div>
-    );
+    )
   }
 
-    // Fallback: check for standard sizes (Small, Medium, Large, XLarge)
-  const prices = [];
-  // For pizza items, use different labels
-  if (item.category === 'pizzas') {
-    if (item.priceSmall) prices.push({ label: "10\"", price: item.priceSmall });
-    if (item.priceLarge) prices.push({ label: "12\"", price: item.priceLarge });
-  } else if (item.category === 'chicken-wings-strips' || item.category === 'chicken-nuggets') {
-    // For wings & strips and nuggets: Single, With Chips, Meal
-    if (item.singlePrice) prices.push({ label: "Single", price: item.singlePrice });
-    if (item.priceMedium) prices.push({ label: "With Chips", price: item.priceMedium });
-    if (item.priceLarge) prices.push({ label: "Meal", price: item.priceLarge });
-  } else {
-    if (item.priceSmall) prices.push({ label: "Sml", price: item.priceSmall });
-    if (item.priceMedium) prices.push({ label: "Med", price: item.priceMedium });
-    if (item.priceLarge) prices.push({ label: "Lrg", price: item.priceLarge });
-    if (item.priceXLarge) prices.push({ label: "XLrg", price: item.priceXLarge });
-  }
-  
-  if (prices.length === 0) return null;
-  
+  // 4) Fallback small/med/lg/xl
+  const prices: { label: string; price: number }[] = []
+  if (item.priceSmall  != null) prices.push({ label: 'Sml', price: item.priceSmall })
+  if (item.priceMedium != null) prices.push({ label: 'Med', price: item.priceMedium })
+  if (item.priceLarge  != null) prices.push({ label: 'Lrg', price: item.priceLarge })
+  if (item.priceXLarge != null) prices.push({ label: 'XLrg',price: item.priceXLarge })
+
+  if (prices.length === 0) return null
+
   return (
-    <div className="text-right ml-4">
-      <div className={`grid grid-cols-${prices.length} gap-2 text-sm text-gray-500 mb-1`}>
-        {prices.map((p) => (
-          <span key={p.label}>{p.label}</span>
-        ))}
+    <div className="text-right space-y-2">
+      <div className={`grid grid-cols-${prices.length} gap-2 text-sm text-gray-500`}>
+        {prices.map(p => <span key={p.label}>{p.label}</span>)}
       </div>
       <div className={`grid grid-cols-${prices.length} gap-2 font-bold text-primary`}>
-        {prices.map((p) => (
-          <span key={p.label}>{formatPrice(p.price)}</span>
+        {prices.map(p => <span key={p.label}>{formatPrice(p.price)}</span>)}
+      </div>
+      <div className="flex gap-2 mt-2">
+        {prices.map(p => (
+          <AddToBasketButton
+            key={p.label}
+            item={{
+              id:            `${item.id}-${p.label}`,
+              name:          `${item.name} (${p.label})`,
+              category:      item.category,
+              singlePrice:   p.price,
+              description:   item.description
+            }}
+            variant="small"
+          />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
+
+export default function MenuCategory({
+  title,
+  description,
+  items,
+  icon
+}: Readonly<MenuCategoryProps>) {
   return (
     <div className="space-y-6">
+      {/* header */}
       <div className="text-center mb-8">
         <h2 className="font-poppins text-4xl font-bold text-charcoal mb-2 flex items-center justify-center gap-3">
           {icon && <span className="text-3xl">{icon}</span>}
           {title}
         </h2>
-        {description && (
-          <p className="text-lg text-gray-600">{description}</p>
-        )}
+        {description && <p className="text-lg text-gray-600">{description}</p>}
       </div>
 
+      {/* items grid */}
       <div className="grid gap-4">
-        {items.map((item) => (
-          <Card 
-            key={item.id} 
+        {items.map(item => (
+          <Card
+            key={item.id}
             className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer relative ${
-              item.isSpecial ? "border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md" : "hover:border-accent/30"
+              item.isSpecial
+                ? 'border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md'
+                : 'hover:border-accent/30'
             }`}
-            style={{ 
-              isolation: 'isolate', 
-              position: 'relative',
-              zIndex: 1,
-              overflow: 'visible'
-            }}
           >
-            <CardContent className="p-4 relative" style={{ overflow: 'visible' }}>
-              {/* Hover Effect Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ zIndex: 0 }}></div>
-              
-              <div className="flex justify-between items-start relative z-10" style={{ position: 'relative' }}>
+            <CardContent className="p-4 relative">
+              {/* hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+              {/* content row */}
+              <div className="flex justify-between items-start relative z-10">
                 <div className="flex-1">
+                  {/* title + tooltip + special badge */}
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold text-charcoal text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
                       <span className="group-hover:scale-125 transition-transform duration-300">
@@ -172,26 +211,19 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       </span>
                       {item.name}
                     </h3>
-                    <div 
-                      className="group-hover:scale-110 transition-transform duration-300"
-                      style={{ 
-                        position: 'relative',
-                        zIndex: 2147483647,
-                        transform: 'translateZ(999px)'
-                      }}
-                    >
-                      <NutritionalInfoTooltip 
-                        itemName={item.name} 
-                        category={title} 
+                    <div className="group-hover:scale-110 transition-transform duration-300">
+                      <NutritionalInfoTooltip
+                        itemName={item.name}
+                        category={title}
                         nutritionalData={{
-                          calories: item.calories,
-                          protein: item.protein,
-                          carbs: item.carbs,
-                          fat: item.fat,
-                          fiber: item.fiber,
-                          sodium: item.sodium,
-                          allergens: item.allergens ? (Array.isArray(item.allergens) ? item.allergens : item.allergens.split(',').map(a => a.trim())) : [],
-                          ingredients: item.ingredients ? (Array.isArray(item.ingredients) ? item.ingredients : item.ingredients.split(',').map(i => i.trim())) : []
+                          calories:   item.calories,
+                          protein:    item.protein,
+                          carbs:      item.carbs,
+                          fat:        item.fat,
+                          fiber:      item.fiber,
+                          sodium:     item.sodium,
+                          allergens:  item.allergens || [],
+                          ingredients:item.ingredients || []
                         }}
                       />
                     </div>
@@ -201,34 +233,18 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                       </Badge>
                     )}
                   </div>
+
+                  {/* description */}
                   {item.description && (
                     <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">
                       {item.description}
                     </p>
                   )}
-                  
-                  <div className="space-y-2 mt-4 relative z-20">
-                    <AddToBasketButton 
-                      item={{
-                        id: item.id,
-                        name: item.name,
-                        category: item.category,
-                        singlePrice: item.singlePrice || 0,
-                        priceSmall: item.priceSmall,
-                        priceMedium: item.priceMedium,
-                        priceLarge: item.priceLarge,
-                        priceXLarge: item.priceXLarge,
-                        description: item.description
-                      }}
-                      variant="default"
-                      className="w-full relative z-20"
-                    />
-                  </div>
-                </div>
-                <div className="relative">
-                  {renderPriceDisplay(item)}
-                  
 
+                  {/* prices & Add buttons */}
+                  <div className="relative z-20 mt-4">
+                    {renderPriceDisplay(item)}
+                  </div>
                 </div>
               </div>
             </CardContent>
