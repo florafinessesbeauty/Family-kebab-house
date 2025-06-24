@@ -222,7 +222,8 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                         priceXLarge: item.priceXLarge,
                         description: item.description
                       }}
-                      variant="small"
+                      variant="default"
+                      className="w-full"
                     />
                   </div>
                 </div>
