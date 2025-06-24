@@ -377,7 +377,7 @@ export default function Menu() {
                                 fat: deal.fat,
                                 fiber: deal.fiber,
                                 sodium: deal.sodium,
-                                allergens: deal.allergens,
+                                allergens: Array.isArray(deal.allergens) ? deal.allergens : (deal.allergens ? [deal.allergens] : undefined),
                                 ingredients: deal.ingredients ? [deal.ingredients] : undefined
                               }}
                             />
