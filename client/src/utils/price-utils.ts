@@ -50,3 +50,9 @@ export const safeToFixed = (price: any, decimals: number = 2): string => {
   const cleanPrice = getCleanPrice(price);
   return cleanPrice.toFixed(decimals);
 };
+
+export const safeToNumber = (value: number | string | null | undefined): number => {
+  if (value === null || value === undefined) return 0;
+  const numValue = typeof value === 'string' ? parseFloat(value) : value;
+  return isNaN(numValue) ? 0 : numValue;
+};

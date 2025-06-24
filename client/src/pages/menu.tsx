@@ -198,10 +198,8 @@ export default function Menu() {
         
         // Generate available categories from API data
         const apiCategories = Array.from(
-  new Set(transformedData.map(item => item.category))
-);
-setAvailableCategories(apiCategories);
-
+          new Set(transformedData.map(item => item.category))
+        );
         
         console.log('API Categories:', apiCategories);
         console.log('Total items:', transformedData.length);
