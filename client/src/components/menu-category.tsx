@@ -173,6 +173,8 @@ export default function MenuCategory({
   items,
   icon
 }: Readonly<MenuCategoryProps>) {
+  console.log(`MenuCategory rendering: ${title} with ${items.length} items`);
+  
   return (
     <div className="space-y-6">
       {/* header */}
@@ -186,6 +188,11 @@ export default function MenuCategory({
 
       {/* items grid */}
       <div className="grid gap-4">
+        {items.length === 0 && (
+          <div className="text-center text-gray-500 py-8">
+            <p>No items found in this category.</p>
+          </div>
+        )}
         {items.map(item => (
           <Card
             key={item.id}

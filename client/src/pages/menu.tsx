@@ -27,8 +27,10 @@ export default function Menu() {
   const { announce } = useScreenReaderAnnouncements();
 
   // Define helper functions first
-  const getItemsByCategory = (category: string) =>
-    menuData.filter(item => item.category === category);
+  const getItemsByCategory = (category: string) => {
+    const items = menuData.filter(item => item.category === category);
+    return items;
+  };
 
   const getCategoryIcon = (categoryId: string): string => {
     const iconMap: { [key: string]: string } = {
@@ -226,13 +228,15 @@ export default function Menu() {
     "combo-meals": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
   };
 
-  const specialDeals = menuData.filter(item => 
-    item.isSpecial === true || 
-    item.category === "specials" || 
-    item.name.includes("Family Deal") ||
-    item.name.includes("Kebab Feast") ||
-    (item.singlePrice && parseFloat(item.singlePrice.toString()) < 8) // Special offers under £8
-  );
+  const specialDeals = menuData.filter(item => {
+    const hasSpecialFlag = item.isSpecial === true;
+    const isSpecialCategory = item.category === "specials";
+    const hasFamilyDeal = item.name && item.name.includes("Family Deal");
+    const hasKebabFeast = item.name && item.name.includes("Kebab Feast");
+    const isLowPrice = item.singlePrice && parseFloat(item.singlePrice.toString()) < 8;
+    
+    return hasSpecialFlag || isSpecialCategory || hasFamilyDeal || hasKebabFeast || isLowPrice;
+  });
 
   if (loading) {
     return (
