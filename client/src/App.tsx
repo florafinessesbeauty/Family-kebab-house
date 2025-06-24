@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 // Import critical pages directly
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import LoadingSkeleton from "@/components/loading-skeleton";
 
 // Lazy load non-critical pages for bundle optimization
 import { lazy, Suspense } from "react";
@@ -56,11 +57,46 @@ function App() {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/menu" element={<Menu />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/nutritional-info" element={<NutritionalInfo />} />
-                <Route path="/meal-builder" element={<MealBuilderPage />} />
+                <Route 
+                  path="/menu" 
+                  element={
+                    <Suspense fallback={<LoadingSkeleton />}>
+                      <Menu />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/about" 
+                  element={
+                    <Suspense fallback={<LoadingSkeleton />}>
+                      <About />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/contact" 
+                  element={
+                    <Suspense fallback={<LoadingSkeleton />}>
+                      <Contact />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/nutritional-info" 
+                  element={
+                    <Suspense fallback={<LoadingSkeleton />}>
+                      <NutritionalInfo />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/meal-builder" 
+                  element={
+                    <Suspense fallback={<LoadingSkeleton />}>
+                      <MealBuilderPage />
+                    </Suspense>
+                  } 
+                />
                 {/* Catch-all route for any unmatched paths */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

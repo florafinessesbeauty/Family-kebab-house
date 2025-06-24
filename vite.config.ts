@@ -1,38 +1,49 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { fileURLToPath } from "url";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  // Set the base path for assets so the app works correctly on GitHub Pages.
-  base: '/Family-kebab-house/', 
-  
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) => m.cartographer()),
-        ]
-      : []),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
-      "@shared": path.resolve(__dirname, "shared"),
-      "@assets": path.resolve(__dirname, "attached_assets"),
+      "@": path.resolve(__dirname, "./client/src"),
+      "@shared": path.resolve(__dirname, "./shared"),
     },
   },
-  // Use the 'client' folder as the root for your app source
-  root: path.resolve(__dirname, "client"),
   build: {
-    // Output your static site files to this folder.
-    outDir: path.resolve(__dirname, "dist/public"),
-    emptyOutDir: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Vendor chunks for better caching
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-toast', '@radix-ui/react-scroll-area'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-icons': ['lucide-react'],
+          // Feature-based chunks
+          'voice-accessibility': [
+            './client/src/hooks/use-voice-control.tsx',
+            './client/src/hooks/use-global-voice-control.tsx',
+            './client/src/components/voice-control-button.tsx',
+            './client/src/components/accessibility-help-modal.tsx'
+          ],
+          'menu-features': [
+            './client/src/pages/menu.tsx',
+            './client/src/components/menu-category.tsx',
+            './client/src/components/accessible-menu-item.tsx'
+          ],
+          'basket-features': [
+            './client/src/components/basket-drawer.tsx',
+            './client/src/components/add-to-basket-button.tsx',
+            './client/src/hooks/use-basket.tsx'
+          ]
+        }
+      }
+    }
+  },
+  server: {
+    proxy: {
+      "/api": "http://localhost:5000",
+    },
   },
 });
