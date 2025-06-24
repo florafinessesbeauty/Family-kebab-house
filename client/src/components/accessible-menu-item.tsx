@@ -132,7 +132,7 @@ export default function AccessibleMenuItem({
                           : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                       }`}
                     >
-                      Small £{item.priceSmall.toFixed(2)}
+                      Small £{item.priceSmall?.toFixed(2)}
                     </button>
                   )}
                   {item.priceMedium && (
@@ -144,7 +144,7 @@ export default function AccessibleMenuItem({
                           : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                       }`}
                     >
-                      Medium £{item.priceMedium.toFixed(2)}
+                      Medium £{item.priceMedium?.toFixed(2)}
                     </button>
                   )}
                   {item.priceLarge && (
@@ -156,7 +156,7 @@ export default function AccessibleMenuItem({
                           : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                       }`}
                     >
-                      Large £{item.priceLarge.toFixed(2)}
+                      Large £{item.priceLarge?.toFixed(2)}
                     </button>
                   )}
                   {item.priceXLarge && (
@@ -168,7 +168,7 @@ export default function AccessibleMenuItem({
                           : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
                       }`}
                     >
-                      X-Large £{item.priceXLarge.toFixed(2)}
+                      X-Large £{item.priceXLarge?.toFixed(2)}
                     </button>
                   )}
                 </div>
