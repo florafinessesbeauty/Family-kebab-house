@@ -15,10 +15,10 @@ import { useScreenReaderAnnouncements } from "@/components/screen-reader-announc
 import { useGlobalVoiceControl } from "@/hooks/use-global-voice-control";
 
 interface HomeProps {
-  scrollToAIRecommendations?: () => void;
+  // Props interface kept for future extensibility
 }
 
-export default function Home({ scrollToAIRecommendations }: HomeProps) {
+export default function Home({}: HomeProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showAIPopup, setShowAIPopup] = useState(false);
   const [hasVisitedAI, setHasVisitedAI] = useState(false);
