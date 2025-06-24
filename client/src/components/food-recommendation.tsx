@@ -171,7 +171,7 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
     image: getImage(category, name),
     category: category,
     emoji: getEmoji(category, name),
-    tags: [...new Set(tags)], // Remove duplicates
+    tags: Array.from(new Set(tags)), // Remove duplicates
     preparationTime: tags.includes('quick-bite') ? '8 min' : tags.includes('family-sharing') ? '20 min' : '12 min'
   };
 };
@@ -209,7 +209,7 @@ export default function FoodRecommendation() {
     
     if (selectedPreferences.length === 0) {
       // Show popular dishes when no preferences selected - pick variety from different categories
-      const popularDishes = allDishes.filter(dish => 
+      const popularDishes = allDishes.filter((dish: any) => 
         dish.name.toLowerCase().includes('doner') ||
         dish.name.toLowerCase().includes('margherita') ||
         dish.name.toLowerCase().includes('chicken burger') ||
@@ -221,15 +221,15 @@ export default function FoodRecommendation() {
       return popularDishes.length >= 4 ? popularDishes : allDishes.slice(0, 6);
     }
 
-    const scoredDishes = allDishes.map(dish => {
-      const matchingTags = dish.tags.filter(tag => selectedPreferences.includes(tag)).length;
+    const scoredDishes = allDishes.map((dish: any) => {
+      const matchingTags = dish.tags.filter((tag: string) => selectedPreferences.includes(tag)).length;
       return { ...dish, score: matchingTags };
     });
 
     // Return top 4-8 recommendations based on preferences
     const topMatches = scoredDishes
-      .sort((a, b) => b.score - a.score)
-      .filter(dish => dish.score > 0);
+      .sort((a: any, b: any) => b.score - a.score)
+      .filter((dish: any) => dish.score > 0);
     
     // If we have good matches, return 6-8, otherwise return top 6
     return topMatches.length >= 6 ? topMatches.slice(0, 8) : topMatches.slice(0, 6);
@@ -244,13 +244,13 @@ export default function FoodRecommendation() {
     }
 
     // Smart recommendation based on preferences
-    const scoredDishes = allDishes.map(dish => {
-      const matchingTags = dish.tags.filter(tag => selectedPreferences.includes(tag));
+    const scoredDishes = allDishes.map((dish: any) => {
+      const matchingTags = dish.tags.filter((tag: string) => selectedPreferences.includes(tag));
       const score = matchingTags.length + (Math.random() * 0.1);
       return { ...dish, score };
-    }).filter(dish => dish.score > 0);
+    }).filter((dish: any) => dish.score > 0);
     
-    const sortedDishes = scoredDishes.sort((a, b) => b.score - a.score);
+    const sortedDishes = scoredDishes.sort((a: any, b: any) => b.score - a.score);
     const topRecommendations = sortedDishes.slice(0, 8);
     const moreOptions = sortedDishes.slice(8, 20);
 

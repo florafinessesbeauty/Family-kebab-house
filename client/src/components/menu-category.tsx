@@ -137,7 +137,7 @@ function renderPriceDisplay(item: MenuItemData) {
   if (item.priceSmall  != null) prices.push({ label: 'Sml', price: item.priceSmall })
   if (item.priceMedium != null) prices.push({ label: 'Med', price: item.priceMedium })
   if (item.priceLarge  != null) prices.push({ label: 'Lrg', price: item.priceLarge })
-  if (item.priceXLarge != null) prices.push({ label: 'XLrg',price: item.priceXLarge })
+  if (item.priceXLarge != null) prices.push({ label: 'XLrg', price: item.priceXLarge })
 
   if (prices.length === 0) return null
 

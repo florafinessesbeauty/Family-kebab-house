@@ -68,7 +68,7 @@ const SheetContent = React.forwardRef<
       {!React.Children.toArray(children).some(child => 
         React.isValidElement(child) && 
         (child.type === SheetTitle || 
-         (typeof child.type === 'object' && child.type?.displayName === 'SheetTitle'))
+         (typeof child.type === 'object' && (child.type as any)?.displayName === 'SheetTitle'))
       ) && (
         <SheetTitle className="sr-only">Sheet Content</SheetTitle>
       )}
@@ -77,7 +77,7 @@ const SheetContent = React.forwardRef<
       {!React.Children.toArray(children).some(child => 
         React.isValidElement(child) && 
         (child.type === SheetDescription || 
-         (typeof child.type === 'object' && child.type?.displayName === 'SheetDescription'))
+         (typeof child.type === 'object' && (child.type as any)?.displayName === 'SheetDescription'))
       ) && (
         <SheetDescription className="sr-only">Additional content panel</SheetDescription>
       )}
