@@ -38,8 +38,27 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const getSizeOptions = (): SizeOption[] => {
     const sizes: SizeOption[] = [];
     
+    console.log('DEBUG - getSizeOptions for item:', {
+      name: item.name,
+      category: item.category,
+      priceSmall: item.priceSmall,
+      priceMedium: item.priceMedium,
+      priceLarge: item.priceLarge,
+      priceXLarge: item.priceXLarge,
+      singlePrice: item.singlePrice
+    });
+    
+    // Handle pizza category with inch-based sizing
+    if (item.category === 'pizzas') {
+      if (item.priceSmall && item.priceSmall > 0) {
+        sizes.push({ label: '10"', price: item.priceSmall, value: 'small' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: '12"', price: item.priceLarge, value: 'large' });
+      }
+    }
     // Handle kebab category with proper size labels
-    if (item.category === 'kebabs') {
+    else if (item.category === 'kebabs') {
       if (item.priceMedium && item.priceMedium > 0) {
         sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
       }
@@ -49,8 +68,30 @@ export default function AddToBasketButton({ item, variant = 'default', className
       if (item.priceXLarge && item.priceXLarge > 0) {
         sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
       }
-    } else {
-      // Handle other categories with standard pricing
+    }
+    // Handle burger category with single/meal options
+    else if (item.category === 'burgers') {
+      if (item.priceSmall && item.priceSmall > 0) {
+        sizes.push({ label: 'Single', price: item.priceSmall, value: 'single' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });
+      }
+    }
+    // Handle chicken wings/strips/nuggets with three-tier pricing
+    else if (item.category === 'chicken-wings-strips' || item.category === 'chicken-nuggets') {
+      if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Single', price: item.singlePrice, value: 'single' });
+      }
+      if (item.priceMedium && item.priceMedium > 0) {
+        sizes.push({ label: 'With Chips', price: item.priceMedium, value: 'with-chips' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });
+      }
+    }
+    // Handle all other categories with standard pricing
+    else {
       if (item.singlePrice && item.singlePrice > 0) {
         sizes.push({ label: 'Regular', price: item.singlePrice, value: 'regular' });
       }
@@ -67,6 +108,8 @@ export default function AddToBasketButton({ item, variant = 'default', className
         sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
       }
     }
+    
+    console.log('DEBUG - Generated sizes:', sizes);
 
     
     // Fallback pricing based on authentic menu prices - only if no valid price found
