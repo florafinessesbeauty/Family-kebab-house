@@ -62,29 +62,6 @@ export default function MealBuilder() {
     { id: 'extra-sauce',       name: '🥫 Extra Sauce',       category: 'extra', price: 0.50, emoji: '🥫', description: 'Choice of sauce' },
     { id: 'extra-cheese',      name: '🧀 Extra Cheese',      category: 'extra', price: 1.00, emoji: '🧀', description: 'Additional cheese' },
     { id: 'extra-salad',       name: '🥗 Extra Salad',       category: 'extra', price: 1.00, emoji: '🥗', description: 'Additional fresh salad' }
-  ]; description: 'Classic margherita pizza' },
-
-    // -- Sides --
-    { id: 'chips',             name: '🍟 Chips',                    category: 'side', price: 3.50, emoji: '🍟', description: 'Golden crispy chips' },
-    { id: 'large-chips',       name: '🍟 Large Chips',             category: 'side', price: 4.50, emoji: '🍟', description: 'Extra large portion of chips' },
-    { id: 'onion-rings',       name: '🧅 Onion Rings (8pcs)',      category: 'side', price: 4.00, emoji: '🧅', description: 'Crispy battered onion rings' },
-    { id: 'mozzarella-sticks', name: '🧀 Mozzarella Sticks (6pcs)',category: 'side', price: 5.00, emoji: '🧀', description: 'Melted mozzarella sticks' },
-    { id: 'coleslaw',          name: '🥗 Coleslaw',                category: 'side', price: 2.50, emoji: '🥗', description: 'Fresh homemade coleslaw' },
-    { id: 'garlic-bread',      name: '🧄 Garlic Bread',            category: 'side', price: 3.00, emoji: '🧄', description: 'Toasted garlic bread' },
-
-    // -- Drinks --
-    { id: 'coke-can',    name: '🥤 Coke (Can)',     category: 'drink', price: 1.50, emoji: '🥤', description: 'Refreshing Coca-Cola' },
-    { id: 'pepsi-can',   name: '🥤 Pepsi (Can)',    category: 'drink', price: 1.50, emoji: '🥤', description: 'Pepsi Cola' },
-    { id: 'sprite-can',  name: '🥤 Sprite (Can)',   category: 'drink', price: 1.50, emoji: '🥤', description: 'Lemon-lime soda' },
-    { id: 'water-bottle',name: '💧 Water Bottle',   category: 'drink', price: 1.00, emoji: '💧', description: 'Still water bottle' },
-    { id: 'orange-juice',name: '🧃 Orange Juice',   category: 'drink', price: 2.00, emoji: '🧃', description: 'Fresh orange juice' },
-
-    // -- Extras --
-    { id: 'extra-sauce', name: '🥄 Extra Sauce', category: 'extra', price: 0.50, emoji: '🥄', description: 'Garlic, chili, or mayo sauce' },
-    { id: 'extra-cheese',name: '🧀 Extra Cheese', category: 'extra', price: 1.50, emoji: '🧀', description: 'Additional cheese portion' },
-    { id: 'extra-meat',  name: '🥩 Extra Meat',   category: 'extra', price: 2.50, emoji: '🥩', description: 'Additional meat portion' },
-    { id: 'pitta-bread', name: '🫓 Pitta Bread', category: 'extra', price: 1.00, emoji: '🫓', description: 'Fresh pitta bread' },
-    { id: 'extra-salad', name: '🥗 Extra Salad',  category: 'extra', price: 1.00, emoji: '🥗', description: 'Additional fresh salad' }
   ];
 
   // 2) Recalculate total when selection changes
