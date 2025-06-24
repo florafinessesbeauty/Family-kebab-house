@@ -36,3 +36,17 @@ export const getMaxPrice = (...prices: any[]): number => {
   const validPrices = prices.filter(p => p != null).map(parsePrice).filter(p => p > 0);
   return validPrices.length > 0 ? Math.max(...validPrices) : 0;
 };
+
+export const getCleanPrice = (price: any): number => {
+  if (typeof price === 'number') return isNaN(price) ? 0 : price;
+  if (typeof price === 'string') {
+    const parsed = parseFloat(price);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
+};
+
+export const safeToFixed = (price: any, decimals: number = 2): string => {
+  const cleanPrice = getCleanPrice(price);
+  return cleanPrice.toFixed(decimals);
+};;

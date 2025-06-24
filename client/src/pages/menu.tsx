@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
-import { parsePrice } from '@/utils/price-utils';
+import { parsePrice, safeToFixed } from '@/utils/price-utils';
 
 import AccessibilityHelpModal from "@/components/accessibility-help-modal";
 
@@ -137,7 +137,12 @@ export default function Menu() {
           name: item.name,
           description: item.description,
           category: item.category,
-          price: item.singlePrice,
+          // Convert all price strings to numbers
+          singlePrice: item.singlePrice ? parseFloat(item.singlePrice) : null,
+          priceSmall: item.priceSmall ? parseFloat(item.priceSmall) : null,
+          priceMedium: item.priceMedium ? parseFloat(item.priceMedium) : null,
+          priceLarge: item.priceLarge ? parseFloat(item.priceLarge) : null,
+          priceXLarge: item.priceXLarge ? parseFloat(item.priceXLarge) : null,
           priceSmall: item.priceSmall,
           priceMedium: item.priceMedium,
           priceLarge: item.priceLarge,
@@ -454,16 +459,16 @@ export default function Menu() {
                             return (
                               <div className="space-y-2">
                                 <div className="flex items-center justify-center gap-2">
-                                  <span className="text-3xl">£{price ? price.toFixed(2) : "Contact Us"}</span>
+                                  <span className="text-3xl">£{price ? safeToFixed(price) : "Contact Us"}</span>
                                   {originalPrice && price && (
                                     <span className="text-lg text-white/60 line-through">
-                                      £{originalPrice.toFixed(2)}
+                                      £{safeToFixed(originalPrice)}
                                     </span>
                                   )}
                                 </div>
                                 {originalPrice && price && (
                                   <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
-                                    Save £{(originalPrice - price).toFixed(2)}
+                                    Save £{safeToFixed(originalPrice - price)}
                                   </div>
                                 )}
                               </div>

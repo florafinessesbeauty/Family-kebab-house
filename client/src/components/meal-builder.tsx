@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Minus, ShoppingBasket, Utensils } from 'lucide-react';
 import { useBasket } from '@/hooks/use-basket';
 import { toast } from '@/hooks/use-toast';
-import { parsePrice } from '@/utils/price-utils';
+import { parsePrice, safeToFixed } from '@/utils/price-utils';
 
 interface MealComponent {
   id: string;

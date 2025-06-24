@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components
 import { ShoppingBasket, Plus, Share2 } from 'lucide-react';
 import { useBasket } from '@/hooks/use-basket';
 import { toast } from '@/hooks/use-toast';
-import { parsePrice } from '@/utils/price-utils';
+import { parsePrice, safeToFixed } from '@/utils/price-utils';
 
 interface AddToBasketButtonProps {
   item: {
@@ -381,7 +381,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
                         className="justify-between"
                       >
                         <span>{size.label}</span>
-                        <span className="font-bold">£{size.price.toFixed(2)}</span>
+                        <span className="font-bold">£{safeToFixed(size.price)}</span>
                       </Button>
                     ))}
                   </div>
