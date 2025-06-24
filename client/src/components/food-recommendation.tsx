@@ -48,15 +48,23 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
   const category = item.category.toLowerCase();
   const name = item.name;
   
-  // Fix price formatting to use correct database column names (camelCase)
+  // Fix price formatting to handle string values from database
   const formatPrice = (): string => {
-    if (item.singlePrice && item.singlePrice > 0) return `£${item.singlePrice.toFixed(2)}`;
-    if (item.priceSmall && item.priceLarge) return `From £${Math.min(item.priceSmall, item.priceLarge).toFixed(2)}`;
-    if (item.priceMedium && item.priceLarge) return `From £${Math.min(item.priceMedium, item.priceLarge).toFixed(2)}`;
-    if (item.priceSmall && item.priceSmall > 0) return `£${item.priceSmall.toFixed(2)}`;
-    if (item.priceMedium && item.priceMedium > 0) return `£${item.priceMedium.toFixed(2)}`;
-    if (item.priceLarge && item.priceLarge > 0) return `£${item.priceLarge.toFixed(2)}`;
-    if (item.priceXLarge && item.priceXLarge > 0) return `£${item.priceXLarge.toFixed(2)}`;
+    const parsePrice = (price: any) => typeof price === 'string' ? parseFloat(price) : (price || 0);
+    
+    const singlePrice = parsePrice(item.singlePrice);
+    const priceSmall = parsePrice(item.priceSmall);
+    const priceMedium = parsePrice(item.priceMedium);
+    const priceLarge = parsePrice(item.priceLarge);
+    const priceXLarge = parsePrice(item.priceXLarge);
+    
+    if (singlePrice > 0) return `£${singlePrice.toFixed(2)}`;
+    if (priceSmall > 0 && priceLarge > 0) return `From £${Math.min(priceSmall, priceLarge).toFixed(2)}`;
+    if (priceMedium > 0 && priceLarge > 0) return `From £${Math.min(priceMedium, priceLarge).toFixed(2)}`;
+    if (priceSmall > 0) return `£${priceSmall.toFixed(2)}`;
+    if (priceMedium > 0) return `£${priceMedium.toFixed(2)}`;
+    if (priceLarge > 0) return `£${priceLarge.toFixed(2)}`;
+    if (priceXLarge > 0) return `£${priceXLarge.toFixed(2)}`;
     
     // Category-based fallback pricing (authentic ranges)
     if (category === 'lunch-time-offers') return `£8.50`;
