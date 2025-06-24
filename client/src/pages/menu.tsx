@@ -259,19 +259,17 @@ export default function Menu() {
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
             </div>
 
-          {/* Special Deals First */}
+          {/* Special Deals First - Now with optimized performance */}
           {specialDeals.length > 0 && (
               <div className="mb-16">
                 <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {specialDeals.map((deal) => {
-                  const isKebabFeast = deal.name === "Kebab Feast" || deal.name === "🎉 Kebab Feast";
-                  const isFamilyDeal = deal.name.includes("Family Deal");
-                  const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
-
-                  return (
-                    <div 
-                      key={deal.id} 
+                {specialDeals.map((deal) => (
+                  <SpecialDealCard key={deal.id} deal={deal} />
+                ))}
+              </div>
+              </div>
+          )} 
                       className={`relative rounded-2xl p-6 text-white text-center transition-all duration-500 cursor-pointer group ${
                         isKebabFeast 
                           ? "bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 animate-pulse shadow-2xl transform scale-110 border-8 border-yellow-300 hover:scale-115 hover:shadow-3xl" 

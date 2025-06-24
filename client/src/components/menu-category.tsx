@@ -400,4 +400,6 @@ const MenuCategory = React.memo(function MenuCategory({
       )}
     </div>
   );
-}
+});
+
+export default MenuCategory;
