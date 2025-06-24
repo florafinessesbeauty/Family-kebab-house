@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Phone, Info } from 'lucide-react';
 import { MenuItem } from '../../../shared/schema';
 import { PriceBadge } from '@/components/price-badge';
-
+import { SizeSelector } from '@/components/size-selector';
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip';
 
 interface AccessibleMenuItemProps {
@@ -56,7 +56,7 @@ export default function AccessibleMenuItem({
     }
   };
 
-  const getPrice = (): number => {
+  const getPrice = () => {
     if (item.singlePrice) return item.singlePrice;
     if (item.priceMedium && selectedSize === 'medium') return item.priceMedium;
     if (item.priceLarge && selectedSize === 'large') return item.priceLarge;
@@ -120,81 +120,40 @@ export default function AccessibleMenuItem({
             )}
 
             {hasMultipleSizes && (
-              <div className="mb-3">
-                <p className="text-sm font-medium text-gray-700 mb-2">Choose Size:</p>
-                <div className="flex gap-2 flex-wrap">
-                  {item.priceSmall && (
-                    <button
-                      onClick={() => setSelectedSize('small')}
-                      className={`px-3 py-1 rounded-full text-sm border ${
-                        selectedSize === 'small' 
-                          ? 'bg-primary text-white border-primary' 
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
-                      }`}
-                    >
-                      Small £{item.priceSmall?.toFixed(2)}
-                    </button>
-                  )}
-                  {item.priceMedium && (
-                    <button
-                      onClick={() => setSelectedSize('medium')}
-                      className={`px-3 py-1 rounded-full text-sm border ${
-                        selectedSize === 'medium' 
-                          ? 'bg-primary text-white border-primary' 
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
-                      }`}
-                    >
-                      Medium £{item.priceMedium?.toFixed(2)}
-                    </button>
-                  )}
-                  {item.priceLarge && (
-                    <button
-                      onClick={() => setSelectedSize('large')}
-                      className={`px-3 py-1 rounded-full text-sm border ${
-                        selectedSize === 'large' 
-                          ? 'bg-primary text-white border-primary' 
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
-                      }`}
-                    >
-                      Large £{item.priceLarge?.toFixed(2)}
-                    </button>
-                  )}
-                  {item.priceXLarge && (
-                    <button
-                      onClick={() => setSelectedSize('x-large')}
-                      className={`px-3 py-1 rounded-full text-sm border ${
-                        selectedSize === 'x-large' 
-                          ? 'bg-primary text-white border-primary' 
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-primary'
-                      }`}
-                    >
-                      X-Large £{item.priceXLarge?.toFixed(2)}
-                    </button>
-                  )}
-                </div>
-              </div>
+              <SizeSelector
+                item={item}
+                onSizeSelect={(size, price) => setSelectedSize(size)}
+                defaultSize={selectedSize}
+              />
             )}
           </div>
           
           <div className="flex flex-col items-end space-y-2">
             <PriceBadge
               price={getPrice()}
-              variant={isKebabFeast ? 'premium' : (item.isSpecial ? 'discount' : 'default')}
-              size="lg"
+              isSpecial={item.isSpecial}
+              isKebabFeast={isKebabFeast}
+              isFamilyDeal={isFamilyDeal}
             />
             
             <NutritionalInfoTooltip 
               itemName={item.name} 
               category={item.category}
               nutritionalData={{
-                calories: item.calories || 0,
-                protein: item.protein?.toString() || '0g',
-                carbs: item.carbs?.toString() || '0g',
-                fat: item.fat?.toString() || '0g',
-                fiber: item.fiber?.toString() || '0g',
-                sodium: item.sodium?.toString() || '0mg',
-                allergens: Array.isArray(item.allergens) ? item.allergens : (item.allergens ? [item.allergens] : []),
-                ingredients: Array.isArray(item.ingredients) ? item.ingredients : (item.ingredients ? [item.ingredients] : [])
+                calories: item.calories,
+                protein: item.protein,
+                carbs: item.carbs,
+                fat: item.fat,
+                fiber: item.fiber,
+                sodium: item.sodium,
+                _allergens: item.allergens,
+                get allergens() {
+                    return this._allergens;
+                },
+                set allergens(value) {
+                    this._allergens = value;
+                },
+                ingredients: item.ingredients
               }}
             />
           </div>
