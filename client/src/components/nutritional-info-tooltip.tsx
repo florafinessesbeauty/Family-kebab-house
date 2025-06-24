@@ -191,11 +191,6 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
           {/* Tooltip Content with proper accessibility */}
           <DialogContent 
             className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm"
-            style={{ 
-              zIndex: 100000,
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden'
-            }}
           >
             {/* Required DialogTitle for accessibility */}
             <DialogTitle className="sr-only">
