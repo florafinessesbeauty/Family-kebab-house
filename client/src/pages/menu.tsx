@@ -21,7 +21,7 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
-  const menuContainerRef = useRef<HTMLDivElement>(null);
+
   const { announce } = useScreenReaderAnnouncements();
 
   // Define helper functions first
