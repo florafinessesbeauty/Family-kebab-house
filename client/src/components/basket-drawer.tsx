@@ -50,19 +50,19 @@ export default function BasketDrawer() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button 
-          className="fixed bottom-6 left-6 z-50 bg-primary hover:bg-red-700 text-white shadow-2xl rounded-full w-16 h-16 flex items-center justify-center"
+          className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 bg-primary hover:bg-red-700 text-white shadow-2xl rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center"
           size="lg"
         >
-          <ShoppingBasket className="h-6 w-6" />
+          <ShoppingBasket className="h-4 w-4 sm:h-6 sm:w-6" />
           {totalItems > 0 && (
-            <Badge className="absolute -top-2 -right-2 bg-accent text-charcoal min-w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">
+            <Badge className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-accent text-charcoal min-w-5 h-5 sm:min-w-6 sm:h-6 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold">
               {totalItems}
             </Badge>
           )}
         </Button>
       </SheetTrigger>
       
-      <SheetContent side="left" className="w-full sm:max-w-lg">
+      <SheetContent side="left" className="w-full sm:max-w-lg p-4 sm:p-6">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <ShoppingBasket className="h-5 w-5" />
@@ -75,17 +75,17 @@ export default function BasketDrawer() {
           </SheetTitle>
         </SheetHeader>
 
-        <div className="mt-6 flex-1 overflow-y-auto max-h-96">
+        <div className="mt-4 sm:mt-6 flex-1 overflow-y-auto max-h-80 sm:max-h-96">
           {items.length === 0 ? (
-            <div className="text-center py-12">
-              <ShoppingBasket className="mx-auto h-16 w-16 text-gray-300 mb-4" />
-              <p className="text-gray-500 text-lg">Your basket is empty</p>
+            <div className="text-center py-8 sm:py-12">
+              <ShoppingBasket className="mx-auto h-12 w-12 sm:h-16 sm:w-16 text-gray-300 mb-4" />
+              <p className="text-gray-500 text-base sm:text-lg">Your basket is empty</p>
               <p className="text-gray-400 text-sm mt-2">Add some delicious items from our menu!</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {items.map((item) => (
-                <div key={`${item.id}-${item.size || 'default'}`} className="bg-gray-50 rounded-lg p-4">
+                <div key={`${item.id}-${item.size || 'default'}`} className="bg-gray-50 rounded-lg p-3 sm:p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h4 className="font-semibold text-charcoal">

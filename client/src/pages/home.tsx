@@ -158,11 +158,11 @@ export default function Home({}: HomeProps) {
               </Badge>
             </div>
             
-            <h1 className="font-poppins text-5xl md:text-7xl font-bold mb-6">
+            <h1 className="font-poppins text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6">
               Family <span className="text-accent-gold">Kebab</span>
             </h1>
             
-            <p className="text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed font-semibold">
+            <p className="text-lg sm:text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed font-semibold">
               Kebab & Pizza
             </p>
             
@@ -174,35 +174,35 @@ export default function Home({}: HomeProps) {
               CASH PAYMENT ONLY • YOUR ORDER WILL BE READY IN 15 MIN
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <a href="tel:01692584100">
-                <Button size="lg" className="bg-brand-primary text-white hover:bg-red-700 transform hover:scale-105 transition-all font-semibold">
-                  <Phone className="mr-3 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8">
+              <a href="tel:01692584100" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto bg-brand-primary text-white hover:bg-red-700 transform hover:scale-105 transition-all font-semibold">
+                  <Phone className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
                   01692 584 100
                 </Button>
               </a>
-              <Link to="/menu">
-                <Button size="lg" className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-semibold">
+              <Link to="/menu" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto bg-accent-gold text-charcoal hover:bg-yellow-600 font-semibold">
                   View Full Menu
                 </Button>
               </Link>
             </div>
             
-            <div className="flex flex-col gap-4 justify-center items-center text-sm">
-              <div className="flex items-center">
-                <MapPin className="text-accent-gold mr-2 h-4 w-4" />
+            <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center text-xs sm:text-sm px-4">
+              <div className="flex items-center text-center">
+                <MapPin className="text-accent-gold mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                 <span className="font-semibold">79 HIGH STREET, STALHAM NR12 9BB</span>
               </div>
               <div className="text-center">
                 <p className="text-accent-gold font-bold mb-2">WE ARE OPEN 7 DAYS WEEK</p>
-                <p className="text-white">ONLY CLOSED CHRISTMAS DAY AND BOXING DAY</p>
-                <div className="mt-2 space-y-1">
+                <p className="text-white mb-2">ONLY CLOSED CHRISTMAS DAY AND BOXING DAY</p>
+                <div className="space-y-1">
                   <p className="text-white"><strong>MON-THU-SUN:</strong> 12noon to 10:30pm</p>
                   <p className="text-white"><strong>FRI-SAT:</strong> 12noon to 11pm</p>
                 </div>
               </div>
-              <div className="flex items-center">
-                <Clock className="text-accent-gold mr-2 h-4 w-4" />
+              <div className="flex items-center text-center">
+                <Clock className="text-accent-gold mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                 <span className="text-accent-gold font-bold">LUNCH TIME OFFERS: 12 NOON TO 2:30PM</span>
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function Home({}: HomeProps) {
       {/* Food Slideshow Section */}
       <section className="py-16 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <h2 className="font-poppins text-4xl font-bold text-center text-white mb-12">
+          <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-12 px-4">
             🤤 Craving Something Delicious? 🤤
           </h2>
           

@@ -181,4 +181,17 @@
   .hero-overlay {
     background: linear-gradient(rgba(46, 46, 46, 0.7), rgba(46, 46, 46, 0.7));
   }
+
+  /* Mobile-first responsive utilities */
+  .mobile-optimized {
+    @apply text-sm sm:text-base;
+  }
+
+  .mobile-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .mobile-margin {
+    @apply mb-4 sm:mb-6 lg:mb-8;
+  }
 }

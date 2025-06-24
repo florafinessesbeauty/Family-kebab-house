@@ -50,13 +50,13 @@ function renderPriceDisplay(item: MenuItemData) {
 
     return (
       <div className="text-right space-y-2">
-        <div className="grid grid-cols-3 gap-2 text-sm text-gray-500">
-          {sizes.map(s => <span key={s.label}>{s.label}</span>)}
+        <div className="grid grid-cols-3 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
+          {sizes.map(s => <span key={s.label} className="text-center">{s.label}</span>)}
         </div>
-        <div className="grid grid-cols-3 gap-2 font-bold text-primary">
-          {sizes.map(s => <span key={s.label}>{formatPrice(s.price)}</span>)}
+        <div className="grid grid-cols-3 gap-1 sm:gap-2 font-bold text-primary">
+          {sizes.map(s => <span key={s.label} className="text-center text-sm sm:text-base">{formatPrice(s.price)}</span>)}
         </div>
-        <div className="grid grid-cols-3 gap-2 mt-2">
+        <div className="grid grid-cols-3 gap-1 sm:gap-2 mt-2">
           {sizes.map(s => (
             <AddToBasketButton
               key={s.label}
@@ -68,7 +68,7 @@ function renderPriceDisplay(item: MenuItemData) {
                 description:  item.description
               }}
               variant="small"
-              className="w-full"
+              className="w-full text-xs sm:text-sm"
             />
           ))}
         </div>
@@ -79,8 +79,8 @@ function renderPriceDisplay(item: MenuItemData) {
   // 2) Single‐price items
   if (item.singlePrice != null) {
     return (
-      <div className="text-right space-y-1">
-        <div className="text-xl font-bold text-primary">
+      <div className="text-right space-y-2">
+        <div className="text-lg sm:text-xl font-bold text-primary">
           {formatPrice(item.singlePrice)}
         </div>
         <AddToBasketButton
@@ -92,7 +92,7 @@ function renderPriceDisplay(item: MenuItemData) {
             description: item.description
           }}
           variant="default"
-          className="w-full mt-2"
+          className="w-full text-sm sm:text-base"
         />
       </div>
     )
