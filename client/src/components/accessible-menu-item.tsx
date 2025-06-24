@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Phone, Info } from 'lucide-react';
 import { MenuItem } from '../../../shared/schema';
 import { PriceBadge } from '@/components/price-badge';
-import { SizeSelector } from '@/components/size-selector';
+
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip';
 
 interface AccessibleMenuItemProps {
@@ -179,7 +179,6 @@ export default function AccessibleMenuItem({
           <div className="flex flex-col items-end space-y-2">
             <PriceBadge
               price={getPrice()}
-              isSpecial={item.isSpecial}
               variant={isKebabFeast ? 'premium' : (item.isSpecial ? 'discount' : 'default')}
               size="lg"
             />
