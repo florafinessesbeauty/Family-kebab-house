@@ -11,14 +11,17 @@ import ChefsRecommendationPopup from "@/components/chefs-recommendation-popup";
 import { BasketProvider } from "@/hooks/use-basket";
 import { useLocation } from "react-router-dom";
 
-// Import your page components (adjust the paths and capitalization as needed)
+// Import critical pages directly
 import Home from "@/pages/home";
-import Menu from "@/pages/menu";
-import About from "@/pages/about";
-import Contact from "@/pages/contact";
-import NutritionalInfo from "@/pages/nutritional-info";
-import MealBuilderPage from "@/pages/meal-builder-page";
 import NotFound from "@/pages/not-found";
+
+// Lazy load non-critical pages for bundle optimization
+import { lazy, Suspense } from "react";
+const Menu = lazy(() => import("@/pages/menu"));
+const About = lazy(() => import("@/pages/about"));
+const Contact = lazy(() => import("@/pages/contact"));
+const NutritionalInfo = lazy(() => import("@/pages/nutritional-info"));
+const MealBuilderPage = lazy(() => import("@/pages/meal-builder-page"));
 
 function App() {
   const location = useLocation();

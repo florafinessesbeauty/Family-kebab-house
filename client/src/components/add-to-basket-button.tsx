@@ -211,7 +211,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleAddToBasket = () => {
-    console.log('DEBUG: handleAddToBasket called from dialog');
+
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize) || sizeOptions[0];
     
     if (!selectedSizeOption) {
@@ -233,7 +233,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
       emoji: item.name.match(/^[^\w\s]*/)?.[0] || '🍽️',
     };
 
-    console.log('DEBUG: Adding basket item from dialog', basketItem);
+
     addItem(basketItem);
     
     // Open basket drawer to show the item was added

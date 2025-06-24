@@ -48,15 +48,15 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
   const category = item.category.toLowerCase();
   const name = item.name;
   
-  // Fix price formatting to use database column names and show actual prices
+  // Fix price formatting to use correct database column names (camelCase)
   const formatPrice = (): string => {
-    if (item.single_price && item.single_price > 0) return `£${item.single_price.toFixed(2)}`;
-    if (item.price_small && item.price_large) return `From £${Math.min(item.price_small, item.price_large).toFixed(2)}`;
-    if (item.price_medium && item.price_large) return `From £${Math.min(item.price_medium, item.price_large).toFixed(2)}`;
-    if (item.price_small && item.price_small > 0) return `£${item.price_small.toFixed(2)}`;
-    if (item.price_medium && item.price_medium > 0) return `£${item.price_medium.toFixed(2)}`;
-    if (item.price_large && item.price_large > 0) return `£${item.price_large.toFixed(2)}`;
-    if (item.price_x_large && item.price_x_large > 0) return `£${item.price_x_large.toFixed(2)}`;
+    if (item.singlePrice && item.singlePrice > 0) return `£${item.singlePrice.toFixed(2)}`;
+    if (item.priceSmall && item.priceLarge) return `From £${Math.min(item.priceSmall, item.priceLarge).toFixed(2)}`;
+    if (item.priceMedium && item.priceLarge) return `From £${Math.min(item.priceMedium, item.priceLarge).toFixed(2)}`;
+    if (item.priceSmall && item.priceSmall > 0) return `£${item.priceSmall.toFixed(2)}`;
+    if (item.priceMedium && item.priceMedium > 0) return `£${item.priceMedium.toFixed(2)}`;
+    if (item.priceLarge && item.priceLarge > 0) return `£${item.priceLarge.toFixed(2)}`;
+    if (item.priceXLarge && item.priceXLarge > 0) return `£${item.priceXLarge.toFixed(2)}`;
     
     // Category-based fallback pricing (authentic ranges)
     if (category === 'lunch-time-offers') return `£8.50`;
