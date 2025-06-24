@@ -89,16 +89,16 @@ export default function Menu() {
       }
     },
     onNavigateLeft: () => {
-      const currentIndex = categories.findIndex(cat => cat.id === activeCategory);
+      const currentIndex = availableCategories.findIndex(catId => catId === activeCategory);
       if (currentIndex > 0) {
-        setActiveCategory(categories[currentIndex - 1].id);
+        setActiveCategory(availableCategories[currentIndex - 1]);
         setFocusedItemIndex(0);
       }
     },
     onNavigateRight: () => {
-      const currentIndex = categories.findIndex(cat => cat.id === activeCategory);
-      if (currentIndex < categories.length - 1) {
-        setActiveCategory(categories[currentIndex + 1].id);
+      const currentIndex = availableCategories.findIndex(catId => catId === activeCategory);
+      if (currentIndex < availableCategories.length - 1) {
+        setActiveCategory(availableCategories[currentIndex + 1]);
         setFocusedItemIndex(0);
       }
     },
