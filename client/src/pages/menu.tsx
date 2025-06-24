@@ -372,11 +372,11 @@ export default function Menu() {
                               category={deal.category}
                               nutritionalData={{
                                 calories: deal.calories,
-                                protein: deal.protein,
-                                carbs: deal.carbs,
-                                fat: deal.fat,
-                                fiber: deal.fiber,
-                                sodium: deal.sodium,
+                                protein: deal.protein?.toString(),
+                                carbs: deal.carbs?.toString(),
+                                fat: deal.fat?.toString(),
+                                fiber: deal.fiber?.toString(),
+                                sodium: deal.sodium?.toString(),
                                 allergens: Array.isArray(deal.allergens) ? deal.allergens : (deal.allergens ? [deal.allergens] : undefined),
                                 ingredients: deal.ingredients ? [deal.ingredients] : undefined
                               }}
