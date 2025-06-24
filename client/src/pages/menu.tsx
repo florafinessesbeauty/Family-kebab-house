@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
 import NutritionalInfoTooltip from "@/components/nutritional-info-tooltip";
 import VoiceControlButton from "@/components/voice-control-button";
-import { parsePrice, safeToFixed } from '@/utils/price-utils';
 
 import AccessibilityHelpModal from "@/components/accessibility-help-modal";
 
@@ -12,40 +11,13 @@ import AddToBasketButton from "@/components/add-to-basket-button";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 
-import type { MenuItemData } from "@/data/menu-data-new";
-import { categoryNames } from "@/data/categoryNames";
+import { categories } from "@/data/menu-data";
+import type { MenuItemData } from "@/data/menu-data";
 import { Phone, Keyboard, Eye } from "lucide-react";
 
-// Unified category mapping for all Family Kebab House categories
-const UNIFIED_CATEGORIES = {
-  "lunch-offers": { name: "Lunch Time Offers (12:00-14:30)", icon: "🌅" },
-  "burgers": { name: "Burgers", icon: "🍔" },
-  "fried-chicken": { name: "Fried Chicken", icon: "🍗" },
-  "chicken-bargain": { name: "Chicken Bargain Meals", icon: "🍗" },
-  "wings": { name: "Chicken Wings & Strips", icon: "🍗" },
-  "nuggets": { name: "Chicken Nuggets", icon: "🍗" },
-  "scampi": { name: "Scampi", icon: "🦐" },
-  "desserts": { name: "Desserts", icon: "🍰" },
-  "extras": { name: "Sides & Add-Ons", icon: "🍟" },
-  "drinks": { name: "Drinks", icon: "🥤" },
-  "kids": { name: "Kids Meal", icon: "👶" },
-  "pizzas": { name: "Pizzas", icon: "🍕" },
-  "garlic-bread": { name: "Garlic Bread & Extras", icon: "🧄" },
-  "pizza-offers": { name: "Pizza Offers", icon: "🍕" },
-  "family-deals": { name: "Family Deal", icon: "👨‍👩‍👧‍👦" },
-  "combo-meals": { name: "Chicken Combo Meal", icon: "🍗" },
-  "kebabs": { name: "Kebabs", icon: "🥙" },
-  "kebab-specials": { name: "Kebab Feast", icon: "🥙" },
-  "wraps": { name: "Wraps", icon: "🌯" },
-  "combination-kebabs": { name: "Combination Kebabs", icon: "🥙" },
-  "sides": { name: "Sides & Extras", icon: "🍟" },
-  "specials": { name: "Special Offers", icon: "⭐" }
-} as const;
-
 export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState("");
+  const [activeCategory, setActiveCategory] = useState("kebabs");
   const [menuData, setMenuData] = useState<MenuItemData[]>([]);
-  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
@@ -53,41 +25,12 @@ export default function Menu() {
   const { announce } = useScreenReaderAnnouncements();
 
   // Define helper functions first
-  const getItemsByCategory = (category: string) => {
-    const items = menuData.filter(item => item.category === category);
-    return items;
-  };
+  const getItemsByCategory = (category: string) =>
+    menuData.filter(item => item.category === category);
 
   const getCategoryInfo = (categoryId: string) => {
-    // First try categoryNames.ts for consistent naming
-    const categoryName = categoryNames[categoryId as keyof typeof categoryNames];
-    if (categoryName) {
-      const unifiedCategory = UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES];
-      return {
-        id: categoryId,
-        name: categoryName,
-        icon: unifiedCategory?.icon || "🍽️",
-        count: getItemsByCategory(categoryId).length
-      };
-    }
-    
-    // Fallback to unified categories
-    const unifiedCategory = UNIFIED_CATEGORIES[categoryId as keyof typeof UNIFIED_CATEGORIES];
-    if (unifiedCategory) {
-      return {
-        id: categoryId,
-        name: unifiedCategory.name,
-        icon: unifiedCategory.icon,
-        count: getItemsByCategory(categoryId).length
-      };
-    }
-    
-    return { 
-      id: categoryId,
-      name: categoryId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), 
-      icon: "🍽️",
-      count: getItemsByCategory(categoryId).length
-    };
+    const category = categories.find(c => c.id === categoryId);
+    return category || { name: categoryId, icon: "" };
   };
 
   const currentCategoryItems = getItemsByCategory(activeCategory);
@@ -105,16 +48,16 @@ export default function Menu() {
       }
     },
     onNavigateLeft: () => {
-      const currentIndex = availableCategories.findIndex(catId => catId === activeCategory);
+      const currentIndex = categories.findIndex(cat => cat.id === activeCategory);
       if (currentIndex > 0) {
-        setActiveCategory(availableCategories[currentIndex - 1]);
+        setActiveCategory(categories[currentIndex - 1].id);
         setFocusedItemIndex(0);
       }
     },
     onNavigateRight: () => {
-      const currentIndex = availableCategories.findIndex(catId => catId === activeCategory);
-      if (currentIndex < availableCategories.length - 1) {
-        setActiveCategory(availableCategories[currentIndex + 1]);
+      const currentIndex = categories.findIndex(cat => cat.id === activeCategory);
+      if (currentIndex < categories.length - 1) {
+        setActiveCategory(categories[currentIndex + 1].id);
         setFocusedItemIndex(0);
       }
     },
@@ -145,7 +88,7 @@ export default function Menu() {
     };
     
     const targetCategory = categoryMap[category] || category;
-    if (availableCategories.includes(targetCategory)) {
+    if (categories.find(cat => cat.id === targetCategory)) {
       setActiveCategory(targetCategory);
       setFocusedItemIndex(0);
       announce(`Navigated to ${getCategoryInfo(targetCategory).name} menu`);
@@ -156,7 +99,7 @@ export default function Menu() {
     const items = currentCategoryItems;
     if (items.length > 0) {
       const menuText = items.map(item => 
-        `${item.name}, ${item.description}, Price: ${item.singlePrice ? `£${parsePrice(item.singlePrice).toFixed(2)}` : 'varies'}`
+        `${item.name}, ${item.description}, Price: £${item.singlePrice || 'varies'}`
       ).join('. ');
       
       if ('speechSynthesis' in window) {
@@ -193,12 +136,12 @@ export default function Menu() {
           name: item.name,
           description: item.description,
           category: item.category,
-          // Convert all price strings to numbers, using undefined instead of null
-          singlePrice: item.singlePrice ? parseFloat(item.singlePrice) : undefined,
-          priceSmall: item.priceSmall ? parseFloat(item.priceSmall) : undefined,
-          priceMedium: item.priceMedium ? parseFloat(item.priceMedium) : undefined,
-          priceLarge: item.priceLarge ? parseFloat(item.priceLarge) : undefined,
-          priceXLarge: item.priceXLarge ? parseFloat(item.priceXLarge) : undefined,
+          price: item.singlePrice,
+          priceSmall: item.priceSmall,
+          priceMedium: item.priceMedium,
+          priceLarge: item.priceLarge,
+          priceXLarge: item.priceXLarge,
+          singlePrice: item.singlePrice,
           isSpecial: Boolean(item.isSpecial),
           calories: item.calories,
           protein: item.protein,
@@ -210,62 +153,7 @@ export default function Menu() {
           ingredients: item.ingredients
         }));
         
-        // Menu data is set above in the combined data logic
-        
-        // Import static menu data for categories not in API
-        const { menuData: staticMenuData } = await import('@/data/menu-data-new');
-        
-        // Create a Map to track unique items by ID to prevent duplicates
-        const itemMap = new Map();
-        
-        // Add API items first (they take priority)
-        transformedData.forEach(item => {
-          itemMap.set(item.id, item);
-        });
-        
-        // Add static items only if they don't already exist, with unique IDs
-        staticMenuData.forEach((staticItem, index) => {
-          if (!itemMap.has(staticItem.id)) {
-            itemMap.set(staticItem.id, staticItem);
-          } else {
-            // Create a unique ID for duplicates
-            const uniqueId = `${staticItem.id}-static-${index}`;
-            itemMap.set(uniqueId, { ...staticItem, id: uniqueId });
-          }
-        });
-        
-        // Convert Map back to array
-        const combinedData = Array.from(itemMap.values());
-        
-        setMenuData(combinedData);
-        
-        // Use all defined categories from categoryNames
-        const allDefinedCategories = Object.keys(categoryNames);
-        const apiCategories = Array.from(
-          new Set(transformedData.map(item => item.category))
-        );
-        const staticCategories = Array.from(
-          new Set(staticMenuData.map(item => item.category))
-        );
-        
-        console.log('API Categories:', apiCategories);
-        console.log('Static Categories:', staticCategories);
-        console.log('All Defined Categories:', allDefinedCategories);
-        console.log('Total combined items:', combinedData.length);
-        
-        // Show all defined categories
-        setAvailableCategories(allDefinedCategories);
-        
-        // Set activeCategory to first category with items from combined data
-        const firstCategoryWithItems = allDefinedCategories.find(cat => 
-          combinedData.some(item => item.category === cat)
-        );
-        const defaultCategory = firstCategoryWithItems || allDefinedCategories[0];
-        
-        if (!activeCategory && defaultCategory) {
-          setActiveCategory(defaultCategory);
-          console.log('Setting active category to:', defaultCategory);
-        }
+        setMenuData(transformedData);
       } catch (error) {
         // Handle fetch error gracefully
       } finally {
@@ -298,13 +186,7 @@ export default function Menu() {
     "combo-meals": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
   };
 
-  const specialDeals = menuData.filter(item => 
-    item.isSpecial === true || 
-    item.category === "specials" ||
-    (item.name && item.name.includes("Family Deal")) ||
-    (item.name && item.name.includes("Kebab Feast")) ||
-    (item.singlePrice && parseFloat(item.singlePrice.toString()) < 8)
-  );
+  const specialDeals = menuData.filter(item => item.isSpecial);
 
   if (loading) {
     return (
@@ -566,21 +448,21 @@ export default function Menu() {
                               price = specialOfferPrices[nameWithoutEmoji];
                             }
                             
-                            const numPrice = typeof price === 'string' ? parseFloat(price) : price ?? 0;
-const originalPrice = numPrice * 1.25; // Show savings                          
+                            const originalPrice = price ? price * 1.25 : null; // Show savings
+                            
                             return (
                               <div className="space-y-2">
                                 <div className="flex items-center justify-center gap-2">
-                                  <span className="text-3xl">£{price ? safeToFixed(price) : "Contact Us"}</span>
+                                  <span className="text-3xl">£{price ? price.toFixed(2) : "Contact Us"}</span>
                                   {originalPrice && price && (
                                     <span className="text-lg text-white/60 line-through">
-                                      £{safeToFixed(originalPrice)}
+                                      £{originalPrice.toFixed(2)}
                                     </span>
                                   )}
                                 </div>
                                 {originalPrice && price && (
                                   <div className="text-sm bg-white/20 rounded-full px-3 py-1 inline-block">
-                                    Save £{safeToFixed(originalPrice - numPrice)}
+                                    Save £{(originalPrice - price).toFixed(2)}
                                   </div>
                                 )}
                               </div>
@@ -639,18 +521,16 @@ const originalPrice = numPrice * 1.25; // Show savings
 
         {/* Menu Categories Navigation */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {availableCategories.map((categoryId: string) => {
-              const itemCount = getItemsByCategory(categoryId).length;
-              const categoryInfo = getCategoryInfo(categoryId);
-              
-              // Show all categories, even if they have 0 items
-              // if (itemCount === 0) return null;
+            {categories.map((category) => {
+              const itemCount = getItemsByCategory(category.id).length;
+              if (itemCount === 0) return null;
               
               return (
                 <Button
-                  key={categoryId}
+                  key={category.id}
                   onClick={() => {
-                    setActiveCategory(categoryId);
+                    setActiveCategory(category.id);
+                    // Smooth scroll to menu content section
                     setTimeout(() => {
                       const menuSection = document.getElementById('menu-content');
                       if (menuSection) {
@@ -661,15 +541,15 @@ const originalPrice = numPrice * 1.25; // Show savings
                       }
                     }, 100);
                   }}
-                  variant={activeCategory === categoryId ? "default" : "outline"}
+                  variant={activeCategory === category.id ? "default" : "outline"}
                   className={`px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 ${
-                    activeCategory === categoryId
+                    activeCategory === category.id
                       ? "bg-primary text-white shadow-lg"
                       : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
                   }`}
                 >
-                  <span className="mr-2 text-lg">{categoryInfo.icon}</span>
-                  {categoryInfo.name}
+                  <span className="mr-2 text-lg">{category.icon}</span>
+                  {category.name}
                   <Badge variant="secondary" className="ml-2 bg-accent text-white">
                     {itemCount}
                   </Badge>
@@ -689,18 +569,28 @@ const originalPrice = numPrice * 1.25; // Show savings
                 title={getCategoryInfo(activeCategory).name}
                 description={
                   activeCategory === "kebabs" 
-                    ? "All kebabs come with fresh salad & delicious sauce"
-                    : activeCategory === "burgers"
-                    ? "Juicy burgers made with fresh ingredients"
+                    ? "🥙 All kebabs come with fresh salad & delicious sauce"
+                    : activeCategory === "combination-kebabs"
+                    ? "🥩 Choose any two kebab types - all £13.00 + extras available"
                     : activeCategory === "pizzas"
-                    ? "Made with 100% fresh daily dough"
+                    ? "🍕 Made with 100% fresh daily dough"
+                    : activeCategory === "lunch-offers"
+                    ? "⏰ Available 12:00 - 14:30 daily"
+                    : activeCategory === "family-deals"
+                    ? "👨‍👩‍👧‍👦 Perfect for sharing with loved ones"
+                    : activeCategory === "wraps"
+                    ? "🌯 Fresh wraps with your choice of fillings, salad & sauce"
+                    : activeCategory === "chicken-bargain-meals"
+                    ? "🍱 Great value chicken meals with chips & coleslaw"
+                    : activeCategory === "chicken-wings-strips"
+                    ? "🔥 Spicy wings and tender strips - Single, With Chips, or Meal options"
+                    : activeCategory === "chicken-nuggets"
+                    ? "🍗 Crispy chicken nuggets - Single, With Chips, or Meal options"
                     : activeCategory === "drinks"
-                    ? "Refreshing beverages to complement your meal"
-                    : activeCategory === "sides"
-                    ? "Perfect sides to complete your meal"
-                    : activeCategory === "specials"
-                    ? "Our featured special offers and deals"
-                    : `Delicious ${getCategoryInfo(activeCategory).name.toLowerCase()} made fresh daily`
+                    ? "🥤 Refreshing beverages to complement your meal"
+                    : activeCategory === "kids-meals"
+                    ? "👶 Perfect portions for little ones - includes chips and drink"
+                    : undefined
                 }
                 items={getItemsByCategory(activeCategory)}
                 icon={getCategoryInfo(activeCategory).icon}

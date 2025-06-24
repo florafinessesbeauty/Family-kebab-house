@@ -6,14 +6,15 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip'
 
-import { parsePrice, formatPrice } from '@/utils/price-utils'
-
 interface MenuCategoryProps {
   title: string
   description?: string
   items: MenuItemData[]
   icon?: string
 }
+
+// helpers at module scope
+const formatPrice = (price: number) => `£${price.toFixed(2)}`
 
 const getItemEmoji = (item: MenuItemData) => {
   const name = item.name.toLowerCase()
@@ -45,7 +46,7 @@ function renderPriceDisplay(item: MenuItemData) {
       item.priceMedium  != null && { label: 'Medium',  price: item.priceMedium  },
       item.priceLarge   != null && { label: 'Large',   price: item.priceLarge   },
       item.priceXLarge  != null && { label: 'X-Large', price: item.priceXLarge  }
-    ].filter(Boolean) as { label: string; price: number | string }[]
+    ].filter(Boolean) as { label: string; price: number }[]
 
     return (
       <div className="text-right space-y-2">
@@ -102,7 +103,7 @@ function renderPriceDisplay(item: MenuItemData) {
     const inches = [
       item.price10inches != null && { label: '10\"', price: item.price10inches },
       item.price12inches != null && { label: '12\"', price: item.price12inches }
-    ].filter(Boolean) as { label: string; price: number | string }[]
+    ].filter(Boolean) as { label: string; price: number }[]
 
     return (
       <div className="text-right space-y-2">
@@ -132,7 +133,7 @@ function renderPriceDisplay(item: MenuItemData) {
   }
 
   // 4) Fallback small/med/lg/xl
-  const prices: { label: string; price: number | string }[] = []
+  const prices: { label: string; price: number }[] = []
   if (item.priceSmall  != null) prices.push({ label: 'Sml', price: item.priceSmall })
   if (item.priceMedium != null) prices.push({ label: 'Med', price: item.priceMedium })
   if (item.priceLarge  != null) prices.push({ label: 'Lrg', price: item.priceLarge })
@@ -173,8 +174,6 @@ export default function MenuCategory({
   items,
   icon
 }: Readonly<MenuCategoryProps>) {
-  console.log(`MenuCategory rendering: ${title} with ${items.length} items`);
-  
   return (
     <div className="space-y-6">
       {/* header */}
@@ -188,11 +187,6 @@ export default function MenuCategory({
 
       {/* items grid */}
       <div className="grid gap-4">
-        {items.length === 0 && (
-          <div className="text-center text-gray-500 py-8">
-            <p>No items found in this category.</p>
-          </div>
-        )}
         {items.map(item => (
           <Card
             key={item.id}

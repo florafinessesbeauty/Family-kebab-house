@@ -6,7 +6,6 @@ import { Phone, Heart, Zap, Clock, DollarSign } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import AddToBasketButton from "@/components/add-to-basket-button";
-import { parsePrice } from '@/utils/price-utils';
 
 interface FoodPreference {
   id: string;
@@ -49,23 +48,15 @@ const mapMenuItemToRecommendation = (item: any): RecommendedDish => {
   const category = item.category.toLowerCase();
   const name = item.name;
   
-  // Fix price formatting to handle string values from database
+  // Fix price formatting to use correct database column names (camelCase)
   const formatPrice = (): string => {
-    const parsePrice = (price: any) => typeof price === 'string' ? parseFloat(price) : (price || 0);
-    
-    const singlePrice = parsePrice(item.singlePrice);
-    const priceSmall = parsePrice(item.priceSmall);
-    const priceMedium = parsePrice(item.priceMedium);
-    const priceLarge = parsePrice(item.priceLarge);
-    const priceXLarge = parsePrice(item.priceXLarge);
-    
-    if (singlePrice > 0) return `£${parsePrice(singlePrice).toFixed(2)}`;
-    if (priceSmall > 0 && priceLarge > 0) return `From £${Math.min(parsePrice(priceSmall), parsePrice(priceLarge)).toFixed(2)}`;
-    if (priceMedium > 0 && priceLarge > 0) return `From £${Math.min(parsePrice(priceMedium), parsePrice(priceLarge)).toFixed(2)}`;
-    if (priceSmall > 0) return `£${parsePrice(priceSmall).toFixed(2)}`;
-    if (priceMedium > 0) return `£${parsePrice(priceMedium).toFixed(2)}`;
-    if (priceLarge > 0) return `£${parsePrice(priceLarge).toFixed(2)}`;
-    if (priceXLarge > 0) return `£${parsePrice(priceXLarge).toFixed(2)}`;
+    if (item.singlePrice && item.singlePrice > 0) return `£${item.singlePrice.toFixed(2)}`;
+    if (item.priceSmall && item.priceLarge) return `From £${Math.min(item.priceSmall, item.priceLarge).toFixed(2)}`;
+    if (item.priceMedium && item.priceLarge) return `From £${Math.min(item.priceMedium, item.priceLarge).toFixed(2)}`;
+    if (item.priceSmall && item.priceSmall > 0) return `£${item.priceSmall.toFixed(2)}`;
+    if (item.priceMedium && item.priceMedium > 0) return `£${item.priceMedium.toFixed(2)}`;
+    if (item.priceLarge && item.priceLarge > 0) return `£${item.priceLarge.toFixed(2)}`;
+    if (item.priceXLarge && item.priceXLarge > 0) return `£${item.priceXLarge.toFixed(2)}`;
     
     // Category-based fallback pricing (authentic ranges)
     if (category === 'lunch-time-offers') return `£8.50`;

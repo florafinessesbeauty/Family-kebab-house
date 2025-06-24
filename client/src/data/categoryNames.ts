@@ -19,6 +19,4 @@ export const categoryNames = {
   "kebab-specials": "Kebab Feast",
   "wraps": "Wraps",
   "combination-kebabs": "Combination Kebabs",
-  "sides": "Sides & Extras",
-  "specials": "Special Offers"
 };

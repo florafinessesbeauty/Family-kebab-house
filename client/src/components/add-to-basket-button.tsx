@@ -4,20 +4,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components
 import { ShoppingBasket, Plus, Share2 } from 'lucide-react';
 import { useBasket } from '@/hooks/use-basket';
 import { toast } from '@/hooks/use-toast';
-import { parsePrice, safeToFixed } from '@/utils/price-utils';
 
 interface AddToBasketButtonProps {
   item: {
     id: string | number;
     name: string;
     category: string;
-    singlePrice?: number | string;
-    priceSmall?: number | string;
-    priceMedium?: number | string;
-    priceLarge?: number | string;
-    priceXLarge?: number | string;
-    price10inches?: number | string;
-    price12inches?: number | string;
+    singlePrice?: number;
+    priceSmall?: number;
+    priceMedium?: number;
+    priceLarge?: number;
+    priceXLarge?: number;
+    price10inches?: number;
+    price12inches?: number;
     description?: string;
   };
   variant?: 'default' | 'small' | 'icon';
@@ -46,98 +45,93 @@ export default function AddToBasketButton({ item, variant = 'default', className
     // Handle pizza category with inch-based sizing
     if (item.category === 'pizzas') {
       // Check for 10" and 12" specific pricing first
-      if (item.price10inches && parsePrice(item.price10inches) > 0) {
-        sizes.push({ label: '10"', price: parsePrice(item.price10inches), value: 'small' });
+      if (item.price10inches && item.price10inches > 0) {
+        sizes.push({ label: '10"', price: item.price10inches, value: 'small' });
       }
-      if (item.price12inches && parsePrice(item.price12inches) > 0) {
-        sizes.push({ label: '12"', price: parsePrice(item.price12inches), value: 'large' });
+      if (item.price12inches && item.price12inches > 0) {
+        sizes.push({ label: '12"', price: item.price12inches, value: 'large' });
       }
       // Fallback to priceSmall/priceLarge if specific inch pricing not available
       if (sizes.length === 0) {
-        if (item.priceSmall && parsePrice(item.priceSmall) > 0) {
-          sizes.push({ label: '10"', price: parsePrice(item.priceSmall), value: 'small' });
+        if (item.priceSmall && item.priceSmall > 0) {
+          sizes.push({ label: '10"', price: item.priceSmall, value: 'small' });
         }
-        if (item.priceLarge && parsePrice(item.priceLarge) > 0) {
-          sizes.push({ label: '12"', price: parsePrice(item.priceLarge), value: 'large' });
+        if (item.priceLarge && item.priceLarge > 0) {
+          sizes.push({ label: '12"', price: item.priceLarge, value: 'large' });
         }
       }
     }
     // Handle kebab category with proper size labels
     else if (item.category === 'kebabs') {
       // First check if this kebab has multiple sizes (medium/large structure)
-      if (item.priceMedium && item.priceLarge && parsePrice(item.priceMedium) > 0 && parsePrice(item.priceLarge) > 0) {
-        sizes.push({ label: 'Medium', price: parsePrice(item.priceMedium), value: 'medium' });
-        sizes.push({ label: 'Large', price: parsePrice(item.priceLarge), value: 'large' });
-        if (item.priceXLarge && parsePrice(item.priceXLarge) > 0) {
-          sizes.push({ label: 'X-Large', price: parsePrice(item.priceXLarge), value: 'xlarge' });
+      if (item.priceMedium && item.priceLarge && item.priceMedium > 0 && item.priceLarge > 0) {
+        sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
+        sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
+        if (item.priceXLarge && item.priceXLarge > 0) {
+          sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
         }
       }
       // If only one size available, use single price
-      else if (item.singlePrice && parsePrice(item.singlePrice) > 0) {
-        sizes.push({ label: 'Regular', price: parsePrice(item.singlePrice), value: 'regular' });
+      else if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Regular', price: item.singlePrice, value: 'regular' });
       }
       // Fallback for individual price fields
       else {
-        if (item.priceMedium && parsePrice(item.priceMedium) > 0) {
-          sizes.push({ label: 'Medium', price: parsePrice(item.priceMedium), value: 'medium' });
+        if (item.priceMedium && item.priceMedium > 0) {
+          sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
         }
-        if (item.priceLarge && parsePrice(item.priceLarge) > 0) {
-          sizes.push({ label: 'Large', price: parsePrice(item.priceLarge), value: 'large' });
+        if (item.priceLarge && item.priceLarge > 0) {
+          sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
         }
-        if (item.priceXLarge && parsePrice(item.priceXLarge) > 0) {
-          sizes.push({ label: 'X-Large', price: parsePrice(item.priceXLarge), value: 'xlarge' });
+        if (item.priceXLarge && item.priceXLarge > 0) {
+          sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
         }
       }
     }
     // Handle burger category with single/meal options
     else if (item.category === 'burgers') {
-      if (item.priceSmall && parsePrice(item.priceSmall) > 0) {
-        sizes.push({ label: 'Single', price: parsePrice(item.priceSmall), value: 'single' });
+      if (item.priceSmall && item.priceSmall > 0) {
+        sizes.push({ label: 'Single', price: item.priceSmall, value: 'single' });
       }
-      if (item.priceLarge && parsePrice(item.priceLarge) > 0) {
-        sizes.push({ label: 'Meal', price: parsePrice(item.priceLarge), value: 'meal' });
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });
       }
     }
     // Handle chicken wings/strips/nuggets with three-tier pricing
     else if (item.category === 'chicken-wings-strips' || item.category === 'chicken-nuggets') {
-      if (item.singlePrice && parsePrice(item.singlePrice) > 0) {
-        sizes.push({ label: 'Single', price: parsePrice(item.singlePrice), value: 'single' });
+      if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Single', price: item.singlePrice, value: 'single' });
       }
-      if (item.priceMedium && parsePrice(item.priceMedium) > 0) {
-        sizes.push({ label: 'With Chips', price: parsePrice(item.priceMedium), value: 'with-chips' });
+      if (item.priceMedium && item.priceMedium > 0) {
+        sizes.push({ label: 'With Chips', price: item.priceMedium, value: 'with-chips' });
       }
-      if (item.priceLarge && parsePrice(item.priceLarge) > 0) {
-        sizes.push({ label: 'Meal', price: parsePrice(item.priceLarge), value: 'meal' });
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Meal', price: item.priceLarge, value: 'meal' });
       }
     }
-    // Default handling for items with single price only
-    else if (item.singlePrice && parsePrice(item.singlePrice) > 0) {
-      sizes.push({ label: 'Regular', price: parsePrice(item.singlePrice), value: 'regular' });
-    }
-    // Fallback for any other category with generic size options
+    // Handle all other categories with standard pricing
     else {
-      if (item.priceSmall && parsePrice(item.priceSmall) > 0) {
-        sizes.push({ label: 'Small', price: parsePrice(item.priceSmall), value: 'small' });
+      if (item.singlePrice && item.singlePrice > 0) {
+        sizes.push({ label: 'Regular', price: item.singlePrice, value: 'regular' });
       }
-      if (item.priceMedium && parsePrice(item.priceMedium) > 0) {
-        sizes.push({ label: 'Medium', price: parsePrice(item.priceMedium), value: 'medium' });
+      if (item.priceSmall && item.priceSmall > 0) {
+        sizes.push({ label: 'Small', price: item.priceSmall, value: 'small' });
       }
-      if (item.priceLarge && parsePrice(item.priceLarge) > 0) {
-        sizes.push({ label: 'Large', price: parsePrice(item.priceLarge), value: 'large' });
+      if (item.priceMedium && item.priceMedium > 0) {
+        sizes.push({ label: 'Medium', price: item.priceMedium, value: 'medium' });
+      }
+      if (item.priceLarge && item.priceLarge > 0) {
+        sizes.push({ label: 'Large', price: item.priceLarge, value: 'large' });
+      }
+      if (item.priceXLarge && item.priceXLarge > 0) {
+        sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
       }
     }
 
-    return sizes;
-  };
 
-  const getSelectedPrice = (sizeValue: string): number => {
-    const sizeOption = getSizeOptions().find(s => s.value === sizeValue);
-    return sizeOption ? sizeOption.price : (parsePrice(item.singlePrice) || 0);
-  };
-
-  // Get fallback pricing when no sizes available
-  const getFallbackPrice = (): number => {
-    let fallbackPrice = 7.50;
+    // Fallback pricing based on authentic menu prices - only if no valid price found
+    if (sizes.length === 0) {
+      let fallbackPrice = 7.50;
       
       // Category-specific fallback pricing using authentic restaurant prices
       if (item.category === 'lunch-time-offers') {
@@ -168,7 +162,10 @@ export default function AddToBasketButton({ item, variant = 'default', className
       }
       else if (item.category === 'desserts') fallbackPrice = 3.50;
       
-    return fallbackPrice;
+      sizes.push({ label: 'Regular', price: fallbackPrice, value: 'regular' });
+    }
+    
+    return sizes;
   };
 
   // Get available extras based on category
@@ -203,7 +200,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const extrasOptions = getExtrasOptions();
   const hasMultipleSizes = sizeOptions.length > 1;
 
-  const getSelectedPriceWithExtras = () => {
+  const getSelectedPrice = () => {
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize);
     const basePrice = selectedSizeOption?.price || sizeOptions[0]?.price || 0;
     const extrasPrice = selectedExtras.reduce((sum, extraLabel) => {
@@ -214,6 +211,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleAddToBasket = () => {
+
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize) || sizeOptions[0];
     
     if (!selectedSizeOption) {
@@ -381,14 +379,14 @@ export default function AddToBasketButton({ item, variant = 'default', className
                         className="justify-between"
                       >
                         <span>{size.label}</span>
-                        <span className="font-bold">£{safeToFixed(size.price)}</span>
+                        <span className="font-bold">£{size.price.toFixed(2)}</span>
                       </Button>
                     ))}
                   </div>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t">
                   <div className="text-lg font-bold">
-                    Total: £{safeToFixed(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0)}
+                    Total: £{(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0).toFixed(2)}
                   </div>
                   <Button 
                     onClick={handleAddToBasket}
@@ -454,14 +452,14 @@ export default function AddToBasketButton({ item, variant = 'default', className
                       className="justify-between"
                     >
                       <span>{size.label}</span>
-                      <span className="font-bold">£{safeToFixed(size.price)}</span>
+                      <span className="font-bold">£{size.price.toFixed(2)}</span>
                     </Button>
                   ))}
                 </div>
               </div>
               <div className="flex justify-between items-center pt-2 border-t">
                 <div className="text-lg font-bold">
-                  Total: £{safeToFixed(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0)}
+                  Total: £{(sizeOptions.find(s => s.value === selectedSize)?.price || sizeOptions[0]?.price || 0).toFixed(2)}
                 </div>
                 <Button 
                   onClick={handleAddToBasket}

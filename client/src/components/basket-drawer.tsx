@@ -13,8 +13,7 @@ export default function BasketDrawer() {
   const handleShare = async () => {
     if (!navigator.share) {
       // Fallback for browsers that don't support Web Share API
-      const formattedPrice = typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2);
-      const text = `Check out my order from Family Kebab House! Total: £${formattedPrice}`;
+      const text = `Check out my order from Family Kebab House! Total: £${totalPrice.toFixed(2)}`;
       navigator.clipboard.writeText(text);
       setIsSharing(true);
       setTimeout(() => setIsSharing(false), 2000);
@@ -22,10 +21,9 @@ export default function BasketDrawer() {
     }
 
     try {
-      const formattedPrice = typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2);
       await navigator.share({
         title: 'My Family Kebab House Order',
-        text: `Check out my delicious order! Total: £${formattedPrice}`,
+        text: `Check out my delicious order! Total: £${totalPrice.toFixed(2)}`,
         url: window.location.href,
       });
     } catch (error) {
@@ -39,8 +37,7 @@ export default function BasketDrawer() {
       `${item.quantity}x ${item.name}${item.size ? ` (${item.size})` : ''}`
     ).join(', ');
     
-    const formattedPrice = typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2);
-    const message = `Order: ${orderSummary}. Total: £${formattedPrice}`;
+    const message = `Order: ${orderSummary}. Total: £${totalPrice.toFixed(2)}`;
     
     // Copy to clipboard for easy reference during phone call
     navigator.clipboard.writeText(message);
@@ -103,7 +100,7 @@ export default function BasketDrawer() {
                         </p>
                       )}
                       <p className="text-primary font-bold mt-1">
-                        £{typeof item.price === 'string' ? item.price : item.price.toFixed(2)} each
+                        £{item.price.toFixed(2)} each
                       </p>
                     </div>
                     
@@ -144,7 +141,7 @@ export default function BasketDrawer() {
                   <div className="flex justify-between items-center mt-3 pt-3 border-t">
                     <span className="text-sm text-gray-600">Subtotal:</span>
                     <span className="font-bold text-primary">
-                      £{((typeof item.price === 'string' ? parseFloat(item.price) : item.price) * item.quantity).toFixed(2)}
+                      £{(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -157,7 +154,7 @@ export default function BasketDrawer() {
           <div className="border-t pt-6 mt-6 space-y-4">
             <div className="flex justify-between items-center text-lg font-bold">
               <span>Total:</span>
-              <span className="text-primary text-2xl">£{typeof totalPrice === 'string' ? totalPrice : totalPrice.toFixed(2)}</span>
+              <span className="text-primary text-2xl">£{totalPrice.toFixed(2)}</span>
             </div>
             
             <Separator />

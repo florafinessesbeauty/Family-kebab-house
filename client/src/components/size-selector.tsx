@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MenuItem } from '../../../shared/schema';
-import { parsePrice } from '@/utils/price-utils';
 
 interface SizeSelectorProps {
   item: MenuItem;
@@ -49,7 +48,7 @@ export const SizeSelector: React.FC<SizeSelectorProps> = ({
             <div className={`text-lg font-bold ${
               selectedSize === size.id ? `text-${size.color}-700` : 'text-gray-900'
             }`}>
-              £{parsePrice(size.price!).toFixed(2)}
+              £{size.price!.toFixed(2)}
             </div>
           </button>
         ))}
