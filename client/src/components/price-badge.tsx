@@ -1,8 +1,9 @@
 import React from 'react';
+import { parsePrice, formatPrice } from '@/utils/price-utils';
 
 interface PriceBadgeProps {
-  price: number;
-  originalPrice?: number;
+  price: number | string;
+  originalPrice?: number | string;
   isSpecial?: boolean;
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'discount' | 'premium';
@@ -27,17 +28,19 @@ export const PriceBadge: React.FC<PriceBadgeProps> = ({
     premium: 'text-amber-600'
   };
 
-  const hasDiscount = originalPrice && originalPrice > price;
+  const numPrice = parsePrice(price);
+  const numOriginalPrice = originalPrice ? parsePrice(originalPrice) : 0;
+  const hasDiscount = numOriginalPrice > 0 && numOriginalPrice > numPrice;
 
   return (
     <div className="flex items-center gap-2">
       <span className={`font-bold ${sizeClasses[size]} ${variantClasses[variant]} group-hover:scale-110 transition-transform duration-300`}>
-        £{price.toFixed(2)}
+        {formatPrice(price)}
       </span>
       
       {hasDiscount && (
         <span className="text-sm text-gray-400 line-through">
-          £{originalPrice.toFixed(2)}
+          {formatPrice(originalPrice)}
         </span>
       )}
       
@@ -49,7 +52,7 @@ export const PriceBadge: React.FC<PriceBadgeProps> = ({
       
       {hasDiscount && (
         <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-          SAVE £{(originalPrice - price).toFixed(2)}
+          SAVE {formatPrice(numOriginalPrice - numPrice)}
         </span>
       )}
     </div>

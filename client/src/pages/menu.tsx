@@ -99,7 +99,7 @@ export default function Menu() {
     const items = currentCategoryItems;
     if (items.length > 0) {
       const menuText = items.map(item => 
-        `${item.name}, ${item.description}, Price: £${item.singlePrice || 'varies'}`
+        `${item.name}, ${item.description}, Price: ${item.singlePrice ? `£${parseFloat(item.singlePrice.toString()).toFixed(2)}` : 'varies'}`
       ).join('. ');
       
       if ('speechSynthesis' in window) {
