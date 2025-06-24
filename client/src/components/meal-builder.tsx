@@ -172,7 +172,7 @@ export default function MealBuilder() {
               >
                 <div className="font-medium">{comp.name}</div>
                 <div className="text-sm text-gray-600">{comp.description}</div>
-                <div className="font-bold text-primary">£{comp.price.toFixed(2)}</div>
+                <div className="font-bold text-primary">£{safeToFixed(comp.price)}</div>
               </Button>
             ))}
           </div>
@@ -237,7 +237,7 @@ export default function MealBuilder() {
               >
                 <div className="font-medium">{comp.name}</div>
                 <div className="text-sm text-gray-600">{comp.description}</div>
-                <div className="font-bold text-primary">£{comp.price.toFixed(2)}</div>
+                <div className="font-bold text-primary">£{safeToFixed(comp.price)}</div>
               </Button>
             ))}
           </div>
