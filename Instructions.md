@@ -1,237 +1,343 @@
-# Family Kebab House - Comprehensive Analysis & Fix Plan
+# Menu Page Performance Optimization Plan
 
-## ISSUES IDENTIFIED
+## Performance Issues Identified
 
-### 1. Debug Console Statements Throughout Codebase
-**Problem:** Multiple debugging console.log statements are present in production code
-**Files Affected:**
-- `client/src/pages/menu.tsx` (lines containing "All menu data:", "Special deals found:", "Kebab Feast in data:")
-- `client/src/components/basket-drawer.tsx` (Share functionality)
-- `client/src/components/add-to-basket-button.tsx` (DEBUG statements)
-- `client/src/hooks/use-basket.tsx` (Error logging)
-- `client/src/hooks/use-voice-control.tsx` (Error logging)
-- `client/src/hooks/use-global-voice-control.tsx` (Voice command logging)
-- `client/src/components/header.tsx` (Voice control warnings)
+### Critical Problems Causing Layout Thrashing:
 
-**Impact:** Performance degradation, security concerns, unprofessional appearance in browser console
+1. **Excessive CSS Animations (Lines 276-349 in menu.tsx)**
+   - Multiple `animate-spin`, `animate-bounce`, `animate-pulse` running simultaneously
+   - 6+ animated elements per special deal card (rotating rings, floating sparkles)
+   - Constant repaints from continuous animations
 
-### 2. Bundle Size Optimization Issues
-**Problem:** Build warning shows chunks larger than 500KB after minification
-**Evidence:** Build output shows `518.47 kB │ gzip: 150.50 kB` for main bundle
-**Impact:** Slower page load times, poor user experience on slower connections
+2. **Unthrottled Scroll Handler (Line 30 in floating-ai-button.tsx)**
+   - Raw `scroll` event listener firing on every scroll pixel
+   - No debouncing or throttling mechanism
+   - Triggers state changes causing React re-renders
 
-### 3. Data Inconsistency in Menu System
-**Problem:** Database schema mismatch with frontend expectations
-**Files Affected:**
-- `client/src/components/food-recommendation.tsx` (lines 53-60: accessing wrong database column names)
-- `shared/schema.ts` (database schema definition)
-- Database uses snake_case (`single_price`, `price_small`) vs camelCase in frontend
+3. **Heavy Component Re-renders**
+   - Menu component recalculates `currentCategoryItems` on every render (Line 36)
+   - `specialDeals` filter runs on every render (Line 189)
+   - No memoization for expensive operations
 
-### 4. Outdated Dependencies
-**Problem:** Browserslist data is 8 months old
-**Evidence:** Build output shows "browsers data (caniuse-lite) is 8 months old"
-**Impact:** Incorrect browser compatibility targeting, potential security vulnerabilities
+4. **Continuous Animation Overhead**
+   - Multiple `animate-pulse` classes running indefinitely
+   - Complex CSS gradients with blur effects (Line 305)
+   - Transform animations causing layout shifts
 
-### 5. Voice Control Error Handling
-**Problem:** Inconsistent error handling in voice control features
-**Files Affected:**
-- `client/src/hooks/use-voice-control.tsx`
-- `client/src/hooks/use-global-voice-control.tsx`
-- `client/src/components/header.tsx`
+## Step-by-Step Optimization Plan
 
-### 6. Database Connection Edge Cases
-**Problem:** Menu data loading shows empty arrays initially before populating
-**Evidence:** Console logs show "All menu data: []" then populated data
-**Impact:** Potential race conditions, inconsistent UI states
+### Phase 1: Throttle Event Handlers (High Priority)
 
-## COMPREHENSIVE FIX PLAN
+#### 1.1 Fix Scroll Handler in FloatingAIButton
+**File:** `client/src/components/floating-ai-button.tsx`
+**Lines:** 24-32
 
-### Phase 1: Clean Up Debug Code (Priority: HIGH)
-**Estimated Time:** 30 minutes
-**Actions:**
-1. Remove all console.log statements from production code
-2. Replace with proper error handling where needed
-3. Keep only essential error logging for debugging
+```typescript
+// Replace unthrottled scroll with throttled version
+useEffect(() => {
+  let ticking = false;
+  
+  const handleScroll = () => {
+    if (!ticking && !isDismissed) {
+      requestAnimationFrame(() => {
+        if (window.scrollY > 300) {
+          setIsVisible(true);
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
 
-**Files to Fix:**
-- `client/src/pages/menu.tsx` - Remove debug logging
-- `client/src/components/basket-drawer.tsx` - Remove share debug logs
-- `client/src/components/add-to-basket-button.tsx` - Remove DEBUG statements
-- `client/src/hooks/use-basket.tsx` - Keep error logging but make it conditional
-- `client/src/hooks/use-voice-control.tsx` - Improve error handling
-- `client/src/hooks/use-global-voice-control.tsx` - Clean up logging
-- `client/src/components/header.tsx` - Improve voice control error handling
-
-### Phase 2: Fix Database Schema Consistency (Priority: HIGH)
-**Estimated Time:** 45 minutes
-**Actions:**
-1. Audit all database column references in frontend
-2. Update `food-recommendation.tsx` to use correct database column names
-3. Ensure consistent camelCase/snake_case conversion
-4. Update TypeScript interfaces to match actual database schema
-
-**Files to Fix:**
-- `client/src/components/food-recommendation.tsx` - Fix price column references
-- `shared/schema.ts` - Verify schema matches database
-- `server/storage.ts` - Ensure proper column mapping
-
-### Phase 3: Bundle Size Optimization (Priority: MEDIUM)
-**Estimated Time:** 45 minutes
-**Actions:**
-1. Implement code splitting for large components
-2. Lazy load non-critical components
-3. Optimize imports to reduce bundle size
-4. Configure manual chunks for better caching
-
-**Implementation:**
-- Split large components like menu and meal-builder
-- Lazy load voice control and accessibility features
-- Create separate chunks for UI components
-- Optimize TailwindCSS purging
-
-### Phase 4: Dependency Updates (Priority: MEDIUM)
-**Estimated Time:** 15 minutes
-**Actions:**
-1. Update browserslist data
-2. Check for outdated dependencies
-3. Update package versions where safe
-
-**Commands:**
-```bash
-npx update-browserslist-db@latest
-npm audit
-npm update
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  return () => window.removeEventListener('scroll', handleScroll);
+}, [isDismissed]);
 ```
 
-### Phase 5: Error Handling Improvements (Priority: MEDIUM)
-**Estimated Time:** 30 minutes
-**Actions:**
-1. Implement proper error boundaries
-2. Add loading states for async operations
-3. Improve voice control fallbacks
-4. Add user-friendly error messages
+#### 1.2 Add Intersection Observer for Animation Control
+**File:** `client/src/hooks/use-intersection-observer.tsx` (New)
 
-### Phase 6: Performance Optimizations (Priority: LOW)
-**Estimated Time:** 30 minutes
-**Actions:**
-1. Implement React.memo for expensive components
-2. Optimize re-renders in menu components
-3. Add proper loading skeletons
-4. Implement virtual scrolling for large menus
+```typescript
+import { useEffect, useRef, useState } from 'react';
 
-## IMPLEMENTATION STRATEGY
+export function useIntersectionObserver(options = {}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-### Step 1: Assessment Phase
-- Run comprehensive TypeScript check
-- Audit all console statements
-- Test current functionality
-- Document breaking changes
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1, ...options }
+    );
 
-### Step 2: Critical Fixes
-- Remove debug statements
-- Fix database schema issues
-- Ensure application stability
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
-### Step 3: Optimization Phase
-- Implement code splitting
-- Update dependencies
-- Optimize performance
+    return () => observer.disconnect();
+  }, []);
 
-### Step 4: Testing & Validation
-- Test all menu functionality
-- Verify voice control works
-- Check accessibility features
-- Validate basket functionality
+  return [ref, isVisible] as const;
+}
+```
 
-## SUCCESS METRICS
+### Phase 2: Optimize React Components with Memoization
 
-### Before Fix:
-- Bundle size: 518KB (gzipped: 150KB)
-- Multiple console warnings in production
-- Database schema inconsistencies
-- Outdated dependency warnings
-- No code splitting
+#### 2.1 Memoize MenuCategory Component
+**File:** `client/src/components/menu-category.tsx`
+**Action:** Wrap in React.memo
 
-### After Fix:
-- ✅ Removed all debug console.log statements from production code
-- ✅ Fixed database schema consistency with camelCase column access
-- ✅ Implemented code splitting with lazy loading for better performance
-- ✅ Added proper Suspense boundaries with loading states
-- ✅ Updated browserslist data to latest version
-- ✅ Enhanced error handling across voice control functionality
-- ✅ Configured ESLint to prevent future console statement issues
-- ✅ Optimized bundle structure with manual chunk configuration
+```typescript
+import React from 'react';
 
-### Status: COMPLETED ✅
-All critical fixes have been implemented successfully.
+const MenuCategory = React.memo(({
+  title,
+  description,
+  items,
+  icon
+}: Readonly<MenuCategoryProps>) => {
+  // Component implementation
+});
 
-## FINAL IMPLEMENTATION SUMMARY
+export default MenuCategory;
+```
 
-### ✅ Phase 1: Debug Code Cleanup (COMPLETED)
-- Removed all console.log statements from production code
-- Enhanced error handling with graceful fallbacks
-- Clean console output achieved
+#### 2.2 Memoize Expensive Calculations in Menu
+**File:** `client/src/pages/menu.tsx`
+**Lines:** 36, 189
 
-### ✅ Phase 2: Database Schema Consistency (COMPLETED) 
-- Fixed food-recommendation.tsx to use correct camelCase column names
-- Updated database access patterns for consistency
-- Resolved schema mismatch issues
+```typescript
+import { useMemo } from 'react';
 
-### ✅ Phase 3: Performance Optimizations (COMPLETED)
-- Implemented React.lazy for code splitting
-- Added Suspense boundaries with loading states
-- Created LoadingSkeleton component for better UX
-- Optimized import structure
+// Replace direct calculations with memoized versions
+const currentCategoryItems = useMemo(
+  () => menuData.filter(item => item.category === activeCategory),
+  [menuData, activeCategory]
+);
 
-### ✅ Phase 4: Dependency Management (COMPLETED)
-- Updated browserslist data to latest version
-- Enhanced project maintainability
+const specialDeals = useMemo(
+  () => menuData.filter(item => item.isSpecial),
+  [menuData]
+);
+```
 
-### ✅ Phase 5: Development Workflow (COMPLETED)
-- Added ESLint configuration to prevent future console statements
-- Implemented proper error boundaries
-- Enhanced development experience
+#### 2.3 Create Memoized SpecialDealCard Component
+**File:** `client/src/components/special-deal-card.tsx` (New)
 
-## VERIFICATION RESULTS
-- Console statements reduced from 10+ to 0 in production code
-- Database schema consistency achieved
-- Code splitting implemented successfully
-- Application performance improved
-- Development workflow enhanced
+```typescript
+import React from 'react';
 
-The Family Kebab House website is now production-ready with clean code, optimized performance, and proper error handling.
+interface SpecialDealCardProps {
+  deal: MenuItemData;
+  isVisible: boolean;
+}
 
-## RISK ASSESSMENT
+const SpecialDealCard = React.memo(({ deal, isVisible }: SpecialDealCardProps) => {
+  const isKebabFeast = deal.name === "Kebab Feast" || deal.name === "🎉 Kebab Feast";
+  const isFamilyDeal = deal.name.includes("Family Deal");
+  const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
 
-### Low Risk:
-- Removing console.log statements
-- Updating browserslist data
-- Code splitting implementation
+  return (
+    <div 
+      className={`relative rounded-2xl p-6 text-white text-center transition-all duration-500 cursor-pointer group ${
+        isKebabFeast 
+          ? `bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 shadow-2xl transform scale-110 border-8 border-yellow-300 hover:scale-115 hover:shadow-3xl ${isVisible ? 'animate-pulse' : ''}` 
+          : isFamilyDeal
+          ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
+          : isChickenCombo
+          ? "bg-gradient-to-br from-red-600 via-orange-600 to-yellow-600 hover:scale-105 shadow-xl border-2 border-orange-300"
+          : "bg-gradient-to-br from-accent to-orange-600 hover:scale-105"
+      }`}
+    >
+      {/* Conditional animations only when visible */}
+      {isKebabFeast && isVisible && (
+        // Animation elements
+      )}
+      {/* Rest of component */}
+    </div>
+  );
+});
+```
 
-### Medium Risk:
-- Database schema changes
-- Dependency updates
-- Bundle optimization
+### Phase 3: Optimize CSS Animations
 
-### High Risk:
-- Voice control modifications (extensive user testing required)
-- Menu component restructuring
+#### 3.1 Add CSS Will-Change and Animation Pausing
+**File:** `client/src/index.css`
 
-## ROLLBACK PLAN
+```css
+/* Add performance optimizations */
+.special-deal-card {
+  will-change: transform;
+  contain: layout style paint;
+}
 
-1. Git commits for each phase
-2. Database backup before schema changes
-3. Component-level rollback capability
-4. Feature flag implementation for new optimizations
+.special-deal-card:not(.visible) .animate-pulse,
+.special-deal-card:not(.visible) .animate-bounce,
+.special-deal-card:not(.visible) .animate-spin {
+  animation-play-state: paused;
+}
 
-## MAINTENANCE GUIDELINES
+/* Reduce animation complexity */
+.animate-pulse-optimized {
+  animation: pulse-optimized 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
-1. Implement ESLint rule to prevent console.log in production
-2. Set up automated dependency updates
-3. Add bundle size monitoring
-4. Implement performance monitoring
-5. Regular accessibility audits
+@keyframes pulse-optimized {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
 
----
+/* Use transform3d for GPU acceleration */
+.animate-bounce-gpu {
+  animation: bounce-gpu 1s infinite;
+}
 
-**Next Steps:** Begin with Phase 1 (Debug Cleanup) as it has the highest impact and lowest risk. Each phase should be completed and tested before moving to the next.
+@keyframes bounce-gpu {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+```
+
+#### 3.2 Implement Animation Control Hook
+**File:** `client/src/hooks/use-animation-control.tsx` (New)
+
+```typescript
+import { useIntersectionObserver } from './use-intersection-observer';
+import { useEffect } from 'react';
+
+export function useAnimationControl() {
+  const [ref, isVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '50px'
+  });
+
+  useEffect(() => {
+    if (ref.current) {
+      const element = ref.current;
+      if (isVisible) {
+        element.classList.add('visible');
+      } else {
+        element.classList.remove('visible');
+      }
+    }
+  }, [isVisible]);
+
+  return [ref, isVisible] as const;
+}
+```
+
+### Phase 4: List Virtualization (Optional for Large Menus)
+
+#### 4.1 Implement Virtual Scrolling for Long Categories
+**File:** `client/src/components/virtualized-menu-list.tsx` (New)
+
+```typescript
+import { FixedSizeList as List } from 'react-window';
+import { MenuItemData } from '@/data/menu-data';
+
+interface VirtualizedMenuListProps {
+  items: MenuItemData[];
+  height: number;
+  itemHeight: number;
+}
+
+const VirtualizedMenuList = ({ items, height, itemHeight }: VirtualizedMenuListProps) => {
+  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
+    <div style={style}>
+      <MenuItemCard item={items[index]} />
+    </div>
+  );
+
+  return (
+    <List
+      height={height}
+      itemCount={items.length}
+      itemSize={itemHeight}
+      overscanCount={5}
+    >
+      {Row}
+    </List>
+  );
+};
+```
+
+### Phase 5: Debounce State Updates
+
+#### 5.1 Add Debounced Category Switching
+**File:** `client/src/hooks/use-debounced-state.tsx` (New)
+
+```typescript
+import { useState, useEffect } from 'react';
+
+export function useDebouncedState<T>(initialValue: T, delay: number) {
+  const [value, setValue] = useState<T>(initialValue);
+  const [debouncedValue, setDebouncedValue] = useState<T>(initialValue);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return [debouncedValue, setValue] as const;
+}
+```
+
+## Implementation Priority Order
+
+### Immediate (Critical):
+1. Fix unthrottled scroll handler in FloatingAIButton
+2. Add React.memo to MenuCategory component
+3. Memoize expensive calculations in Menu component
+
+### High Priority:
+1. Implement IntersectionObserver for animation control
+2. Create optimized CSS animations with will-change
+3. Add conditional animation rendering
+
+### Medium Priority:
+1. Create memoized SpecialDealCard component
+2. Implement debounced state updates
+3. Add GPU-accelerated animations
+
+### Optional (for very large menus):
+1. Implement virtualization for long lists
+2. Add progressive loading for menu items
+
+## Performance Metrics to Track
+
+- **First Contentful Paint (FCP)**: Target < 1.5s
+- **Cumulative Layout Shift (CLS)**: Target < 0.1
+- **Frame Rate**: Maintain 60fps during scroll
+- **Memory Usage**: Monitor for memory leaks from animations
+- **JavaScript Execution Time**: Reduce scroll handler overhead
+
+## Testing Strategy
+
+1. Use Chrome DevTools Performance tab to profile before/after
+2. Test on low-end devices with CPU throttling
+3. Monitor layout thrashing in Rendering tab
+4. Check animation performance with FPS meter
+5. Test scroll responsiveness on mobile devices
+
+## Expected Performance Improvements
+
+- **50-70% reduction** in scroll jank
+- **40-60% reduction** in JavaScript execution time during scroll
+- **30-50% reduction** in layout thrashing
+- **Improved battery life** on mobile devices
+- **Better accessibility** for users with motion sensitivity
+
+This optimization plan addresses the root causes of UI glitches and provides a systematic approach to improving the Menu page performance while maintaining the visual appeal of the special offers and animations.
