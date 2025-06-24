@@ -18,13 +18,13 @@ interface NutritionalInfoTooltipProps {
   category: string;
   nutritionalData?: {
     calories?: number;
-    protein?: string;
-    carbs?: string;
-    fat?: string;
-    fiber?: string;
-    sodium?: string;
-    allergens?: string[];
-    ingredients?: string[];
+    protein?: string | number;
+    carbs?: string | number;
+    fat?: string | number;
+    fiber?: string | number;
+    sodium?: string | number;
+    allergens?: string | string[];
+    ingredients?: string | string[];
   };
 }
 
@@ -34,13 +34,13 @@ const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemNam
   // Use database nutritional data if available, otherwise estimate
   const nutritionalInfo: NutritionalInfo = nutritionalData && nutritionalData.calories ? {
     calories: nutritionalData.calories,
-    protein: nutritionalData.protein || "0g",
-    carbs: nutritionalData.carbs || "0g", 
-    fat: nutritionalData.fat || "0g",
-    fiber: nutritionalData.fiber || "0g",
-    sodium: nutritionalData.sodium || "0mg",
-    allergens: nutritionalData.allergens || [],
-    ingredients: nutritionalData.ingredients || []
+    protein: typeof nutritionalData.protein === 'number' ? `${nutritionalData.protein}g` : (nutritionalData.protein || "0g"),
+    carbs: typeof nutritionalData.carbs === 'number' ? `${nutritionalData.carbs}g` : (nutritionalData.carbs || "0g"),
+    fat: typeof nutritionalData.fat === 'number' ? `${nutritionalData.fat}g` : (nutritionalData.fat || "0g"),
+    fiber: typeof nutritionalData.fiber === 'number' ? `${nutritionalData.fiber}g` : (nutritionalData.fiber || "0g"),
+    sodium: typeof nutritionalData.sodium === 'number' ? `${nutritionalData.sodium}mg` : (nutritionalData.sodium || "0mg"),
+    allergens: Array.isArray(nutritionalData.allergens) ? nutritionalData.allergens : (typeof nutritionalData.allergens === 'string' ? nutritionalData.allergens.split(',').map(a => a.trim()) : []),
+    ingredients: Array.isArray(nutritionalData.ingredients) ? nutritionalData.ingredients : (typeof nutritionalData.ingredients === 'string' ? nutritionalData.ingredients.split(',').map(i => i.trim()) : [])
   } : estimateNutritionByCategory(itemName, category);
 
   function estimateNutritionByCategory(name: string, cat: string): NutritionalInfo {

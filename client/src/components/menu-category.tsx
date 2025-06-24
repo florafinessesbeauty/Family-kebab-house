@@ -192,8 +192,8 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                           fat: item.fat,
                           fiber: item.fiber,
                           sodium: item.sodium,
-                          allergens: item.allergens,
-                          ingredients: item.ingredients
+                          allergens: item.allergens ? item.allergens.split(',').map(a => a.trim()) : [],
+                          ingredients: item.ingredients ? item.ingredients.split(',').map(i => i.trim()) : []
                         }}
                       />
                     </div>
