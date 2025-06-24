@@ -63,12 +63,12 @@ export default function MenuCategory({ title, description, items, icon }: Readon
       );
     }
     
-    // Check for single price first (includes regular price and singlePrice)
-    if (item.singlePrice || item.price) {
+    // Check for single price first
+    if (item.singlePrice) {
       return (
         <div className="text-right">
           <div className="text-xl font-bold text-primary">
-            {formatPrice(item.singlePrice || item.price)}
+            {formatPrice(item.singlePrice)}
           </div>
           {item.withChips && (
             <div className="text-sm text-gray-500">
@@ -215,7 +215,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                         id: item.id,
                         name: item.name,
                         category: item.category,
-                        singlePrice: item.singlePrice || item.price || 0,
+                        singlePrice: item.singlePrice || 0,
                         priceSmall: item.priceSmall,
                         priceMedium: item.priceMedium,
                         priceLarge: item.priceLarge,
