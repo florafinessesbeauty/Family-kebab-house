@@ -17,7 +17,7 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
 
     type NewType = NewType_1;
 
-  const recognition = useRef<NewType | null>(null);
+  const recognition = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     // Check if speech recognition is supported
@@ -26,25 +26,28 @@ export function useVoiceControl(options: VoiceControlOptions = {}) {
     if (SpeechRecognition) {
       setIsSupported(true);
       recognition.current = new SpeechRecognition();
-      recognition.current.continuous = false;
-      recognition.current.interimResults = false;
-      recognition.current.lang = 'en-US';
+      
+      if (recognition.current) {
+        recognition.current.continuous = false;
+        recognition.current.interimResults = false;
+        recognition.current.lang = 'en-US';
 
-      recognition.current.onresult = (event: SpeechRecognitionEvent) => {
-        const lastResult = event.results[event.results.length - 1];
-        const transcript = lastResult[0].transcript.toLowerCase().trim();
-        setTranscript(transcript);
-        processVoiceCommand(transcript);
-      };
+        recognition.current.onresult = (event: SpeechRecognitionEvent) => {
+          const lastResult = event.results[event.results.length - 1];
+          const transcript = lastResult[0].transcript.toLowerCase().trim();
+          setTranscript(transcript);
+          processVoiceCommand(transcript);
+        };
 
-      recognition.current.onend = (event: Event) => {
-        setIsListening(false);
-      };
+        recognition.current.onend = (event: Event) => {
+          setIsListening(false);
+        };
 
-      recognition.current.onerror = (event: SpeechRecognitionErrorEvent) => {
-        console.error('Speech recognition error:', event.error);
-        setIsListening(false);
-      };
+        recognition.current.onerror = (event: SpeechRecognitionErrorEvent) => {
+          console.error('Speech recognition error:', event.error);
+          setIsListening(false);
+        };
+      }
     }
 
     return () => {
