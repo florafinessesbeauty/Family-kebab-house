@@ -165,7 +165,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
               {/* Hover Effect Overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ zIndex: 0 }}></div>
               
-              <div className="flex justify-between items-start relative z-10">
+              <div className="flex justify-between items-start relative z-10" style={{ position: 'relative' }}>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold text-charcoal text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
@@ -209,7 +209,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                     </p>
                   )}
                   
-                  <div className="space-y-2 mt-4">
+                  <div className="space-y-2 mt-4 relative z-20">
                     <AddToBasketButton 
                       item={{
                         id: item.id,
@@ -223,7 +223,7 @@ export default function MenuCategory({ title, description, items, icon }: Readon
                         description: item.description
                       }}
                       variant="default"
-                      className="w-full"
+                      className="w-full relative z-20"
                     />
                   </div>
                 </div>

@@ -38,15 +38,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const getSizeOptions = (): SizeOption[] => {
     const sizes: SizeOption[] = [];
     
-    console.log('DEBUG - getSizeOptions for item:', {
-      name: item.name,
-      category: item.category,
-      priceSmall: item.priceSmall,
-      priceMedium: item.priceMedium,
-      priceLarge: item.priceLarge,
-      priceXLarge: item.priceXLarge,
-      singlePrice: item.singlePrice
-    });
+
     
     // Handle pizza category with inch-based sizing
     if (item.category === 'pizzas') {
@@ -108,10 +100,8 @@ export default function AddToBasketButton({ item, variant = 'default', className
         sizes.push({ label: 'X-Large', price: item.priceXLarge, value: 'xlarge' });
       }
     }
-    
-    console.log('DEBUG - Generated sizes:', sizes);
 
-    
+
     // Fallback pricing based on authentic menu prices - only if no valid price found
     if (sizes.length === 0) {
       let fallbackPrice = 7.50;
@@ -406,12 +396,13 @@ export default function AddToBasketButton({ item, variant = 'default', className
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 relative z-20" style={{ position: 'relative', zIndex: 20 }}>
       {sizeOptions.length > 1 ? (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button
-              className={`bg-primary hover:bg-red-700 text-white flex-1 ${className}`}
+              className={`bg-primary hover:bg-red-700 text-white flex-1 ${className} relative z-20`}
+              style={{ position: 'relative', zIndex: 20 }}
             >
               <ShoppingBasket className="mr-2 h-4 w-4" />
               Choose Size
@@ -458,7 +449,8 @@ export default function AddToBasketButton({ item, variant = 'default', className
       ) : (
         <Button
           onClick={handleQuickAdd}
-          className={`bg-primary hover:bg-red-700 text-white flex-1 ${className}`}
+          className={`bg-primary hover:bg-red-700 text-white flex-1 ${className} relative z-20`}
+          style={{ position: 'relative', zIndex: 20 }}
         >
           <ShoppingBasket className="mr-2 h-4 w-4" />
           Add to Basket
