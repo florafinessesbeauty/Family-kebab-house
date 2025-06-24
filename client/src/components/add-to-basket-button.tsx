@@ -203,7 +203,7 @@ export default function AddToBasketButton({ item, variant = 'default', className
   const extrasOptions = getExtrasOptions();
   const hasMultipleSizes = sizeOptions.length > 1;
 
-  const getSelectedPrice = () => {
+  const getSelectedPriceWithExtras = () => {
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize);
     const basePrice = selectedSizeOption?.price || sizeOptions[0]?.price || 0;
     const extrasPrice = selectedExtras.reduce((sum, extraLabel) => {
@@ -214,7 +214,6 @@ export default function AddToBasketButton({ item, variant = 'default', className
   };
 
   const handleAddToBasket = () => {
-
     const selectedSizeOption = sizeOptions.find(size => size.value === selectedSize) || sizeOptions[0];
     
     if (!selectedSizeOption) {
