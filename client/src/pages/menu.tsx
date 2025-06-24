@@ -211,12 +211,12 @@ export default function Menu() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-        {/* Accessibility Controls */}
-          <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
-            <div className="container mx-auto px-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <h2 className="text-sm font-medium">Accessibility Features:</h2>
+      {/* Accessibility Controls */}
+      <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <h2 className="text-sm font-medium">Accessibility Features:</h2>
               <Button
                 onClick={() => setAccessibilityMode(!accessibilityMode)}
                 variant="outline"
@@ -253,22 +253,22 @@ export default function Menu() {
 
       {/* Header */}
       <section className="bg-white py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
-            </div>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
+          </div>
 
           {/* Special Deals First - Now with optimized performance */}
           {specialDeals.length > 0 && (
-              <div className="mb-16">
-                <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
+            <div className="mb-16">
+              <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {specialDeals.map((deal) => (
                   <SpecialDealCard key={deal.id} deal={deal} />
                 ))}
               </div>
-              </div>
+            </div>
           )}
 
           {/* Category Navigation */}
