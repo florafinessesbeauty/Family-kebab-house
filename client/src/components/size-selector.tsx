@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MenuItem } from '@shared/schema';
+import { MenuItem } from '../../../shared/schema';
 
 interface SizeSelectorProps {
   item: MenuItem;
