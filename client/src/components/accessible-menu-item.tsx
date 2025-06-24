@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Phone, Info } from 'lucide-react';
-import { MenuItem } from '@/shared/schema';
+import { MenuItem } from '../../../shared/schema';
 import PriceBadge from '@/components/price-badge';
 import SizeSelector from '@/components/size-selector';
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip';
