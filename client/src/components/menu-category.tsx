@@ -48,17 +48,17 @@ function renderPriceDisplay(item: MenuItemData) {
     ].filter(Boolean) as { label: string; price: number }[];
 
     return (
-      <div className="text-right space-y-1 sm:space-y-2">
+      <div className="text-right space-y-3">
         {/* size labels */}
-        <div className="grid grid-cols-2 gap-1 text-xs text-gray-500">
-          {inches.map(i => <span key={i.label}>{i.label}</span>)}
+        <div className="grid grid-cols-2 gap-3 text-sm md:text-base text-gray-500">
+          {inches.map(i => <span key={i.label} className="text-center font-medium">{i.label}</span>)}
         </div>
         {/* prices */}
-        <div className="grid grid-cols-2 gap-1 font-bold text-primary">
-          {inches.map(i => <span key={i.label}>{formatPrice(i.price)}</span>)}
+        <div className="grid grid-cols-2 gap-3 font-bold text-primary text-lg md:text-xl">
+          {inches.map(i => <span key={i.label} className="text-center">{formatPrice(i.price)}</span>)}
         </div>
         {/* Add to Basket buttons */}
-        <div className="flex gap-1 mt-1">
+        <div className="grid grid-cols-2 gap-3 mt-3">
           {inches.map(i => (
             <AddToBasketButton
               key={i.label}
@@ -70,7 +70,7 @@ function renderPriceDisplay(item: MenuItemData) {
                 description: item.description
               }}
               variant="small"
-              className="w-full text-xs"
+              className="w-full text-sm md:text-base py-2 px-3 min-h-[44px]"
             />
           ))}
         </div>
@@ -87,14 +87,14 @@ function renderPriceDisplay(item: MenuItemData) {
     ].filter(Boolean) as { label: string; price: number }[];
 
     return (
-      <div className="text-right space-y-2">
-        <div className="grid grid-cols-3 gap-1 text-xs text-gray-500">
-          {sizes.map(s => <span key={s.label}>{s.label}</span>)}
+      <div className="text-right space-y-3">
+        <div className="grid grid-cols-3 gap-2 md:gap-3 text-sm md:text-base text-gray-500">
+          {sizes.map(s => <span key={s.label} className="text-center font-medium">{s.label}</span>)}
         </div>
-        <div className="grid grid-cols-3 gap-1 font-bold text-primary">
-          {sizes.map(s => <span key={s.label}>{formatPrice(s.price)}</span>)}
+        <div className="grid grid-cols-3 gap-2 md:gap-3 font-bold text-primary text-lg md:text-xl">
+          {sizes.map(s => <span key={s.label} className="text-center">{formatPrice(s.price)}</span>)}
         </div>
-        <div className="grid grid-cols-3 gap-1 mt-2">
+        <div className="grid grid-cols-3 gap-2 md:gap-3 mt-3">
           {sizes.map(s => (
             <AddToBasketButton
               key={s.label}
@@ -106,7 +106,7 @@ function renderPriceDisplay(item: MenuItemData) {
                 description: item.description
               }}
               variant="small"
-              className="w-full"
+              className="w-full text-sm md:text-base py-2 px-2 min-h-[44px]"
             />
           ))}
         </div>
@@ -117,8 +117,8 @@ function renderPriceDisplay(item: MenuItemData) {
   // 3) Single-price
   if (item.singlePrice != null) {
     return (
-      <div className="text-right space-y-2">
-        <div className="text-lg font-bold text-primary">
+      <div className="text-right space-y-3">
+        <div className="text-xl md:text-2xl font-bold text-primary">
           {formatPrice(item.singlePrice)}
         </div>
         <AddToBasketButton
@@ -130,7 +130,7 @@ function renderPriceDisplay(item: MenuItemData) {
             description: item.description
           }}
           variant="default"
-          className="w-full"
+          className="w-full text-base md:text-lg py-3 px-4 min-h-[48px]"
         />
       </div>
     );
@@ -191,7 +191,7 @@ const MenuCategory = React.memo(function MenuCategory({
       </div>
 
       {/* items grid */}
-      <div className="grid gap-3 sm:gap-4">
+      <div className="grid gap-4 md:gap-6">
         {items.map(item => (
           <Card
             key={item.id}
@@ -201,22 +201,22 @@ const MenuCategory = React.memo(function MenuCategory({
                 : 'hover:border-accent/30'
             }`}
           >
-            <CardContent className="p-2 sm:p-3 md:p-4 relative">
+            <CardContent className="p-4 md:p-6 relative">
               {/* hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {/* content row */}
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-3 relative z-10">
-                <div className="flex-1">
+              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 lg:gap-6 relative z-10">
+                <div className="flex-1 min-w-0">
                   {/* title + tooltip + special badge */}
-                  <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2 flex-wrap">
-                    <h3 className="font-semibold text-charcoal text-sm sm:text-base md:text-lg flex items-center gap-1 sm:gap-2 group-hover:text-primary transition-colors leading-tight">
-                      <span className="group-hover:scale-125 transition-transform duration-300 text-sm sm:text-base">
+                  <div className="flex items-start gap-2 mb-3 flex-wrap">
+                    <h3 className="font-semibold text-charcoal text-base md:text-lg lg:text-xl flex items-center gap-2 group-hover:text-primary transition-colors leading-tight flex-1 min-w-0">
+                      <span className="group-hover:scale-125 transition-transform duration-300 text-lg md:text-xl">
                         {getItemEmoji(item)}
                       </span>
                       <span className="line-clamp-2">{item.name}</span>
                     </h3>
-                    <div className="group-hover:scale-110 transition-transform duration-300">
+                    <div className="group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                       <NutritionalInfoTooltip
                         itemName={item.name}
                         category={title}
@@ -233,7 +233,7 @@ const MenuCategory = React.memo(function MenuCategory({
                       />
                     </div>
                     {item.isSpecial && (
-                      <Badge variant="secondary" className="bg-accent text-white animate-pulse text-xs">
+                      <Badge variant="secondary" className="bg-accent text-white animate-pulse text-sm flex-shrink-0">
                         🌟 Special
                       </Badge>
                     )}
@@ -241,14 +241,14 @@ const MenuCategory = React.memo(function MenuCategory({
 
                   {/* description */}
                   {item.description && (
-                    <p className="text-gray-600 text-xs sm:text-sm group-hover:text-gray-700 transition-colors mb-2 sm:mb-3 line-clamp-2">
+                    <p className="text-gray-600 text-sm md:text-base group-hover:text-gray-700 transition-colors mb-4 line-clamp-2">
                       {item.description}
                     </p>
                   )}
                 </div>
 
                 {/* prices & Add buttons */}
-                <div className="relative z-20 w-full sm:w-auto sm:min-w-[160px] md:min-w-[200px]">
+                <div className="relative z-20 w-full lg:w-auto lg:min-w-[240px] xl:min-w-[280px] flex-shrink-0">
                   {renderPriceDisplay(item)}
                 </div>
               </div>

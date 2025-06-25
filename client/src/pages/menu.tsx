@@ -284,18 +284,18 @@ export default function Menu() {
       </div>
 
       {/* Header */}
-      <section className="bg-white py-8 sm:py-12 md:py-16 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h1 className="font-poppins text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-3 sm:mb-4">Our Delicious Menu</h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
+      <section className="bg-white py-12 md:py-16 lg:py-20">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12 md:mb-16">
+            <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-4 md:mb-6">Our Delicious Menu</h1>
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
           </div>
 
           {/* Special Deals First - Now with optimized performance */}
           {specialDeals.length > 0 && (
-            <div className="mb-8 sm:mb-12 md:mb-16">
-              <h2 className="font-poppins text-xl sm:text-2xl md:text-3xl font-bold text-charcoal mb-4 sm:mb-6 md:mb-8 text-center">🌟 Special Offers</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <div className="mb-12 md:mb-16">
+              <h2 className="font-poppins text-2xl md:text-3xl font-bold text-charcoal mb-6 md:mb-8 text-center">🌟 Special Offers</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 {specialDeals.map((deal) => (
                   <SpecialDealCard key={deal.id} deal={deal} />
                 ))}

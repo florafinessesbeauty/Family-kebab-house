@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+// client/src/components/nutritional-info-tooltip.tsx
+import React, { useState, useEffect, useRef } from 'react';
 import { InfoIcon } from 'lucide-react';
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from './ui/dialog';
-
-interface NutritionalInfo {
-  calories: number;
-  protein: string;
-  carbs: string;
-  fat: string;
-  fiber: string;
-  sodium: string;
-  allergens: string[];
-  ingredients?: string[];
-}
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription
+} from './ui/dialog';
 
 interface NutritionalInfoTooltipProps {
   itemName: string;
@@ -28,272 +23,214 @@ interface NutritionalInfoTooltipProps {
   };
 }
 
-const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({ itemName, category, nutritionalData }) => {
-  const [isVisible, setIsVisible] = useState(false);
+const NutritionalInfoTooltip: React.FC<NutritionalInfoTooltipProps> = ({
+  itemName,
+  category,
+  nutritionalData
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Use database nutritional data if available, otherwise estimate
-  const nutritionalInfo: NutritionalInfo = nutritionalData && nutritionalData.calories ? {
-    calories: nutritionalData.calories,
-    protein: typeof nutritionalData.protein === 'number' ? `${nutritionalData.protein}g` : (nutritionalData.protein || "0g"),
-    carbs: typeof nutritionalData.carbs === 'number' ? `${nutritionalData.carbs}g` : (nutritionalData.carbs || "0g"),
-    fat: typeof nutritionalData.fat === 'number' ? `${nutritionalData.fat}g` : (nutritionalData.fat || "0g"),
-    fiber: typeof nutritionalData.fiber === 'number' ? `${nutritionalData.fiber}g` : (nutritionalData.fiber || "0g"),
-    sodium: typeof nutritionalData.sodium === 'number' ? `${nutritionalData.sodium}mg` : (nutritionalData.sodium || "0mg"),
-    allergens: Array.isArray(nutritionalData.allergens) ? nutritionalData.allergens : (typeof nutritionalData.allergens === 'string' ? nutritionalData.allergens.split(',').map(a => a.trim()) : []),
-    ingredients: Array.isArray(nutritionalData.ingredients) ? nutritionalData.ingredients : (typeof nutritionalData.ingredients === 'string' ? nutritionalData.ingredients.split(',').map(i => i.trim()) : [])
-  } : estimateNutritionByCategory(itemName, category);
-
-  function estimateNutritionByCategory(name: string, cat: string): NutritionalInfo {
-    const lowerName = name.toLowerCase();
-    const lowerCat = cat.toLowerCase();
-    
-    // Kebab estimates
-    if (lowerCat.includes('kebab') || lowerName.includes('kebab')) {
-      if (lowerName.includes('feast')) {
-        return {
-          calories: 1850,
-          protein: "95g",
-          carbs: "120g",
-          fat: "85g",
-          fiber: "12g",
-          sodium: "3200mg",
-          allergens: ["Gluten", "Dairy", "Sesame"],
-          ingredients: ["Doner meat", "Shish kebab", "Chicken shish", "Kofte", "3 pitta breads", "Large chips", "Mixed salad", "2 sauces"]
-        };
+  // Close on scroll or click/tap outside
+  useEffect(() => {
+    const onScroll = () => setIsOpen(false);
+    const onClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (
+        isOpen &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
       }
-      if (lowerName.includes('large') || lowerName.includes('xl')) {
-        return {
-          calories: 720,
-          protein: "42g",
-          carbs: "56g",
-          fat: "32g",
-          fiber: "7g",
-          sodium: "1380mg",
-          allergens: ["Gluten", "Dairy", "Sesame"],
-          ingredients: ["Meat", "Pitta bread", "Fresh salad", "Sauce"]
-        };
-      }
-      return {
-        calories: 550,
-        protein: "32g",
-        carbs: "44g",
-        fat: "25g",
-        fiber: "6g",
-        sodium: "1050mg",
-        allergens: ["Gluten", "Dairy", "Sesame"],
-        ingredients: ["Meat", "Pitta bread", "Fresh salad", "Sauce"]
-      };
-    }
-    
-    // Pizza estimates
-    if (lowerCat.includes('pizza') || lowerName.includes('pizza')) {
-      const is12Inch = lowerName.includes('12"') || lowerName.includes('12 inch');
-      return {
-        calories: is12Inch ? 1200 : 850,
-        protein: is12Inch ? "45g" : "32g",
-        carbs: is12Inch ? "140g" : "98g",
-        fat: is12Inch ? "48g" : "34g",
-        fiber: is12Inch ? "8g" : "6g",
-        sodium: is12Inch ? "2200mg" : "1550mg",
-        allergens: ["Gluten", "Dairy"],
-        ingredients: ["Fresh pizza dough", "Tomato sauce", "Cheese", "Toppings"]
-      };
-    }
-    
-    // Burger estimates
-    if (lowerCat.includes('burger') || lowerName.includes('burger')) {
-      return {
-        calories: 480,
-        protein: "25g",
-        carbs: "35g",
-        fat: "28g",
-        fiber: "4g",
-        sodium: "950mg",
-        allergens: ["Gluten", "Dairy", "Eggs"],
-        ingredients: ["Meat patty", "Burger bun", "Fresh vegetables", "Sauce"]
-      };
-    }
-    
-    // Chicken estimates
-    if (lowerCat.includes('chicken') || lowerName.includes('chicken')) {
-      return {
-        calories: 380,
-        protein: "32g",
-        carbs: "15g",
-        fat: "24g",
-        fiber: "1g",
-        sodium: "820mg",
-        allergens: ["Gluten"],
-        ingredients: ["Chicken", "Seasoning", "Coating"]
-      };
-    }
-    
-    // Default estimate
-    return {
-      calories: 420,
-      protein: "22g",
-      carbs: "35g",
-      fat: "25g",
-      fiber: "4g",
-      sodium: "850mg",
-      allergens: ["Check with staff"],
-      ingredients: ["Various ingredients - ask staff for details"]
     };
-  }
 
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('mousedown', onClickOutside);
+    document.addEventListener('touchstart', onClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('mousedown', onClickOutside);
+      document.removeEventListener('touchstart', onClickOutside);
+    };
+  }, [isOpen]);
+
+  // Build or estimate nutrition info
+  type Info = {
+    calories: number;
+    protein: string;
+    carbs: string;
+    fat: string;
+    fiber: string;
+    sodium: string;
+    allergens: string[];
+    ingredients?: string[];
+  };
+
+  const nutritionalInfo: Info = React.useMemo(() => {
+    if (nutritionalData && nutritionalData.calories != null) {
+      return {
+        calories: nutritionalData.calories,
+        protein:
+          typeof nutritionalData.protein === 'number'
+            ? `${nutritionalData.protein}g`
+            : nutritionalData.protein?.toString() || '0g',
+        carbs:
+          typeof nutritionalData.carbs === 'number'
+            ? `${nutritionalData.carbs}g`
+            : nutritionalData.carbs?.toString() || '0g',
+        fat:
+          typeof nutritionalData.fat === 'number'
+            ? `${nutritionalData.fat}g`
+            : nutritionalData.fat?.toString() || '0g',
+        fiber:
+          typeof nutritionalData.fiber === 'number'
+            ? `${nutritionalData.fiber}g`
+            : nutritionalData.fiber?.toString() || '0g',
+        sodium:
+          typeof nutritionalData.sodium === 'number'
+            ? `${nutritionalData.sodium}mg`
+            : nutritionalData.sodium?.toString() || '0mg',
+        allergens: Array.isArray(nutritionalData.allergens)
+          ? nutritionalData.allergens
+          : typeof nutritionalData.allergens === 'string'
+          ? nutritionalData.allergens
+              .split(',')
+              .map(a => a.trim())
+          : [],
+        ingredients: Array.isArray(nutritionalData.ingredients)
+          ? nutritionalData.ingredients
+          : typeof nutritionalData.ingredients === 'string'
+          ? nutritionalData.ingredients
+              .split(',')
+              .map(i => i.trim())
+          : []
+      };
+    }
+
+    // Fallback estimation (only pizza shown here — add others if needed)
+    const lower = itemName.toLowerCase();
+    const is12 = lower.includes('12"') || lower.includes('12 inch');
+    return {
+      calories: is12 ? 1200 : 850,
+      protein: is12 ? '45g' : '32g',
+      carbs: is12 ? '140g' : '98g',
+      fat: is12 ? '48g' : '34g',
+      fiber: is12 ? '8g' : '6g',
+      sodium: is12 ? '2200mg' : '1550mg',
+      allergens: ['Gluten', 'Dairy'],
+      ingredients: ['Fresh pizza dough', 'Tomato sauce', 'Cheese', 'Toppings']
+    };
+  }, [itemName, nutritionalData]);
 
   return (
     <div className="relative inline-block">
+      {/* Info Button */}
       <button
-        onMouseEnter={() => setIsVisible(true)}
-        onMouseLeave={() => setIsVisible(false)}
-        onTouchStart={() => setIsVisible(!isVisible)}
-        onClick={() => setIsVisible(!isVisible)}
-        className="p-2 rounded-full bg-white/90 backdrop-blur-sm border-2 border-primary/30 text-primary hover:bg-primary hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl flex-shrink-0 group"
-        style={{ 
-          position: 'relative',
-          zIndex: 99997
-        }}
-        aria-label="View Nutritional Information"
+        ref={buttonRef}
+        onClick={() => setIsOpen(o => !o)}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        aria-label="View nutritional information"
+        className="p-2 rounded-full bg-white/90 backdrop-blur-sm border-2 border-primary/30 text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg flex-shrink-0"
         type="button"
       >
-        <InfoIcon size={16} className="group-hover:animate-pulse" />
-        <span 
-          className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-charcoal text-white text-xs px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-normal break-words max-w-xs text-center pointer-events-none"
-          style={{ zIndex: 2147483647 }}
-        >
-          Nutrition Info
-        </span>
+        <InfoIcon size={16} />
       </button>
 
-      <Dialog open={isVisible} onOpenChange={setIsVisible}>
-        {isVisible && (
-          <div 
-            className="fixed inset-0 flex items-center justify-center p-4"
-            style={{ 
-              zIndex: 2147483647,
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0
-            }}
-            onMouseEnter={() => setIsVisible(true)}
-            onMouseLeave={() => setIsVisible(false)}
-          >
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            style={{ zIndex: 99999 }}
-            onClick={() => setIsVisible(false)}
-          />
-          
-          {/* Tooltip Content with proper accessibility */}
-          <DialogContent 
-            className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm"
-          >
-            {/* Required DialogTitle for accessibility */}
-            <DialogTitle className="sr-only">
-              Nutritional Information for {itemName}
-            </DialogTitle>
-            
-            {/* Required DialogDescription for accessibility */}
-            <DialogDescription className="sr-only">
-              Detailed nutritional facts, allergens, and ingredients information for {itemName}
-            </DialogDescription>
-            
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl scale-110" style={{ zIndex: -1 }} />
-            
-            {/* Header with close button and slide-in animation */}
-            <div className="flex justify-between items-start mb-6 animate-in slide-in-from-top-4 fade-in-0" 
-                 style={{ animationDuration: '500ms', animationFillMode: 'both' }}>
-              <div className="flex-1 pr-4">
-                <h4 className="font-bold text-charcoal text-xl mb-1 animate-in fade-in-0" 
-                    style={{ animationDelay: '200ms', animationDuration: '400ms', animationFillMode: 'both' }}>
-                  Nutritional Information
-                </h4>
-                <p className="text-primary font-semibold text-base animate-in slide-in-from-left-2 fade-in-0" 
-                   style={{ animationDelay: '400ms', animationDuration: '500ms', animationFillMode: 'both' }}>
-                  {itemName}
-                </p>
-              </div>
-              <button 
-                onClick={() => setIsVisible(false)}
-                className="p-3 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-300 animate-in zoom-in-50 flex-shrink-0"
-                style={{ animationDelay: '300ms', animationDuration: '400ms', animationFillMode: 'both' }}
-                aria-label="Close"
-              >
-                <svg className="w-6 h-6 hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
+      {/* Dialog & Backdrop */}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              style={{ zIndex: 99999 }}
+              onClick={() => setIsOpen(false)}
+            />
 
-            {/* Nutritional Grid with Staggered Animation */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              {[
-                { label: "🔥 Calories", value: nutritionalInfo.calories, bgColor: "bg-blue-50", borderColor: "border-blue-200", textColor: "text-blue-700", valueColor: "text-blue-900", delay: "0ms" },
-                { label: "💪 Protein", value: nutritionalInfo.protein, bgColor: "bg-green-50", borderColor: "border-green-200", textColor: "text-green-700", valueColor: "text-green-900", delay: "100ms" },
-                { label: "🌾 Carbs", value: nutritionalInfo.carbs, bgColor: "bg-yellow-50", borderColor: "border-yellow-200", textColor: "text-yellow-700", valueColor: "text-yellow-900", delay: "200ms" },
-                { label: "🧈 Fat", value: nutritionalInfo.fat, bgColor: "bg-red-50", borderColor: "border-red-200", textColor: "text-red-700", valueColor: "text-red-900", delay: "300ms" },
-                { label: "🌿 Fiber", value: nutritionalInfo.fiber, bgColor: "bg-purple-50", borderColor: "border-purple-200", textColor: "text-purple-700", valueColor: "text-purple-900", delay: "400ms" },
-                { label: "🧂 Sodium", value: nutritionalInfo.sodium, bgColor: "bg-orange-50", borderColor: "border-orange-200", textColor: "text-orange-700", valueColor: "text-orange-900", delay: "500ms" }
-              ].map((item, index) => (
-                <div 
-                  key={index}
-                  className={`${item.bgColor} p-4 rounded-xl ${item.borderColor} border hover:scale-105 transition-all duration-300 animate-in slide-in-from-bottom-4 fade-in-0 relative`}
-                  style={{ 
-                    animationDelay: item.delay,
-                    animationDuration: '600ms',
-                    animationFillMode: 'both'
-                  }}
-                >
-                  <div className={`${item.textColor} font-semibold text-sm mb-2 animate-in fade-in-0`} 
-                       style={{ animationDelay: `${parseInt(item.delay) + 200}ms`, animationDuration: '400ms', animationFillMode: 'both' }}>
-                    {item.label}
-                  </div>
-                  <div className={`${item.valueColor} font-bold text-xl animate-in zoom-in-50`}
-                       style={{ animationDelay: `${parseInt(item.delay) + 400}ms`, animationDuration: '500ms', animationFillMode: 'both' }}>
-                    {item.value}
-                  </div>
+            {/* Content */}
+            <DialogContent className="relative bg-white border-2 border-primary/20 rounded-2xl shadow-2xl p-6 w-full max-w-md text-sm z-50">
+              <DialogTitle className="sr-only">
+                Nutritional Information for {itemName}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Detailed nutritional facts, allergens, and ingredients for{' '}
+                {itemName}
+              </DialogDescription>
+
+              {/* Header */}
+              <div className="flex justify-between items-start mb-6 animate-in slide-in-from-top-4 fade-in-0" style={{ animationDuration: '500ms', animationFillMode: 'both' }}>
+                <div className="flex-1 pr-4">
+                  <h4 className="font-bold text-charcoal text-xl mb-1">Nutritional Information</h4>
+                  <p className="text-primary font-semibold text-base">{itemName}</p>
                 </div>
-              ))}
-            </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-3 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-300 flex-shrink-0"
+                  aria-label="Close"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-            <div className="mt-3 pt-2 border-t">
-              <div className="text-gray-600 text-xs">
-                <strong>Allergens:</strong>
-                <div className="mt-1">
-                  {nutritionalInfo.allergens.map((allergen, index) => (
+              {/* Nutritional Grid */}
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                {[
+                  { label: '🔥 Calories', value: nutritionalInfo.calories, bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', valColor: 'text-blue-900', delay: 0 },
+                  { label: '💪 Protein',  value: nutritionalInfo.protein,  bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700',  valColor: 'text-green-900',  delay: 100 },
+                  { label: '🌾 Carbs',    value: nutritionalInfo.carbs,    bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-700', valColor: 'text-yellow-900', delay: 200 },
+                  { label: '🧈 Fat',      value: nutritionalInfo.fat,      bg: 'bg-red-50',    border: 'border-red-200',    text: 'text-red-700',    valColor: 'text-red-900',    delay: 300 },
+                  { label: '🌿 Fiber',    value: nutritionalInfo.fiber,    bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700',valColor: 'text-purple-900',delay: 400 },
+                  { label: '🧂 Sodium',   value: nutritionalInfo.sodium,   bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700',valColor: 'text-orange-900',delay: 500 }
+                ].map((cell, i) => (
+                  <div
+                    key={i}
+                    className={`${cell.bg} p-4 rounded-xl ${cell.border} border hover:scale-105 transition-all duration-300 animate-in slide-in-from-bottom-4 fade-in-0`}
+                    style={{ animationDelay: `${cell.delay}ms`, animationDuration: '600ms', animationFillMode: 'both' }}
+                  >
+                    <div className={`${cell.text} font-semibold text-sm`} style={{ animationDelay: `${cell.delay + 200}ms`, animationDuration: '400ms', animationFillMode: 'both' }}>
+                      {cell.label}
+                    </div>
+                    <div className={`${cell.valColor} font-bold text-xl`} style={{ animationDelay: `${cell.delay + 400}ms`, animationDuration: '500ms', animationFillMode: 'both' }}>
+                      {cell.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Allergens */}
+              <div className="mt-3 pt-2 border-t">
+                <div className="text-gray-600 text-xs mb-2"><strong>Allergens:</strong></div>
+                <div className="flex flex-wrap gap-1">
+                  {nutritionalInfo.allergens.map((allergen, idx) => (
                     <span
-                      key={index}
-                      className="inline-block bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs mr-1 mb-1"
+                      key={idx}
+                      className="inline-block bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs"
                     >
                       {allergen}
                     </span>
                   ))}
                 </div>
               </div>
-            </div>
 
-            {nutritionalInfo.ingredients && (
-              <div className="mt-3 pt-2 border-t">
-                <div className="text-gray-600 text-xs">
+              {/* Ingredients */}
+              {nutritionalInfo.ingredients?.length ? (
+                <div className="mt-3 pt-2 border-t text-gray-600 text-xs">
                   <strong>Main Ingredients:</strong>
                   <div className="mt-1 text-gray-500">
                     {nutritionalInfo.ingredients.join(', ')}
                   </div>
                 </div>
-              </div>
-            )}
+              ) : null}
 
-            <div className="mt-2 text-xs text-gray-500 italic">
-              *Nutritional values based on standard portions. Please inform staff of allergies.
-            </div>
-          </DialogContent>
-          </div>
+              <div className="mt-2 text-xs text-gray-500 italic">
+                *Nutritional values based on standard portions. Please inform staff of allergies.
+              </div>
+            </DialogContent>
+          </>
         )}
       </Dialog>
     </div>
