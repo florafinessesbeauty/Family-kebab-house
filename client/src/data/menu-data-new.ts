@@ -13,10 +13,19 @@ export interface MenuItemData {
   withChips?: number;
   mealPrice?: number;
   isSpecial?: boolean;
-  extras?: {
-    [key: string]: number;
-  };
+  extras?: { [key: string]: number };
+
+  // ← Add these optional nutrition fields:
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+  fiber?: number;
+  sodium?: number;
+  allergens?: string[] | string;
+  ingredients?: string[] | string;
 }
+
 
 export const menuData: MenuItemData[] = [
   // LUNCH TIME OFFERS (12:00-14:30)
@@ -397,13 +406,13 @@ export const menuData: MenuItemData[] = [
     singlePrice: 6.20,
   },
 
-  // PIZZAS
+  // ── PIZZAS ──
   {
     id: "margherita",
     name: "Margherita",
     description: "Mozzarella cheese & tomato sauce",
     category: "pizzas",
-    price10inches: 8.00,
+    price10inches:  8.00,
     price12inches: 10.00,
   },
   {
@@ -411,7 +420,7 @@ export const menuData: MenuItemData[] = [
     name: "Pepperoni",
     description: "Mozzarella cheese, tomato sauce & double pepperoni",
     category: "pizzas",
-    price10inches: 9.40,
+    price10inches:  9.40,
     price12inches: 12.40,
   },
   {
@@ -419,7 +428,7 @@ export const menuData: MenuItemData[] = [
     name: "Ham & Pineapple",
     description: "Mozzarella cheese, tomato sauce, ham & pineapple",
     category: "pizzas",
-    price10inches: 9.40,
+    price10inches:  9.40,
     price12inches: 12.40,
   },
   {
@@ -427,7 +436,7 @@ export const menuData: MenuItemData[] = [
     name: "Ham & Mushroom",
     description: "Mozzarella cheese, tomato sauce, ham & mushroom",
     category: "pizzas",
-    price10inches: 9.40,
+    price10inches:  9.40,
     price12inches: 12.40,
   },
   {
@@ -435,7 +444,7 @@ export const menuData: MenuItemData[] = [
     name: "Chicken & Mushroom",
     description: "Mozzarella cheese, tomato sauce, chicken & mushroom",
     category: "pizzas",
-    price10inches: 9.40,
+    price10inches:  9.40,
     price12inches: 12.40,
   },
   {
@@ -443,7 +452,7 @@ export const menuData: MenuItemData[] = [
     name: "Chicken & Sweetcorn",
     description: "Mozzarella cheese, tomato sauce, chicken & sweetcorn",
     category: "pizzas",
-    price10inches: 9.40,
+    price10inches:  9.40,
     price12inches: 12.40,
   },
   {
@@ -451,7 +460,7 @@ export const menuData: MenuItemData[] = [
     name: "Americano",
     description: "Mozzarella cheese, tomato sauce, salami & sweetcorn",
     category: "pizzas",
-    price10inches: 9.40,
+    price10inches:  9.40,
     price12inches: 12.40,
   },
   {
@@ -459,7 +468,7 @@ export const menuData: MenuItemData[] = [
     name: "Pepperoni Plus",
     description: "Mozzarella cheese, tomato sauce, pepperoni, red onion & jalapeño",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -467,7 +476,7 @@ export const menuData: MenuItemData[] = [
     name: "Ham Supreme",
     description: "Mozzarella cheese, tomato sauce, mushroom, ham & red onion",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -475,7 +484,7 @@ export const menuData: MenuItemData[] = [
     name: "Chicken Supreme",
     description: "Mozzarella cheese, tomato sauce, mushroom, chicken & red onion",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -483,7 +492,7 @@ export const menuData: MenuItemData[] = [
     name: "Vegetarian V",
     description: "Mozzarella cheese, tomato sauce, onion, mushroom, peppers, sweetcorn & pineapple",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -491,7 +500,7 @@ export const menuData: MenuItemData[] = [
     name: "Spicy Vegetarian V",
     description: "Mozzarella cheese, tomato sauce, onion, mushroom, jalapeño, sweetcorn & fresh tomato",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -499,7 +508,7 @@ export const menuData: MenuItemData[] = [
     name: "Spicy Hot One",
     description: "Mozzarella cheese, tomato sauce, pepperoni, spicy beef, onion, mushroom & jalapeño",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -507,7 +516,7 @@ export const menuData: MenuItemData[] = [
     name: "Seafood",
     description: "Mozzarella cheese, tomato sauce, prawns, tuna & anchovies",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -515,7 +524,7 @@ export const menuData: MenuItemData[] = [
     name: "Meat Specials",
     description: "Mozzarella cheese, tomato sauce, ham, pepperoni, spicy beef & chicken",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -523,7 +532,7 @@ export const menuData: MenuItemData[] = [
     name: "BBQ Pizza",
     description: "Mozzarella cheese, BBQ sauce, bacon, onion, chicken & green peppers",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
   },
   {
@@ -531,39 +540,39 @@ export const menuData: MenuItemData[] = [
     name: "Doner Pizza",
     description: "Mozzarella cheese, tomato sauce, onion, doner meat & fresh tomato",
     category: "pizzas",
-    price10inches: 9.90,
+    price10inches:  9.90,
     price12inches: 13.20,
-  },
+  },  
 
-  // GARLIC BREAD & PIZZA EXTRAS
-  {
-    id: "garlic-bread",
-    name: "Garlic Bread V",
-    category: "garlic-bread-pizza-extras",
-    price10inches: 5.00,
-    price12inches: 7.00,
-  },
-  {
-    id: "garlic-bread-cheese",
-    name: "Garlic Bread with Cheese",
-    category: "garlic-bread-pizza-extras",
-    price10inches: 7.00,
-    price12inches: 9.00,
-  },
-  {
-    id: "stuffed-crust-cheese",
-    name: "Stuffed Crust Cheese",
-    category: "garlic-bread-pizza-extras",
-    price10inches: 2.00,
-    price12inches: 3.00,
-  },
-  {
-    id: "extra-topping",
-    name: "Extra Topping (each)",
-    category: "garlic-bread-pizza-extras",
-    price10inches: 1.40,
-    price12inches: 1.80,
-  },
+  // ── GARLIC BREAD & PIZZA EXTRAS ──
+{
+  id: "garlic-bread",
+  name: "Garlic Bread V",
+  category: "garlic-bread-pizza-extras",
+  price10inches: 5.00,
+  price12inches: 7.00,
+},
+{
+  id: "garlic-bread-cheese",
+  name: "Garlic Bread with Cheese",
+  category: "garlic-bread-pizza-extras",
+  price10inches: 7.00,
+  price12inches: 9.00,
+},
+{
+  id: "stuffed-crust-cheese",
+  name: "Stuffed Crust Cheese",
+  category: "garlic-bread-pizza-extras",
+  price10inches: 2.00,
+  price12inches: 3.00,
+},
+{
+  id: "extra-topping",
+  name: "Extra Topping (each)",
+  category: "garlic-bread-pizza-extras",
+  price10inches: 1.40,
+  price12inches: 1.80,
+},  
 
   // PIZZA OFFERS
   {

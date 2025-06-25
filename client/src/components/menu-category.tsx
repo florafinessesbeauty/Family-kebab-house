@@ -1,7 +1,7 @@
 // client/src/components/menu-category.tsx
 import React from 'react'
+import type { MenuItemData } from "@/data/menu-data-new"  // ← same here
 import AddToBasketButton from '@/components/add-to-basket-button'
-import { MenuItemData } from '@/data/menu-data'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import NutritionalInfoTooltip from '@/components/nutritional-info-tooltip'
@@ -40,82 +40,85 @@ const getItemEmoji = (item: MenuItemData) => {
 }
 
 function renderPriceDisplay(item: MenuItemData) {
-  // 1) Pizza‐inch logic (10″ / 12″) - CHECK THIS FIRST
+  // 1) Pizza-inch logic (10″ / 12″) — MUST BE FIRST
   if (item.price10inches != null || item.price12inches != null) {
     const inches = [
       item.price10inches != null && { label: '10\"', price: item.price10inches },
       item.price12inches != null && { label: '12\"', price: item.price12inches }
-    ].filter(Boolean) as { label: string; price: number }[]
+    ].filter(Boolean) as { label: string; price: number }[];
 
     return (
       <div className="text-right space-y-1 sm:space-y-2">
-        <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
-          {inches.map(i => <span key={i.label} className="text-center">{i.label}</span>)}
+        {/* size labels */}
+        <div className="grid grid-cols-2 gap-1 text-xs text-gray-500">
+          {inches.map(i => <span key={i.label}>{i.label}</span>)}
         </div>
-        <div className="grid grid-cols-2 gap-1 sm:gap-2 font-bold text-primary text-sm sm:text-base">
-          {inches.map(i => <span key={i.label} className="text-center">{formatPrice(i.price)}</span>)}
+        {/* prices */}
+        <div className="grid grid-cols-2 gap-1 font-bold text-primary">
+          {inches.map(i => <span key={i.label}>{formatPrice(i.price)}</span>)}
         </div>
-        <div className="flex gap-1 sm:gap-2 mt-1 sm:mt-2">
+        {/* Add to Basket buttons */}
+        <div className="flex gap-1 mt-1">
           {inches.map(i => (
             <AddToBasketButton
               key={i.label}
               item={{
-                id:           `${item.id}-${i.label}`,
-                name:         `${item.name} (${i.label})`,
-                category:     item.category,
-                singlePrice:  i.price,
-                description:  item.description
+                id:          `${item.id}-${i.label}`,
+                name:        `${item.name} (${i.label})`,
+                category:    item.category,
+                singlePrice: i.price,
+                description: item.description
               }}
               variant="small"
-              className="w-full text-xs sm:text-sm"
+              className="w-full text-xs"
             />
           ))}
         </div>
       </div>
-    )
+    );
   }
 
-  // 2) Multi‐size items (Medium/Large/X-Large)
+  // 2) Multi-size (Medium / Large / X-Large)
   if (item.priceMedium || item.priceLarge || item.priceXLarge) {
     const sizes = [
-      item.priceMedium  != null && { label: 'Medium',  price: item.priceMedium  },
-      item.priceLarge   != null && { label: 'Large',   price: item.priceLarge   },
-      item.priceXLarge  != null && { label: 'X-Large', price: item.priceXLarge  }
-    ].filter(Boolean) as { label: string; price: number }[]
+      item.priceMedium != null && { label: 'Medium',  price: item.priceMedium },
+      item.priceLarge  != null && { label: 'Large',   price: item.priceLarge  },
+      item.priceXLarge != null && { label: 'X-Large', price: item.priceXLarge }
+    ].filter(Boolean) as { label: string; price: number }[];
 
     return (
       <div className="text-right space-y-2">
-        <div className="grid grid-cols-3 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
-          {sizes.map(s => <span key={s.label} className="text-center">{s.label}</span>)}
+        <div className="grid grid-cols-3 gap-1 text-xs text-gray-500">
+          {sizes.map(s => <span key={s.label}>{s.label}</span>)}
         </div>
-        <div className="grid grid-cols-3 gap-1 sm:gap-2 font-bold text-primary">
-          {sizes.map(s => <span key={s.label} className="text-center text-sm sm:text-base">{formatPrice(s.price)}</span>)}
+        <div className="grid grid-cols-3 gap-1 font-bold text-primary">
+          {sizes.map(s => <span key={s.label}>{formatPrice(s.price)}</span>)}
         </div>
-        <div className="grid grid-cols-3 gap-1 sm:gap-2 mt-2">
+        <div className="grid grid-cols-3 gap-1 mt-2">
           {sizes.map(s => (
             <AddToBasketButton
               key={s.label}
               item={{
-                id:           `${item.id}-${s.label.toLowerCase()}`,
-                name:         `${item.name} (${s.label})`,
-                category:     item.category,
-                singlePrice:  s.price,
-                description:  item.description
+                id:          `${item.id}-${s.label.toLowerCase()}`,
+                name:        `${item.name} (${s.label})`,
+                category:    item.category,
+                singlePrice: s.price,
+                description: item.description
               }}
               variant="small"
-              className="w-full text-xs sm:text-sm"
+              className="w-full"
             />
           ))}
         </div>
       </div>
-    )
+    );
   }
 
-  // 3) Single‐price items
+  // 3) Single-price
   if (item.singlePrice != null) {
     return (
       <div className="text-right space-y-2">
-        <div className="text-lg sm:text-xl font-bold text-primary">
+        <div className="text-lg font-bold text-primary">
           {formatPrice(item.singlePrice)}
         </div>
         <AddToBasketButton
@@ -127,20 +130,20 @@ function renderPriceDisplay(item: MenuItemData) {
             description: item.description
           }}
           variant="default"
-          className="w-full text-sm sm:text-base"
+          className="w-full"
         />
       </div>
-    )
+    );
   }
 
   // 4) Fallback small/med/lg/xl
-  const prices: { label: string; price: number }[] = []
-  if (item.priceSmall  != null) prices.push({ label: 'Sml', price: item.priceSmall })
-  if (item.priceMedium != null) prices.push({ label: 'Med', price: item.priceMedium })
-  if (item.priceLarge  != null) prices.push({ label: 'Lrg', price: item.priceLarge })
-  if (item.priceXLarge != null) prices.push({ label: 'XLrg', price: item.priceXLarge })
+  const prices: { label: string; price: number }[] = [];
+  if (item.priceSmall  != null) prices.push({ label: 'Sml', price: item.priceSmall });
+  if (item.priceMedium != null) prices.push({ label: 'Med', price: item.priceMedium });
+  if (item.priceLarge  != null) prices.push({ label: 'Lrg', price: item.priceLarge });
+  if (item.priceXLarge != null) prices.push({ label: 'XLrg', price: item.priceXLarge });
 
-  if (prices.length === 0) return null
+  if (prices.length === 0) return null;
 
   return (
     <div className="text-right space-y-2">
@@ -155,19 +158,20 @@ function renderPriceDisplay(item: MenuItemData) {
           <AddToBasketButton
             key={p.label}
             item={{
-              id:            `${item.id}-${p.label}`,
-              name:          `${item.name} (${p.label})`,
-              category:      item.category,
-              singlePrice:   p.price,
-              description:   item.description
+              id:          `${item.id}-${p.label}`,
+              name:        `${item.name} (${p.label})`,
+              category:    item.category,
+              singlePrice: p.price,
+              description: item.description
             }}
             variant="small"
           />
         ))}
       </div>
     </div>
-  )
+  );
 }
+
 
 const MenuCategory = React.memo(function MenuCategory({
   title,

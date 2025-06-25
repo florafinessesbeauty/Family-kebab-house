@@ -12,8 +12,7 @@ import AddToBasketButton from "@/components/add-to-basket-button";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useScreenReaderAnnouncements } from "@/components/screen-reader-announcements";
 
-import { categories } from "@/data/menu-data";
-import type { MenuItemData } from "@/data/menu-data";
+import { categories, type MenuItemData } from "@/data/menu-data"; 
 import { Phone, Keyboard, Eye } from "lucide-react";
 
 export default function Menu() {
@@ -131,54 +130,75 @@ export default function Menu() {
   };
 
   useEffect(() => {
-    const fetchMenuData = async () => {
-      try {
-        const response = await fetch("/api/menu");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        
-        // Ensure data is an array
-        if (!Array.isArray(data)) {
-          // Handle non-array data gracefully
-          setMenuData([]);
-          return;
-        }
-        
-        // Transform database items to match frontend interface
-        const transformedData: MenuItemData[] = data.map((item: any) => ({
-          id: item.id.toString(),
-          name: item.name,
-          description: item.description,
-          category: item.category,
-          price: item.singlePrice,
-          priceSmall: item.priceSmall,
-          priceMedium: item.priceMedium,
-          priceLarge: item.priceLarge,
-          priceXLarge: item.priceXLarge,
-          singlePrice: item.singlePrice,
-          isSpecial: Boolean(item.isSpecial),
-          calories: item.calories,
-          protein: item.protein,
-          carbs: item.carbs,
-          fat: item.fat,
-          fiber: item.fiber,
-          sodium: item.sodium,
-          allergens: item.allergens,
-          ingredients: item.ingredients
-        }));
-        
-        setMenuData(transformedData);
-      } catch (error) {
-        // Handle fetch error gracefully
-      } finally {
-        setLoading(false);
+  const fetchMenuData = async () => {
+    try {
+      const response = await fetch("/api/menu");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      const data = await response.json();
+      if (!Array.isArray(data)) {
+        setMenuData([]);
+        return;
+      }
 
-    fetchMenuData();
-  }, []);
+      // ─── TRANSFORM DATABASE ROWS INTO MENUITEMDATA ───
+      const transformedData: MenuItemData[] = data.map((item: any) => ({
+        id:            item.id.toString(),
+        name:          item.name,
+        description:   item.description,
+        category:      item.category,
+
+        // size-based fields
+        priceSmall:    item.priceSmall,
+        priceMedium:   item.priceMedium,
+        priceLarge:    item.priceLarge,
+        priceXLarge:   item.priceXLarge,
+        price10inches: item.price10inches,  // ← NEW
+        price12inches: item.price12inches,  // ← NEW
+
+        // fallback single price
+        singlePrice: item.singlePrice,
+        isSpecial:   Boolean(item.isSpecial),
+
+        // nutrition (optional)
+        calories:    item.calories,
+        protein:     item.protein,
+        carbs:       item.carbs,
+        fat:         item.fat,
+        fiber:       item.fiber,
+        sodium:      item.sodium,
+        allergens:   item.allergens,
+        ingredients: item.ingredients,
+      }));
+
+      // ─── DEBUG ───
+      console.log(
+        ">> PIZZAS & GARLIC-BREAD DATA:",
+        transformedData
+          .filter(i =>
+            i.category === "pizzas" ||
+            i.category === "garlic-bread-pizza-extras"
+          )
+          .map(i => ({
+            id:             i.id,
+            price10inches:  i.price10inches,
+            price12inches:  i.price12inches
+          }))
+      );
+
+      setMenuData(transformedData);
+    } catch (error) {
+      console.error("Fetch menu error:", error);
+      setMenuData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMenuData();
+}, []);
+
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
