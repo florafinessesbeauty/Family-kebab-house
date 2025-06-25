@@ -304,9 +304,9 @@ export default function Menu() {
           )}
 
           {/* Category Navigation */}
-          <div className="bg-white shadow-lg py-4 sm:py-6 md:py-8 sticky top-0 z-30">
-            <div className="container mx-auto px-4">
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
+          <div className="bg-white shadow-lg py-6 md:py-8 sticky top-0 z-30">
+            <div className="container mx-auto px-6">
+              <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                 {categories.map((category) => {
                   const itemCount = getItemsByCategory(category.id).length;
                   
@@ -325,16 +325,15 @@ export default function Menu() {
                         }, 100);
                       }}
                       variant={activeCategory === category.id ? "default" : "outline"}
-                      className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 font-semibold transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base ${
+                      className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
                         activeCategory === category.id
                           ? "bg-primary text-white shadow-lg"
                           : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
                       }`}
                     >
-                      <span className="mr-1 sm:mr-2 text-sm sm:text-base md:text-lg">{category.icon}</span>
-                      <span className="hidden sm:inline">{category.name}</span>
-                      <span className="sm:hidden">{category.name.split(' ')[0]}</span>
-                      <Badge variant="secondary" className="ml-1 sm:ml-2 bg-accent text-white text-xs">
+                      <span className="mr-2 text-base md:text-lg">{category.icon}</span>
+                      <span className="whitespace-nowrap">{category.name}</span>
+                      <Badge variant="secondary" className="ml-2 bg-accent text-white text-xs">
                         {itemCount}
                       </Badge>
                     </Button>
@@ -345,9 +344,9 @@ export default function Menu() {
           </div>
 
           {/* Menu Content */}
-          <section className="py-12 relative" id="menu-content">
-            <div className="container mx-auto px-4">
-              <div className="grid lg:grid-cols-3 gap-12">
+          <section className="py-12 md:py-16 relative" id="menu-content">
+            <div className="container mx-auto px-6 lg:px-8">
+              <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
                 <div className="lg:col-span-2 relative">
                   <MenuCategory
                     title={getCategoryInfo(activeCategory).name}

@@ -149,6 +149,187 @@
     color: hsl(var(--link-hover));
   }
 
+/* Mobile-first responsive utilities */
+@layer components {
+  .mobile-container {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .mobile-text-responsive {
+    @apply text-base md:text-lg;
+  }
+
+  .mobile-heading-responsive {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+
+  .mobile-button-responsive {
+    @apply py-3 px-4 text-base min-h-[48px] touch-manipulation;
+  }
+
+  .mobile-card-responsive {
+    @apply p-4 md:p-6 rounded-xl md:rounded-2xl;
+  }
+
+  .mobile-grid-responsive {
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6;
+  }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+
+  /* Prevent content squishing on mobile */
+  .no-squish {
+    @apply min-w-0 flex-shrink-0;
+  }
+
+  .text-no-wrap {
+    @apply whitespace-nowrap overflow-hidden text-ellipsis;
+  }
+
+  /* Mobile menu improvements */
+  .mobile-menu-item {
+    @apply py-3 px-4 text-base font-medium border-b border-gray-100 last:border-b-0;
+  }
+
+  .mobile-price-display {
+    @apply text-lg md:text-xl font-bold;
+  }
+
+  .mobile-spacing {
+    @apply space-y-3 md:space-y-4;
+  }
+
+  /* Enhanced mobile typography */
+  .mobile-title {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
+  }
+
+  .mobile-subtitle {
+    @apply text-lg md:text-xl font-semibold leading-snug;
+  }
+
+  .mobile-body {
+    @apply text-base md:text-lg leading-relaxed;
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-nav-button {
+    @apply px-3 py-2 md:px-4 md:py-3 text-sm md:text-base font-medium min-h-[44px] rounded-lg;
+  }
+
+  /* Mobile form elements */
+  .mobile-input {
+    @apply px-4 py-3 text-base rounded-lg border-2 min-h-[48px];
+  }
+
+  /* Mobile card layouts */
+  .mobile-card {
+    @apply p-4 md:p-6 rounded-xl shadow-lg bg-white;
+  }
+
+  /* Mobile pricing layouts */
+  .mobile-price-grid {
+    @apply grid gap-3 md:gap-4;
+  }
+
+  .mobile-price-label {
+    @apply text-sm md:text-base text-center font-medium;
+  }
+
+  .mobile-price-value {
+    @apply text-lg md:text-xl text-center font-bold;
+  }
+
+  /* Mobile button sizing */
+  .mobile-btn-small {
+    @apply px-3 py-2 text-sm md:text-base min-h-[44px] rounded-lg;
+  }
+
+  .mobile-btn-default {
+    @apply px-4 py-3 text-base md:text-lg min-h-[48px] rounded-lg;
+  }
+
+  /* Mobile image handling */
+  .mobile-image {
+    @apply w-full h-auto rounded-lg object-cover;
+  }
+
+  /* Mobile spacing utilities */
+  .mobile-section-spacing {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+
+  .mobile-content-spacing {
+    @apply mb-6 md:mb-8 lg:mb-12;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Improve scrolling performance on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent zoom on inputs */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Better tap targets */
+  button, a, .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Optimize images for mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Mobile menu category buttons */
+  .menu-category-btn {
+    @apply px-3 py-2 text-sm font-medium min-h-[44px] flex-1 text-center;
+  }
+
+  /* Mobile pricing displays */
+  .price-display-mobile {
+    @apply text-center space-y-2;
+  }
+
+  /* Mobile card content */
+  .mobile-card-content {
+    @apply space-y-3;
+  }
+
+  /* Mobile flex layouts */
+  .mobile-flex-stack {
+    @apply flex flex-col space-y-4;
+  }
+
+  /* Mobile grid layouts */
+  .mobile-grid-single {
+    @apply grid grid-cols-1 gap-4;
+  }
+
+  .mobile-grid-double {
+    @apply grid grid-cols-2 gap-3;
+  }
+
+  .mobile-grid-triple {
+    @apply grid grid-cols-3 gap-2;
+  }
+}
+
   .font-poppins {
     font-family: 'Poppins', sans-serif;
   }

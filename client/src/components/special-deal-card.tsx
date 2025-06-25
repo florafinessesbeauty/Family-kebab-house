@@ -17,9 +17,9 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
   return (
     <div 
       ref={ref}
-      className={`special-deal-card relative rounded-2xl p-6 text-white text-center transition-all duration-500 cursor-pointer group ${
+      className={`special-deal-card relative rounded-2xl p-6 md:p-8 text-white text-center transition-all duration-500 cursor-pointer group min-h-[300px] md:min-h-[350px] ${
         isKebabFeast 
-          ? `bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 shadow-2xl transform scale-110 border-8 border-yellow-300 hover:scale-115 hover:shadow-3xl ${isVisible ? 'animate-pulse-optimized' : ''}` 
+          ? `bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 shadow-2xl transform md:scale-110 border-4 md:border-8 border-yellow-300 hover:scale-105 md:hover:scale-115 hover:shadow-3xl ${isVisible ? 'animate-pulse-optimized' : ''}` 
           : isFamilyDeal
           ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
           : isChickenCombo
