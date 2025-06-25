@@ -405,7 +405,7 @@ export default function Menu() {
       <VoiceControlButton
         onNavigateToCategory={handleNavigateToCategory}
         onReadMenu={handleReadMenu}
-        onOrderNow={handleOrderItem}
+        onOrderItem={handleOrderItem}
       />
     </div>
   );

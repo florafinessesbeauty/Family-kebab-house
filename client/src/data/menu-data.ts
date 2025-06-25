@@ -17,8 +17,10 @@ export const categories = [
   { id: "pizzas", name: "Pizzas", icon: "🍕" },
   { id: "pizza-offers", name: "Pizza Offers", icon: "🎯" },
   { id: "family-deals", name: "Family Deals", icon: "👨‍👩‍👧‍👦" },
-  { id: "combo-meals", name: "Chicken Combo Meals", icon: "🍱" },
+  { id: "chicken-combo-meals", name: "Chicken Combo Meals", icon: "🍱" },
   { id: "kebabs", name: "Kebabs", icon: "🥙" },
   { id: "wraps", name: "Wraps", icon: "🌯" },
-  { id: "combination-kebabs", name: "Combination Kebabs", icon: "🥩" }
+  { id: "combination-kebabs", name: "Combination Kebabs", icon: "🥩" },
+  { id: "garlic-bread-pizza-extras", name: "Garlic Bread & Pizza Extras", icon: "🧄" },
+  { id: "kebab-extras", name: "Kebab Extras", icon: "🍢" }
 ];
