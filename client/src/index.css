@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;    /* height of your sticky category bar */
+}
+
 :root {
   --background: 0 0% 100%; /* #FFFFFF */
   --foreground: 0 0% 20%; /* #333333 */
