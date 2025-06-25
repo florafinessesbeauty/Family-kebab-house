@@ -77,15 +77,29 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     priority: 8
   },
 
-  // Easter 2025 (April 20)
+  // Easter - dynamically calculated
   {
-    id: 'easter-2025',
+    id: 'easter-current',
     name: 'Easter',
     message: 'Happy Easter from Family Kebab House! May this day bring you renewal, hope, and joyful celebrations!',
     religion: 'Christianity',
     dateType: 'calculated',
-    startDate: '2025-04-20',
-    endDate: '2025-04-20',
+    startDate: calculateEaster(currentYear).toISOString().split('T')[0],
+    endDate: calculateEaster(currentYear).toISOString().split('T')[0],
+    color: 'bg-gradient-to-r from-yellow-400 to-pink-500',
+    emoji: '🐰',
+    priority: 8
+  },
+
+  // Easter next year
+  {
+    id: 'easter-next',
+    name: 'Easter',
+    message: 'Happy Easter from Family Kebab House! May this day bring you renewal, hope, and joyful celebrations!',
+    religion: 'Christianity',
+    dateType: 'calculated',
+    startDate: calculateEaster(currentYear + 1).toISOString().split('T')[0],
+    endDate: calculateEaster(currentYear + 1).toISOString().split('T')[0],
     color: 'bg-gradient-to-r from-yellow-400 to-pink-500',
     emoji: '🐰',
     priority: 8
@@ -105,6 +119,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     priority: 9
   },
 
+  // Ramadan 2026 (February 17 - March 18)
+  {
+    id: 'ramadan-2026',
+    name: 'Ramadan Mubarak',
+    message: 'Ramadan Mubarak from Family Kebab House! May this holy month bring you peace, reflection, and blessed iftar meals!',
+    religion: 'Islam',
+    dateType: 'calculated',
+    startDate: '2026-02-17',
+    endDate: '2026-03-18',
+    color: 'bg-gradient-to-r from-green-600 to-blue-600',
+    emoji: '🌙',
+    priority: 9
+  },
+
   // Eid al-Fitr 2025 (March 31)
   {
     id: 'eid-fitr-2025',
@@ -114,6 +142,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     dateType: 'calculated',
     startDate: '2025-03-31',
     endDate: '2025-04-02',
+    color: 'bg-gradient-to-r from-green-500 to-gold-500',
+    emoji: '🕌',
+    priority: 9
+  },
+
+  // Eid al-Fitr 2026 (March 19)
+  {
+    id: 'eid-fitr-2026',
+    name: 'Eid al-Fitr',
+    message: 'Eid Mubarak from Family Kebab House! Celebrate this joyous day with delicious food and loved ones!',
+    religion: 'Islam',
+    dateType: 'calculated',
+    startDate: '2026-03-19',
+    endDate: '2026-03-21',
     color: 'bg-gradient-to-r from-green-500 to-gold-500',
     emoji: '🕌',
     priority: 9
@@ -133,6 +175,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     priority: 9
   },
 
+  // Eid al-Adha 2026 (May 26-30)
+  {
+    id: 'eid-adha-2026',
+    name: 'Eid al-Adha',
+    message: 'Eid al-Adha Mubarak from Family Kebab House! May this blessed festival bring you happiness and unity!',
+    religion: 'Islam',
+    dateType: 'calculated',
+    startDate: '2026-05-26',
+    endDate: '2026-05-30',
+    color: 'bg-gradient-to-r from-emerald-600 to-teal-600',
+    emoji: '🕌',
+    priority: 9
+  },
+
   // Judaism - Rosh Hashanah 2025 (September 15-17)
   {
     id: 'rosh-hashanah-2025',
@@ -142,6 +198,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     dateType: 'calculated',
     startDate: '2025-09-15',
     endDate: '2025-09-17',
+    color: 'bg-gradient-to-r from-blue-600 to-white',
+    emoji: '🍯',
+    priority: 8
+  },
+
+  // Rosh Hashanah 2026 (September 4-6)
+  {
+    id: 'rosh-hashanah-2026',
+    name: 'Rosh Hashanah',
+    message: 'Shanah Tovah from Family Kebab House! Wishing you a sweet and prosperous New Year!',
+    religion: 'Judaism',
+    dateType: 'calculated',
+    startDate: '2026-09-04',
+    endDate: '2026-09-06',
     color: 'bg-gradient-to-r from-blue-600 to-white',
     emoji: '🍯',
     priority: 8
@@ -161,6 +231,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     priority: 8
   },
 
+  // Yom Kippur 2026 (September 13)
+  {
+    id: 'yom-kippur-2026',
+    name: 'Yom Kippur',
+    message: 'Wishing you a meaningful Yom Kippur from Family Kebab House. May this day bring reflection and peace.',
+    religion: 'Judaism',
+    dateType: 'calculated',
+    startDate: '2026-09-13',
+    endDate: '2026-09-13',
+    color: 'bg-gradient-to-r from-blue-800 to-white',
+    emoji: '✡️',
+    priority: 8
+  },
+
   // Hanukkah 2025 (December 14-22)
   {
     id: 'hanukkah-2025',
@@ -170,6 +254,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     dateType: 'calculated',
     startDate: '2025-12-14',
     endDate: '2025-12-22',
+    color: 'bg-gradient-to-r from-blue-600 to-yellow-400',
+    emoji: '🕎',
+    priority: 8
+  },
+
+  // Hanukkah 2026 (December 4-12)
+  {
+    id: 'hanukkah-2026',
+    name: 'Hanukkah',
+    message: 'Happy Hanukkah from Family Kebab House! May the Festival of Lights bring joy and warmth to your celebrations!',
+    religion: 'Judaism',
+    dateType: 'calculated',
+    startDate: '2026-12-04',
+    endDate: '2026-12-12',
     color: 'bg-gradient-to-r from-blue-600 to-yellow-400',
     emoji: '🕎',
     priority: 8
@@ -189,6 +287,20 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     priority: 8
   },
 
+  // Diwali 2026 (October 21)
+  {
+    id: 'diwali-2026',
+    name: 'Diwali',
+    message: 'Happy Diwali from Family Kebab House! May the Festival of Lights illuminate your life with joy and prosperity!',
+    religion: 'Hinduism',
+    dateType: 'calculated',
+    startDate: '2026-10-21',
+    endDate: '2026-10-21',
+    color: 'bg-gradient-to-r from-orange-500 to-yellow-500',
+    emoji: '🪔',
+    priority: 8
+  },
+
   // Buddhism - Vesak Day 2025 (May 12)
   {
     id: 'vesak-2025',
@@ -203,7 +315,21 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     priority: 7
   },
 
-  // Sikh - Vaisakhi 2025 (April 13)
+  // Vesak Day 2026 (May 31)
+  {
+    id: 'vesak-2026',
+    name: 'Vesak Day',
+    message: 'Happy Vesak Day from Family Kebab House! May this day bring peace, wisdom, and compassion to all.',
+    religion: 'Buddhism',
+    dateType: 'calculated',
+    startDate: '2026-05-31',
+    endDate: '2026-05-31',
+    color: 'bg-gradient-to-r from-orange-400 to-yellow-400',
+    emoji: '☸️',
+    priority: 7
+  },
+
+  // Sikh - Vaisakhi (April 13-14 annually)
   {
     id: 'vaisakhi-2025',
     name: 'Vaisakhi',
@@ -215,6 +341,48 @@ export const religiousCelebrations: ReligiousCelebration[] = [
     color: 'bg-gradient-to-r from-orange-500 to-blue-500',
     emoji: '🌾',
     priority: 7
+  },
+
+  {
+    id: 'vaisakhi-2026',
+    name: 'Vaisakhi',
+    message: 'Happy Vaisakhi from Family Kebab House! May this harvest festival bring abundance and joy to your family!',
+    religion: 'Sikhism',
+    dateType: 'calculated',
+    startDate: '2026-04-14',
+    endDate: '2026-04-14',
+    color: 'bg-gradient-to-r from-orange-500 to-blue-500',
+    emoji: '🌾',
+    priority: 7
+  },
+
+  // Additional celebrations
+  // Chinese New Year 2025 (January 29)
+  {
+    id: 'chinese-new-year-2025',
+    name: 'Chinese New Year',
+    message: 'Gong Xi Fa Cai from Family Kebab House! Wishing you prosperity and good fortune in the Year of the Snake!',
+    religion: 'Chinese Traditional',
+    dateType: 'calculated',
+    startDate: '2025-01-29',
+    endDate: '2025-01-29',
+    color: 'bg-gradient-to-r from-red-600 to-yellow-500',
+    emoji: '🐍',
+    priority: 8
+  },
+
+  // Chinese New Year 2026 (February 17)
+  {
+    id: 'chinese-new-year-2026',
+    name: 'Chinese New Year',
+    message: 'Gong Xi Fa Cai from Family Kebab House! Wishing you prosperity and good fortune in the Year of the Horse!',
+    religion: 'Chinese Traditional',
+    dateType: 'calculated',
+    startDate: '2026-02-17',
+    endDate: '2026-02-17',
+    color: 'bg-gradient-to-r from-red-600 to-yellow-500',
+    emoji: '🐎',
+    priority: 8
   }
 ];
 
