@@ -205,6 +205,12 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Enhanced sides selection: multiple chip sizes, coleslaw, onion rings, breads
 - ✅ Expanded drinks menu: soft drinks, juices, water with authentic pricing
 - ✅ Added extensive extras: proteins, toppings, vegetables, sauces for customization
+- ✅ Fixed ALL pricing inconsistencies across entire website to match menu-data-new.ts exactly
+- ✅ Updated Family Deal (12" Pizza) price to £28.90 in database and all components
+- ✅ Corrected Chef's Daily Special pricing for all days of the week
+- ✅ Fixed home page slideshow pricing: pizzas (£7.70), burgers (£5.50), wings (£4.70)
+- ✅ Updated meal builder with exact authentic pricing for all 60+ menu items
+- ✅ All components now display consistent pricing matching authentic menu data
 
 **2024-06-24**: Comprehensive codebase optimization and production readiness
 - ✅ Removed all debug console.log statements from production code
