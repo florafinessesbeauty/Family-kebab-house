@@ -19,7 +19,7 @@ export interface MenuItemData {
 }
 
 export const menuData: MenuItemData[] = [
-  // LUNCH TIME OFFERS
+  // LUNCH TIME OFFERS (12:00-14:30)
   {
     id: "lunch-chicken-burger",
     name: "Chicken Burger + Chips & Drink",
@@ -106,15 +106,15 @@ export const menuData: MenuItemData[] = [
     singlePrice: 3.50,
   },
   {
-    id: "chicken-fillet-wrap",
-    name: "Chicken Fillet Wrap",
+    id: "chicken-filled-wrap",
+    name: "Chicken Filled Wrap",
     category: "burgers",
     singlePrice: 6.50,
     mealPrice: 9.90,
   },
   {
-    id: "half-chicken-fillet-burger",
-    name: "½ Chicken Fillet Burger",
+    id: "half-chicken-filled-burger",
+    name: "½ Chicken Filled Burger",
     category: "burgers",
     singlePrice: 8.00,
     mealPrice: 11.50,
@@ -123,7 +123,8 @@ export const menuData: MenuItemData[] = [
     id: "add-doner-burger",
     name: "Add Doner on Burger",
     category: "burgers",
-    extras: { doner: 3.00 },
+    singlePrice: 3.00,
+    description: "Extra +£3.00",
   },
 
   // FRIED CHICKEN
@@ -250,7 +251,7 @@ export const menuData: MenuItemData[] = [
     singlePrice: 3.00,
   },
 
-  // EXTRAS
+  // EXTRAS & SIDES
   {
     id: "sauce-small",
     name: "Small Pot of Sauce",
@@ -534,78 +535,74 @@ export const menuData: MenuItemData[] = [
     price12inches: 13.20,
   },
 
-  // GARLIC BREAD & EXTRAS
+  // GARLIC BREAD & PIZZA EXTRAS
   {
     id: "garlic-bread",
     name: "Garlic Bread V",
-    category: "pizzas",
+    category: "garlic-bread-pizza-extras",
     price10inches: 5.00,
     price12inches: 7.00,
   },
   {
     id: "garlic-bread-cheese",
     name: "Garlic Bread with Cheese",
-    category: "pizzas",
+    category: "garlic-bread-pizza-extras",
     price10inches: 7.00,
     price12inches: 9.00,
   },
   {
     id: "stuffed-crust-cheese",
     name: "Stuffed Crust Cheese",
-    category: "pizzas",
+    category: "garlic-bread-pizza-extras",
     price10inches: 2.00,
     price12inches: 3.00,
   },
   {
     id: "extra-topping",
     name: "Extra Topping (each)",
-    category: "pizzas",
+    category: "garlic-bread-pizza-extras",
     price10inches: 1.40,
     price12inches: 1.80,
   },
 
   // PIZZA OFFERS
   {
-    id: "pizza-offer-1",
-    name: "Offer 1: 2× 10\" pizzas from set-menu",
+    id: "pizza-offer-10inch",
+    name: "2× 10\" Pizzas from Set-Menu",
+    description: "Choose any 2 pizzas from set menu",
     category: "pizza-offers",
     singlePrice: 17.20,
-    isSpecial: true,
   },
   {
-    id: "pizza-offer-2",
-    name: "Offer 2: 2× 12\" pizzas from set-menu",
+    id: "pizza-offer-12inch",
+    name: "2× 12\" Pizzas from Set-Menu",
+    description: "Choose any 2 pizzas from set menu",
     category: "pizza-offers",
     singlePrice: 22.50,
-    isSpecial: true,
   },
 
-  // FAMILY DEAL
+  // FAMILY DEALS
   {
-    id: "family-deal-10",
+    id: "family-deal-10inch",
     name: "Family Deal (10\" Pizza)",
-    description: "10\" pizza with 3 toppings + 6 pcs chicken nuggets + 1 chicken fillet burger + 2 pcs fried chicken + 2× chips + 1 bottle of soft drink",
+    description: "10\" pizza with 3 toppings + 6 pcs chicken nuggets + 1 chicken fillet burger + 2 pcs fried chicken + 2× chips + 1 bottle soft drink",
     category: "family-deals",
     singlePrice: 26.90,
-    isSpecial: true,
   },
   {
-    id: "family-deal-12",
+    id: "family-deal-12inch",
     name: "Family Deal (12\" Pizza)",
-    description: "12\" pizza with 3 toppings + 6 pcs chicken nuggets + 1 chicken fillet burger + 2 pcs fried chicken + 2× chips + 1 bottle of soft drink",
+    description: "12\" pizza with 3 toppings + 6 pcs chicken nuggets + 1 chicken fillet burger + 2 pcs fried chicken + 2× chips + 1 bottle soft drink",
     category: "family-deals",
     singlePrice: 28.90,
-    isSpecial: true,
   },
 
-  // CHICKEN COMBO MEAL
+  // CHICKEN COMBO MEALS
   {
     id: "chicken-combo-meal",
-    name: "Chicken Combo Meal",
-    description: "3 pcs chicken + 4 spicy wings + chips & drink",
+    name: "3 pcs Chicken + 4 Spicy Wings + Chips & Drink",
     category: "combo-meals",
     singlePrice: 11.50,
-    isSpecial: true,
   },
 
   // KEBABS
@@ -675,7 +672,7 @@ export const menuData: MenuItemData[] = [
   },
   {
     id: "halep-kebab",
-    name: "Half Kebab",
+    name: "Halep Kebab",
     description: "Doner kebab served in a takeaway container over hot sliced pitta with onion, topped with special sauce",
     category: "kebabs",
     priceLarge: 11.50,
@@ -728,15 +725,12 @@ export const menuData: MenuItemData[] = [
     priceMedium: 7.00,
     priceLarge: 9.00,
   },
-
-  // KEBAB FEAST
   {
     id: "kebab-feast",
     name: "Kebab Feast",
     description: "Doner kebab, shish kebab, chicken & kofte kebabs in a large container, plus box salad, 3× pitta, 2× sauce pots & 1× large chips",
-    category: "kebab-specials",
+    category: "kebabs",
     singlePrice: 30.00,
-    isSpecial: true,
   },
 
   // WRAPS
@@ -769,9 +763,9 @@ export const menuData: MenuItemData[] = [
     priceLarge: 13.50,
   },
   {
-    id: "combined-wrap",
-    name: "Combined Wrap",
-    description: "Chicken & Shish/ Kofte & Shish/ Chicken & Kofte/ Chicken & Doner/ Doner & Shish/ Kofte & Doner (choose any two fillings)",
+    id: "combination-wrap",
+    name: "Combination Wrap",
+    description: "Choose any two fillings: Chicken & Shish / Kofte & Shish / Chicken & Kofte / Chicken & Doner / Doner & Shish / Kofte & Doner",
     category: "wraps",
     singlePrice: 13.00,
   },
@@ -817,7 +811,7 @@ export const menuData: MenuItemData[] = [
     singlePrice: 13.00,
   },
   {
-    id: "chicken-doner-combo",
+    id: "chicken-lamb-doner-combo",
     name: "Chicken & Lamb Doner",
     category: "combination-kebabs",
     singlePrice: 13.00,
@@ -829,31 +823,30 @@ export const menuData: MenuItemData[] = [
     singlePrice: 13.00,
   },
   {
-    id: "kofte-doner-combo",
+    id: "kofte-lamb-doner-combo",
     name: "Kofte & Lamb Doner",
     category: "combination-kebabs",
     singlePrice: 13.00,
   },
-];
 
-export const categoryNames = {
-  "lunch-offers": "Lunch Time Offers",
-  "burgers": "Burgers",
-  "fried-chicken": "Fried Chicken",
-  "chicken-bargain": "Chicken Bargain Meals",
-  "wings": "Chicken Wings & Strips",
-  "nuggets": "Chicken Nuggets",
-  "scampi": "Scampi",
-  "desserts": "Desserts",
-  "extras": "Extras",
-  "drinks": "Drinks",
-  "kids": "Kids Meal",
-  "pizzas": "Pizzas",
-  "pizza-offers": "Pizza Offers",
-  "family-deals": "Family Deal",
-  "combo-meals": "Chicken Combo Meal",
-  "kebabs": "Kebabs",
-  "kebab-specials": "Kebab Feast",
-  "wraps": "Wraps",
-  "combination-kebabs": "Combination Kebabs",
-};
+  // KEBAB EXTRAS
+  {
+    id: "extra-skewer",
+    name: "Add 1 Skewer Extra",
+    category: "kebab-extras",
+    singlePrice: 6.00,
+  },
+  {
+    id: "extra-mozzarella",
+    name: "Add Mozzarella Cheese",
+    category: "kebab-extras",
+    singlePrice: 1.50,
+  },
+  {
+    id: "special-mix",
+    name: "Add Special Mix",
+    description: "Mushroom, onion & green pepper",
+    category: "kebab-extras",
+    singlePrice: 1.50,
+  },
+];
