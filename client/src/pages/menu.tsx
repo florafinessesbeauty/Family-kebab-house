@@ -329,6 +329,46 @@ useEffect(() => {
                         setActiveCategory(category.id);
                         announce(`Viewing ${category.name} category with ${itemCount} items`);
                         setFocusedItemIndex(0);
+                        
+                        // Mobile-optimized scroll fix
+                        const scrollToMenu = () => {
+                          const isMobile = window.innerWidth <= 768;
+                          const menuSection = document.getElementById('menu-content');
+                          
+                          if (!menuSection) return;
+                          
+                          if (isMobile) {
+                            // Force immediate scroll for mobile
+                            const stickyNavHeight = 100; // Account for category nav height
+                            const rect = menuSection.getBoundingClientRect();
+                            const targetPosition = window.pageYOffset + rect.top - stickyNavHeight;
+                            
+                            // Use requestAnimationFrame for better mobile performance
+                            requestAnimationFrame(() => {
+                              window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                              });
+                            });
+                            
+                            // Backup with native scrollIntoView after delay
+                            setTimeout(() => {
+                              menuSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                              });
+                            }, 200);
+                          } else {
+                            // Desktop scroll
+                            menuSection.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start'
+                            });
+                          }
+                        };
+                        
+                        // Execute scroll with short delay
+                        setTimeout(scrollToMenu, 50);
                       }}
                       variant={activeCategory === category.id ? "default" : "outline"}
                       className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
@@ -351,11 +391,13 @@ useEffect(() => {
 
           {/* Menu Content */}
           <section
-            className="py-12 md:py-16 relative"
+            className="py-8 md:py-16 relative"
             id="menu-content"
             ref={menuContentRef}
-            // ensure sticky nav doesn't cover it:
-            style={{ scrollMarginTop: '4rem' }}
+            style={{ 
+              scrollMarginTop: '5rem',
+              minHeight: '60vh'
+            }}
           >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
