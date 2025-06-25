@@ -40,15 +40,15 @@ export default function Home({}: HomeProps) {
       title: "🍕 Fresh Daily Pizza",
       description: "Hand-stretched dough made fresh every morning with premium toppings",
       emoji: "😋",
-      price: "From £8.00"
+      price: "From £7.70"
     },
     {
       id: 3,
       image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800",
-      title: "🍔 2oz Burger",
-      description: "2oz beef burger with cheese and your choice of fresh salad",
+      title: "🍔 Quarter Pounder",
+      description: "¼ Pounder with cheese and your choice of fresh salad",
       emoji: "🔥",
-      price: "£3.50"
+      price: "£5.50"
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ export default function Home({}: HomeProps) {
       title: "🔥 Spicy Wings",
       description: "Crispy wings with our secret blend of spices that'll make you crave more",
       emoji: "🌶️",
-      price: "From £4.40"
+      price: "From £4.70"
     },
     {
       id: 5,
