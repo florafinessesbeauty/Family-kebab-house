@@ -183,6 +183,17 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Added meal builder page with drag-and-drop style component selection
 - ✅ Implemented comprehensive customization options for pizzas, kebabs, and burgers
 
+**2025-01-03**: Fixed Chef's Daily Special pricing to match authentic menu data
+- ✅ Updated all Chef's Daily Special prices to match exact menu-data-new.ts pricing
+- ✅ Corrected Sunday Family Feast from £35.00 to £30.00 (authentic Kebab Feast price)
+- ✅ Fixed Monday Chicken Special from £12.50 to £10.50 (Large Chicken Kebab)
+- ✅ Updated Tuesday Pizza from £16.50 to £13.20 (12" pizza with toppings)
+- ✅ Corrected Wednesday Wrap from £9.50 to £12.50 (Large Chicken Kebab Wrap)
+- ✅ Fixed Thursday Mixed Grill to match X-Large Mixed Kebab £16.50
+- ✅ Updated Friday Scampi to match 9 pcs Scampi Meal £8.90
+- ✅ Corrected Saturday Combo to match Chicken Combo Meal £11.50
+- ✅ All ingredients and descriptions now reflect authentic menu items
+
 **2024-06-24**: Comprehensive codebase optimization and production readiness
 - ✅ Removed all debug console.log statements from production code
 - ✅ Fixed database schema consistency issues with camelCase/snake_case conversion

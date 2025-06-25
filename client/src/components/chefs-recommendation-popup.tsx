@@ -35,104 +35,104 @@ export default function ChefsRecommendationPopup() {
           id: 'sunday-feast',
           name: '🎉 Sunday Family Feast',
           description: 'Perfect for family gathering - Kebab Feast with extra sides',
-          originalPrice: 35.00,
-          specialPrice: 28.00,
+          originalPrice: 30.00,
+          specialPrice: 25.00,
           category: 'family-special',
           emoji: '👨‍👩‍👧‍👦',
           reason: 'Chef Soner and Bayram recommend this for Sunday family dinners',
           preparationTime: '20-25 minutes',
           isLimited: true,
-          ingredients: ['Doner Meat', 'Shish Kebab', 'Chicken Kebab', 'Kofte', 'Fresh Salad', 'Pitta Bread', 'Sauces', 'Chips']
+          ingredients: ['Doner Kebab', 'Shish Kebab', 'Chicken', 'Kofte Kebabs', 'Box Salad', '3× Pitta', '2× Sauce Pots', '1× Large Chips']
         }
       ],
       1: [ // Monday - Fresh Start
         {
           id: 'monday-fresh',
           name: '🌟 Chef\'s Monday Special',
-          description: 'Fresh Chicken Shish with seasonal vegetables',
+          description: 'Large Chicken Kebab with seasonal vegetables',
           originalPrice: 12.50,
-          specialPrice: 10.00,
+          specialPrice: 10.50,
           category: 'chef-special',
           emoji: '🍗',
           reason: 'Made with chicken marinated overnight in Chef Soner and Bayram\'s secret spices',
           preparationTime: '15-18 minutes',
           isLimited: false,
-          ingredients: ['Marinated Chicken', 'Grilled Vegetables', 'Garlic Sauce', 'Fresh Herbs']
+          ingredients: ['Marinated Chicken Breast', 'Grilled Vegetables', 'Fresh Salad', 'Pitta Bread', 'Garlic Sauce']
         }
       ],
       2: [ // Tuesday - Pizza Day
         {
           id: 'tuesday-pizza',
           name: '🍕 Tuesday Pizza Perfection',
-          description: 'Chef\'s signature pizza with premium toppings',
-          originalPrice: 16.50,
-          specialPrice: 13.50,
+          description: '12" Margherita with 3 toppings',
+          originalPrice: 13.20,
+          specialPrice: 10.50,
           category: 'pizza-special',
           emoji: '🍕',
           reason: 'Made with our 100% fresh daily dough and premium mozzarella',
           preparationTime: '12-15 minutes',
           isLimited: false,
-          ingredients: ['Fresh Dough', 'Premium Mozzarella', 'Italian Tomato Sauce', 'Chef\'s Selection Toppings']
+          ingredients: ['Fresh Daily Dough', 'Premium Mozzarella', 'Italian Tomato Sauce', '3 Premium Toppings']
         }
       ],
       3: [ // Wednesday - Wrap Day
         {
           id: 'wednesday-wrap',
           name: '🌯 Wednesday Wrap Wonder',
-          description: 'Gourmet wrap with chef\'s special sauce',
-          originalPrice: 9.50,
-          specialPrice: 7.50,
+          description: 'Large Chicken Kebab Wrap with special sauce',
+          originalPrice: 12.50,
+          specialPrice: 9.50,
           category: 'wrap-special',
           emoji: '🌯',
           reason: 'Features our house-made wrap sauce and premium fillings',
           preparationTime: '8-10 minutes',
           isLimited: false,
-          ingredients: ['Fresh Tortilla', 'Grilled Chicken', 'Special Sauce', 'Fresh Vegetables']
+          ingredients: ['Fresh Tortilla', 'Grilled Chicken', 'Special Sauce', 'Fresh Salad']
         }
       ],
       4: [ // Thursday - Grill Day
         {
           id: 'thursday-grill',
           name: '🔥 Thursday Grill Master',
-          description: 'Mixed grill with chef\'s selection of meats',
-          originalPrice: 18.00,
-          specialPrice: 15.00,
+          description: 'Mixed Kebab with chef\'s selection of meats',
+          originalPrice: 16.50,
+          specialPrice: 14.00,
           category: 'grill-special',
           emoji: '🥩',
           reason: 'Chef Soner and Bayram personally select the finest cuts for this special',
           preparationTime: '20-22 minutes',
           isLimited: true,
-          ingredients: ['Premium Lamb', 'Chicken Breast', 'Beef Kofta', 'Grilled Vegetables']
+          ingredients: ['Doner Kebab', 'Shish Kebab', 'Kofte Kebab', 'Fresh Salad', 'Pitta Bread']
         }
       ],
       5: [ // Friday - Fish Day
         {
           id: 'friday-fish',
           name: '🐟 Friday Fresh Fish',
-          description: 'Crispy scampi with chef\'s tartar sauce',
-          originalPrice: 11.50,
-          specialPrice: 9.00,
+          description: '9 pcs Crispy Scampi with chips and drink',
+          originalPrice: 8.90,
+          specialPrice: 7.50,
           category: 'seafood-special',
           emoji: '🍤',
           reason: 'Fresh catch prepared with Chef Soner and Bayram\'s Mediterranean-style seasoning',
           preparationTime: '12-15 minutes',
           isLimited: false,
-          ingredients: ['Fresh Scampi', 'Chef\'s Batter', 'Homemade Tartar Sauce', 'Lemon']
+          ingredients: ['9 pcs Fresh Scampi', 'Chef\'s Batter', 'Chips', 'Drink', 'Tartar Sauce']
         }
       ],
       6: [ // Saturday - Weekend Special
         {
           id: 'saturday-combo',
           name: '🎉 Saturday Night Combo',
-          description: 'Ultimate combination meal for weekend celebration',
-          originalPrice: 16.50,
-          specialPrice: 13.50,
+          description: 'Chicken Combo Meal for weekend celebration',
+          originalPrice: 11.50,
+          specialPrice: 9.50,
           category: 'weekend-special',
           emoji: '🎊',
           reason: 'Chef Soner and Bayram\'s weekend celebration combo with extra portions',
           preparationTime: '18-20 minutes',
           isLimited: false,
-          ingredients: ['Mixed Kebab', 'Chicken Wings', 'Chips', 'Coleslaw', 'Drink']
+          ingredients: ['3 pcs Chicken', '4 Spicy Wings', 'Chips', 'Drink']
         }
       ]
     };
