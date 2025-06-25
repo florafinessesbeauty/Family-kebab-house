@@ -15,12 +15,12 @@ export const categories = [
   { id: "drinks", name: "Drinks", icon: "🥤" },
   { id: "kids-meals", name: "Kids Meals", icon: "👶" },
   { id: "pizzas", name: "Pizzas", icon: "🍕" },
+  { id: "garlic-bread-pizza-extras", name: "Garlic Bread & Pizza Extras", icon: "🧄" },
   { id: "pizza-offers", name: "Pizza Offers", icon: "🎯" },
   { id: "family-deals", name: "Family Deals", icon: "👨‍👩‍👧‍👦" },
   { id: "chicken-combo-meals", name: "Chicken Combo Meals", icon: "🍱" },
   { id: "kebabs", name: "Kebabs", icon: "🥙" },
   { id: "wraps", name: "Wraps", icon: "🌯" },
   { id: "combination-kebabs", name: "Combination Kebabs", icon: "🥩" },
-  { id: "garlic-bread-pizza-extras", name: "Garlic Bread & Pizza Extras", icon: "🧄" },
   { id: "kebab-extras", name: "Kebab Extras", icon: "🍢" }
 ];
