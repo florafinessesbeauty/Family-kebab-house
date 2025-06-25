@@ -21,7 +21,8 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
-  // ─── new: ref for scrolling into view ───
+  
+  // ─── NEW: ref to scroll into view ───
   const menuContentRef = useRef<HTMLElement>(null);
 
   const { announce } = useScreenReaderAnnouncements();
@@ -201,6 +202,15 @@ export default function Menu() {
   fetchMenuData();
 }, []);
 
+// ─── NEW: scroll into view when activeCategory changes ───
+useEffect(() => {
+  if (menuContentRef.current) {
+    menuContentRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+}, [activeCategory]);
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -236,16 +246,6 @@ export default function Menu() {
       </div>
     );
   }
-
-  // ─── new: scroll into view when activeCategory changes ───
-  useEffect(() => {
-    if (menuContentRef.current) {
-      menuContentRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  }, [activeCategory]);
 
   return (
     <div className="min-h-screen bg-gray-50">
