@@ -42,6 +42,35 @@ export default function Menu() {
     return categories.find(c => c.id === catId) || { name: catId, icon: "" };
   }, []);
 
+  const getCategoryDescription = useCallback((categoryId: string) => {
+    switch (categoryId) {
+      case "kebabs":
+        return "🥙 All kebabs come with fresh salad & delicious sauce";
+      case "combination-kebabs":
+        return "🥩 Choose any two kebab types - all £13.00 + extras available";
+      case "wraps":
+        return "🌯 All wraps include fresh salad & sauce";
+      case "pizzas":
+        return "🍕 100% DAILY FRESH DOUGH - Made with authentic ingredients";
+      case "garlic-bread-pizza-extras":
+        return "🧄 Fresh garlic bread & pizza toppings";
+      case "burgers":
+        return "🍔 Fresh beef burgers with choice of salad";
+      case "fried-chicken":
+        return "🍗 Crispy fried chicken pieces";
+      case "lunch-time-offers":
+        return "⏰ Special offers available 12 NOON TO 2:30PM";
+      case "extras":
+        return "🍟 Delicious sides and add-ons";
+      case "drinks":
+        return "🥤 Refreshing beverages";
+      case "family-deals":
+        return "👨‍👩‍👧‍👦 Perfect for sharing with the whole family";
+      default:
+        return "";
+    }
+  }, []);
+
   const currentCategoryItems = useMemo(
     () => getItemsByCategory(activeCategory),
     [getItemsByCategory, activeCategory]
@@ -224,7 +253,7 @@ export default function Menu() {
             <div className="lg:col-span-2 relative">
               <MenuCategory
                 title={getCategoryInfo(activeCategory).name}
-                description={ /* same description logic */ }
+                description={getCategoryDescription(activeCategory)}
                 items={currentCategoryItems}
                 icon={getCategoryInfo(activeCategory).icon}
               />
