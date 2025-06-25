@@ -212,39 +212,45 @@ export default function Menu() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Accessibility Controls */}
-      <div className="bg-charcoal text-white py-4 sticky top-0 z-40">
+      <div className="bg-charcoal text-white py-2 sm:py-4 sticky top-0 z-40">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h2 className="text-sm font-medium">Accessibility Features:</h2>
-              <Button
-                onClick={() => setAccessibilityMode(!accessibilityMode)}
-                variant="outline"
-                size="sm"
-                className={`border-white text-white hover:bg-white hover:text-charcoal ${
-                  accessibilityMode ? 'bg-white text-charcoal' : ''
-                }`}
-                aria-pressed={accessibilityMode}
-              >
-                <Keyboard className="h-4 w-4 mr-2" />
-                Keyboard Navigation {accessibilityMode ? 'ON' : 'OFF'}
-              </Button>
-              <Button
-                onClick={handleReadMenu}
-                variant="outline"
-                size="sm"
-                className="border-white text-white hover:bg-white hover:text-charcoal"
-                aria-label="Read current menu category aloud"
-              >
-                <Eye className="h-4 w-4 mr-2" />
-                Read Menu
-              </Button>
-              <AccessibilityHelpModal />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+              <h2 className="text-xs sm:text-sm font-medium whitespace-nowrap">Accessibility Features:</h2>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  onClick={() => setAccessibilityMode(!accessibilityMode)}
+                  variant="outline"
+                  size="sm"
+                  className={`text-xs sm:text-sm border-white text-white hover:bg-white hover:text-charcoal ${
+                    accessibilityMode ? 'bg-white text-charcoal' : ''
+                  }`}
+                  aria-pressed={accessibilityMode}
+                >
+                  <Keyboard className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Keyboard Navigation</span>
+                  <span className="sm:hidden">Keyboard</span>
+                  <span className="ml-1">{accessibilityMode ? 'ON' : 'OFF'}</span>
+                </Button>
+                <Button
+                  onClick={handleReadMenu}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs sm:text-sm border-white text-white hover:bg-white hover:text-charcoal"
+                  aria-label="Read current menu category aloud"
+                >
+                  <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Read Menu</span>
+                  <span className="sm:hidden">Read</span>
+                </Button>
+                <AccessibilityHelpModal />
+              </div>
             </div>
             
             {accessibilityMode && (
-              <div className="text-xs text-gray-300">
-                Use arrow keys to navigate • Enter to order • O for quick order • I for info
+              <div className="text-xs text-gray-300 w-full sm:w-auto mt-2 sm:mt-0">
+                <span className="hidden sm:inline">Use arrow keys to navigate • Enter to order • O for quick order • I for info</span>
+                <span className="sm:hidden">Arrow keys: navigate • Enter: order</span>
               </div>
             )}
           </div>
@@ -252,18 +258,18 @@ export default function Menu() {
       </div>
 
       {/* Header */}
-      <section className="bg-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
+      <section className="bg-white py-8 sm:py-12 md:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h1 className="font-poppins text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-3 sm:mb-4">Our Delicious Menu</h1>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
           </div>
 
           {/* Special Deals First - Now with optimized performance */}
           {specialDeals.length > 0 && (
-            <div className="mb-16">
-              <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="mb-8 sm:mb-12 md:mb-16">
+              <h2 className="font-poppins text-xl sm:text-2xl md:text-3xl font-bold text-charcoal mb-4 sm:mb-6 md:mb-8 text-center">🌟 Special Offers</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {specialDeals.map((deal) => (
                   <SpecialDealCard key={deal.id} deal={deal} />
                 ))}
@@ -272,9 +278,9 @@ export default function Menu() {
           )}
 
           {/* Category Navigation */}
-          <div className="bg-white shadow-lg py-8 sticky top-0 z-30">
+          <div className="bg-white shadow-lg py-4 sm:py-6 md:py-8 sticky top-0 z-30">
             <div className="container mx-auto px-4">
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
                 {categories.map((category) => {
                   const itemCount = getItemsByCategory(category.id).length;
                   
@@ -293,15 +299,16 @@ export default function Menu() {
                         }, 100);
                       }}
                       variant={activeCategory === category.id ? "default" : "outline"}
-                      className={`px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 ${
+                      className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 font-semibold transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base ${
                         activeCategory === category.id
                           ? "bg-primary text-white shadow-lg"
                           : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
                       }`}
                     >
-                      <span className="mr-2 text-lg">{category.icon}</span>
-                      {category.name}
-                      <Badge variant="secondary" className="ml-2 bg-accent text-white">
+                      <span className="mr-1 sm:mr-2 text-sm sm:text-base md:text-lg">{category.icon}</span>
+                      <span className="hidden sm:inline">{category.name}</span>
+                      <span className="sm:hidden">{category.name.split(' ')[0]}</span>
+                      <Badge variant="secondary" className="ml-1 sm:ml-2 bg-accent text-white text-xs">
                         {itemCount}
                       </Badge>
                     </Button>
