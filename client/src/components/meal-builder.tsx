@@ -34,81 +34,90 @@ export default function MealBuilder() {
   const [totalPrice, setTotalPrice] = useState(0);
   const { addItem } = useBasket();
 
-  // 1) All possible meal parts - Authentic Family Kebab House Menu
+  // 1) All possible meal parts - Authentic Family Kebab House Menu with exact pricing
   const mealComponents: MealComponent[] = [
     // -- Main Courses --
-    // Kebabs
-    { id: 'doner-kebab-med',    name: '🥙 Doner Kebab (Medium)',    category: 'main', price: 8.50, emoji: '🥙', description: 'Traditional doner meat with salad' },
-    { id: 'doner-kebab-large',  name: '🥙 Doner Kebab (Large)',     category: 'main', price: 10.50, emoji: '🥙', description: 'Large portion doner with salad' },
-    { id: 'chicken-kebab-med',  name: '🍗 Chicken Kebab (Medium)',  category: 'main', price: 9.00, emoji: '🍗', description: 'Grilled chicken with fresh salad' },
-    { id: 'chicken-kebab-large', name: '🍗 Chicken Kebab (Large)',  category: 'main', price: 10.50, emoji: '🍗', description: 'Large grilled chicken with salad' },
-    { id: 'mixed-kebab-med',    name: '🥙 Mixed Kebab (Medium)',     category: 'main', price: 10.00, emoji: '🥙', description: 'Doner and chicken combination' },
-    { id: 'mixed-kebab-large',  name: '🥙 Mixed Kebab (Large)',     category: 'main', price: 12.50, emoji: '🥙', description: 'Large mixed doner and chicken' },
-    { id: 'shish-kebab',        name: '🍢 Shish Kebab',             category: 'main', price: 11.50, emoji: '🍢', description: 'Grilled lamb shish with salad' },
-    { id: 'kofte-kebab',        name: '🥩 Kofte Kebab',             category: 'main', price: 11.00, emoji: '🥩', description: 'Spiced lamb kofte with salad' },
-    { id: 'adana-kebab',        name: '🌶️ Adana Kebab',             category: 'main', price: 12.00, emoji: '🌶️', description: 'Spicy minced lamb kebab' },
+    // Kebabs - Exact pricing from menu-data-new.ts
+    { id: 'doner-kebab-med',     name: '🥙 Doner Kebab (Medium)',     category: 'main', price: 8.50, emoji: '🥙', description: 'Fresh lamb, specially seasoned and grilled' },
+    { id: 'doner-kebab-large',   name: '🥙 Doner Kebab (Large)',      category: 'main', price: 10.50, emoji: '🥙', description: 'Large portion doner with salad' },
+    { id: 'doner-kebab-xlarge',  name: '🥙 Doner Kebab (X-Large)',    category: 'main', price: 12.50, emoji: '🥙', description: 'Extra large doner portion' },
+    { id: 'chicken-kebab-med',   name: '🍗 Chicken Kebab (Medium)',   category: 'main', price: 9.00, emoji: '🍗', description: 'Breast of chicken, marinated & barbecued' },
+    { id: 'chicken-kebab-large', name: '🍗 Chicken Kebab (Large)',    category: 'main', price: 12.50, emoji: '🍗', description: 'Large grilled chicken with salad' },
+    { id: 'chicken-kebab-xlarge', name: '🍗 Chicken Kebab (X-Large)', category: 'main', price: 16.50, emoji: '🍗', description: 'Extra large chicken portion' },
+    { id: 'shish-kebab-med',     name: '🍢 Shish Kebab (Medium)',     category: 'main', price: 9.50, emoji: '🍢', description: 'Fresh fillet of diced lamb, marinated' },
+    { id: 'shish-kebab-large',   name: '🍢 Shish Kebab (Large)',      category: 'main', price: 13.50, emoji: '🍢', description: 'Large lamb shish with herbs' },
+    { id: 'shish-kebab-xlarge',  name: '🍢 Shish Kebab (X-Large)',    category: 'main', price: 17.50, emoji: '🍢', description: 'Extra large shish portion' },
+    { id: 'kofte-kebab-med',     name: '🥩 Kofte Kebab (Medium)',     category: 'main', price: 9.00, emoji: '🥩', description: 'Minced fresh lamb with parsley & herbs' },
+    { id: 'kofte-kebab-large',   name: '🥩 Kofte Kebab (Large)',      category: 'main', price: 12.50, emoji: '🥩', description: 'Large kofte with oriental herbs' },
+    { id: 'kofte-kebab-xlarge',  name: '🥩 Kofte Kebab (X-Large)',    category: 'main', price: 16.50, emoji: '🥩', description: 'Extra large kofte portion' },
+    { id: 'mixed-kebab-xlarge',  name: '🥙 Mixed Kebab (X-Large)',    category: 'main', price: 16.50, emoji: '🥙', description: 'Doner, shish & kofte combination' },
+    { id: 'arda-mix',            name: '🔥 Arda Mix',                 category: 'main', price: 19.00, emoji: '🔥', description: 'Chicken, lamb shish, doner & kofte' },
     
-    // Burgers
-    { id: 'chicken-burger',     name: '🍔 Chicken Burger',          category: 'main', price: 3.50, emoji: '🍔', description: '2oz chicken burger with cheese' },
-    { id: 'quarter-pounder',    name: '🍔 ¼ Pounder with Cheese',   category: 'main', price: 4.20, emoji: '🍔', description: 'Beef burger with cheese' },
-    { id: 'beef-burger-cheese', name: '🍔 Beef Burger with Cheese', category: 'main', price: 4.50, emoji: '🍔', description: 'Classic beef burger with cheese' },
+    // Burgers - Exact pricing from menu
+    { id: 'quarter-pounder',     name: '🍔 ¼ Pounder with Cheese',   category: 'main', price: 5.50, emoji: '🍔', description: 'Beef burger with cheese' },
+    { id: 'half-pounder',        name: '🍔 ½ Pounder Double Cheese', category: 'main', price: 7.40, emoji: '🍔', description: 'Half pound beef with double cheese' },
+    { id: 'chicken-fillet',      name: '🍗 Chicken Fillet Burger',   category: 'main', price: 6.00, emoji: '🍗', description: 'Grilled chicken fillet burger' },
+    { id: 'vegetable-burger',    name: '🥬 Vegetable Burger',         category: 'main', price: 5.50, emoji: '🥬', description: 'Fresh vegetable patty burger' },
     
-    // Fried Chicken
-    { id: 'fried-chicken-1pc',  name: '🍗 1pc Fried Chicken',       category: 'main', price: 2.00, emoji: '🍗', description: 'Single piece fried chicken' },
-    { id: 'fried-chicken-2pc',  name: '🍗 2pc Fried Chicken',       category: 'main', price: 3.50, emoji: '🍗', description: 'Two pieces fried chicken' },
-    { id: 'fried-chicken-3pc',  name: '🍗 3pc Fried Chicken',       category: 'main', price: 5.00, emoji: '🍗', description: 'Three pieces fried chicken' },
-    { id: 'fried-chicken-4pc',  name: '🍗 4pc Fried Chicken',       category: 'main', price: 6.50, emoji: '🍗', description: 'Four pieces fried chicken' },
+    // Fried Chicken - Exact pricing
+    { id: 'fried-chicken-1pc',   name: '🍗 1pc Fried Chicken',       category: 'main', price: 2.20, emoji: '🍗', description: 'Single piece fried chicken' },
+    { id: 'fried-chicken-2pc',   name: '🍗 2pc Fried Chicken',       category: 'main', price: 4.20, emoji: '🍗', description: 'Two pieces fried chicken' },
+    { id: 'fried-chicken-3pc',   name: '🍗 3pc Fried Chicken',       category: 'main', price: 6.00, emoji: '🍗', description: 'Three pieces fried chicken' },
+    { id: 'fried-chicken-4pc',   name: '🍗 4pc Fried Chicken',       category: 'main', price: 7.70, emoji: '🍗', description: 'Four pieces fried chicken' },
     
-    // Wings & Strips
-    { id: 'chicken-wings-6pc',  name: '🔥 6pc Chicken Wings',       category: 'main', price: 4.50, emoji: '🔥', description: 'Spicy chicken wings' },
-    { id: 'chicken-strips-3pc', name: '🍗 3pc Chicken Strips',      category: 'main', price: 4.00, emoji: '🍗', description: 'Crispy chicken strips' },
+    // Chicken Wings & Strips
+    { id: 'chicken-wings-6pc',   name: '🔥 6pc Chicken Wings',       category: 'main', price: 4.70, emoji: '🔥', description: 'Spicy chicken wings' },
+    { id: 'chicken-strips-3pc',  name: '🍗 3pc Chicken Strips',      category: 'main', price: 5.40, emoji: '🍗', description: 'Crispy chicken strips' },
     
-    // Nuggets
-    { id: 'nuggets-6pc',        name: '🍿 6pc Nuggets',             category: 'main', price: 3.50, emoji: '🍿', description: 'Crispy chicken nuggets' },
-    { id: 'nuggets-9pc',        name: '🍿 9pc Nuggets',             category: 'main', price: 4.50, emoji: '🍿', description: 'Nine piece nuggets' },
+    // Nuggets - Exact pricing
+    { id: 'nuggets-6pc',         name: '🍿 6pc Nuggets',             category: 'main', price: 4.00, emoji: '🍿', description: 'Crispy chicken nuggets' },
+    { id: 'nuggets-9pc',         name: '🍿 9pc Nuggets',             category: 'main', price: 5.20, emoji: '🍿', description: 'Nine piece nuggets' },
     
-    // Pizzas
-    { id: 'pizza-margherita-10', name: '🍕 10" Margherita Pizza',    category: 'main', price: 9.50, emoji: '🍕', description: 'Classic pizza with fresh basil' },
-    { id: 'pizza-margherita-12', name: '🍕 12" Margherita Pizza',    category: 'main', price: 11.90, emoji: '🍕', description: 'Large margherita pizza' },
-    { id: 'pizza-pepperoni-10', name: '🍕 10" Pepperoni Pizza',     category: 'main', price: 10.90, emoji: '🍕', description: 'Pepperoni pizza' },
-    { id: 'pizza-pepperoni-12', name: '🍕 12" Pepperoni Pizza',     category: 'main', price: 13.70, emoji: '🍕', description: 'Large pepperoni pizza' },
+    // Scampi - Exact pricing
+    { id: 'scampi-6pc',          name: '🍤 6pc Scampi',              category: 'main', price: 4.00, emoji: '🍤', description: 'Breaded scampi pieces' },
+    { id: 'scampi-9pc',          name: '🍤 9pc Scampi',              category: 'main', price: 5.20, emoji: '🍤', description: 'Nine piece scampi' },
     
-    // Scampi
-    { id: 'scampi-5pc',         name: '🍤 5pc Scampi',              category: 'main', price: 4.50, emoji: '🍤', description: 'Breaded scampi pieces' },
-    { id: 'scampi-9pc',         name: '🍤 9pc Scampi',              category: 'main', price: 7.50, emoji: '🍤', description: 'Nine piece scampi' },
+    // Pizzas - 10" options
+    { id: 'pizza-margherita-10', name: '🍕 10" Margherita Pizza',    category: 'main', price: 7.70, emoji: '🍕', description: 'Classic pizza with fresh basil' },
+    { id: 'pizza-pepperoni-10',  name: '🍕 10" Pepperoni Pizza',     category: 'main', price: 8.80, emoji: '🍕', description: 'Pepperoni pizza' },
+    { id: 'pizza-hawaiian-10',   name: '🍕 10" Hawaiian Pizza',      category: 'main', price: 9.90, emoji: '🍕', description: 'Ham and pineapple pizza' },
     
-    // Wraps
-    { id: 'chicken-wrap',       name: '🌯 Chicken Wrap',            category: 'main', price: 6.50, emoji: '🌯', description: 'Grilled chicken wrap with salad' },
-    { id: 'doner-wrap',         name: '🌯 Doner Wrap',              category: 'main', price: 6.00, emoji: '🌯', description: 'Doner meat wrap with salad' },
+    // Pizzas - 12" options  
+    { id: 'pizza-margherita-12', name: '🍕 12" Margherita Pizza',    category: 'main', price: 10.20, emoji: '🍕', description: 'Large margherita pizza' },
+    { id: 'pizza-pepperoni-12',  name: '🍕 12" Pepperoni Pizza',     category: 'main', price: 11.70, emoji: '🍕', description: 'Large pepperoni pizza' },
+    { id: 'pizza-hawaiian-12',   name: '🍕 12" Hawaiian Pizza',      category: 'main', price: 13.20, emoji: '🍕', description: 'Large Hawaiian pizza' },
     
-    // -- Sides --
-    { id: 'chips-regular',      name: '🍟 Regular Chips',           category: 'side', price: 3.00, emoji: '🍟', description: 'Golden crispy chips' },
-    { id: 'chips-large',        name: '🍟 Large Chips',             category: 'side', price: 4.50, emoji: '🍟', description: 'Extra portion of chips' },
-    { id: 'chips-extra-large',  name: '🍟 Extra Large Chips',       category: 'side', price: 5.50, emoji: '🍟', description: 'Family size portion' },
-    { id: 'coleslaw',           name: '🥗 Coleslaw',                category: 'side', price: 2.50, emoji: '🥗', description: 'Fresh homemade coleslaw' },
-    { id: 'onion-rings-4pc',    name: '🧅 4pc Onion Rings',         category: 'side', price: 2.50, emoji: '🧅', description: 'Crispy battered onion rings' },
-    { id: 'garlic-bread',       name: '🍞 Garlic Bread',            category: 'side', price: 3.00, emoji: '🍞', description: 'Warm garlic bread slices' },
-    { id: 'pitta-bread',        name: '🫓 Pitta Bread',             category: 'side', price: 1.50, emoji: '🫓', description: 'Fresh pitta bread' },
+    // Wraps - Exact pricing
+    { id: 'doner-wrap-med',      name: '🌯 Lamb Doner Wrap (Med)',   category: 'main', price: 8.50, emoji: '🌯', description: 'Lamb doner meat wrap' },
+    { id: 'doner-wrap-large',    name: '🌯 Lamb Doner Wrap (Large)', category: 'main', price: 10.50, emoji: '🌯', description: 'Large doner wrap with salad' },
+    { id: 'chicken-wrap-med',    name: '🌯 Chicken Wrap (Medium)',   category: 'main', price: 9.00, emoji: '🌯', description: 'Grilled chicken wrap' },
+    { id: 'chicken-wrap-large',  name: '🌯 Chicken Wrap (Large)',    category: 'main', price: 12.50, emoji: '🌯', description: 'Large chicken wrap with salad' },
     
-    // -- Drinks --
-    { id: 'coke-can',           name: '🥤 Coca Cola (Can)',         category: 'drink', price: 1.50, emoji: '🥤', description: 'Classic Coca Cola' },
-    { id: 'pepsi-can',          name: '🥤 Pepsi (Can)',             category: 'drink', price: 1.50, emoji: '🥤', description: 'Refreshing Pepsi' },
-    { id: 'sprite-can',         name: '🥤 Sprite (Can)',            category: 'drink', price: 1.50, emoji: '🥤', description: 'Lemon-lime soda' },
-    { id: 'fanta-can',          name: '🥤 Fanta (Can)',             category: 'drink', price: 1.50, emoji: '🥤', description: 'Orange flavored soda' },
-    { id: 'water-bottle',       name: '💧 Water Bottle',            category: 'drink', price: 1.20, emoji: '💧', description: 'Fresh bottled water' },
-    { id: 'juice-apple',        name: '🧃 Apple Juice',             category: 'drink', price: 1.80, emoji: '🧃', description: 'Fresh apple juice' },
-    { id: 'juice-orange',       name: '🧃 Orange Juice',            category: 'drink', price: 1.80, emoji: '🧃', description: 'Fresh orange juice' },
+    // -- Sides -- Exact pricing from extras
+    { id: 'chips-small',         name: '🍟 Chips (Small)',           category: 'side', price: 3.00, emoji: '🍟', description: 'Golden crispy chips' },
+    { id: 'chips-large',         name: '🍟 Chips (Large)',           category: 'side', price: 4.00, emoji: '🍟', description: 'Large portion of chips' },
+    { id: 'chips-cheese-small',  name: '🧀 Chips & Cheese (Small)',  category: 'side', price: 4.50, emoji: '🧀', description: 'Chips with melted cheese' },
+    { id: 'chips-cheese-large',  name: '🧀 Chips & Cheese (Large)',  category: 'side', price: 5.50, emoji: '🧀', description: 'Large chips with cheese' },
+    { id: 'onion-rings-8pc',     name: '🧅 8pc Onion Rings',         category: 'side', price: 3.50, emoji: '🧅', description: 'Crispy battered onion rings' },
+    { id: 'mozzarella-sticks',   name: '🧀 6pc Mozzarella Sticks',   category: 'side', price: 5.20, emoji: '🧀', description: 'Breaded mozzarella sticks' },
+    { id: 'coleslaw',            name: '🥗 Coleslaw',                category: 'side', price: 2.50, emoji: '🥗', description: 'Fresh homemade coleslaw' },
+    { id: 'pitta-bread',         name: '🫓 Pitta Bread',             category: 'side', price: 1.00, emoji: '🫓', description: 'Fresh pitta bread' },
+    { id: 'garlic-bread-10',     name: '🍞 10" Garlic Bread',        category: 'side', price: 5.00, emoji: '🍞', description: 'Warm garlic bread' },
+    { id: 'potato-wedges',       name: '🥔 Potato Wedges',           category: 'side', price: 3.50, emoji: '🥔', description: 'Seasoned potato wedges' },
     
-    // -- Extras --
-    { id: 'extra-sauce',        name: '🥫 Extra Sauce',             category: 'extra', price: 0.50, emoji: '🥫', description: 'Choice of sauce' },
-    { id: 'extra-cheese',       name: '🧀 Extra Cheese',            category: 'extra', price: 1.00, emoji: '🧀', description: 'Additional cheese' },
-    { id: 'extra-salad',        name: '🥗 Extra Salad',             category: 'extra', price: 1.00, emoji: '🥗', description: 'Additional fresh salad' },
-    { id: 'extra-meat',         name: '🥩 Extra Meat',              category: 'extra', price: 2.50, emoji: '🥩', description: 'Additional portion of meat' },
-    { id: 'extra-chicken',      name: '🍗 Extra Chicken',           category: 'extra', price: 2.50, emoji: '🍗', description: 'Additional chicken portion' },
-    { id: 'jalapenos',          name: '🌶️ Jalapeños',               category: 'extra', price: 0.75, emoji: '🌶️', description: 'Spicy jalapeño peppers' },
-    { id: 'pickles',            name: '🥒 Pickles',                 category: 'extra', price: 0.50, emoji: '🥒', description: 'Tangy pickle slices' },
-    { id: 'mushrooms',          name: '🍄 Mushrooms',               category: 'extra', price: 1.00, emoji: '🍄', description: 'Fresh grilled mushrooms' },
-    { id: 'peppers',            name: '🫑 Peppers',                 category: 'extra', price: 0.75, emoji: '🫑', description: 'Mixed bell peppers' }
+    // -- Drinks -- Exact pricing
+    { id: 'cans',                name: '🥤 Soft Drinks (Can)',       category: 'drink', price: 1.40, emoji: '🥤', description: 'Coke, Pepsi, Sprite, Fanta' },
+    { id: 'bottle-drinks',       name: '🍾 Bottle of Drink',         category: 'drink', price: 3.50, emoji: '🍾', description: 'Large bottle soft drinks' },
+    { id: 'water',               name: '💧 Water',                   category: 'drink', price: 1.00, emoji: '💧', description: 'Fresh bottled water' },
+    
+    // -- Extras -- Exact pricing
+    { id: 'sauce-small',         name: '🥫 Small Pot of Sauce',      category: 'extra', price: 0.70, emoji: '🥫', description: 'Chilli, Garlic, Ketchup, BBQ, Mayo' },
+    { id: 'sauce-large',         name: '🥫 Large Pot of Sauce',      category: 'extra', price: 1.50, emoji: '🥫', description: 'Large sauce pot - choice of sauce' },
+    { id: 'extra-topping-10',    name: '🍕 Extra Topping (10")',     category: 'extra', price: 1.40, emoji: '🍕', description: 'Additional pizza topping' },
+    { id: 'extra-topping-12',    name: '🍕 Extra Topping (12")',     category: 'extra', price: 1.80, emoji: '🍕', description: 'Additional pizza topping (large)' },
+    { id: 'box-salad-small',     name: '🥗 Box Salad (Small)',       category: 'extra', price: 3.50, emoji: '🥗', description: 'Fresh mixed salad' },
+    { id: 'box-salad-large',     name: '🥗 Box Salad (Large)',       category: 'extra', price: 4.50, emoji: '🥗', description: 'Large fresh mixed salad' },
+    { id: 'garlic-mushroom',     name: '🍄 Garlic Mushroom',         category: 'extra', price: 4.50, emoji: '🍄', description: 'Fresh grilled mushrooms with garlic' }
   ];
 
   // 2) Recalculate total when selection changes
