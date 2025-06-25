@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import GlobalVoiceControl from "@/components/global-voice-control";
 import BasketDrawer from "@/components/basket-drawer";
 import ChefsRecommendationPopup from "@/components/chefs-recommendation-popup";
+import ReligiousCelebrationBanner from "@/components/religious-celebration-banner";
 import { BasketProvider } from "@/hooks/use-basket";
 import { useLocation } from "react-router-dom";
 
@@ -53,6 +54,7 @@ function App() {
       <TooltipProvider>
         <BasketProvider>
           <div className="min-h-screen flex flex-col">
+            <ReligiousCelebrationBanner />
             <Header onAIRecommendationsClick={handleAIRecommendationsClick} />
             <main className="flex-1">
               <Routes>
