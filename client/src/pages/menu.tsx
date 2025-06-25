@@ -37,6 +37,53 @@ export default function Menu() {
     return category || { name: categoryId, icon: "" };
   }, []);
 
+  const getCategoryDescription = useCallback((categoryId: string) => {
+    switch (categoryId) {
+      case "kebabs":
+        return "🥙 All kebabs come with fresh salad & delicious sauce";
+      case "combination-kebabs":
+        return "🥩 Choose any two kebab types - all £13.00 + extras available";
+      case "wraps":
+        return "🌯 All wraps include fresh salad & sauce";
+      case "pizzas":
+        return "🍕 100% DAILY FRESH DOUGH - Made with authentic ingredients";
+      case "garlic-bread-pizza-extras":
+        return "🧄 Fresh garlic bread & pizza toppings";
+      case "burgers":
+        return "🍔 Fresh beef burgers with choice of salad";
+      case "fried-chicken":
+        return "🍗 Crispy fried chicken pieces";
+      case "lunch-time-offers":
+        return "⏰ Special offers available 12 NOON TO 2:30PM";
+      case "extras":
+        return "🍟 Delicious sides and add-ons";
+      case "drinks":
+        return "🥤 Refreshing beverages";
+      case "family-deals":
+        return "👨‍👩‍👧‍👦 Perfect for sharing with the whole family";
+      case "pizza-offers":
+        return "🎯 Great value pizza combinations";
+      case "chicken-combo-meals":
+        return "🍱 Complete chicken meals with sides and drinks";
+      case "chicken-bargain-meals":
+        return "🍱 Value chicken meals with chips & coleslaw";
+      case "chicken-wings-strips":
+        return "🔥 Spicy wings and crispy strips";
+      case "chicken-nuggets":
+        return "🍿 Golden crispy chicken nuggets";
+      case "scampi":
+        return "🍤 Breaded scampi pieces";
+      case "desserts":
+        return "🍰 Sweet treats to finish your meal";
+      case "kids-meals":
+        return "👶 Perfect portions for little ones";
+      case "kebab-extras":
+        return "🍢 Additional kebab options and extras";
+      default:
+        return "";
+    }
+  }, []);
+
   // Memoized expensive calculations
   const currentCategoryItems = useMemo(
     () => getItemsByCategory(activeCategory),
