@@ -1,343 +1,120 @@
-# Menu Page Performance Optimization Plan
+# Pizza and Garlic Bread Pricing Fix Instructions
 
-## Performance Issues Identified
+## Problem Analysis
 
-### Critical Problems Causing Layout Thrashing:
+**Current Issue**: Pizzas and garlic bread items are not displaying their 10"/12" pricing options or "Add to Basket" buttons in the Menu page.
 
-1. **Excessive CSS Animations (Lines 276-349 in menu.tsx)**
-   - Multiple `animate-spin`, `animate-bounce`, `animate-pulse` running simultaneously
-   - 6+ animated elements per special deal card (rotating rings, floating sparkles)
-   - Constant repaints from continuous animations
+**Root Cause**: The `renderPriceDisplay` function in `client/src/components/menu-category.tsx` has a logic flow issue. The pizza/garlic bread pricing logic (lines 101-133) is being bypassed due to the ordering of conditional checks.
 
-2. **Unthrottled Scroll Handler (Line 30 in floating-ai-button.tsx)**
-   - Raw `scroll` event listener firing on every scroll pixel
-   - No debouncing or throttling mechanism
-   - Triggers state changes causing React re-renders
+**API Data Confirmation**: 
+- Pizzas have `price10inches` and `price12inches` fields populated correctly (e.g., Margherita: 10"=£8.00, 12"=£10.00)
+- Garlic bread items also have `price10inches` and `price12inches` fields populated (e.g., Garlic Bread V: 10"=£5.00, 12"=£7.00)
+- The API mapping in `server/storage.ts` correctly transforms snake_case DB fields to camelCase client fields
 
-3. **Heavy Component Re-renders**
-   - Menu component recalculates `currentCategoryItems` on every render (Line 36)
-   - `specialDeals` filter runs on every render (Line 189)
-   - No memoization for expensive operations
+## Step-by-Step Fix Plan
 
-4. **Continuous Animation Overhead**
-   - Multiple `animate-pulse` classes running indefinitely
-   - Complex CSS gradients with blur effects (Line 305)
-   - Transform animations causing layout shifts
+### Step 1: Reorder Logic in menu-category.tsx
+**File**: `client/src/components/menu-category.tsx`
+**Function**: `renderPriceDisplay` (lines 42-169)
 
-## Step-by-Step Optimization Plan
+**Change**: Move the pizza-inch pricing logic (lines 101-133) to execute BEFORE the Medium/Large/X-Large logic (lines 44-77).
 
-### Phase 1: Throttle Event Handlers (High Priority)
+**Reason**: Currently, the function checks for `priceMedium || priceLarge || priceXLarge` first, but pizza items should be handled by the inch-based pricing logic regardless of whether they have other price fields.
 
-#### 1.1 Fix Scroll Handler in FloatingAIButton
-**File:** `client/src/components/floating-ai-button.tsx`
-**Lines:** 24-32
-
+**Implementation**:
 ```typescript
-// Replace unthrottled scroll with throttled version
-useEffect(() => {
-  let ticking = false;
-  
-  const handleScroll = () => {
-    if (!ticking && !isDismissed) {
-      requestAnimationFrame(() => {
-        if (window.scrollY > 300) {
-          setIsVisible(true);
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  };
+function renderPriceDisplay(item: MenuItemData) {
+  // 1) Pizza‐inch logic (10″ / 12″) - MOVE THIS FIRST
+  if (item.price10inches != null || item.price12inches != null) {
+    const inches = [
+      item.price10inches != null && { label: '10\"', price: item.price10inches },
+      item.price12inches != null && { label: '12\"', price: item.price12inches }
+    ].filter(Boolean) as { label: string; price: number }[]
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  return () => window.removeEventListener('scroll', handleScroll);
-}, [isDismissed]);
-```
-
-#### 1.2 Add Intersection Observer for Animation Control
-**File:** `client/src/hooks/use-intersection-observer.tsx` (New)
-
-```typescript
-import { useEffect, useRef, useState } from 'react';
-
-export function useIntersectionObserver(options = {}) {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1, ...options }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return [ref, isVisible] as const;
-}
-```
-
-### Phase 2: Optimize React Components with Memoization
-
-#### 2.1 Memoize MenuCategory Component
-**File:** `client/src/components/menu-category.tsx`
-**Action:** Wrap in React.memo
-
-```typescript
-import React from 'react';
-
-const MenuCategory = React.memo(({
-  title,
-  description,
-  items,
-  icon
-}: Readonly<MenuCategoryProps>) => {
-  // Component implementation
-});
-
-export default MenuCategory;
-```
-
-#### 2.2 Memoize Expensive Calculations in Menu
-**File:** `client/src/pages/menu.tsx`
-**Lines:** 36, 189
-
-```typescript
-import { useMemo } from 'react';
-
-// Replace direct calculations with memoized versions
-const currentCategoryItems = useMemo(
-  () => menuData.filter(item => item.category === activeCategory),
-  [menuData, activeCategory]
-);
-
-const specialDeals = useMemo(
-  () => menuData.filter(item => item.isSpecial),
-  [menuData]
-);
-```
-
-#### 2.3 Create Memoized SpecialDealCard Component
-**File:** `client/src/components/special-deal-card.tsx` (New)
-
-```typescript
-import React from 'react';
-
-interface SpecialDealCardProps {
-  deal: MenuItemData;
-  isVisible: boolean;
-}
-
-const SpecialDealCard = React.memo(({ deal, isVisible }: SpecialDealCardProps) => {
-  const isKebabFeast = deal.name === "Kebab Feast" || deal.name === "🎉 Kebab Feast";
-  const isFamilyDeal = deal.name.includes("Family Deal");
-  const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
-
-  return (
-    <div 
-      className={`relative rounded-2xl p-6 text-white text-center transition-all duration-500 cursor-pointer group ${
-        isKebabFeast 
-          ? `bg-gradient-to-br from-yellow-400 via-amber-500 via-orange-600 to-red-700 shadow-2xl transform scale-110 border-8 border-yellow-300 hover:scale-115 hover:shadow-3xl ${isVisible ? 'animate-pulse' : ''}` 
-          : isFamilyDeal
-          ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
-          : isChickenCombo
-          ? "bg-gradient-to-br from-red-600 via-orange-600 to-yellow-600 hover:scale-105 shadow-xl border-2 border-orange-300"
-          : "bg-gradient-to-br from-accent to-orange-600 hover:scale-105"
-      }`}
-    >
-      {/* Conditional animations only when visible */}
-      {isKebabFeast && isVisible && (
-        // Animation elements
-      )}
-      {/* Rest of component */}
-    </div>
-  );
-});
-```
-
-### Phase 3: Optimize CSS Animations
-
-#### 3.1 Add CSS Will-Change and Animation Pausing
-**File:** `client/src/index.css`
-
-```css
-/* Add performance optimizations */
-.special-deal-card {
-  will-change: transform;
-  contain: layout style paint;
-}
-
-.special-deal-card:not(.visible) .animate-pulse,
-.special-deal-card:not(.visible) .animate-bounce,
-.special-deal-card:not(.visible) .animate-spin {
-  animation-play-state: paused;
-}
-
-/* Reduce animation complexity */
-.animate-pulse-optimized {
-  animation: pulse-optimized 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse-optimized {
-  0%, 100% {
-    opacity: 1;
+    return (
+      <div className="text-right space-y-1 sm:space-y-2">
+        <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
+          {inches.map(i => <span key={i.label}>{i.label}</span>)}
+        </div>
+        <div className="grid grid-cols-2 gap-1 sm:gap-2 font-bold text-primary text-sm sm:text-base">
+          {inches.map(i => <span key={i.label}>{formatPrice(i.price)}</span>)}
+        </div>
+        <div className="flex gap-1 sm:gap-2 mt-1 sm:mt-2">
+          {inches.map(i => (
+            <AddToBasketButton
+              key={i.label}
+              item={{
+                id:           `${item.id}-${i.label}`,
+                name:         `${item.name} (${i.label})`,
+                category:     item.category,
+                singlePrice:  i.price,
+                description:  item.description
+              }}
+              variant="small"
+            />
+          ))}
+        </div>
+      </div>
+    )
   }
-  50% {
-    opacity: 0.8;
+
+  // 2) Multi‐size items (Medium/Large/X-Large) - MOVE THIS SECOND
+  if (item.priceMedium || item.priceLarge || item.priceXLarge) {
+    // ... existing logic
   }
-}
 
-/* Use transform3d for GPU acceleration */
-.animate-bounce-gpu {
-  animation: bounce-gpu 1s infinite;
-}
-
-@keyframes bounce-gpu {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
+  // 3) Single‐price items - KEEP AS IS
+  if (item.singlePrice != null) {
+    // ... existing logic
   }
-  50% {
-    transform: translate3d(0, -10px, 0);
-  }
+
+  // 4) Fallback small/med/lg/xl - KEEP AS IS
+  // ... existing logic
 }
 ```
 
-#### 3.2 Implement Animation Control Hook
-**File:** `client/src/hooks/use-animation-control.tsx` (New)
+### Step 2: Verify Categories Are Using Correct Data
+**File**: `client/src/pages/menu.tsx` 
 
-```typescript
-import { useIntersectionObserver } from './use-intersection-observer';
-import { useEffect } from 'react';
+**Check**: Ensure that the categories "pizzas" and "garlic-bread-pizza-extras" are properly fetching items from the API with the correct category names.
 
-export function useAnimationControl() {
-  const [ref, isVisible] = useIntersectionObserver({
-    threshold: 0.1,
-    rootMargin: '50px'
-  });
+**Expected Behavior**:
+- Pizzas category should display items with 10"/12" size options
+- Garlic Bread & Pizza Extras category should display items with 10"/12" size options  
+- Each size should have its own "Add to Basket" button
 
-  useEffect(() => {
-    if (ref.current) {
-      const element = ref.current;
-      if (isVisible) {
-        element.classList.add('visible');
-      } else {
-        element.classList.remove('visible');
-      }
-    }
-  }, [isVisible]);
+### Step 3: Test Functionality
+**Manual Testing Steps**:
+1. Navigate to Menu page
+2. Scroll to "Pizzas" section
+3. Verify each pizza shows two columns: "10\"" and "12\"" with respective prices
+4. Verify each pizza has two "Add to Basket" buttons (one per size)
+5. Scroll to "Garlic Bread & Pizza Extras" section  
+6. Verify same behavior for garlic bread items
+7. Test adding items to basket with different sizes
+8. Verify basket shows correct size in item name (e.g., "Margherita (10\")")
 
-  return [ref, isVisible] as const;
-}
-```
+### Step 4: Ensure Accessibility Compliance
+**Verification**: 
+- Keyboard navigation should work for all new "Add to Basket" buttons
+- Screen readers should announce size options clearly
+- ARIA labels should be preserved from existing implementation
 
-### Phase 4: List Virtualization (Optional for Large Menus)
+### Step 5: Verify Mobile Responsiveness
+**Check**: Ensure the 2-column grid layout (10"/12") works correctly on mobile devices without text overflow or button cramping.
 
-#### 4.1 Implement Virtual Scrolling for Long Categories
-**File:** `client/src/components/virtualized-menu-list.tsx` (New)
+## Expected Outcome
 
-```typescript
-import { FixedSizeList as List } from 'react-window';
-import { MenuItemData } from '@/data/menu-data';
+After implementing this fix:
+- ✅ Pizza items will display "10\"" and "12\"" price columns with respective pricing
+- ✅ Garlic bread items will display "10\"" and "12\"" price columns with respective pricing  
+- ✅ Each size will have its own functional "Add to Basket" button
+- ✅ Basket will correctly identify items by size (e.g., "Margherita (10\")" vs "Margherita (12\")")
+- ✅ All existing functionality for other categories (kebabs, burgers, etc.) will remain unchanged
+- ✅ Keyboard navigation and accessibility features will be preserved
 
-interface VirtualizedMenuListProps {
-  items: MenuItemData[];
-  height: number;
-  itemHeight: number;
-}
+## Files to Modify
+1. `client/src/components/menu-category.tsx` - Reorder logic in `renderPriceDisplay` function
 
-const VirtualizedMenuList = ({ items, height, itemHeight }: VirtualizedMenuListProps) => {
-  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
-    <div style={style}>
-      <MenuItemCard item={items[index]} />
-    </div>
-  );
-
-  return (
-    <List
-      height={height}
-      itemCount={items.length}
-      itemSize={itemHeight}
-      overscanCount={5}
-    >
-      {Row}
-    </List>
-  );
-};
-```
-
-### Phase 5: Debounce State Updates
-
-#### 5.1 Add Debounced Category Switching
-**File:** `client/src/hooks/use-debounced-state.tsx` (New)
-
-```typescript
-import { useState, useEffect } from 'react';
-
-export function useDebouncedState<T>(initialValue: T, delay: number) {
-  const [value, setValue] = useState<T>(initialValue);
-  const [debouncedValue, setDebouncedValue] = useState<T>(initialValue);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-
-  return [debouncedValue, setValue] as const;
-}
-```
-
-## Implementation Priority Order
-
-### Immediate (Critical):
-1. Fix unthrottled scroll handler in FloatingAIButton
-2. Add React.memo to MenuCategory component
-3. Memoize expensive calculations in Menu component
-
-### High Priority:
-1. Implement IntersectionObserver for animation control
-2. Create optimized CSS animations with will-change
-3. Add conditional animation rendering
-
-### Medium Priority:
-1. Create memoized SpecialDealCard component
-2. Implement debounced state updates
-3. Add GPU-accelerated animations
-
-### Optional (for very large menus):
-1. Implement virtualization for long lists
-2. Add progressive loading for menu items
-
-## Performance Metrics to Track
-
-- **First Contentful Paint (FCP)**: Target < 1.5s
-- **Cumulative Layout Shift (CLS)**: Target < 0.1
-- **Frame Rate**: Maintain 60fps during scroll
-- **Memory Usage**: Monitor for memory leaks from animations
-- **JavaScript Execution Time**: Reduce scroll handler overhead
-
-## Testing Strategy
-
-1. Use Chrome DevTools Performance tab to profile before/after
-2. Test on low-end devices with CPU throttling
-3. Monitor layout thrashing in Rendering tab
-4. Check animation performance with FPS meter
-5. Test scroll responsiveness on mobile devices
-
-## Expected Performance Improvements
-
-- **50-70% reduction** in scroll jank
-- **40-60% reduction** in JavaScript execution time during scroll
-- **30-50% reduction** in layout thrashing
-- **Improved battery life** on mobile devices
-- **Better accessibility** for users with motion sensitivity
-
-This optimization plan addresses the root causes of UI glitches and provides a systematic approach to improving the Menu page performance while maintaining the visual appeal of the special offers and animations.
+## No API Changes Required
+The API is already returning the correct data structure. The issue is purely in the frontend component logic ordering.

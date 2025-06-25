@@ -40,7 +40,42 @@ const getItemEmoji = (item: MenuItemData) => {
 }
 
 function renderPriceDisplay(item: MenuItemData) {
-  // 1) Multi‐size items
+  // 1) Pizza‐inch logic (10″ / 12″) - CHECK THIS FIRST
+  if (item.price10inches != null || item.price12inches != null) {
+    const inches = [
+      item.price10inches != null && { label: '10\"', price: item.price10inches },
+      item.price12inches != null && { label: '12\"', price: item.price12inches }
+    ].filter(Boolean) as { label: string; price: number }[]
+
+    return (
+      <div className="text-right space-y-1 sm:space-y-2">
+        <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
+          {inches.map(i => <span key={i.label} className="text-center">{i.label}</span>)}
+        </div>
+        <div className="grid grid-cols-2 gap-1 sm:gap-2 font-bold text-primary text-sm sm:text-base">
+          {inches.map(i => <span key={i.label} className="text-center">{formatPrice(i.price)}</span>)}
+        </div>
+        <div className="flex gap-1 sm:gap-2 mt-1 sm:mt-2">
+          {inches.map(i => (
+            <AddToBasketButton
+              key={i.label}
+              item={{
+                id:           `${item.id}-${i.label}`,
+                name:         `${item.name} (${i.label})`,
+                category:     item.category,
+                singlePrice:  i.price,
+                description:  item.description
+              }}
+              variant="small"
+              className="w-full text-xs sm:text-sm"
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // 2) Multi‐size items (Medium/Large/X-Large)
   if (item.priceMedium || item.priceLarge || item.priceXLarge) {
     const sizes = [
       item.priceMedium  != null && { label: 'Medium',  price: item.priceMedium  },
@@ -76,7 +111,7 @@ function renderPriceDisplay(item: MenuItemData) {
     )
   }
 
-  // 2) Single‐price items
+  // 3) Single‐price items
   if (item.singlePrice != null) {
     return (
       <div className="text-right space-y-2">
@@ -94,40 +129,6 @@ function renderPriceDisplay(item: MenuItemData) {
           variant="default"
           className="w-full text-sm sm:text-base"
         />
-      </div>
-    )
-  }
-
-  // 3) Pizza‐inch logic (10″ / 12″)
-  if (item.price10inches != null || item.price12inches != null) {
-    const inches = [
-      item.price10inches != null && { label: '10\"', price: item.price10inches },
-      item.price12inches != null && { label: '12\"', price: item.price12inches }
-    ].filter(Boolean) as { label: string; price: number }[]
-
-    return (
-      <div className="text-right space-y-1 sm:space-y-2">
-        <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
-          {inches.map(i => <span key={i.label}>{i.label}</span>)}
-        </div>
-        <div className="grid grid-cols-2 gap-1 sm:gap-2 font-bold text-primary text-sm sm:text-base">
-          {inches.map(i => <span key={i.label}>{formatPrice(i.price)}</span>)}
-        </div>
-        <div className="flex gap-1 sm:gap-2 mt-1 sm:mt-2">
-          {inches.map(i => (
-            <AddToBasketButton
-              key={i.label}
-              item={{
-                id:           `${item.id}-${i.label}`,
-                name:         `${item.name} (${i.label})`,
-                category:     item.category,
-                singlePrice:  i.price,
-                description:  item.description
-              }}
-              variant="small"
-            />
-          ))}
-        </div>
       </div>
     )
   }
