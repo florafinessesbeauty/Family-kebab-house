@@ -32,12 +32,36 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  async getAllMenuItems(): Promise<MenuItem[]> {
-    return await db.select().from(menuItems);
+  async getAllMenuItems(): Promise<any[]> {
+    const items = await db.select().from(menuItems);
+    return items.map(item => ({
+      ...item,
+      priceSmall: item.price_small,
+      priceMedium: item.price_medium,
+      priceLarge: item.price_large,
+      priceXLarge: item.price_x_large,
+      price10inches: item.price_10_inches,
+      price12inches: item.price_12_inches,
+      singlePrice: item.single_price,
+      isSpecial: item.is_special,
+      isAvailable: item.is_available
+    }));
   }
 
-  async getMenuItemsByCategory(category: string): Promise<MenuItem[]> {
-    return await db.select().from(menuItems).where(eq(menuItems.category, category));
+  async getMenuItemsByCategory(category: string): Promise<any[]> {
+    const items = await db.select().from(menuItems).where(eq(menuItems.category, category));
+    return items.map(item => ({
+      ...item,
+      priceSmall: item.price_small,
+      priceMedium: item.price_medium,
+      priceLarge: item.price_large,
+      priceXLarge: item.price_x_large,
+      price10inches: item.price_10_inches,
+      price12inches: item.price_12_inches,
+      singlePrice: item.single_price,
+      isSpecial: item.is_special,
+      isAvailable: item.is_available
+    }));
   }
 
   async createMenuItem(item: InsertMenuItem): Promise<MenuItem> {
