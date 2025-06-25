@@ -123,10 +123,10 @@ export default function Home({}: HomeProps) {
       image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
     },
     {
-      id: "family-deal-10", 
-      name: "Family Deal",
-      description: "10\" Pizza + 6 Nuggets + Chicken Burger + 2 Fried Chicken + 2 Chips + Drink",
-      price: 26.90,
+      id: "family-deal-12", 
+      name: "Family Deal (12\" Pizza)",
+      description: "12\" Pizza + 6 Nuggets + Chicken Burger + 2 Fried Chicken + 2 Chips + Drink",
+      price: 28.90,
       image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
     },
     {
