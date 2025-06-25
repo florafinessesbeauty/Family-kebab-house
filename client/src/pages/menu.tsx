@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
@@ -21,6 +21,8 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
+  // ─── new: ref for scrolling into view ───
+  const menuContentRef = useRef<HTMLElement>(null);
 
   const { announce } = useScreenReaderAnnouncements();
 
@@ -235,6 +237,16 @@ export default function Menu() {
     );
   }
 
+  // ─── new: scroll into view when activeCategory changes ───
+  useEffect(() => {
+    if (menuContentRef.current) {
+      menuContentRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }, [activeCategory]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Accessibility Controls */}
@@ -316,13 +328,7 @@ export default function Menu() {
                       onClick={() => {
                         setActiveCategory(category.id);
                         announce(`Viewing ${category.name} category with ${itemCount} items`);
-                        // Smooth scroll to menu content
-                        setTimeout(() => {
-                          document.getElementById('menu-content')?.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start' 
-                          });
-                        }, 100);
+                        setFocusedItemIndex(0);
                       }}
                       variant={activeCategory === category.id ? "default" : "outline"}
                       className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
@@ -344,7 +350,13 @@ export default function Menu() {
           </div>
 
           {/* Menu Content */}
-          <section className="py-12 md:py-16 relative" id="menu-content">
+          <section
+            className="py-12 md:py-16 relative"
+            id="menu-content"
+            ref={menuContentRef}
+            // ensure sticky nav doesn't cover it:
+            style={{ scrollMarginTop: '4rem' }}
+          >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
                 <div className="lg:col-span-2 relative">
