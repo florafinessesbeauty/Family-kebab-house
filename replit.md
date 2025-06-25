@@ -194,6 +194,18 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Corrected Saturday Combo to match Chicken Combo Meal £11.50
 - ✅ All ingredients and descriptions now reflect authentic menu items
 
+**2025-06-25**: Comprehensive mobile responsiveness improvements and meal builder expansion
+- ✅ Fixed overlapping text issues in meal builder with proper button heights and spacing
+- ✅ Enhanced mobile responsiveness across entire website with responsive breakpoints
+- ✅ Optimized homepage slideshow, special offers, and navigation for mobile devices
+- ✅ Improved menu page accessibility controls and category navigation for touch devices
+- ✅ Updated special deal cards and menu item layouts with mobile-friendly typography
+- ✅ Expanded meal builder with 47 authentic menu options from Family Kebab House
+- ✅ Added comprehensive main courses: kebabs, burgers, chicken, pizzas, wraps, scampi
+- ✅ Enhanced sides selection: multiple chip sizes, coleslaw, onion rings, breads
+- ✅ Expanded drinks menu: soft drinks, juices, water with authentic pricing
+- ✅ Added extensive extras: proteins, toppings, vegetables, sauces for customization
+
 **2024-06-24**: Comprehensive codebase optimization and production readiness
 - ✅ Removed all debug console.log statements from production code
 - ✅ Fixed database schema consistency issues with camelCase/snake_case conversion
