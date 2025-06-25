@@ -106,14 +106,14 @@ function renderPriceDisplay(item: MenuItemData) {
     ].filter(Boolean) as { label: string; price: number }[]
 
     return (
-      <div className="text-right space-y-2">
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-500">
+      <div className="text-right space-y-1 sm:space-y-2">
+        <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
           {inches.map(i => <span key={i.label}>{i.label}</span>)}
         </div>
-        <div className="grid grid-cols-2 gap-2 font-bold text-primary">
+        <div className="grid grid-cols-2 gap-1 sm:gap-2 font-bold text-primary text-sm sm:text-base">
           {inches.map(i => <span key={i.label}>{formatPrice(i.price)}</span>)}
         </div>
-        <div className="flex gap-2 mt-2">
+        <div className="flex gap-1 sm:gap-2 mt-1 sm:mt-2">
           {inches.map(i => (
             <AddToBasketButton
               key={i.label}
@@ -175,41 +175,41 @@ const MenuCategory = React.memo(function MenuCategory({
   icon
 }: Readonly<MenuCategoryProps>) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* header */}
-      <div className="text-center mb-6 sm:mb-8">
-        <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-bold text-charcoal mb-2 flex items-center justify-center gap-2 sm:gap-3">
-          {icon && <span className="text-xl sm:text-2xl md:text-3xl">{icon}</span>}
+      <div className="text-center mb-4 sm:mb-6 md:mb-8">
+        <h2 className="font-poppins text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-charcoal mb-2 flex items-center justify-center gap-2 sm:gap-3">
+          {icon && <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">{icon}</span>}
           {title}
         </h2>
-        {description && <p className="text-base sm:text-lg text-gray-600 px-4">{description}</p>}
+        {description && <p className="text-sm sm:text-base md:text-lg text-gray-600 px-4">{description}</p>}
       </div>
 
       {/* items grid */}
-      <div className="grid gap-4">
+      <div className="grid gap-3 sm:gap-4">
         {items.map(item => (
           <Card
             key={item.id}
-            className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer relative ${
+            className={`group hover:shadow-lg transition-all duration-300 hover:scale-[1.01] sm:hover:scale-[1.02] cursor-pointer relative ${
               item.isSpecial
                 ? 'border-accent border-2 bg-gradient-to-r from-accent/5 to-orange-50 shadow-md'
                 : 'hover:border-accent/30'
             }`}
           >
-            <CardContent className="p-3 sm:p-4 relative">
+            <CardContent className="p-2 sm:p-3 md:p-4 relative">
               {/* hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {/* content row */}
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 relative z-10">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-3 relative z-10">
                 <div className="flex-1">
                   {/* title + tooltip + special badge */}
-                  <div className="flex items-center gap-2 mb-2 flex-wrap">
-                    <h3 className="font-semibold text-charcoal text-base sm:text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
-                      <span className="group-hover:scale-125 transition-transform duration-300">
+                  <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2 flex-wrap">
+                    <h3 className="font-semibold text-charcoal text-sm sm:text-base md:text-lg flex items-center gap-1 sm:gap-2 group-hover:text-primary transition-colors leading-tight">
+                      <span className="group-hover:scale-125 transition-transform duration-300 text-sm sm:text-base">
                         {getItemEmoji(item)}
                       </span>
-                      {item.name}
+                      <span className="line-clamp-2">{item.name}</span>
                     </h3>
                     <div className="group-hover:scale-110 transition-transform duration-300">
                       <NutritionalInfoTooltip
@@ -228,7 +228,7 @@ const MenuCategory = React.memo(function MenuCategory({
                       />
                     </div>
                     {item.isSpecial && (
-                      <Badge variant="secondary" className="bg-accent text-white animate-pulse">
+                      <Badge variant="secondary" className="bg-accent text-white animate-pulse text-xs">
                         🌟 Special
                       </Badge>
                     )}
@@ -236,14 +236,14 @@ const MenuCategory = React.memo(function MenuCategory({
 
                   {/* description */}
                   {item.description && (
-                    <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors mb-3">
+                    <p className="text-gray-600 text-xs sm:text-sm group-hover:text-gray-700 transition-colors mb-2 sm:mb-3 line-clamp-2">
                       {item.description}
                     </p>
                   )}
                 </div>
 
                 {/* prices & Add buttons */}
-                <div className="relative z-20 w-full sm:w-auto sm:min-w-[200px]">
+                <div className="relative z-20 w-full sm:w-auto sm:min-w-[160px] md:min-w-[200px]">
                   {renderPriceDisplay(item)}
                 </div>
               </div>
