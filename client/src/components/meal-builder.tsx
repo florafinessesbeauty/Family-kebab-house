@@ -166,12 +166,12 @@ export default function MealBuilder() {
               <Button
                 key={comp.id}
                 variant={customMeal.main?.id === comp.id ? 'default' : 'outline'}
-                className="flex flex-col items-start p-3"
+                className="flex flex-col items-start p-3 h-auto min-h-[80px] justify-start text-left whitespace-normal"
                 onClick={() => addComponent(comp)}
               >
-                <div className="font-medium">{comp.name}</div>
-                <div className="text-sm text-gray-600">{comp.description}</div>
-                <div className="font-bold text-primary">£{comp.price.toFixed(2)}</div>
+                <div className="font-medium text-sm mb-1 leading-tight">{comp.name}</div>
+                <div className="text-xs text-gray-600 mb-1 leading-tight">{comp.description}</div>
+                <div className="font-bold text-primary text-sm">£{comp.price.toFixed(2)}</div>
               </Button>
             ))}
           </div>
@@ -196,13 +196,13 @@ export default function MealBuilder() {
               <Button
                 key={comp.id}
                 variant="outline"
-                className="flex flex-col items-start p-3"
+                className="flex flex-col items-start p-3 h-auto min-h-[80px] justify-start text-left whitespace-normal"
                 onClick={() => addComponent(comp)}
                 disabled={customMeal.sides.length >= 3 && !customMeal.sides.some(s => s.id === comp.id)}
               >
-                <div className="font-medium">{comp.name}</div>
-                <div className="text-sm text-gray-600">{comp.description}</div>
-                <div className="font-bold text-primary">£{comp.price.toFixed(2)}</div>
+                <div className="font-medium text-sm mb-1 leading-tight">{comp.name}</div>
+                <div className="text-xs text-gray-600 mb-1 leading-tight">{comp.description}</div>
+                <div className="font-bold text-primary text-sm">£{comp.price.toFixed(2)}</div>
               </Button>
             ))}
           </div>
@@ -231,12 +231,12 @@ export default function MealBuilder() {
               <Button
                 key={comp.id}
                 variant={customMeal.drink?.id === comp.id ? 'default' : 'outline'}
-                className="flex flex-col items-start p-3"
+                className="flex flex-col items-start p-3 h-auto min-h-[80px] justify-start text-left whitespace-normal"
                 onClick={() => addComponent(comp)}
               >
-                <div className="font-medium">{comp.name}</div>
-                <div className="text-sm text-gray-600">{comp.description}</div>
-                <div className="font-bold text-primary">£{comp.price.toFixed(2)}</div>
+                <div className="font-medium text-sm mb-1 leading-tight">{comp.name}</div>
+                <div className="text-xs text-gray-600 mb-1 leading-tight">{comp.description}</div>
+                <div className="font-bold text-primary text-sm">£{comp.price.toFixed(2)}</div>
               </Button>
             ))}
           </div>
@@ -261,13 +261,13 @@ export default function MealBuilder() {
               <Button
                 key={comp.id}
                 variant="outline"
-                className="flex flex-col items-start p-3"
+                className="flex flex-col items-start p-3 h-auto min-h-[80px] justify-start text-left whitespace-normal"
                 onClick={() => addComponent(comp)}
                 disabled={customMeal.extras.length >= 5 && !customMeal.extras.some(x => x.id === comp.id)}
               >
-                <div className="font-medium">{comp.name}</div>
-                <div className="text-sm text-gray-600">{comp.description}</div>
-                <div className="font-bold text-primary">£{comp.price.toFixed(2)}</div>
+                <div className="font-medium text-sm mb-1 leading-tight">{comp.name}</div>
+                <div className="text-xs text-gray-600 mb-1 leading-tight">{comp.description}</div>
+                <div className="font-bold text-primary text-sm">£{comp.price.toFixed(2)}</div>
               </Button>
             ))}
           </div>
