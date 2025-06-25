@@ -262,7 +262,6 @@ export default function Home({}: HomeProps) {
                               description: slide.description
                             }}
                             className="flex-1 bg-accent-gold text-charcoal hover:bg-yellow-600 text-sm sm:text-base"
-                            size="sm"
                           />
                           <a href="tel:01692584100" className="flex-1 sm:flex-none">
                             <Button size="sm" variant="outline" className="w-full bg-white/90 hover:bg-white text-charcoal font-bold px-4 py-2 sm:px-6 sm:py-4 transition-all duration-300 text-sm sm:text-base">
@@ -309,15 +308,15 @@ export default function Home({}: HomeProps) {
           </div>
 
           {/* Thumbnail Preview */}
-          <div className="mt-8 flex justify-center gap-4 overflow-x-auto pb-4">
+          <div className="mt-6 sm:mt-8 flex justify-center gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-4 px-4">
             {foodSlides.map((slide, index) => (
               <button
                 key={slide.id}
                 onClick={() => setCurrentSlide(index)}
-                className={`flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden transition-all duration-300 ${
+                className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden transition-all duration-300 ${
                   index === currentSlide 
-                    ? 'ring-4 ring-accent-gold scale-110' 
-                    : 'ring-2 ring-white/30 hover:ring-white/60 hover:scale-105'
+                    ? 'ring-2 sm:ring-4 ring-accent-gold scale-110' 
+                    : 'ring-1 sm:ring-2 ring-white/30 hover:ring-white/60 hover:scale-105'
                 }`}
               >
                 <img
@@ -330,17 +329,17 @@ export default function Home({}: HomeProps) {
           </div>
 
           {/* Hunger-Inducing Call to Action */}
-          <div className="text-center mt-12">
-            <div className="bg-gradient-to-r from-primary to-accent p-8 rounded-2xl max-w-3xl mx-auto">
-              <h3 className="font-poppins text-2xl md:text-3xl font-bold text-white mb-4">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12">
+            <div className="bg-gradient-to-r from-primary to-accent p-4 sm:p-6 md:p-8 rounded-2xl max-w-3xl mx-auto">
+              <h3 className="font-poppins text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4">
                 🤤 Can't Decide? We Don't Blame You! 🤤
               </h3>
-              <p className="text-lg md:text-xl text-orange-100 mb-6">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-orange-100 mb-4 sm:mb-6">
                 Every dish is prepared with love and the freshest ingredients. Call now and treat yourself to something amazing!
               </p>
               <a href="tel:01692584100">
-                <Button size="lg" className="bg-accent-gold text-charcoal hover:bg-yellow-600 font-bold px-8 py-4 text-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
-                  <Phone className="mr-2 h-5 w-5" />
+                <Button size="lg" className="w-full sm:w-auto bg-accent-gold text-charcoal hover:bg-yellow-600 font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                  <Phone className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   🍽️ I'm Hungry - Call Now!
                 </Button>
               </a>
@@ -350,27 +349,27 @@ export default function Home({}: HomeProps) {
       </section>
 
       {/* Special Offers */}
-      <section className="py-16 bg-gradient-to-r from-primary to-red-600">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="font-poppins text-4xl font-bold text-white mb-4">Special Offers</h2>
-              <p className="text-red-100 text-lg">Fresh ingredients • Unbeatable value • Ready in 15 minutes</p>
+      <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-r from-primary to-red-600">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Special Offers</h2>
+              <p className="text-red-100 text-sm sm:text-base md:text-lg">Fresh ingredients • Unbeatable value • Ready in 15 minutes</p>
             </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {specialOffers.map((offer) => (
-              <Card key={offer.id} className="overflow-hidden transform hover:scale-105 transition-transform">
+              <Card key={offer.id} className="overflow-hidden transform hover:scale-105 transition-transform h-full flex flex-col">
                 <img 
                   src={offer.image} 
                   alt={offer.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-32 sm:h-40 md:h-48 object-cover"
                 />
-                <CardContent className="p-6">
-                  <h3 className="font-poppins text-xl font-bold text-charcoal mb-2">{offer.name}</h3>
-                  <p className="text-gray-600 mb-4">{offer.description}</p>
-                  <div className="space-y-3">
+                <CardContent className="p-4 sm:p-5 md:p-6 flex-grow flex flex-col">
+                  <h3 className="font-poppins text-lg sm:text-xl font-bold text-charcoal mb-2">{offer.name}</h3>
+                  <p className="text-gray-600 mb-4 text-sm sm:text-base flex-grow">{offer.description}</p>
+                  <div className="space-y-2 sm:space-y-3 mt-auto">
                     <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold text-brand-primary">£{offer.price.toFixed(2)}</span>
+                      <span className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-primary">£{offer.price.toFixed(2)}</span>
                     </div>
                     <AddToBasketButton 
                       item={{
@@ -380,10 +379,10 @@ export default function Home({}: HomeProps) {
                         singlePrice: offer.price,
                         description: offer.description
                       }}
-                      className="w-full"
+                      className="w-full text-sm sm:text-base"
                     />
                     <a href="tel:01692584100" aria-label={`Order ${offer.name} now by calling 01692 584 100`}>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full text-sm sm:text-base">
                         Call to Order
                       </Button>
                     </a>

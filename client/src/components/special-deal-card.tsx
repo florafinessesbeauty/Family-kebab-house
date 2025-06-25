@@ -104,30 +104,30 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
       
       <div className="relative z-10">
         {/* Title with enhanced styling */}
-        <h3 className={`font-bold mb-3 ${
-          isKebabFeast ? 'text-yellow-100 text-2xl font-black animate-pulse-optimized' : 
-          isFamilyDeal ? 'text-pink-100 text-xl' : 
-          isChickenCombo ? 'text-orange-100 text-xl' :
-          'text-white text-lg'
+        <h3 className={`font-bold mb-2 sm:mb-3 ${
+          isKebabFeast ? 'text-yellow-100 text-lg sm:text-xl md:text-2xl font-black animate-pulse-optimized' : 
+          isFamilyDeal ? 'text-pink-100 text-base sm:text-lg md:text-xl' : 
+          isChickenCombo ? 'text-orange-100 text-base sm:text-lg md:text-xl' :
+          'text-white text-sm sm:text-base md:text-lg'
         }`}>
           {deal.name}
         </h3>
         
         {/* Description */}
         {deal.description && (
-          <p className="text-sm mb-4 opacity-90">
+          <p className="text-xs sm:text-sm mb-3 sm:mb-4 opacity-90 leading-tight">
             {deal.description}
           </p>
         )}
         
         {/* Price with special styling */}
-        <div className={`mb-4 font-bold ${
-          isKebabFeast ? 'text-4xl text-yellow-200 animate-pulse-optimized font-black' : 
-          isFamilyDeal ? 'text-2xl text-pink-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse-optimized' : 
-          isChickenCombo ? 'text-2xl text-orange-100 group-hover:text-3xl group-hover:text-white group-hover:animate-pulse-optimized' :
-          'text-xl text-white'
+        <div className={`mb-3 sm:mb-4 font-bold ${
+          isKebabFeast ? 'text-2xl sm:text-3xl md:text-4xl text-yellow-200 animate-pulse-optimized font-black' : 
+          isFamilyDeal ? 'text-lg sm:text-xl md:text-2xl text-pink-100 group-hover:text-xl group-hover:sm:text-2xl group-hover:md:text-3xl group-hover:text-white group-hover:animate-pulse-optimized' : 
+          isChickenCombo ? 'text-lg sm:text-xl md:text-2xl text-orange-100 group-hover:text-xl group-hover:sm:text-2xl group-hover:md:text-3xl group-hover:text-white group-hover:animate-pulse-optimized' :
+          'text-base sm:text-lg md:text-xl text-white'
         }`}>
-          £{deal.singlePrice?.toFixed(2) || deal.price?.toFixed(2) || '0.00'}
+          £{deal.singlePrice?.toFixed(2) || '0.00'}
         </div>
         
         {/* Add to Basket Button */}
@@ -136,17 +136,17 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
             id: deal.id,
             name: deal.name,
             category: deal.category,
-            singlePrice: deal.singlePrice || deal.price || 0,
+            singlePrice: deal.singlePrice || 0,
             description: deal.description
           }}
           className={
             isKebabFeast 
-              ? "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white hover:from-yellow-300 hover:via-orange-300 hover:to-red-400 font-black text-lg transform hover:scale-110 shadow-2xl animate-pulse-optimized hover:animate-none border-4 border-white" 
+              ? "bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white hover:from-yellow-300 hover:via-orange-300 hover:to-red-400 font-black text-sm sm:text-base md:text-lg transform hover:scale-110 shadow-2xl animate-pulse-optimized hover:animate-none border-2 sm:border-4 border-white py-2 sm:py-3" 
               : isFamilyDeal
-              ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-400 hover:to-pink-400 font-bold transform hover:scale-105 shadow-xl border-2 border-white"
+              ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-400 hover:to-pink-400 font-bold transform hover:scale-105 shadow-xl border-2 border-white text-sm sm:text-base py-2 sm:py-3"
               : isChickenCombo
-              ? "bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-400 hover:to-orange-400 font-bold transform hover:scale-105 shadow-xl border-2 border-white"
-              : "bg-white text-accent hover:bg-gray-100 font-semibold transform hover:scale-105"
+              ? "bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-400 hover:to-orange-400 font-bold transform hover:scale-105 shadow-xl border-2 border-white text-sm sm:text-base py-2 sm:py-3"
+              : "bg-white text-accent hover:bg-gray-100 font-semibold transform hover:scale-105 text-sm sm:text-base py-2 sm:py-3"
           }
         />
       </div>
