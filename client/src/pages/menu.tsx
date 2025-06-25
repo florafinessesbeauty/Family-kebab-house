@@ -41,7 +41,13 @@ export default function Menu() {
   );
 
   const specialDeals = useMemo(
-    () => menuData.filter(item => item.isSpecial),
+    () => menuData.filter(item => 
+      item.isSpecial || 
+      item.category === 'family-deals' || 
+      item.category === 'pizza-offers' || 
+      item.category === 'chicken-combo-meals' ||
+      item.name.includes('Kebab Feast')
+    ),
     [menuData]
   );
 
