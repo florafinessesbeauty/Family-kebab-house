@@ -163,32 +163,95 @@ html {
 /* Mobile-first responsive utilities */
 @layer components {
   .mobile-container {
-    @apply px-4 sm:px-6 lg:px-8;
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+  }
+  
+  @media (min-width: 640px) {
+    .mobile-container {
+      padding-left: 1.5rem; /* sm:px-6 */
+      padding-right: 1.5rem; /* sm:px-6 */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .mobile-container {
+      padding-left: 2rem; /* lg:px-8 */
+      padding-right: 2rem; /* lg:px-8 */
+    }
   }
 
   .mobile-text-responsive {
-    @apply text-base md:text-lg;
+    font-size: 1rem; /* text-base */
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-text-responsive {
+      font-size: 1.125rem; /* text-lg */
+    }
   }
 
   .mobile-heading-responsive {
-    @apply text-xl md:text-2xl lg:text-3xl;
+    font-size: 1.25rem; /* text-xl */
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-heading-responsive {
+      font-size: 1.5rem; /* text-2xl */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .mobile-heading-responsive {
+      font-size: 1.875rem; /* text-3xl */
+    }
   }
 
   .mobile-button-responsive {
-    @apply py-3 px-4 text-base min-h-[48px] touch-manipulation;
+    padding-top: 0.75rem; /* py-3 */
+    padding-bottom: 0.75rem; /* py-3 */
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    font-size: 1rem; /* text-base */
+    min-height: 48px; /* min-h-[48px] */
+    touch-action: manipulation; /* touch-manipulation */
   }
 
   .mobile-card-responsive {
-    @apply p-4 md:p-6 rounded-xl md:rounded-2xl;
+    padding: 1rem; /* p-4 */
+    border-radius: 0.75rem; /* rounded-xl */
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-card-responsive {
+      padding: 1.5rem; /* md:p-6 */
+      border-radius: 1rem; /* md:rounded-2xl */
+    }
   }
 
   .mobile-grid-responsive {
-    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+    gap: 1rem; /* gap-4 */
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-grid-responsive {
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+      gap: 1.5rem; /* md:gap-6 */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .mobile-grid-responsive {
+      grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+    }
   }
 
   /* Touch-friendly interactive elements */
   .touch-target {
-    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+    min-height: 44px; /* min-h-[44px] */
+    min-width: 44px; /* min-w-[44px] */
+    touch-action: manipulation; /* touch-manipulation */
   }
 
   /* Prevent content squishing on mobile */
