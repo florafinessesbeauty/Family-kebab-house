@@ -175,8 +175,13 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
             id: deal.id,
             name: deal.name,
             category: deal.category,
-            singlePrice: deal.singlePrice || 0,
-            description: deal.description
+            singlePrice: deal.singlePrice || deal.price12inches || deal.price10inches || deal.priceLarge || deal.priceMedium || deal.priceSmall || 0,
+            description: deal.description,
+            price10inches: deal.price10inches,
+            price12inches: deal.price12inches,
+            priceMedium: deal.priceMedium,
+            priceLarge: deal.priceLarge,
+            priceSmall: deal.priceSmall
           }}
           className={
             isKebabFeast 
