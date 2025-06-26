@@ -156,6 +156,60 @@ html {
   animation: float 2s ease-in-out infinite;
 }
 
+/* Enhanced animations for special deals */
+@keyframes spin-gpu {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce-gpu {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -30px, 0);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+@keyframes pulse-optimized {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-spin-gpu {
+  animation: spin-gpu 1s linear infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.animate-bounce-gpu {
+  animation: bounce-gpu 1s infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.animate-pulse-optimized {
+  animation: pulse-optimized 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
   .hover-brand-primary:hover {
     color: hsl(var(--link-hover));
   }

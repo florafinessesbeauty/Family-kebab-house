@@ -10,9 +10,10 @@ interface SpecialDealCardProps {
 const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDealCardProps) {
   const [ref, isVisible] = useAnimationControl();
   
-  const isKebabFeast = deal.name === "Kebab Feast" || deal.name === "🎉 Kebab Feast";
-  const isFamilyDeal = deal.name.includes("Family Deal");
-  const isChickenCombo = deal.name.includes("3 Pcs Chicken + 4 Spicy Wings");
+  const isKebabFeast = deal.name.includes("Kebab Feast") || deal.id === "kebab-feast";
+  const isFamilyDeal = deal.name.includes("Family") && deal.name.includes("Deal");
+  const isChickenCombo = deal.name.includes("Chicken Combo") || deal.name.includes("3 pcs + 4 Wings");
+  const isLunchOffer = deal.category === "lunch-time-offers";
 
   return (
     <div 
@@ -24,6 +25,8 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
           ? "bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 hover:scale-105 shadow-xl border-2 border-pink-300"
           : isChickenCombo
           ? "bg-gradient-to-br from-red-600 via-orange-600 to-yellow-600 hover:scale-105 shadow-xl border-2 border-orange-300"
+          : isLunchOffer
+          ? "bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 hover:scale-105 shadow-xl border-2 border-blue-300"
           : "bg-gradient-to-br from-accent to-orange-600 hover:scale-105"
       }`}
     >
@@ -101,6 +104,28 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
           <div className="absolute inset-0 bg-gradient-to-t from-red-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
         </>
       )}
+
+      {/* Interactive Lunch Offer Highlights - Only when visible */}
+      {isLunchOffer && isVisible && (
+        <>
+          {/* Clock animation */}
+          <div className="absolute top-2 left-2 text-blue-200 animate-bounce-gpu text-xl">⏰</div>
+          <div className="absolute top-2 right-2 text-blue-200 animate-bounce-gpu text-lg" style={{ animationDelay: '0.5s' }}>☀️</div>
+          
+          {/* Limited time badge */}
+          <div className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold transform rotate-12 animate-pulse">
+            LIMITED TIME
+          </div>
+          
+          {/* Lunch special badge */}
+          <div className="absolute -top-2 -left-2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold transform -rotate-12 animate-bounce-gpu">
+            LUNCH SPECIAL
+          </div>
+          
+          {/* Time highlight overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+        </>
+      )}
       
       <div className="relative z-10">
         {/* Title with enhanced styling */}
@@ -120,6 +145,13 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
           </p>
         )}
         
+        {/* Special lunch offer timing */}
+        {isLunchOffer && (
+          <div className="text-xs sm:text-sm mb-2 bg-red-600 text-white px-2 py-1 rounded-full font-bold animate-pulse">
+            Available 12:00 - 14:30 Daily
+          </div>
+        )}
+        
         {/* Price with special styling */}
         <div className={`mb-3 sm:mb-4 font-bold ${
           isKebabFeast ? 'text-2xl sm:text-3xl md:text-4xl text-yellow-200 animate-pulse-optimized font-black' : 
@@ -127,7 +159,14 @@ const SpecialDealCard = React.memo(function SpecialDealCard({ deal }: SpecialDea
           isChickenCombo ? 'text-lg sm:text-xl md:text-2xl text-orange-100 group-hover:text-xl group-hover:sm:text-2xl group-hover:md:text-3xl group-hover:text-white group-hover:animate-pulse-optimized' :
           'text-base sm:text-lg md:text-xl text-white'
         }`}>
-          £{deal.singlePrice?.toFixed(2) || '0.00'}
+          {/* Display proper price based on item type */}
+          {deal.singlePrice ? `£${deal.singlePrice.toFixed(2)}` :
+           deal.price12inches ? `£${deal.price12inches.toFixed(2)}` :
+           deal.price10inches ? `£${deal.price10inches.toFixed(2)}` :
+           deal.priceLarge ? `£${deal.priceLarge.toFixed(2)}` :
+           deal.priceMedium ? `£${deal.priceMedium.toFixed(2)}` :
+           deal.priceSmall ? `£${deal.priceSmall.toFixed(2)}` :
+           'Price varies'}
         </div>
         
         {/* Add to Basket Button */}
