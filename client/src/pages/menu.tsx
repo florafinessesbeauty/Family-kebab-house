@@ -24,10 +24,8 @@ export default function Menu() {
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
 
-  // refs and state for dynamic navigation
-  const navRef = useRef<HTMLDivElement>(null);
+  // ref for menu content (no dynamic measurement needed with fixed nav)
   const menuRef = useRef<HTMLElement>(null);
-  const [navH, setNavH] = useState(0);
 
   const { announce } = useScreenReaderAnnouncements();
 
@@ -253,29 +251,7 @@ export default function Menu() {
   fetchMenuData();
 }, []);
 
-// measure nav height on mount & window resize
-useEffect(() => {
-  function measure() {
-    if (navRef.current) {
-      setNavH(navRef.current.getBoundingClientRect().height);
-    }
-  }
-  window.addEventListener('resize', measure);
-  measure();                     // initial
-  return () => window.removeEventListener('resize', measure);
-}, []);
-
-// scroll category content into view _below_ the nav
-useEffect(() => {
-  if (!menuRef.current) return;
-  // apply dynamic scrollMargin for browsers that support it
-  menuRef.current.style.scrollMarginTop = `${navH}px`;
-  // then scroll
-  menuRef.current.scrollIntoView({
-    behavior: 'smooth',
-    block:    'start',
-  });
-}, [activeCategory, navH]);
+// No scroll logic needed with fixed positioning approach
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -380,11 +356,8 @@ useEffect(() => {
             </div>
           )}
 
-          {/* Category Navigation */}
-          <div
-            ref={navRef}
-            className="sticky top-0 z-40 bg-white shadow-lg py-4"
-          >
+          {/* Category Navigation - now fixed */}
+          <div className="fixed top-0 inset-x-0 z-40 bg-white shadow-lg h-16 sm:h-20 flex items-center">
             <div className="container mx-auto px-6">
               <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                 {categories.map((category) => {
@@ -417,12 +390,14 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Menu Content */}
-          <section
-            id="menu-content"
-            ref={menuRef}
-            className="py-8 relative"
-          >
+          {/* Spacing container to push content below fixed nav */}
+          <div className="pt-16 sm:pt-20">
+            {/* Menu Content */}
+            <section
+              id="menu-content"
+              ref={menuRef}
+              className="py-8 relative"
+            >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
                 <div className="lg:col-span-2 relative">
@@ -474,6 +449,7 @@ useEffect(() => {
               </div>
             </div>
           </section>
+          </div> {/* Close spacing container */}
         </div>
       </section>
 
