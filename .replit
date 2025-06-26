@@ -26,6 +26,14 @@ author = "agent"
 task = "workflow.run"
 args = "Start application"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Build PWA"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Sync Mobile Apps"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -34,3 +42,19 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Build PWA"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build"
+
+[[workflows.workflow]]
+name = "Sync Mobile Apps"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx cap sync"
