@@ -6,7 +6,13 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;    /* height of your sticky category bar */
+  scroll-padding-top: 8rem;    /* increased for mobile category navigation height */
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 4rem;   /* smaller on desktop where navigation is more compact */
+  }
 }
 
 :root {
