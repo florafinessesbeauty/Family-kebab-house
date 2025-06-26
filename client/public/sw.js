@@ -1,91 +1,100 @@
-import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
-import { registerRoute, NavigationRoute } from 'workbox-routing';
-import { StaleWhileRevalidate, CacheFirst, NetworkFirst } from 'workbox-strategies';
-import { ExpirationPlugin } from 'workbox-expiration';
+// Family Kebab House Service Worker
+const CACHE_NAME = 'family-kebab-v1';
+const API_CACHE_NAME = 'family-kebab-api-v1';
+const STATIC_CACHE_NAME = 'family-kebab-static-v1';
 
-// Precache all static assets
-precacheAndRoute(self.__WB_MANIFEST);
-cleanupOutdatedCaches();
+const urlsToCache = [
+  '/',
+  '/menu',
+  '/nutritional-info',
+  '/about',
+  '/meal-builder',
+  '/static/js/bundle.js',
+  '/static/css/main.css',
+  '/manifest.json'
+];
 
-// Cache strategy for API endpoints
-registerRoute(
-  ({ url }) => url.pathname.startsWith('/api/menu'),
-  new StaleWhileRevalidate({
-    cacheName: 'menu-api-cache',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      }),
-    ],
-  })
-);
+// Install event - cache resources
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
 
-// Cache strategy for images
-registerRoute(
-  ({ request }) => request.destination === 'image',
-  new CacheFirst({
-    cacheName: 'images-cache',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 100,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-      }),
-    ],
-  })
-);
-
-// Cache strategy for fonts
-registerRoute(
-  ({ request }) => request.destination === 'font',
-  new CacheFirst({
-    cacheName: 'fonts-cache',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 30,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
-      }),
-    ],
-  })
-);
-
-// Cache strategy for CSS and JS files
-registerRoute(
-  ({ request }) => 
-    request.destination === 'style' || 
-    request.destination === 'script',
-  new StaleWhileRevalidate({
-    cacheName: 'static-resources',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 60,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
-      }),
-    ],
-  })
-);
-
-// Navigation route for SPA
-const navigationRoute = new NavigationRoute(
-  new NetworkFirst({
-    cacheName: 'navigation-cache',
-    networkTimeoutSeconds: 3,
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 24 * 60 * 60, // 24 hours
-      }),
-    ],
-  }),
-  {
-    allowlist: [/^\/$/],
-    denylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
+// Fetch event - serve from cache, fallback to network
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.includes('/api/menu')) {
+    // Handle API requests with network-first strategy
+    event.respondWith(
+      caches.open(API_CACHE_NAME).then((cache) => {
+        return fetch(event.request)
+          .then((response) => {
+            // Cache successful API responses
+            if (response.status === 200) {
+              cache.put(event.request, response.clone());
+            }
+            return response;
+          })
+          .catch(() => {
+            // Return cached version if network fails
+            return cache.match(event.request);
+          });
+      })
+    );
+  } else if (event.request.destination === 'image') {
+    // Handle images with cache-first strategy
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          if (response) {
+            return response;
+          }
+          return fetch(event.request).then((response) => {
+            if (response.status === 200) {
+              const responseClone = response.clone();
+              caches.open(STATIC_CACHE_NAME).then((cache) => {
+                cache.put(event.request, responseClone);
+              });
+            }
+            return response;
+          });
+        })
+    );
+  } else {
+    // Handle other requests
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          // Return cached version or fetch from network
+          return response || fetch(event.request);
+        })
+    );
   }
-);
+});
 
-registerRoute(navigationRoute);
+// Activate event - cleanup old caches
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [CACHE_NAME, API_CACHE_NAME, STATIC_CACHE_NAME];
+  
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
 
-// Handle background sync for offline orders
+// Background sync for offline functionality
 self.addEventListener('sync', (event) => {
   if (event.tag === 'background-sync') {
     event.waitUntil(doBackgroundSync());
@@ -93,20 +102,19 @@ self.addEventListener('sync', (event) => {
 });
 
 async function doBackgroundSync() {
-  // Handle any pending operations when back online
-  console.log('Background sync triggered');
+  console.log('Background sync triggered - app is back online');
 }
 
-// Handle push notifications
+// Push notification handling
 self.addEventListener('push', (event) => {
   const options = {
-    body: event.data ? event.data.text() : 'New update available!',
+    body: event.data ? event.data.text() : 'New menu items available!',
     icon: '/pwa-192x192.png',
     badge: '/pwa-192x192.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 'family-kebab-notification'
     },
     actions: [
       {
