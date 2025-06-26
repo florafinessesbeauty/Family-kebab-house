@@ -9,6 +9,7 @@ import GlobalVoiceControl from "@/components/global-voice-control";
 import BasketDrawer from "@/components/basket-drawer";
 import ChefsRecommendationPopup from "@/components/chefs-recommendation-popup";
 import ReligiousCelebrationBanner from "@/components/religious-celebration-banner";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 import { BasketProvider } from "@/hooks/use-basket";
 import { useLocation } from "react-router-dom";
 
@@ -108,6 +109,7 @@ function App() {
           <BasketDrawer />
           <ChefsRecommendationPopup />
           <GlobalVoiceControl />
+          <PWAInstallPrompt />
           <Toaster />
         </BasketProvider>
       </TooltipProvider>
