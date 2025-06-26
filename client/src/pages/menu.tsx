@@ -23,6 +23,7 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
 
   // refs for scrolling
   const menuContentRef = useRef<HTMLElement>(null);
@@ -252,18 +253,26 @@ export default function Menu() {
   fetchMenuData();
 }, []);
 
-  useEffect(() => {
-    if (!menuContentRef.current || !navRef.current) return;
-    // measure nav height
-    const headerH = navRef.current.getBoundingClientRect().height;
-    // ensure the new content has rendered
-    setTimeout(() => {
-      const top = menuContentRef.current!.getBoundingClientRect().top
-                  + window.pageYOffset
-                  - headerH;
-      window.scrollTo({ top, behavior: "smooth" });
-    }, 50);
-  }, [activeCategory]);
+// Measure nav height on mount and window resize
+useEffect(() => {
+  const measureNavHeight = () => {
+    if (navRef.current) {
+      setNavHeight(navRef.current.getBoundingClientRect().height);
+    }
+  };
+
+  measureNavHeight();
+  window.addEventListener('resize', measureNavHeight);
+  
+  return () => window.removeEventListener('resize', measureNavHeight);
+}, []);
+
+// Scroll to menu content when category changes
+useEffect(() => {
+  if (menuContentRef.current) {
+    menuContentRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}, [activeCategory]);
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -409,6 +418,7 @@ export default function Menu() {
           <section
             id="menu-content"
             ref={menuContentRef}
+            style={{ scrollMarginTop: `${navHeight}px` }}
             className="pt-32 sm:pt-16 py-8 relative"
           >
             <div className="container mx-auto px-6 lg:px-8">

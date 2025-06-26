@@ -6,12 +6,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 8rem;    /* mobile offset for sticky navigation */
+  /* scroll-padding-top: 8rem;    mobile offset for sticky navigation - disabled for dynamic offset */
 }
 
 @media (min-width: 640px) {
   html {
-    scroll-padding-top: 4rem;   /* desktop offset for sticky navigation */
+    /* scroll-padding-top: 4rem;   desktop offset for sticky navigation - disabled for dynamic offset */
   }
 }
 
