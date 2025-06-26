@@ -289,177 +289,174 @@ export default function Menu() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Accessibility Controls */}
-      <div className="bg-charcoal text-white py-2 sm:py-4 sticky top-0 z-40">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
-              <h2 className="text-xs sm:text-sm font-medium whitespace-nowrap">Accessibility Features:</h2>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  onClick={() => setAccessibilityMode(!accessibilityMode)}
-                  variant="outline"
-                  size="sm"
-                  className={`text-xs sm:text-sm border-white text-white hover:bg-white hover:text-charcoal ${
-                    accessibilityMode ? 'bg-white text-charcoal' : ''
-                  }`}
-                  aria-pressed={accessibilityMode}
-                >
-                  <Keyboard className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                  <span className="hidden sm:inline">Keyboard Navigation</span>
-                  <span className="sm:hidden">Keyboard</span>
-                  <span className="ml-1">{accessibilityMode ? 'ON' : 'OFF'}</span>
-                </Button>
-                <Button
-                  onClick={handleReadMenu}
-                  variant="outline"
-                  size="sm"
-                  className="text-xs sm:text-sm border-white text-white hover:bg-white hover:text-charcoal"
-                  aria-label="Read current menu category aloud"
-                >
-                  <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                  <span className="hidden sm:inline">Read Menu</span>
-                  <span className="sm:hidden">Read</span>
-                </Button>
-                <AccessibilityHelpModal />
-              </div>
-            </div>
-
-            {accessibilityMode && (
-              <div className="text-xs text-gray-300 w-full sm:w-auto mt-2 sm:mt-0">
-                <span className="hidden sm:inline">Use arrow keys to navigate • Enter to order • O for quick order • I for info</span>
-                <span className="sm:hidden">Arrow keys: navigate • Enter: order</span>
-              </div>
-            )}
-          </div>
+    <>
+      {/* 1) FIXED CATEGORY BAR */}
+      <div className="fixed top-0 inset-x-0 z-40 bg-white shadow-lg h-16 sm:h-20">
+        <div className="container mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:gap-4">
+          {categories.map((category) => {
+            const itemCount = getItemsByCategory(category.id).length;
+            return (
+              <Button
+                key={category.id}
+                onClick={() => {
+                  setActiveCategory(category.id);
+                  announce(`Viewing ${category.name} category with ${itemCount} items`);
+                  setFocusedItemIndex(0);
+                }}
+                variant={activeCategory === category.id ? "default" : "outline"}
+                className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
+                  activeCategory === category.id
+                    ? "bg-primary text-white shadow-lg"
+                    : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
+                }`}
+              >
+                <span className="mr-2 text-base md:text-lg">{category.icon}</span>
+                <span className="whitespace-nowrap">{category.name}</span>
+                <Badge variant="secondary" className="ml-2 bg-accent text-white text-xs">
+                  {itemCount}
+                </Badge>
+              </Button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Header */}
-      <section className="bg-white py-12 md:py-16 lg:py-20">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
-            <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-4 md:mb-6">Our Delicious Menu</h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
-          </div>
-
-          {/* Special Deals First - Now with optimized performance */}
-          {specialDeals.length > 0 && (
-            <div className="mb-12 md:mb-16">
-              <h2 className="font-poppins text-2xl md:text-3xl font-bold text-charcoal mb-6 md:mb-8 text-center">🌟 Special Offers</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                {specialDeals.map((deal) => (
-                  <SpecialDealCard key={deal.id} deal={deal} />
-                ))}
+      {/* 2) PUSH ALL CONTENT DOWN BY NAV HEIGHT */}
+      <div className="pt-16 sm:pt-20 bg-gray-50 min-h-screen">
+        {/* Accessibility Controls */}
+        <div className="bg-charcoal text-white py-2 sm:py-4 sticky top-0 z-30">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                <h2 className="text-xs sm:text-sm font-medium whitespace-nowrap">Accessibility Features:</h2>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    onClick={() => setAccessibilityMode(!accessibilityMode)}
+                    variant="outline"
+                    size="sm"
+                    className={`text-xs sm:text-sm border-white text-white hover:bg-white hover:text-charcoal ${
+                      accessibilityMode ? 'bg-white text-charcoal' : ''
+                    }`}
+                    aria-pressed={accessibilityMode}
+                  >
+                    <Keyboard className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Keyboard Navigation</span>
+                    <span className="sm:hidden">Keyboard</span>
+                    <span className="ml-1">{accessibilityMode ? 'ON' : 'OFF'}</span>
+                  </Button>
+                  <Button
+                    onClick={handleReadMenu}
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm border-white text-white hover:bg-white hover:text-charcoal"
+                    aria-label="Read current menu category aloud"
+                  >
+                    <Eye className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Read Menu</span>
+                    <span className="sm:hidden">Read</span>
+                  </Button>
+                  <AccessibilityHelpModal />
+                </div>
               </div>
-            </div>
-          )}
 
-          {/* Category Navigation - now fixed */}
-          <div className="fixed top-0 inset-x-0 z-40 bg-white shadow-lg h-16 sm:h-20 flex items-center">
-            <div className="container mx-auto px-6">
-              <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-                {categories.map((category) => {
-                  const itemCount = getItemsByCategory(category.id).length;
-
-                  return (
-                    <Button
-                      key={category.id}
-                      onClick={() => {
-                        setActiveCategory(category.id);
-                        announce(`Viewing ${category.name} category with ${itemCount} items`);
-                        setFocusedItemIndex(0);
-                      }}
-                      variant={activeCategory === category.id ? "default" : "outline"}
-                      className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
-                        activeCategory === category.id
-                          ? "bg-primary text-white shadow-lg"
-                          : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
-                      }`}
-                    >
-                      <span className="mr-2 text-base md:text-lg">{category.icon}</span>
-                      <span className="whitespace-nowrap">{category.name}</span>
-                      <Badge variant="secondary" className="ml-2 bg-accent text-white text-xs">
-                        {itemCount}
-                      </Badge>
-                    </Button>
-                  );
-                })}
-              </div>
+              {accessibilityMode && (
+                <div className="text-xs text-gray-300 w-full sm:w-auto mt-2 sm:mt-0">
+                  <span className="hidden sm:inline">Use arrow keys to navigate • Enter to order • O for quick order • I for info</span>
+                  <span className="sm:hidden">Arrow keys: navigate • Enter: order</span>
+                </div>
+              )}
             </div>
           </div>
+        </div>
 
-          {/* Spacing container to push content below fixed nav */}
-          <div className="pt-16 sm:pt-20">
+        {/* Header */}
+        <section className="bg-white py-12 md:py-16 lg:py-20">
+          <div className="container mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12 md:mb-16">
+              <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-4 md:mb-6">Our Delicious Menu</h1>
+              <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
+            </div>
+
+            {/* Special Deals First - Now with optimized performance */}
+            {specialDeals.length > 0 && (
+              <div className="mb-12 md:mb-16">
+                <h2 className="font-poppins text-2xl md:text-3xl font-bold text-charcoal mb-6 md:mb-8 text-center">🌟 Special Offers</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                  {specialDeals.map((deal) => (
+                    <SpecialDealCard key={deal.id} deal={deal} />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Menu Content */}
             <section
               id="menu-content"
               ref={menuRef}
               className="py-8 relative"
             >
-            <div className="container mx-auto px-6 lg:px-8">
-              <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
-                <div className="lg:col-span-2 relative">
-                  <AnimatePresence mode="wait">
-                    <MenuCategory
-                      key={activeCategory}
-                      title={getCategoryInfo(activeCategory).name}
-                      description={getCategoryDescription(activeCategory)}
-                      items={currentCategoryItems}
-                      icon={getCategoryInfo(activeCategory).icon}
-                    />
-                  </AnimatePresence>
-                </div>
-
-                {/* Sidebar */}
-                <div className="lg:col-span-1">
-                  <div className="sticky top-24 space-y-8">
-                    {/* Category Image */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                      <img
-                        src={menuImages[activeCategory as keyof typeof menuImages] || menuImages.kebabs}
-                        alt={getCategoryInfo(activeCategory).name}
-                        className="w-full h-48 object-cover"
+              <div className="container mx-auto px-6 lg:px-8">
+                <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
+                  <div className="lg:col-span-2 relative">
+                    <AnimatePresence mode="wait">
+                      <MenuCategory
+                        key={activeCategory}
+                        title={getCategoryInfo(activeCategory).name}
+                        description={getCategoryDescription(activeCategory)}
+                        items={currentCategoryItems}
+                        icon={getCategoryInfo(activeCategory).icon}
                       />
-                      <div className="p-4">
-                        <h3 className="font-poppins text-xl font-bold text-charcoal mb-2">
-                          {getCategoryInfo(activeCategory).name}
-                        </h3>
-                        <p className="text-gray-600 text-sm">
-                          Delicious {getCategoryInfo(activeCategory).name.toLowerCase()} made fresh daily
-                        </p>
-                      </div>
-                    </div>
+                    </AnimatePresence>
+                  </div>
 
-                    {/* Quick Order */}
-                    <div className="bg-primary text-white rounded-lg p-6 text-center">
-                      <Phone className="h-8 w-8 mx-auto mb-4" />
-                      <h3 className="font-poppins text-xl font-bold mb-2">Quick Order</h3>
-                      <p className="text-sm mb-4">Call us directly to place your order</p>
-                      <a
-                        href="tel:01692584100"
-                        className="inline-block bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-                      >
-                        01692 584 100
-                      </a>
+                  {/* Sidebar */}
+                  <div className="lg:col-span-1">
+                    <div className="sticky top-24 space-y-8">
+                      {/* Category Image */}
+                      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img
+                          src={menuImages[activeCategory as keyof typeof menuImages] || menuImages.kebabs}
+                          alt={getCategoryInfo(activeCategory).name}
+                          className="w-full h-48 object-cover"
+                        />
+                        <div className="p-4">
+                          <h3 className="font-poppins text-xl font-bold text-charcoal mb-2">
+                            {getCategoryInfo(activeCategory).name}
+                          </h3>
+                          <p className="text-gray-600 text-sm">
+                            Delicious {getCategoryInfo(activeCategory).name.toLowerCase()} made fresh daily
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Quick Order */}
+                      <div className="bg-primary text-white rounded-lg p-6 text-center">
+                        <Phone className="h-8 w-8 mx-auto mb-4" />
+                        <h3 className="font-poppins text-xl font-bold mb-2">Quick Order</h3>
+                        <p className="text-sm mb-4">Call us directly to place your order</p>
+                        <a
+                          href="tel:01692584100"
+                          className="inline-block bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                        >
+                          01692 584 100
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-          </div> {/* Close spacing container */}
-        </div>
-      </section>
+            </section>
+          </div>
+        </section>
 
-      {/* Voice Control */}
-      <VoiceControlButton
-        onNavigateToCategory={handleNavigateToCategory}
-        onReadMenu={handleReadMenu}
-        onOrderItem={handleOrderItem}
-      />
-    </div>
+        {/* Voice Control */}
+        <VoiceControlButton
+          onNavigateToCategory={handleNavigateToCategory}
+          onReadMenu={handleReadMenu}
+          onOrderItem={handleOrderItem}
+        />
+      </div>
+    </>
   );
 }
 
