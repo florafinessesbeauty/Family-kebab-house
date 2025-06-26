@@ -458,7 +458,6 @@ export default function Menu() {
           onOrderItem={handleOrderItem}
         />
       </div>
-    </>
   );
 }
 
