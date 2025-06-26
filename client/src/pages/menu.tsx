@@ -252,8 +252,11 @@ export default function Menu() {
 }, []);
 
 useEffect(() => {
-  menuContentRef.current?.scrollIntoView();
-}, [activeCategory]);
+   menuContentRef.current?.scrollIntoView({
+     behavior: 'smooth',
+     block:    'start'
+   });
+ }, [activeCategory]);
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -393,11 +396,11 @@ useEffect(() => {
           </div>
 
           {/* Menu Content */}
-          <section
-            id="menu-content"
-            ref={menuContentRef}
-            className="pt-32 sm:pt-16 py-8 relative"
-          >
+            <section
+               id="menu-content"
+               ref={menuContentRef}
+               className="pt-32 sm:pt-16 py-8 relative scroll-mt-32 sm:scroll-mt-16"
+             >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
                 <div className="lg:col-span-2 relative">

@@ -11,6 +11,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'dancing': ['Dancing Script', 'cursive'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
