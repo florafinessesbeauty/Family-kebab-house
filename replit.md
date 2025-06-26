@@ -194,7 +194,7 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Corrected Saturday Combo to match Chicken Combo Meal £11.50
 - ✅ All ingredients and descriptions now reflect authentic menu items
 
-**2025-06-25**: Comprehensive mobile responsiveness improvements and meal builder expansion
+**2025-06-25**: Comprehensive mobile responsiveness improvements, meal builder expansion, and animated category transitions
 - ✅ Fixed overlapping text issues in meal builder with proper button heights and spacing
 - ✅ Enhanced mobile responsiveness across entire website with responsive breakpoints
 - ✅ Optimized homepage slideshow, special offers, and navigation for mobile devices
@@ -211,6 +211,14 @@ Available 12:00 - 14:30 daily with special pricing on selected items.
 - ✅ Fixed home page slideshow pricing: pizzas (£7.70), burgers (£5.50), wings (£4.70)
 - ✅ Updated meal builder with exact authentic pricing for all 60+ menu items
 - ✅ All components now display consistent pricing matching authentic menu data
+- ✅ Implemented animated category transitions with framer-motion slide and fade effects
+- ✅ Added smooth slide-in animations (x: 20 → 0) for category content transitions
+- ✅ Created staggered fade-in effects for menu items with scale and opacity animations
+- ✅ Enhanced header animations with delayed transitions for polished user experience
+- ✅ Fixed mobile navigation overlay issue preventing dishes from being visible
+- ✅ Updated sticky category navigation with proper z-index (z-40) and responsive padding
+- ✅ Implemented responsive scroll-padding-top (8rem mobile, 4rem desktop) for proper scroll positioning
+- ✅ Added AnimatePresence wrapper for seamless category switching animations
 - ✅ Implemented comprehensive automatic religious celebrations banner system
 - ✅ Added 25+ religious celebrations across Christianity, Islam, Judaism, Hinduism, Buddhism, Sikhism, Chinese traditions
 - ✅ Created dynamic date calculations including Easter algorithm for accurate yearly scheduling

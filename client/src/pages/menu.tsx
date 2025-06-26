@@ -359,7 +359,7 @@ useEffect(() => {
           )}
 
           {/* Category Navigation */}
-          <div className="bg-white shadow-lg py-6 md:py-8 sticky top-0 z-20">
+          <div className="sticky top-0 z-40 bg-white shadow-lg py-4">
             <div className="container mx-auto px-6">
               <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                 {categories.map((category) => {
@@ -396,7 +396,7 @@ useEffect(() => {
           <section
             id="menu-content"
             ref={menuContentRef}
-            className="pt-32 md:pt-20 lg:pt-24 py-8 relative z-10"
+            className="pt-32 sm:pt-16 py-8 relative"
           >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">

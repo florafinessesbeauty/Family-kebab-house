@@ -6,12 +6,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 8rem;    /* increased for mobile category navigation height */
+  scroll-padding-top: 8rem;    /* mobile offset for sticky navigation */
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   html {
-    scroll-padding-top: 4rem;   /* smaller on desktop where navigation is more compact */
+    scroll-padding-top: 4rem;   /* desktop offset for sticky navigation */
   }
 }
 
