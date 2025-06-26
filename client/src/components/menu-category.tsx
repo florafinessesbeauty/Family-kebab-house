@@ -77,7 +77,7 @@ const renderPriceDisplay = (item: MenuItemData) => {
   }
 
   // 2) Meal vs Single pricing (e.g., "£3.50 Single / £5.50 Meal")
-  if (item.priceSingle != null && item.priceMeal != null) {
+  if (item.withChips != null && item.mealPrice != null) {
     return (
       <div className="text-right space-y-3">
         <div className="grid grid-cols-2 gap-3 text-sm md:text-base text-gray-500">
@@ -85,8 +85,8 @@ const renderPriceDisplay = (item: MenuItemData) => {
           <span className="text-center font-medium">Meal</span>
         </div>
         <div className="grid grid-cols-2 gap-3 font-bold text-primary text-lg md:text-xl">
-          <span className="text-center">{formatPrice(item.priceSingle)}</span>
-          <span className="text-center">{formatPrice(item.priceMeal)}</span>
+          <span className="text-center">{formatPrice(item.withChips)}</span>
+          <span className="text-center">{formatPrice(item.mealPrice)}</span>
         </div>
         <div className="grid grid-cols-2 gap-3 mt-3">
           <AddToBasketButton
@@ -94,7 +94,7 @@ const renderPriceDisplay = (item: MenuItemData) => {
               id:          `${item.id}-single`,
               name:        `${item.name} (Single)`,
               category:    item.category,
-              singlePrice: item.priceSingle,
+              singlePrice: item.withChips,
               description: item.description
             }}
             variant="small"
@@ -105,7 +105,7 @@ const renderPriceDisplay = (item: MenuItemData) => {
               id:          `${item.id}-meal`,
               name:        `${item.name} (Meal)`,
               category:    item.category,
-              singlePrice: item.priceMeal,
+              singlePrice: item.mealPrice,
               description: item.description
             }}
             variant="small"
@@ -261,7 +261,20 @@ const MenuCategory = React.memo(function MenuCategory({
                         <span className="line-clamp-2">{item.name}</span>
                       </h3>
                       <div className="group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                        <NutritionalInfoTooltip item={item} />
+                        <NutritionalInfoTooltip 
+                          itemName={item.name}
+                          category={item.category}
+                          nutritionalData={{
+                            calories: item.calories,
+                            protein: item.protein,
+                            carbs: item.carbs,
+                            fat: item.fat,
+                            fiber: item.fiber,
+                            sodium: item.sodium,
+                            allergens: Array.isArray(item.allergens) ? item.allergens : item.allergens?.split(',') || [],
+                            ingredients: Array.isArray(item.ingredients) ? item.ingredients : item.ingredients?.split(',') || []
+                          }}
+                        />
                       </div>
                       {item.isSpecial && (
                         <Badge variant="secondary" className="bg-accent text-white animate-pulse text-sm flex-shrink-0">

@@ -1,5 +1,6 @@
 // client/src/pages/menu.tsx
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import MenuCategory from "@/components/menu-category";
@@ -400,12 +401,15 @@ useEffect(() => {
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
                 <div className="lg:col-span-2 relative">
-                  <MenuCategory
-                    title={getCategoryInfo(activeCategory).name}
-                    description={getCategoryDescription(activeCategory)}
-                    items={currentCategoryItems}
-                    icon={getCategoryInfo(activeCategory).icon}
-                  />
+                  <AnimatePresence mode="wait">
+                    <MenuCategory
+                      key={activeCategory}
+                      title={getCategoryInfo(activeCategory).name}
+                      description={getCategoryDescription(activeCategory)}
+                      items={currentCategoryItems}
+                      icon={getCategoryInfo(activeCategory).icon}
+                    />
+                  </AnimatePresence>
                 </div>
 
                 {/* Sidebar */}
