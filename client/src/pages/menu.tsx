@@ -24,8 +24,9 @@ export default function Menu() {
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
 
-  // ref to scroll dishes into view
+  // refs for scrolling
   const menuContentRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   const { announce } = useScreenReaderAnnouncements();
 
@@ -251,12 +252,18 @@ export default function Menu() {
   fetchMenuData();
 }, []);
 
-useEffect(() => {
-   menuContentRef.current?.scrollIntoView({
-     behavior: 'smooth',
-     block:    'start'
-   });
- }, [activeCategory]);
+  useEffect(() => {
+    if (!menuContentRef.current || !navRef.current) return;
+    // measure nav height
+    const headerH = navRef.current.getBoundingClientRect().height;
+    // ensure the new content has rendered
+    setTimeout(() => {
+      const top = menuContentRef.current!.getBoundingClientRect().top
+                  + window.pageYOffset
+                  - headerH;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 50);
+  }, [activeCategory]);
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -362,7 +369,10 @@ useEffect(() => {
           )}
 
           {/* Category Navigation */}
-          <div className="sticky top-0 z-40 bg-white shadow-lg py-4">
+          <div
+            ref={navRef}
+            className="sticky top-0 z-40 bg-white shadow-lg py-4"
+          >
             <div className="container mx-auto px-6">
               <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                 {categories.map((category) => {
@@ -396,11 +406,11 @@ useEffect(() => {
           </div>
 
           {/* Menu Content */}
-            <section
-               id="menu-content"
-               ref={menuContentRef}
-               className="pt-32 sm:pt-16 py-8 relative scroll-mt-32 sm:scroll-mt-16"
-             >
+          <section
+            id="menu-content"
+            ref={menuContentRef}
+            className="pt-32 sm:pt-16 py-8 relative"
+          >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
                 <div className="lg:col-span-2 relative">
