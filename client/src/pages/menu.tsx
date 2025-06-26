@@ -23,11 +23,11 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [focusedItemIndex, setFocusedItemIndex] = useState(-1);
   const [accessibilityMode, setAccessibilityMode] = useState(false);
-  const [navHeight, setNavHeight] = useState(0);
 
-  // refs for scrolling
-  const menuContentRef = useRef<HTMLElement>(null);
+  // refs and state for dynamic navigation
   const navRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
+  const [navH, setNavH] = useState(0);
 
   const { announce } = useScreenReaderAnnouncements();
 
@@ -253,26 +253,29 @@ export default function Menu() {
   fetchMenuData();
 }, []);
 
-// Measure nav height on mount and window resize
+// measure nav height on mount & window resize
 useEffect(() => {
-  const measureNavHeight = () => {
+  function measure() {
     if (navRef.current) {
-      setNavHeight(navRef.current.getBoundingClientRect().height);
+      setNavH(navRef.current.getBoundingClientRect().height);
     }
-  };
-
-  measureNavHeight();
-  window.addEventListener('resize', measureNavHeight);
-  
-  return () => window.removeEventListener('resize', measureNavHeight);
+  }
+  window.addEventListener('resize', measure);
+  measure();                     // initial
+  return () => window.removeEventListener('resize', measure);
 }, []);
 
-// Scroll to menu content when category changes
+// scroll category content into view _below_ the nav
 useEffect(() => {
-  if (menuContentRef.current) {
-    menuContentRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}, [activeCategory]);
+  if (!menuRef.current) return;
+  // apply dynamic scrollMargin for browsers that support it
+  menuRef.current.style.scrollMarginTop = `${navH}px`;
+  // then scroll
+  menuRef.current.scrollIntoView({
+    behavior: 'smooth',
+    block:    'start',
+  });
+}, [activeCategory, navH]);
 
   const menuImages = {
     kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
@@ -417,9 +420,8 @@ useEffect(() => {
           {/* Menu Content */}
           <section
             id="menu-content"
-            ref={menuContentRef}
-            style={{ scrollMarginTop: `${navHeight}px` }}
-            className="pt-32 sm:pt-16 py-8 relative"
+            ref={menuRef}
+            className="py-8 relative"
           >
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
