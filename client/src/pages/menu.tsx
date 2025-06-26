@@ -289,40 +289,7 @@ export default function Menu() {
   }
 
   return (
-    <>
-      {/* 1) FIXED CATEGORY BAR */}
-      <div className="fixed top-0 inset-x-0 z-40 bg-white shadow-lg h-16 sm:h-20">
-        <div className="container mx-auto px-6 py-4 flex flex-wrap justify-center gap-3 md:gap-4">
-          {categories.map((category) => {
-            const itemCount = getItemsByCategory(category.id).length;
-            return (
-              <Button
-                key={category.id}
-                onClick={() => {
-                  setActiveCategory(category.id);
-                  announce(`Viewing ${category.name} category with ${itemCount} items`);
-                  setFocusedItemIndex(0);
-                }}
-                variant={activeCategory === category.id ? "default" : "outline"}
-                className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
-                  activeCategory === category.id
-                    ? "bg-primary text-white shadow-lg"
-                    : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
-                }`}
-              >
-                <span className="mr-2 text-base md:text-lg">{category.icon}</span>
-                <span className="whitespace-nowrap">{category.name}</span>
-                <Badge variant="secondary" className="ml-2 bg-accent text-white text-xs">
-                  {itemCount}
-                </Badge>
-              </Button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 2) PUSH ALL CONTENT DOWN BY NAV HEIGHT */}
-      <div className="pt-16 sm:pt-20 bg-gray-50 min-h-screen">
+    <div className="min-h-screen bg-gray-50">
         {/* Accessibility Controls */}
         <div className="bg-charcoal text-white py-2 sm:py-4 sticky top-0 z-30">
           <div className="container mx-auto px-4">
@@ -388,6 +355,41 @@ export default function Menu() {
                 </div>
               </div>
             )}
+
+            {/* Category Navigation - Stationary below Special Offers */}
+            <div className="mb-12 md:mb-16">
+              <div className="bg-white shadow-lg rounded-lg py-6">
+                <div className="container mx-auto px-6">
+                  <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+                    {categories.map((category) => {
+                      const itemCount = getItemsByCategory(category.id).length;
+                      return (
+                        <Button
+                          key={category.id}
+                          onClick={() => {
+                            setActiveCategory(category.id);
+                            announce(`Viewing ${category.name} category with ${itemCount} items`);
+                            setFocusedItemIndex(0);
+                          }}
+                          variant={activeCategory === category.id ? "default" : "outline"}
+                          className={`px-4 md:px-6 py-3 md:py-4 font-semibold transition-all duration-300 hover:scale-105 text-sm md:text-base min-h-[48px] ${
+                            activeCategory === category.id
+                              ? "bg-primary text-white shadow-lg"
+                              : "bg-white text-charcoal hover:bg-gray-100 hover:shadow-md"
+                          }`}
+                        >
+                          <span className="mr-2 text-base md:text-lg">{category.icon}</span>
+                          <span className="whitespace-nowrap">{category.name}</span>
+                          <Badge variant="secondary" className="ml-2 bg-accent text-white text-xs">
+                            {itemCount}
+                          </Badge>
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Menu Content */}
             <section
