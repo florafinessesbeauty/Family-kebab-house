@@ -27,7 +27,7 @@ export interface MenuItemData {
 }
 
 export const menuData: MenuItemData[] = [
-  // 1) LUNCH TIME OFFERS (12:00-14:30)
+  // 1) LUNCH TIME OFFERS (12:00–14:30)
   {
     id: "chicken-burger-chips-drink",
     name: "🍔 Chicken Burger – Chips & Drink",
@@ -85,7 +85,7 @@ export const menuData: MenuItemData[] = [
     isSpecial: true,
   },
 
-  // 2) BURGERS (priceSmall=single, priceMedium=meal)
+  // 2) BURGERS
   {
     id: "half-pound-double-cheese",
     name: "🍔 ½ Pound with Double Cheese",
@@ -149,7 +149,7 @@ export const menuData: MenuItemData[] = [
     singlePrice: 3.00,
   },
 
-  // 3) FRIED CHICKEN (priceSmall=single, priceMedium=with chips, priceLarge=meal)
+  // 3) FRIED CHICKEN
   {
     id: "1pc-chicken",
     name: "🍗 1 pc Chicken",
@@ -420,7 +420,7 @@ export const menuData: MenuItemData[] = [
     singlePrice: 6.00,
   },
 
-  // 12) PIZZAS (10" and 12" options)
+  // 12) PIZZAS
   {
     id: "margherita-pizza",
     name: "🍕 Margherita",
@@ -523,7 +523,7 @@ export const menuData: MenuItemData[] = [
     singlePrice: 11.50,
   },
 
-  // 17) KEBABS (Medium, Large, X-Large)
+  // 17) KEBABS
   {
     id: "doner-kebab",
     name: "🥙 Doner Kebab",
@@ -624,7 +624,7 @@ export const menuData: MenuItemData[] = [
   },
   {
     id: "doner-shish-combo",
-    name: "🥩 Doner & Shish Combo",  
+    name: "🥩 Doner & Shish Combo",
     description: "Combination of doner and shish kebab",
     category: "combination-kebabs",
     singlePrice: 13.00,
@@ -633,7 +633,7 @@ export const menuData: MenuItemData[] = [
     id: "chicken-shish-combo",
     name: "🥩 Chicken & Shish Combo",
     description: "Combination of chicken and shish kebab",
-    category: "combination-kebabs",  
+    category: "combination-kebabs",
     singlePrice: 13.00,
   },
   {
@@ -646,7 +646,7 @@ export const menuData: MenuItemData[] = [
   {
     id: "chicken-kofte-combo",
     name: "🥩 Chicken & Kofte Combo",
-    description: "Combination of chicken and kofte kebab", 
+    description: "Combination of chicken and kofte kebab",
     category: "combination-kebabs",
     singlePrice: 13.00,
   },
