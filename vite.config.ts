@@ -32,7 +32,7 @@ export default defineConfig({
   root: path.resolve(__dirname, "client"),
   build: {
     // Output your static site files to this folder.
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
 });
