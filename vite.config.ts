@@ -9,15 +9,17 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   // Set the base path for assets so the app works correctly on GitHub Pages.
-  base: '/Family-kebab-house/', 
-  
+  base: "/Family-kebab-house/",
+
   plugins: [
     react(),
     runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
-          await import("@replit/vite-plugin-cartographer").then((m) => m.cartographer()),
+          await import("@replit/vite-plugin-cartographer").then((m) =>
+            m.cartographer()
+          ),
         ]
       : []),
   ],
@@ -32,7 +34,7 @@ export default defineConfig({
   root: path.resolve(__dirname, "client"),
   build: {
     // Output your static site files to this folder.
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
 });
