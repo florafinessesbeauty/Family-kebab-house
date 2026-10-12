@@ -1,44 +1,63 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Phone, MapPin, Clock, AlertTriangle, Users, CreditCard, Heart } from "lucide-react";
+import {
+  Phone,
+  MapPin,
+  Clock,
+  AlertTriangle,
+  Users,
+  CreditCard,
+  Heart,
+  ShoppingBag,
+} from "lucide-react";
 
 export default function Contact() {
   const openingHours = [
     { day: "Monday - Sunday", hours: "Call for current hours" },
-    { day: "Lunch Offers", hours: "12:00 - 14:30", special: true }
+    { day: "Lunch Offers", hours: "12:00 - 14:30", special: true },
   ];
 
   const importantNotes = [
     {
       icon: <CreditCard className="h-5 w-5 text-primary" />,
-      title: "Cash Payment Only",
-      description: "We currently accept cash payments only for all orders."
+      title: "Cash and Card Payments Accepted",
+      description:
+        "We accept cash, credit card and debit card payments at our physical shop.",
+    },
+    {
+      icon: <ShoppingBag className="h-5 w-5 text-primary" />,
+      title: "Dine-in and Takeaway Collection",
+      description:
+        "Call to place your order and collect it from our shop. We do not provide a delivery service.",
     },
     {
       icon: <Users className="h-5 w-5 text-primary" />,
       title: "Party Orders Welcome",
-      description: "Call ahead for large orders - we're happy to cater for your special events."
+      description:
+        "Call ahead for large collection orders. We're happy to cater for your special occasions.",
     },
     {
       icon: <AlertTriangle className="h-5 w-5 text-primary" />,
       title: "Food Allergies & Intolerances",
-      description: "Please speak to our staff about any food allergies and intolerances in your meal when making your order."
+      description:
+        "Please speak to our staff about any food allergies or intolerances when placing your order.",
     },
     {
       icon: <Clock className="h-5 w-5 text-primary" />,
       title: "Quick Service",
-      description: "Your order will be ready in 15 minutes - perfect for busy schedules."
-    }
+      description:
+        "Orders are normally ready in around 15 minutes, depending on order size and how busy the shop is.",
+    },
   ];
 
   const searchTerms = [
     "kebab shop near me",
     "Norwich kebab",
-    "best kebab shop", 
+    "best kebab shop",
     "fresh pizza",
     "doner kebab",
-    "takeaway stalham"
+    "takeaway stalham",
   ];
 
   return (
@@ -47,9 +66,13 @@ export default function Contact() {
       <section className="bg-white py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Get In Touch</h1>
+            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">
+              Get In Touch
+            </h1>
+
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Ready to satisfy your cravings? Contact us for orders, inquiries, or just to say hello!
+              Ready to satisfy your cravings? Contact us to place an order for
+              collection, ask a question, or find directions to our shop.
             </p>
           </div>
         </div>
@@ -67,33 +90,52 @@ export default function Contact() {
                     <Phone className="text-primary mr-3 h-6 w-6" />
                     Contact Information
                   </h2>
-                  
+
                   <div className="space-y-6">
+                    {/* Phone */}
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                         <Phone className="text-white h-5 w-5" />
                       </div>
+
                       <div>
-                        <h3 className="font-semibold text-charcoal mb-1">Phone</h3>
-                        <a href="tel:01692584100" className="text-primary font-bold text-2xl hover:underline">
+                        <h3 className="font-semibold text-charcoal mb-1">
+                          Phone
+                        </h3>
+
+                        <a
+                          href="tel:01692584100"
+                          className="text-primary font-bold text-2xl hover:underline"
+                        >
                           01692 584100
                         </a>
-                        <p className="text-gray-600 text-sm mt-1">Your order will be ready in 15 minutes</p>
+
+                        <p className="text-gray-600 text-sm mt-1">
+                          Call to place a takeaway collection order
+                        </p>
                       </div>
                     </div>
 
+                    {/* Address */}
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center flex-shrink-0">
                         <MapPin className="text-white h-5 w-5" />
                       </div>
+
                       <div>
-                        <h3 className="font-semibold text-charcoal mb-1">Address</h3>
+                        <h3 className="font-semibold text-charcoal mb-1">
+                          Address
+                        </h3>
+
                         <p className="text-gray-700 leading-relaxed">
-                          79 High Street<br />
-                          Stalham, Norwich<br />
+                          79 High Street
+                          <br />
+                          Stalham, Norwich
+                          <br />
                           NR12 9BB
                         </p>
-                        <a 
+
+                        <a
                           href="https://maps.google.com/maps?q=79+High+Street,+Stalham,+Norwich+NR12+9BB"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -104,20 +146,50 @@ export default function Contact() {
                       </div>
                     </div>
 
+                    {/* Opening Hours */}
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
                         <Clock className="text-white h-5 w-5" />
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-charcoal mb-1">Opening Hours</h3>
+
+                      <div className="w-full">
+                        <h3 className="font-semibold text-charcoal mb-1">
+                          Opening Hours
+                        </h3>
+
                         <div className="space-y-2">
                           {openingHours.map((schedule) => (
-                            <div key={schedule.day} className={`flex justify-between items-center ${schedule.special ? 'text-accent font-semibold' : 'text-gray-700'}`}>
+                            <div
+                              key={schedule.day}
+                              className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 ${
+                                schedule.special
+                                  ? "text-accent font-semibold"
+                                  : "text-gray-700"
+                              }`}
+                            >
                               <span>{schedule.day}:</span>
                               <span>{schedule.hours}</span>
                             </div>
                           ))}
                         </div>
+                      </div>
+                    </div>
+
+                    {/* Payment Methods */}
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-charcoal rounded-full flex items-center justify-center flex-shrink-0">
+                        <CreditCard className="text-white h-5 w-5" />
+                      </div>
+
+                      <div>
+                        <h3 className="font-semibold text-charcoal mb-1">
+                          Payment Methods
+                        </h3>
+
+                        <p className="text-gray-700">
+                          Cash, credit card and debit card payments accepted in
+                          store.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -129,17 +201,20 @@ export default function Contact() {
                 <CardContent className="p-8">
                   <h3 className="font-poppins text-xl font-bold text-charcoal mb-6 flex items-center">
                     <AlertTriangle className="text-accent mr-3 h-5 w-5" />
-                    Important Information
-                  </h3>
-                  <div className="grid gap-4">
-                    {importantNotes.map((note) => (
-                      <div key={note.title} className="flex items-start space-x-3">
-                        <div className="flex-shrink-0 mt-1">
-                          {note.icon}
-                        </div>
+                    Important           <div
+                        key={note.title}
+                        className="flex items-start space-x-3"
+                      >
+                        <div className="flex-shrink-0 mt-1">{note.icon}</div>
+
                         <div>
-                          <h4 className="font-semibold text-charcoal text-sm">{note.title}</h4>
-                          <p className="text-gray-600 text-sm">{note.description}</p>
+                          <h4 className="font-semibold text-charcoal text-sm">
+                            {note.title}
+                          </h4>
+
+                          <p className="text-gray-600 text-sm">
+                            {note.description}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -150,15 +225,20 @@ export default function Contact() {
 
             {/* Map and Quick Order */}
             <div className="space-y-8">
-              {/* Map Placeholder */}
+              {/* Map */}
               <Card>
                 <CardContent className="p-0">
                   <div className="bg-gray-100 h-80 rounded-lg flex items-center justify-center">
-                    <div className="text-center text-gray-500">
+                    <div className="text-center text-gray-500 px-6">
                       <MapPin className="h-16 w-16 mx-auto mb-4" />
-                      <p className="text-lg font-semibold">Interactive Map</p>
-                      <p className="text-sm">79 High Street, Stalham, Norwich NR12 9BB</p>
-                      <a 
+
+                      <p className="text-lg font-semibold">Find Our Shop</p>
+
+                      <p className="text-sm">
+                        79 High Street, Stalham, Norwich NR12 9BB
+                      </p>
+
+                      <a
                         href="https://maps.google.com/maps?q=79+High+Street,+Stalham,+Norwich+NR12+9BB"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -174,21 +254,36 @@ export default function Contact() {
               {/* Quick Order Card */}
               <Card className="bg-gradient-to-br from-accent to-orange-600 text-white">
                 <CardContent className="p-8 text-center">
-                  <h3 className="font-poppins text-2xl font-bold mb-4">Ready to Order?</h3>
+                  <h3 className="font-poppins text-2xl font-bold mb-4">
+                    Ready to Order?
+                  </h3>
+
                   <p className="mb-6 text-orange-100">
-                    Call us now and your delicious meal will be ready in just 15 minutes!
+                    Call to place your order and collect it from our shop.
+                    Orders are normally ready in around 15 minutes.
                   </p>
-                  <a href="tel:01692584100">
-                    <Button size="lg" className="bg-white text-accent hover:bg-gray-100 w-full">
+
+                  tel:01692584100
+                    <Button
+                      size="lg"
+                      className="bg-white text-accent hover:bg-gray-100 w-full"
+                    >
                       <Phone className="mr-3 h-5 w-5" />
                       Call 01692 584100
                     </Button>
                   </a>
-                  
+
                   <div className="mt-6 pt-6 border-t border-orange-300">
                     <p className="text-orange-100 text-sm">
-                      <strong>Average preparation time:</strong> 15 minutes<br />
-                      <strong>Service:</strong> Dine-in & Takeaway
+                      <strong>Average preparation time:</strong> Around 15
+                      minutes
+                      <br />
+                      <strong>Service:</strong> Dine-in and takeaway collection
+                      <br />
+                      <strong>Payment:</strong> Cash, credit card and debit card
+                      in store
+                      <br />
+                      <strong>Delivery:</strong> Not available
                     </p>
                   </div>
                 </CardContent>
@@ -201,14 +296,21 @@ export default function Contact() {
                     <Heart className="text-primary mr-3 h-5 w-5" />
                     Find Us Online
                   </h3>
+
                   <p className="text-gray-600 mb-4">
-                    Searching for the best kebab shop in Norwich? You've found us! 
-                    We're the closest and most trusted choice for authentic flavors.
+                    Searching for a kebab shop in Stalham or Norwich? Visit
+                    Family Kebab House for authentic kebabs, fresh pizzas,
+                    dine-in and takeaway collection.
                   </p>
+
                   <div className="flex flex-wrap gap-2">
                     {searchTerms.map((term) => (
-                      <Badge key={term} variant="secondary" className="text-xs">
-                        #{term.replace(/\s+/g, '')}
+                      <Badge
+                        key={term}
+                        variant="secondary"
+                        className="text-xs"
+                      >
+                        #{term.replace(/\s+/g, "")}
                       </Badge>
                     ))}
                   </div>
@@ -226,17 +328,24 @@ export default function Contact() {
             <Clock className="inline mr-3 h-8 w-8" />
             Lunch Time Special Hours
           </h2>
+
           <p className="text-green-100 text-xl mb-8">
-            Don't miss our special lunch offers available every day from 12:00 to 14:30
+            Don't miss our special lunch offers available every day from 12:00
+            to 14:30
           </p>
-          
+
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto">
-            <div className="text-5xl font-bold text-white mb-4">12:00 - 14:30</div>
+            <div className="text-5xl font-bold text-white mb-4">
+              12:00 - 14:30
+            </div>
+
             <p className="text-green-100 text-lg mb-6">
-              Perfect for a quick lunch break with special pricing on selected menu items. 
-              Call us during these hours for the best deals!
+              Perfect for a quick lunch break with special pricing on selected
+              menu items. Call us during these hours for the latest lunch
+              offers.
             </p>
-            <a href="tel:01692584100">
+
+            tel:01692584100
               <Button className="bg-white text-secondary hover:bg-gray-100">
                 <Phone className="mr-2 h-4 w-4" />
                 Call for Lunch Specials
