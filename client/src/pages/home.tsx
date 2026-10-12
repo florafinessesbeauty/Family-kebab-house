@@ -45,61 +45,62 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="rela*ive min-h-screen flex items-center*>
+      <section className="relative min-h-screen flex items-center">
         <div
-          className*"absolute inset-0 bg-cover bg-cent*r bg-no-repeat"
-          style={{*            backgroundImage:
-     *        "linear-gradient(rgba(46, *6, 46, 0.7), rgba(46, 46, 46, 0.7)*, url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&h=1080')*,
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(46, 46, 46, 0.7), rgba(46, 46, 46, 0.7)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&h=1080')",
           }}
         />
 
-       *<div className="relative container*mx-auto px-4 py-20">
-          <di* className="max-w-4xl mx-auto text*center text-white">
-            <d*v className="mb-6">
-              *Badge className="bg-secondary text*white px-4 py-2 text-sm font-semib*ld">
-                <Star classNa*e="mr-2 h-4 w-4" />
-              * Serving Norwich for 20+ Years
-   *          </Badge>
-            </d*v>
+        <div className="relative container mx-auto px-4 py-20">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <div className="mb-6">
+              <Badge className="bg-secondary text-white px-4 py-2 text-sm font-semibold">
+                <Star className="mr-2 h-4 w-4" />
+                Serving Norwich for 20+ Years
+              </Badge>
+            </div>
 
-            <h1 className="fon*-poppins text-5xl md:text-7xl font*bold mb-6">
-              Authenti* <span className="text-accent">Keb*bs</span>{" "}
-              <span*className="text-primary">Fresh Piz*as</span>
+            <h1 className="font-poppins text-5xl md:text-7xl font-bold mb-6">
+              Authentic <span className="text-accent">Kebabs</span>{" "}
+              <span className="text-primary">Fresh Pizzas</span>
             </h1>
 
-     *      <p className="text-xl md:tex*-2xl mb-8 text-gray-200 leading-re*axed">
-              Stalham in No*wich&apos;s premier kebab shop off*ring
-              mouth-watering *oner kebabs, crispy pizzas, and mo*e.{" "}
-              <strong>Open*now</strong> for dine-in and takea*ay!
+            <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
+              Stalham in Norwich&apos;s premier kebab shop offering
+              mouth-watering doner kebabs, crispy pizzas, and more.{" "}
+              <strong>Open now</strong> for dine-in and takeaway!
             </p>
 
-            *div className="flex flex-col sm:fl*x-row gap-4 justify-center items-c*nter mb-8">
-              tel:0169*584100
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              tel:01692584100
                 <Button
-   *              size="lg"
-          *       className="bg-primary text-*hite hover:bg-red-700 transform ho*er:scale-105 transition-all"
-     *          >
-                  <Pho*e className="mr-3 h-5 w-5" />
-    *             Order Now: 01692 5841*0
+                  size="lg"
+                  className="bg-primary text-white hover:bg-red-700 transform hover:scale-105 transition-all"
+                >
+                  <Phone className="mr-3 h-5 w-5" />
+                  Order Now: 01692 584100
                 </Button>
-      *       </a>
+              </a>
 
-              <Link t*="/menu">
+              <Link to="/menu">
                 <Button
-*                 size="lg"
-       *          variant="outline"
-      *           className="border-2 bor*er-white text-white hover:bg-white*hover:text-charcoal"
-             *  >
-                  <span classN*me="mr-3">📋</span>
-              *   View Menu
-                </But*on>
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white hover:text-charcoal"
+                >
+                  <span className="mr-3">📋</span>
+                  View Menu
+                </Button>
               </Link>
-        *   </div>
+            </div>
 
-            <div classN*me="flex flex-col sm:flex-row flex*wrap gap-6 justify-center items-ce*ter text-sm">
-              <div c*assName="flex items-center">
-     *          <MapPin className="text-*ccent mr-2 h-4 w-4" />
-           *    <span>79 High Street, Stalham,*Norwich NR12 9BB</span>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-6 justify-center items-center text-sm">
+              <div className="flex items-center">
+                <MapPin className="text-accent mr-2 h-4 w-4" />
+                <span>79 High Street, Stalham, Norwich NR12 9BB</span>
               </div>
 
               <div className="flex items-center">
@@ -117,35 +118,35 @@ export default function Home() {
       </section>
 
       {/* Special Offers */}
-      <section className="py-16*bg-gradient-to-r from-primary to-r*d-600">
-        <div className="co*tainer mx-auto px-4">
-          <d*v className="text-center mb-12">
- *          <h2 className="font-popp*ns text-4xl font-bold text-white m*-4">
-              Special Meal De*ls
+      <section className="py-16 bg-gradient-to-r from-primary to-red-600">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-poppins text-4xl font-bold text-white mb-4">
+              Special Meal Deals
             </h2>
 
-            *p className="text-red-100 text-lg"*
-              Unbeatable value fo* money - Perfect for families!
-   *        </p>
+            <p className="text-red-100 text-lg">
+              Unbeatable value for money - Perfect for families!
+            </p>
           </div>
 
-   *      <div className="grid md:grid*cols-3 gap-8">
-            {specia*Offers.map((offer) => (
-          *   <Card
-                key={offe*.id}
-                className="ov*rflow-hidden transform hover:scale*105 transition-transform"
-        *     >
-                {offer.imag*}
+          <div className="grid md:grid-cols-3 gap-8">
+            {specialOffers.map((offer) => (
+              <Card
+                key={offer.id}
+                className="overflow-hidden transform hover:scale-105 transition-transform"
+              >
+                {offer.image}
 
-                <CardContent cl*ssName="p-6">
-                  <h* className="font-poppins text-xl f*nt-bold text-charcoal mb-2">
-     *              {offer.name}
-       *          </h3>
+                <CardContent className="p-6">
+                  <h3 className="font-poppins text-xl font-bold text-charcoal mb-2">
+                    {offer.name}
+                  </h3>
 
-                 *<p className="text-gray-600 mb-4">*offer.description}</p>
+                  <p className="text-gray-600 mb-4">{offer.description}</p>
 
-          *       <div className="flex items-*enter justify-between">
-          *         <span className="text-3xl font-bold text-primary">
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl font-bold text-primary">
                       £{offer.price.toFixed(2)}
                     </span>
 
@@ -163,82 +164,87 @@ export default function Home() {
       </section>
 
       {/* About Preview */}
-      <section className="py-20*bg-gray-50">
-        <div classNam*="container mx-auto px-4">
-       *  <div className="grid lg:grid-col*-2 gap-16 items-center">
-         *  <div>
-              <h2 classNam*="font-poppins text-5xl font-bold *ext-charcoal mb-6">
-              * Our Story
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="font-poppins text-5xl font-bold text-charcoal mb-6">
+                Our Story
               </h2>
 
-  *           <div className="space-y*6 text-lg text-gray-700 leading-re*axed">
+              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p>
-       *          For over <strong classNa*e="text-primary">20 years</strong>*
-                  Family Kebab Ho*se has been serving the finest aut*entic
-                  kebabs and*fresh pizzas to the wonderful comm*nity of Stalham
-                  *nd Norwich.
+                  For over <strong className="text-primary">20 years</strong>,
+                  Family Kebab House has been serving the finest authentic
+                  kebabs and fresh pizzas to the wonderful community of Stalham
+                  and Norwich.
                 </p>
 
-*               <p>
-               *  We pride ourselves on using only*the{" "}
-                  <strong*className="text-secondary">
-      *             freshest ingredients
-*                 </strong>
-       *          , traditional cooking me*hods, and providing exceptional
-  *               customer service th*t keeps our community coming back *or
+                <p>
+                  We pride ourselves on using only the{" "}
+                  <strong className="text-secondary">
+                    freshest ingredients
+                  </strong>
+                  , traditional cooking methods, and providing exceptional
+                  customer service that keeps our community coming back for
                   more.
-       *        </p>
+                </p>
               </div>
-*              <div className="grid*grid-cols-3 gap-6 mt-12">
-        *       <div className="text-center*>
-                  <div className*"text-3xl font-bold text-primary m*-2">
+
+              <div className="grid grid-cols-3 gap-6 mt-12">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-2">
                     20+
-     *            </div>
-               *  <div className="text-gray-600">Y*ars Serving</div>
-                */div>
+                  </div>
+                  <div className="text-gray-600">Years Serving</div>
+                </div>
 
-                <div classN*me="text-center">
-                * <div className="text-3xl font-bol* text-secondary mb-2">
-           *        100%
-                  </d*v>
-                  <div classNam*="text-gray-600">Fresh Daily</div>*                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-secondary mb-2">
+                    100%
+                  </div>
+                  <div className="text-gray-600">Fresh Daily</div>
+                </div>
 
-          *     <div className="text-center">*                  <div className="*ext-3xl font-bold text-accent mb-2*>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">
                     ★★★★★
-      *           </div>
-                * <div className="text-gray-600">Lo*al Favorite</div>
-                */div>
+                  </div>
+                  <div className="text-gray-600">Local Favorite</div>
+                </div>
               </div>
 
-      *       <div className="mt-8">
-    *           <Link to="/about">
-    *             <Button className="bg*secondary text-white hover:bg-gree*-700">
-                    Learn M*re About Us
-                  </Bu*ton>
+              <div className="mt-8">
+                <Link to="/about">
+                  <Button className="bg-secondary text-white hover:bg-green-700">
+                    Learn More About Us
+                  </Button>
                 </Link>
-     *        </div>
+              </div>
             </div>
-*            <div className="space-*-6">
-              <img
-          *     src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&h=600"
-  *             alt="Family restauran* kitchen with fresh food preparati*n"
-                className="roun*ed-2xl shadow-xl w-full h-80 objec*-cover"
-              />
 
-        *     <Card>
-                <CardC*ntent className="p-6">
-           *      <h3 className="font-poppins *ext-xl font-bold text-charcoal mb-* flex items-center">
-             *      <Heart className="text-prima*y mr-3 h-5 w-5" />
-               *    Why Choose Family Kebab House?*                  </h3>
+            <div className="space-y-6">
+              https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&h=600
 
-         *        <ul className="space-y-3 t*xt-gray-700">
-                    *li className="flex items-center">
-*                     <Check classN*me="text-secondary mr-3 h-4 w-4 fl*x-shrink-0" />
-                   *  <span>
-                        A*thentic recipes passed down throug* generations
-                     *</span>
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="font-poppins text-xl font-bold text-charcoal mb-4 flex items-center">
+                    <Heart className="text-primary mr-3 h-5 w-5" />
+                    Why Choose Family Kebab House?
+                  </h3>
+
+                  <ul className="space-y-3 text-gray-700">
+                    <li className="flex items-center">
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>
+                        Authentic recipes passed down through generations
+                      </span>
                     </li>
-*                    <li className=*li>
+
+                    <li className="flex items-center">
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>Fresh ingredients sourced daily</span>
+                    </li>
 
                     <li className="flex items-center">
                       <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
