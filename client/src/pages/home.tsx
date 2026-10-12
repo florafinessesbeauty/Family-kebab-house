@@ -215,7 +215,12 @@ export default function Home() {
                     ★★★★★
                   </div>
                   <div className="text-gray-600">Local Favorite</div>
-                </divover:bg-green-700">
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <Link to="/about">
+                  <Button className="bg-secondary text-white hover:bg-green-700">
                     Learn More About Us
                   </Button>
                 </Link>
@@ -232,35 +237,34 @@ export default function Home() {
               <Card>
                 <CardContent className="p-6">
                   <h3 className="font-poppins text-xl font-bold text-charcoal mb-4 flex items-center">
-                    <Heart className="text-primary mr-3 h-5 w-5" />
-                    Why Choose Family Kebab House?
-                  </h3>
-
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4" />
-                      Authentic recipes passed down through generations
+                    <Heart className="text-primary mr-3          <li className="flex items-center">
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>
+                        Authentic recipes passed down through generations
+                      </span>
                     </li>
 
                     <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4" />
-                      Fresh ingredients sourced daily
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>Fresh ingredients sourced daily</span>
                     </li>
 
                     <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4" />
-                      Quick service - orders normally ready in around 15
-                      minutes
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>
+                        Quick service - orders normally ready in around 15
+                        minutes
+                      </span>
                     </li>
 
                     <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4" />
-                      Cash and card payments accepted in store
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>Cash and card payments accepted in store</span>
                     </li>
 
                     <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4" />
-                      Party orders welcome
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>Party orders welcome</span>
                     </li>
                   </ul>
                 </CardContent>
