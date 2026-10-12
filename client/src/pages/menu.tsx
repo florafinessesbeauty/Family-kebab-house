@@ -13,22 +13,26 @@ export default function Menu() {
 
   const getCategoryInfo = (categoryId: string) => {
     const category = categories.find((c) => c.id === categoryId);
-    return category || { name: categoryId, icon: "" };
+
+    return category || {
+      name: categoryId,
+      icon: "",
+    };
   };
 
   const menuImages = {
     kebabs: "",
     pizzas: "",
     burgers:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&h=600",
     "fried-chicken":
-      "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&h=600",
     wings:
-      "https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&h=600",
     extras:
-      "https://images.unsplash.com/photo-1576107232684-1279f390859f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=800&h=600",
     desserts:
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&h=600",
   };
 
   const specialDeals = menuData.filter((item) => item.isSpecial);
@@ -88,7 +92,9 @@ export default function Menu() {
             {categories.map((category) => {
               const itemCount = getItemsByCategory(category.id).length;
 
-              if (itemCount === 0) return null;
+              if (itemCount === 0) {
+                return null;
+              }
 
               return (
                 <Button
@@ -104,6 +110,7 @@ export default function Menu() {
                   }`}
                 >
                   <span className="mr-2">{category.icon}</span>
+
                   {category.name}
 
                   <Badge variant="secondary" className="ml-2">
@@ -139,7 +146,9 @@ export default function Menu() {
               {/* Category Image */}
               {menuImages[activeCategory as keyof typeof menuImages] && (
                 <img
-                  src={menuImages[activeCategory as keyof typeof menuImages]}
+                  src={
+                    menuImages[activeCategory as keyof typeof menuImages]
+                  }
                   alt={`${getCategoryInfo(activeCategory).name} dishes`}
                   className="rounded-2xl shadow-lg w-full h-80 object-cover"
                 />
@@ -157,14 +166,16 @@ export default function Menu() {
 
                 <p className="mb-6 text-orange-100 text-sm">
                   Orders are normally ready in around 15 minutes.
-                                 <Phone className="mr-2 h-4 w-4" />
+                </p>
+
+                <a href="tel:01692584100">
+                  <Button className="bg-white text-accent hover:bg-gray-100 w-full">
+                    <Phone className="mr-2 h-4 w-4" />
                     Call 01692 584100
                   </Button>
                 </a>
 
-                <p className="text-orange-100 text-xs mt-4">
-                  Cash, credit card and debit card payments are accepted in
-                  store. Dine-in and takeaway collection are available.
+     .
                   Delivery is not available.
                 </p>
               </div>
@@ -178,6 +189,7 @@ export default function Menu() {
                 <ul className="space-y-3 text-gray-700 text-sm">
                   <li className="flex items-start">
                     <span className="text-primary mr-2">💳</span>
+
                     <span>
                       <strong>
                         Cash, credit card and debit card payments accepted in
@@ -188,14 +200,18 @@ export default function Menu() {
 
                   <li className="flex items-start">
                     <span className="text-primary mr-2">🛍️</span>
+
                     <span>
-                      <strong>Dine-in and takeaway collection available.</strong>{" "}
+                      <strong>
+                        Dine-in and takeaway collection available.
+                      </strong>{" "}
                       Delivery is not available.
                     </span>
                   </li>
 
                   <li className="flex items-start">
                     <span className="text-primary mr-2">🎉</span>
+
                     <span>
                       <strong>Party orders welcome</strong> - Call ahead for
                       large collection orders
@@ -204,6 +220,7 @@ export default function Menu() {
 
                   <li className="flex items-start">
                     <span className="text-primary mr-2">⚠️</span>
+
                     <span>
                       Please speak to our staff about{" "}
                       <strong>food allergies and intolerances</strong> when
@@ -213,6 +230,7 @@ export default function Menu() {
 
                   <li className="flex items-start">
                     <span className="text-primary mr-2">🕐</span>
+
                     <span>
                       <strong>Lunch offers:</strong> Special pricing 12:00 -
                       14:30
