@@ -235,123 +235,15 @@ export default function Home() {
               />
 
               <Card>
-  <CardContent className="p-6">
-    <h3 className="font-poppins text-xl font-bold text-charcoal mb-4 flex items-center">
-      <Heart className="text-primary mr-3 h-5 w-5" />
-      Why Choose Family Kebab House?
-    </h3>
+                <CardContent className="p-6">
+                  <h3 className="font-poppins text-xl font-bold text-charcoal mb-4 flex items-center">
+                    <Heart className="text-primary mr-3 h-5 w-5" />
+                    Why Choose Family Kebab House?
+                  </h3>
 
-    <ul className="space-y-3 text-gray-700">
-      <li className="flex items-center">
-        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-        <span>
-          Authentic recipes passed down through generations
-        </span>
-      </li>
-
-      <li className="flex items-center">
-        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-        <span>Fresh ingredients sourced daily</span>
-      </li>
-
-      <li className="flex items-center">
-        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-        <span>
-          Quick service - orders normally ready in around 15 minutes
-        </span>
-      </li>
-
-      <li className="flex items-center">
-        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-        <span>Cash and card payments accepted in store</span>
-      </li>
-
-      <li className="flex items-center">
-        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-        <span>Party orders welcome</span>
-      </li>
-    </ul>
-  </CardContent>
-</Card>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Lunch Offers */}
-      <section className="py-16 bg-gradient-to-r from-secondary to-green-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-poppins text-4xl font-bold text-white mb-4">
-            <Clock className="inline mr-3 h-8 w-8" />
-            Lunch Time Offers
-          </h2>
-
-          <p className="text-green-100 text-xl mb-8">
-            Special deals available Monday to Sunday
-          </p>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto">
-            <div className="text-5xl font-bold text-white mb-4">
-              12:00 - 14:30
-            </div>
-
-            <p className="text-green-100 text-lg mb-6">
-              Enjoy special pricing on selected menu items during our lunch
-              hours. Perfect for a quick, delicious meal that fits your
-              schedule!
-            </p>
-
-            tel:01692584100
-              <Button className="bg-white text-secondary hover:bg-gray-100">
-                <Phone className="mr-2 h-4 w-4" />
-                Call for Lunch Specials
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <Testimonials />
-
-      {/* Quick Contact */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-poppins text-4xl font-bold text-charcoal mb-8">
-            Ready to Order?
-          </h2>
-
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Call us to place your order and collect it from 79 High Street,
-            Stalham, Norwich. Cash and card payments are accepted in store.
-            Please note that we do not provide delivery.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            tel:01692584100
-              <Button
-                size="lg"
-                className="bg-accent text-white hover:bg-orange-600"
-              >
-                <Phone className="mr-3 h-5 w-5" />
-                Call 01692 584100
-              </Button>
-            </a>
-
-            <Link to="/contact">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
-              >
-                <MapPin className="mr-3 h-5 w-5" />
-                Get Directions
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+                  <ul className="space-y-3 text-gray-700">
+                    <li className="flex items-center">
+                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+                      <span>
+                        Authentic recipes passed down through generations
+                      
