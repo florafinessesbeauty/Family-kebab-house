@@ -235,39 +235,44 @@ export default function Home() {
               />
 
               <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-poppins text-xl font-bold text-charcoal mb-4 flex items-center">
-                    <Heart className="text-primary mr-3          <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-                      <span>
-                        Authentic recipes passed down through generations
-                      </span>
-                    </li>
+  <CardContent className="p-6">
+    <h3 className="font-poppins text-xl font-bold text-charcoal mb-4 flex items-center">
+      <Heart className="text-primary mr-3 h-5 w-5" />
+      Why Choose Family Kebab House?
+    </h3>
 
-                    <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-                      <span>Fresh ingredients sourced daily</span>
-                    </li>
+    <ul className="space-y-3 text-gray-700">
+      <li className="flex items-center">
+        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+        <span>
+          Authentic recipes passed down through generations
+        </span>
+      </li>
 
-                    <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-                      <span>
-                        Quick service - orders normally ready in around 15
-                        minutes
-                      </span>
-                    </li>
+      <li className="flex items-center">
+        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+        <span>Fresh ingredients sourced daily</span>
+      </li>
 
-                    <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-                      <span>Cash and card payments accepted in store</span>
-                    </li>
+      <li className="flex items-center">
+        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+        <span>
+          Quick service - orders normally ready in around 15 minutes
+        </span>
+      </li>
 
-                    <li className="flex items-center">
-                      <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
-                      <span>Party orders welcome</span>
-                    </li>
-                  </ul>
-                </CardContent>
+      <li className="flex items-center">
+        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+        <span>Cash and card payments accepted in store</span>
+      </li>
+
+      <li className="flex items-center">
+        <Check className="text-secondary mr-3 h-4 w-4 flex-shrink-0" />
+        <span>Party orders welcome</span>
+      </li>
+    </ul>
+  </CardContent>
+</Card>
               </Card>
             </div>
           </div>
