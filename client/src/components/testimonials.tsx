@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, Phone } from "lucide-react";
 
 interface Testimonial {
   id: string;
@@ -17,23 +17,23 @@ const testimonials: Testimonial[] = [
     location: "Stalham",
     rating: 5,
     text: "Been coming here for over 10 years! The doner kebab is absolutely delicious and the staff are always friendly. Best kebab shop in Norfolk without a doubt.",
-    date: "2 weeks ago"
+    date: "2 weeks ago",
   },
   {
-    id: "2", 
+    id: "2",
     name: "Mike Thompson",
     location: "Norwich",
     rating: 5,
-    text: "Amazing family-run business! The chicken kebab is perfectly seasoned and the portions are generous. Always ready in 15 minutes as promised. Highly recommend!",
-    date: "1 month ago"
+    text: "Amazing family-run business! The chicken kebab is perfectly seasoned and the portions are generous. Great food and friendly service. Highly recommend!",
+    date: "1 month ago",
   },
   {
     id: "3",
     name: "Emma Wilson",
-    location: "Great Yarmouth", 
+    location: "Great Yarmouth",
     rating: 5,
     text: "Drive 20 minutes just for their pizzas! Fresh ingredients, authentic taste, and unbeatable prices. The family meal deal is perfect for our weekly treat.",
-    date: "3 weeks ago"
+    date: "3 weeks ago",
   },
   {
     id: "4",
@@ -41,7 +41,7 @@ const testimonials: Testimonial[] = [
     location: "Wroxham",
     rating: 5,
     text: "Outstanding quality and service! Been ordering from Family Kebab House for years. The mixed kebab is my favorite - always fresh and flavorful.",
-    date: "1 week ago"
+    date: "1 week ago",
   },
   {
     id: "5",
@@ -49,7 +49,7 @@ const testimonials: Testimonial[] = [
     location: "Stalham",
     rating: 5,
     text: "Best local takeaway by far! The lunch offers are fantastic value and the food is consistently excellent. Wouldn't go anywhere else for our family meals.",
-    date: "2 months ago"
+    date: "2 months ago",
   },
   {
     id: "6",
@@ -57,8 +57,8 @@ const testimonials: Testimonial[] = [
     location: "Norwich",
     rating: 5,
     text: "Authentic flavors that remind me of my travels to Turkey. The kofte kebab is incredible and the garlic sauce is the best I've ever had. True family business with heart!",
-    date: "3 weeks ago"
-  }
+    date: "3 weeks ago",
+  },
 ];
 
 export default function Testimonials() {
@@ -67,7 +67,9 @@ export default function Testimonials() {
       <Star
         key={index}
         className={`h-4 w-4 ${
-          index < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+          index < rating
+            ? "text-yellow-400 fill-yellow-400"
+            : "text-gray-300"
         }`}
       />
     ));
@@ -80,34 +82,48 @@ export default function Testimonials() {
           <h2 className="font-poppins text-4xl font-bold text-charcoal mb-4">
             What Our Customers Say
           </h2>
+
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Over 20 years of serving authentic flavors has earned us the trust and love of our community. 
-            Here's what they have to say about their experience with us.
+            Over 20 years of serving authentic flavors has earned us the trust
+            and love of our community. Here&apos;s what customers have to say
+            about their experience with us.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="hover:shadow-lg transition-shadow">
+            <Card
+              key={testimonial.id}
+              className="hover:shadow-lg transition-shadow"
+            >
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <Quote className="h-8 w-8 text-primary mr-3 opacity-50" />
+
                   <div className="flex space-x-1">
                     {renderStars(testimonial.rating)}
                   </div>
                 </div>
-                
+
                 <p className="text-gray-700 mb-6 leading-relaxed italic">
-                  "{testimonial.text}"
+                  &ldquo;{testimonial.text}&rdquo;
                 </p>
-                
+
                 <div className="border-t pt-4">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center gap-4">
                     <div>
-                      <h4 className="font-semibold text-charcoal">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.location}</p>
+                      <h4 className="font-semibold text-charcoal">
+                        {testimonial.name}
+                      </h4>
+
+                      <p className="text-sm text-gray-500">
+                        {testimonial.location}
+                      </p>
                     </div>
-                    <span className="text-xs text-gray-400">{testimonial.date}</span>
+
+                    <span className="text-xs text-gray-400 whitespace-nowrap">
+                      {testimonial.date}
+                    </span>
                   </div>
                 </div>
               </CardContent>
@@ -116,17 +132,29 @@ export default function Testimonials() {
         </div>
 
         <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-primary to-red-600 text-white py-8 px-12 rounded-2xl max-w-4xl mx-auto">
-            <h3 className="font-poppins text-2xl font-bold mb-4">Join Our Happy Customers!</h3>
+          <div className="bg-gradient-to-r from-primary to-red-600 text-white py-8 px-6 sm:px-12 rounded-2xl max-w-4xl mx-auto">
+            <h3 className="font-poppins text-2xl font-bold mb-4">
+              Ready to Try Family Kebab House?
+            </h3>
+
             <p className="text-red-100 mb-6">
-              Experience why thousands of families choose Family Kebab House for their favorite meals. 
-              Call us today and taste the difference 20+ years of dedication makes!
+              Call us to place your order for takeaway collection. Cash and
+              card payments are accepted in store.
             </p>
-            <a href="tel:01692584100">
-              <button className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Order Now: 01692 584100
+
+            tel:01692584100
+              <button
+                type="button"
+                className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
+              >
+                <Phone className="mr-2 h-4 w-4" />
+                Call 01692 584100
               </button>
             </a>
+
+            <p className="text-red-100 text-sm mt-4">
+              Dine-in and takeaway collection available. No delivery service.
+            </p>
           </div>
         </div>
       </div>
