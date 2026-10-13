@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MenuItemData } from "@/data/menu-data";
+import { CreditCard } from "lucide-react";
 
 interface MenuCategoryProps {
   title: string;
@@ -9,105 +10,165 @@ interface MenuCategoryProps {
   icon?: string;
 }
 
-export default function MenuCategory({ title, description, items, icon }: Readonly<MenuCategoryProps>) {
+export default function MenuCategory({
+  title,
+  description,
+  items,
+  icon,
+}: Readonly<MenuCategoryProps>) {
   const formatPrice = (price: number) => `£${price.toFixed(2)}`;
 
   const renderPriceDisplay = (item: MenuItemData) => {
-    if (item.singlePrice) {
+    if (item.singlePrice !== undefined) {
       return (
-        <div className="text-right">
+        <div className="text-right ml-4">
           <div className="text-xl font-bold text-primary">
             {formatPrice(item.singlePrice)}
           </div>
-          {item.withChips && (
+
+          {item.withChips !== undefined && (
             <div className="text-sm text-gray-500">
               With chips: {formatPrice(item.withChips)}
             </div>
           )}
-          {item.withDrink && (
+
+          {item.withDrink !== undefined && (
             <div className="text-sm text-gray-500">
               With drink: {formatPrice(item.withDrink)}
             </div>
           )}
         </div>
       );
-    }  
+    }
 
-    // New block: if pizza-specific prices exist, display them
-  if (item.price10inches || item.price12inches) {
+    if (
+      item.price10inches !== undefined ||
+      item.price12inches !== undefined
+    ) {
+      const pizzaPrices = [
+        item.price10inches !== undefined
+          ? { label: '10"', price: item.price10inches }
+          : null,
+        item.price12inches !== undefined
+          ? { label: '12"', price: item.price12inches }
+          : null,
+      ].filter(
+        (entry): entry is { label: string; price: number } => entry !== null,
+      );
+
+      return (
+        <div className="text-right ml-4">
+          <div className="flex gap-4 text-sm text-gray-500 mb-1">
+            {pizzaPrices.map((price) => (
+              <span key={price.label}>{price.label}</span>
+            ))}
+          </div>
+
+          <div className="flex gap-4 font-bold text-primary">
+            {pizzaPrices.map((price) => (
+              <span key={price.label}>{formatPrice(price.price)}</span>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    const prices: Array<{ label: string; price: number }> = [];
+
+    if (item.priceSmall !== undefined) {
+      prices.push({ label: "Sml", price: item.priceSmall });
+    }
+
+    if (item.priceMedium !== undefined) {
+      prices.push({ label: "Med", price: item.priceMedium });
+    }
+
+    if (item.priceLarge !== undefined) {
+      prices.push({ label: "Lrg", price: item.priceLarge });
+    }
+
+    if (item.priceXLarge !== undefined) {
+      prices.push({ label: "XLrg", price: item.priceXLarge });
+    }
+
+    if (prices.length === 0) {
+      return null;
+    }
+
     return (
       <div className="text-right ml-4">
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-500 mb-1">
-          {item.price10inches !== undefined && <span>10&quot;</span>}
-          {item.price12inches !== undefined && <span>12&quot;</span>}
+        <div className="flex gap-4 text-sm text-gray-500 mb-1">
+          {prices.map((price) => (
+            <span key={price.label}>{price.label}</span>
+          ))}
         </div>
-        <div className="grid grid-cols-2 gap-2 font-bold text-primary">
-          {item.price10inches !== undefined && <span>{formatPrice(item.price10inches)}</span>}
-          {item.price12inches !== undefined && <span>{formatPrice(item.price12inches)}</span>}
+
+        <div className="flex gap-4 font-bold text-primary">
+          {prices.map((price) => (
+            <span key={price.label}>{formatPrice(price.price)}</span>
+          ))}
         </div>
       </div>
     );
-  }
+  };
 
-    // Fallback: check for standard sizes (Small, Medium, Large, XLarge)
-  const prices = [];
-  if (item.priceSmall) prices.push({ label: "Sml", price: item.priceSmall });
-  if (item.priceMedium) prices.push({ label: "Med", price: item.priceMedium });
-  if (item.priceLarge) prices.push({ label: "Lrg", price: item.priceLarge });
-  if (item.priceXLarge) prices.push({ label: "XLrg", price: item.priceXLarge });
-  
-  if (prices.length === 0) return null;
-  
-  return (
-    <div className="text-right ml-4">
-      <div className={`grid grid-cols-${prices.length} gap-2 text-sm text-gray-500 mb-1`}>
-        {prices.map((p) => (
-          <span key={p.label}>{p.label}</span>
-        ))}
-      </div>
-      <div className={`grid grid-cols-${prices.length} gap-2 font-bold text-primary`}>
-        {prices.map((p) => (
-          <span key={p.label}>{formatPrice(p.price)}</span>
-        ))}
-      </div>
-    </div>
-  );
-};
   return (
     <div className="space-y-6">
+      {/* Category Heading */}
       <div className="text-center mb-8">
         <h2 className="font-poppins text-4xl font-bold text-charcoal mb-2 flex items-center justify-center gap-3">
           {icon && <span className="text-3xl">{icon}</span>}
           {title}
         </h2>
+
         {description && (
           <p className="text-lg text-gray-600">{description}</p>
         )}
+
+        {/* Payment Information */}
+        <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm">
+          <CreditCard className="h-4 w-4 text-primary" />
+
+          <span>
+            Cash, credit card and debit card payments accepted in store.
+          </span>
+        </div>
       </div>
 
+      {/* Menu Items */}
       <div className="grid gap-4">
         {items.map((item) => (
-          <Card 
-            key={item.id} 
+          <Card
+            key={item.id}
             className={`hover:shadow-md transition-shadow ${
               item.isSpecial ? "border-accent border-2 bg-accent/5" : ""
             }`}
           >
             <CardContent className="p-4">
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-charcoal text-lg">{item.name}</h3>
+                    <h3 className="font-semibold text-charcoal text-lg">
+                      {item.name}
+                    </h3>
+
                     {item.isSpecial && (
-                      <Badge variant="secondary" className="bg-accent text-white">
+                      <Badge
+                        variant="secondary"
+                        className="bg-accent text-white"
+                      >
                         Special
                       </Badge>
                     )}
                   </div>
+
                   {item.description && (
-                    <p className="text-gray-600 text-sm">{item.description}</p>
+                    <p className="text-gray-600 text-sm">
+                      {item.description}
+                    </p>
                   )}
                 </div>
+
                 {renderPriceDisplay(item)}
               </div>
             </CardContent>
