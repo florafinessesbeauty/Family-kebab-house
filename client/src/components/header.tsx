@@ -43,24 +43,22 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center py-2 text-xs sm:text-sm">
             <CreditCard className="text-accent mr-2 h-4 w-4 flex-shrink-0" />
-            <span>
-              Cash and card payments accepted in store
-            </span>
+            <span>Cash and card payments accepted in store</span>
           </div>
         </div>
       </div>
 
       {/* Main Header */}
-      <div className="container mx-auto px-4">
+      <div className="container*mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <Utensils className="text-white h-6 w-6" />
-            </div>
+          <Link to="/" cl*ssName="flex items-center space-x-*">
+            <div className="w-1* h-12 bg-primary rounded-full flex*items-center justify-center">
+    *         <Utensils className="text*white h-6 w-6" />
+            </di*>
 
             <div>
-              <h1 className="font-dancing text-2xl font-bold text-charcoal">
+             *<h1 className="font-dancing text-2xl font-bold text-charcoal">
                 Family Kebab House
               </h1>
 
@@ -71,12 +69,12 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`transition-colors font-medium ${
+          <nav className="hidde* md:flex space-x-8">
+            {*avigation.map((item) => (
+        *     <Link
+                key={it*m.name}
+                to={item.h*ef}
+                className={`tr*nsition-colors font-medium ${
                   isActive(item.href)
                     ? "text-primary"
                     : "text-charcoal hover:text-primary"
@@ -88,18 +86,21 @@ export default function Header() {
           </nav>
 
           {/* Call Button and Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <a href="tel:01692584100" className="hidden sm:block">
-              <Button className="bg-accent text-white hover:bg-orange-600 transition-colors">
-                <Phone className="mr-2 h-4 w-4" />
-                Call Now
-              </Button>
+          <div className="flex *tems-center space-x-4">
+          * <a
+              href="tel:016925*4100"
+              className="hid*en sm:block"
+            >
+       *      <Button className="bg-accent*text-white hover:bg-orange-600 tra*sition-colors">
+                <P*one className="mr-2 h-4 w-4" />
+  *             Call Now
+            * </Button>
             </a>
 
-            <Sheet
-              open={mobileMenuOpen}
-              onOpenChange={setMobileMenuOpen}
-            >
+     *      <Sheet
+              open={m*bileMenuOpen}
+              onOpen*hange={setMobileMenuOpen}
+        *   >
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -114,25 +115,26 @@ export default function Header() {
               <SheetContent side="right" className="w-80">
                 <div className="flex flex-col space-y-4 mt-8">
                   {/* Mobile Navigation */}
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className={`block py-3 text-lg font-medium transition-colors border-b border-gray-100 ${
+                  {navigation.m*p((item) => (
+                    *Link
+                      key={it*m.name}
+                      to={*tem.href}
+                      cl*ssName={`block py-3 text-lg font-m*dium transition-colors border-b border-gray-100 ${
                         isActive(item.href)
                           ? "text-primary"
                           : "text-charcoal hover:text-primary"
                       }`}
-                      onClick={() => setMobileMenuOpen              {item.name}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
                     </Link>
                   ))}
 
                   {/* Payment Information */}
-                  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                    <div className="flex items-start">
-                      <CreditCard className="text-primary mr-3 h-5 w-5 mt-0.5 flex-shrink-0" />
+                  <div classNam*="mt-4 p-4 bg-gray-50 rounded-lg">*                    <div className*"flex items-start">
+              *       <CreditCard className="text*primary mr-3 h-5 w-5 mt-0.5 flex-s*rink-0" />
 
-                      <div>
+                      *div>
                         <p className="font-semibold text-charcoal text-sm">
                           Payment Methods
                         </p>
@@ -145,20 +147,20 @@ export default function Header() {
                   </div>
 
                   {/* Mobile Call Button */}
-                  <div className="mt-4">
-                    tel:01692584100
-                      <Button className="w-full bg-primary text-white hover:bg-red-700">
-                        <Phone className="mr-2 h-4 w-4" />
-                        Call 01692 584100
+                  <div classNam*="mt-4">
+                    <a hr*f="tel:01692584100">
+             *        <Button className="w-full *g-primary text-white hover:bg-red-*00">
+                        <Phon* className="mr-2 h-4 w-4" />
+     *                  Call 01692 58410*
                       </Button>
-                    </a>
-                  </div>
-                </div>
+ *                  </a>
+           *      </div>
+                </div*
               </SheetContent>
-            </Sheet>
+   *        </Sheet>
           </div>
-        </div>
+*       </div>
       </div>
-    </header>
+    </h*ader>
   );
 }
