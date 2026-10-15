@@ -192,8 +192,9 @@ export default function BasketDrawer() {
             </div>
             
             <div className="text-xs text-gray-500 text-center space-y-1">
-              <p>🕐 Your order will be ready in 15 minutes</p>
-              <p>💰 Cash payment only</p>
+              <p>🕐 Please call for current collection times</p>
+              <p>💰 Cash and card payments accepted in store</p>
+              <p>🛍️ Dine-in and takeaway collection only. No delivery service.</p>
               <p>📞 Order summary copied to clipboard for easy phone ordering</p>
             </div>
           </div>

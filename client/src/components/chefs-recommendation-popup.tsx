@@ -375,7 +375,7 @@ export default function ChefsRecommendationPopup() {
             {/* Enhanced footer */}
             <div className="text-center p-4 bg-gradient-to-r from-accent/10 to-primary/10 rounded-lg">
               <div className="text-sm font-medium text-charcoal mb-1">
-                🕐 Available today only • 💰 Cash payment only
+                🕐 Available today only • 💰 Cash and card payments accepted in store
               </div>
               <div className="text-xs text-gray-500">
                 Call 01692 584 100 to order this special creation!

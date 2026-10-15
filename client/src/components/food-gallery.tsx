@@ -241,7 +241,7 @@ export default function FoodGallery({ selectedCategory: initialCategory = "all" 
                     </Button>
                   </a>
                   <p className="text-center text-sm text-gray-500">
-                    Call 01692 584 100 - Ready in 15 minutes!
+                    Call 01692 584 100 for current collection times!
                   </p>
                 </div>
               </div>

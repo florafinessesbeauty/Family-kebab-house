@@ -171,7 +171,7 @@ export default function Home({}: HomeProps) {
             </p>
             
             <p className="text-base mb-8 text-gray-200">
-              CASH PAYMENT ONLY • YOUR ORDER WILL BE READY IN 15 MIN
+              CASH AND CARD PAYMENTS ACCEPTED IN STORE • DINE-IN AND TAKEAWAY COLLECTION • NO DELIVERY
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8">
@@ -353,7 +353,7 @@ export default function Home({}: HomeProps) {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="font-poppins text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Special Offers</h2>
-              <p className="text-red-100 text-sm sm:text-base md:text-lg">Fresh ingredients • Unbeatable value • Ready in 15 minutes</p>
+              <p className="text-red-100 text-sm sm:text-base md:text-lg">Fresh ingredients • Unbeatable value • Collection available</p>
             </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
@@ -523,8 +523,8 @@ export default function Home({}: HomeProps) {
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-poppins text-4xl font-bold text-charcoal mb-8">Ready to Order?</h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Call us now and your delicious meal will be ready in just 15 minutes! 
-            We're located at 79 High Street, Stalham NR12 9BB. <strong>Cash payment only.</strong>
+            Call us now to place your order and confirm the current collection time. 
+            We're located at 79 High Street, Stalham NR12 9BB. <strong>Cash and card payments accepted in store.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

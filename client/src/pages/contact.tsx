@@ -12,8 +12,8 @@ export default function Contact() {
   const importantNotes = [
     {
       icon: <CreditCard className="h-5 w-5 text-primary" />,
-      title: "Cash Payment Only",
-      description: "We currently accept cash payments only for all orders."
+      title: "Cash and Card Payments Accepted in Store",
+      description: "Cash and card payments are accepted in store."
     },
     {
       icon: <Users className="h-5 w-5 text-primary" />,
@@ -28,7 +28,7 @@ export default function Contact() {
     {
       icon: <Clock className="h-5 w-5 text-primary" />,
       title: "Quick Service",
-      description: "Your order will be ready in 15 minutes - perfect for busy schedules."
+      description: "Orders are prepared as quickly as possible. Please call for current collection times."
     }
   ];
 
@@ -78,7 +78,7 @@ export default function Contact() {
                         <a href="tel:01692584100" className="text-primary font-bold text-2xl hover:underline">
                           01692 584100
                         </a>
-                        <p className="text-gray-600 text-sm mt-1">Your order will be ready in 15 minutes</p>
+                        <p className="text-gray-600 text-sm mt-1">Please call for current collection times</p>
                       </div>
                     </div>
 
