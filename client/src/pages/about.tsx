@@ -235,7 +235,7 @@ export default function About() {
                   <Clock className="mr-2 h-5 w-5" />
                   <span className="font-semibold">Order Ready</span>
                 </div>
-                <p>In just 15 minutes</p>
+                <p>Please call for current collection times</p>
               </div>
             </div>
           </div>

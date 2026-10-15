@@ -39,7 +39,7 @@ const testimonials: Testimonial[] = [
     name: "Emma Davies",
     location: "Aylsham Road",
     rating: 5,
-    text: "The chicken burger is incredible! Juicy, flavorful, and served with perfectly crispy chips. Always ready in exactly 15 minutes as promised. Highly recommend!",
+    text: "The chicken burger is incredible! Juicy, flavourful, and served with perfectly crispy chips. Great food and friendly service. Highly recommend!",
     foodImage: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
     favoriteOrder: "Chicken Fillet Burger & Chips",
     emoji: "🔥"

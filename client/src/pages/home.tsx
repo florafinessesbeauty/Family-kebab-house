@@ -419,8 +419,8 @@ export default function Home({}: HomeProps) {
                   <div className="text-gray-600">Fresh Daily</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-brand-primary mb-2">15</div>
-                  <div className="text-gray-600">Minutes Ready</div>
+                  <div className="text-3xl font-bold text-brand-primary mb-2">Fast</div>
+                  <div className="text-gray-600">Collection Service</div>
                 </div>
               </div>
 
