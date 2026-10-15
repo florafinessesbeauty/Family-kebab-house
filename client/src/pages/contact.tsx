@@ -176,7 +176,7 @@ export default function Contact() {
                 <CardContent className="p-8 text-center">
                   <h3 className="font-poppins text-2xl font-bold mb-4">Ready to Order?</h3>
                   <p className="mb-6 text-orange-100">
-                    Call us now and your delicious meal will be ready in just 15 minutes!
+                    Call us now to place your order and confirm the current collection time.
                   </p>
                   <a href="tel:01692584100">
                     <Button size="lg" className="bg-white text-accent hover:bg-gray-100 w-full">

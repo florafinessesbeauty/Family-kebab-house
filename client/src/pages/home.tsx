@@ -405,7 +405,7 @@ export default function Home({}: HomeProps) {
                   For over <strong className="text-brand-primary">20 years</strong>, Family Kebab House has been Stalham's premier kebab and pizza destination, serving authentic Mediterranean cuisine with pride.
                 </p>
                 <p>
-                  We use only <strong className="text-accent-gold">100% fresh daily ingredients</strong> and natural cooking methods. All orders are prepared fresh and ready in just 15 minutes!
+                  We use only <strong className="text-accent-gold">100% fresh daily ingredients</strong> and natural cooking methods. All orders are prepared fresh. Please call for the current collection time.
                 </p>
               </div>
               
@@ -453,7 +453,7 @@ export default function Home({}: HomeProps) {
                     </li>
                     <li className="flex items-center">
                       <Check className="text-accent-gold mr-3 h-4 w-4" />
-                      Orders ready in just 15 minutes
+                      Please call for current collection times
                     </li>
                     <li className="flex items-center">
                       <Check className="text-accent-gold mr-3 h-4 w-4" />
