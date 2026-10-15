@@ -130,7 +130,7 @@ export default function MenuCategory({
           <CreditCard className="h-4 w-4 text-primary" />
 
           <span>
-            Cash, credit card and debit card payments accepted in store.
+            Cash and card payments accepted in store. Dine-in and takeaway collection only. No delivery service.
           </span>
         </div>
       </div>
