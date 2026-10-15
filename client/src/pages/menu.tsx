@@ -9,33 +9,24 @@ export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("kebabs");
 
   const getItemsByCategory = (category: string) =>
-    menuData.filter((item) => item.category === category);
+  menuData.filter(item => item.category === category);
 
   const getCategoryInfo = (categoryId: string) => {
-    const category = categories.find((c) => c.id === categoryId);
-
-    return category || {
-      name: categoryId,
-      icon: "",
-    };
+    const category = categories.find(c => c.id === categoryId);
+    return category || { name: categoryId, icon: "" };
   };
 
   const menuImages = {
-    kebabs: "",
-    pizzas: "",
-    burgers:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&h=600",
-    "fried-chicken":
-      "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&w=800&h=600",
-    wings:
-      "https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&h=600",
-    extras:
-      "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=800&h=600",
-    desserts:
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&h=600",
+    kebabs: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    pizzas: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    burgers: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    "fried-chicken": "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    wings: "https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    extras: "https://images.unsplash.com/photo-1576107232684-1279f390859f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
+    desserts: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
   };
 
-  const specialDeals = menuData.filter((item) => item.isSpecial);
+  const specialDeals = menuData.filter(item => item.isSpecial);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -43,39 +34,20 @@ export default function Menu() {
       <section className="bg-white py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">
-              Our Delicious Menu
-            </h1>
-
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Fresh ingredients, authentic flavours, and unbeatable prices.
-              Every dish made with love and care.
-            </p>
+            <h1 className="font-poppins text-5xl font-bold text-charcoal mb-4">Our Delicious Menu</h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Fresh ingredients, authentic flavors, and unbeatable prices. Every dish made with love and care.</p>
           </div>
 
           {/* Special Deals First */}
           {specialDeals.length > 0 && (
             <div className="mb-16">
-              <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">
-                🌟 Special Offers
-              </h2>
-
+              <h2 className="font-poppins text-3xl font-bold text-charcoal mb-8 text-center">🌟 Special Offers</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {specialDeals.map((deal) => (
-                  <div
-                    key={deal.id}
-                    className="bg-gradient-to-br from-accent to-orange-600 rounded-2xl p-6 text-white text-center"
-                  >
+                  <div key={deal.id} className="bg-gradient-to-br from-accent to-orange-600 rounded-2xl p-6 text-white text-center">
                     <h3 className="font-bold text-lg mb-2">{deal.name}</h3>
-
-                    <p className="text-orange-100 text-sm mb-4">
-                      {deal.description}
-                    </p>
-
-                    <div className="text-2xl font-bold mb-3">
-                      £{deal.singlePrice?.toFixed(2)}
-                    </div>
-
+                    <p className="text-orange-100 text-sm mb-4">{deal.description}</p>
+                    <div className="text-2xl font-bold mb-3">£{deal.singlePrice?.toFixed(2)}</div>
                     <a href="tel:01692584100">
                       <Button className="bg-white text-accent hover:bg-gray-100 w-full">
                         Order Now
@@ -91,18 +63,13 @@ export default function Menu() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {categories.map((category) => {
               const itemCount = getItemsByCategory(category.id).length;
-
-              if (itemCount === 0) {
-                return null;
-              }
-
+              if (itemCount === 0) return null;
+              
               return (
                 <Button
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  variant={
-                    activeCategory === category.id ? "default" : "outline"
-                  }
+                  variant={activeCategory === category.id ? "default" : "outline"}
                   className={`px-6 py-3 font-semibold ${
                     activeCategory === category.id
                       ? "bg-primary text-white"
@@ -110,9 +77,7 @@ export default function Menu() {
                   }`}
                 >
                   <span className="mr-2">{category.icon}</span>
-
                   {category.name}
-
                   <Badge variant="secondary" className="ml-2">
                     {itemCount}
                   </Badge>
@@ -127,12 +92,11 @@ export default function Menu() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-12">
-            {/* Menu Items */}
             <div className="lg:col-span-2">
               <MenuCategory
                 title={getCategoryInfo(activeCategory).name}
                 description={
-                  activeCategory === "kebabs"
+                  activeCategory === "kebabs" 
                     ? "All kebabs come with salad & sauce"
                     : undefined
                 }
@@ -141,14 +105,11 @@ export default function Menu() {
               />
             </div>
 
-            {/* Sidebar */}
             <div className="space-y-6">
               {/* Category Image */}
               {menuImages[activeCategory as keyof typeof menuImages] && (
-                <img
-                  src={
-                    menuImages[activeCategory as keyof typeof menuImages]
-                  }
+                <img 
+                  src={menuImages[activeCategory as keyof typeof menuImages]}
                   alt={`${getCategoryInfo(activeCategory).name} dishes`}
                   className="rounded-2xl shadow-lg w-full h-80 object-cover"
                 />
@@ -156,85 +117,35 @@ export default function Menu() {
 
               {/* Order Now Card */}
               <div className="bg-gradient-to-br from-accent to-orange-600 p-8 rounded-2xl text-center text-white">
-                <h3 className="font-poppins text-2xl font-bold mb-4">
-                  Ready to Order?
-                </h3>
-
-                <p className="mb-3 text-orange-100">
-                  Call us to place your order and collect it from our shop.
-                </p>
-
-                <p className="mb-6 text-orange-100 text-sm">
-                  Orders are normally ready in around 15 minutes.
-                </p>
-
+                <h3 className="font-poppins text-2xl font-bold mb-4">Ready to Order?</h3>
+                <p className="mb-6 text-orange-100">Call us now and your delicious meal will be ready in just 15 minutes!</p>
                 <a href="tel:01692584100">
                   <Button className="bg-white text-accent hover:bg-gray-100 w-full">
                     <Phone className="mr-2 h-4 w-4" />
                     Call 01692 584100
                   </Button>
                 </a>
-
-     .
-                  Delivery is not available.
-                </p>
               </div>
 
-              {/* Important Information */}
+              {/* Important Info */}
               <div className="bg-white p-6 rounded-2xl shadow-lg">
-                <h3 className="font-poppins text-xl font-bold text-charcoal mb-4">
-                  Important Information
-                </h3>
-
+                <h3 className="font-poppins text-xl font-bold text-charcoal mb-4">Important Information</h3>
                 <ul className="space-y-3 text-gray-700 text-sm">
                   <li className="flex items-start">
-                    <span className="text-primary mr-2">💳</span>
-
-                    <span>
-                      <strong>
-                        Cash, credit card and debit card payments accepted in
-                        store
-                      </strong>
-                    </span>
+                    <span className="text-primary mr-2">💰</span>
+                    <span><strong>Cash payment only</strong></span>
                   </li>
-
-                  <li className="flex items-start">
-                    <span className="text-primary mr-2">🛍️</span>
-
-                    <span>
-                      <strong>
-                        Dine-in and takeaway collection available.
-                      </strong>{" "}
-                      Delivery is not available.
-                    </span>
-                  </li>
-
                   <li className="flex items-start">
                     <span className="text-primary mr-2">🎉</span>
-
-                    <span>
-                      <strong>Party orders welcome</strong> - Call ahead for
-                      large collection orders
-                    </span>
+                    <span><strong>Party orders welcome</strong> - Call ahead for large orders</span>
                   </li>
-
                   <li className="flex items-start">
                     <span className="text-primary mr-2">⚠️</span>
-
-                    <span>
-                      Please speak to our staff about{" "}
-                      <strong>food allergies and intolerances</strong> when
-                      placing your order
-                    </span>
+                    <span>Please speak to our staff about <strong>food allergies and intolerances</strong> in your meal when making your order</span>
                   </li>
-
                   <li className="flex items-start">
                     <span className="text-primary mr-2">🕐</span>
-
-                    <span>
-                      <strong>Lunch offers:</strong> Special pricing 12:00 -
-                      14:30
-                    </span>
+                    <span><strong>Lunch offers:</strong> Special pricing 12:00 - 14:30</span>
                   </li>
                 </ul>
               </div>
