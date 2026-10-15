@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Heart, Zap, Clock, DollarSign } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { menuData } from "@/data/menu-data-new";
 import { Link } from "react-router-dom";
 import AddToBasketButton from "@/components/add-to-basket-button";
 
@@ -183,18 +183,8 @@ export default function FoodRecommendation() {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [additionalRecommendations, setAdditionalRecommendations] = useState<RecommendedDish[]>([]);
 
-  // Fetch menu data from your database
-  const { data: menuItems = [], isLoading } = useQuery({
-    queryKey: ['/api/menu'],
-    queryFn: async () => {
-      const response = await fetch('/api/menu');
-      if (!response.ok) throw new Error('Failed to fetch menu');
-      return response.json();
-    }
-  });
-
-  // Convert menu items to recommendation format
-  const allDishes = menuItems.map(mapMenuItemToRecommendation);
+  // Use the same local menu data as the main Menu page
+  const allDishes = menuData.map(mapMenuItemToRecommendation);
 
   const togglePreference = (preferenceId: string) => {
     setSelectedPreferences(prev => 
@@ -276,16 +266,6 @@ export default function FoodRecommendation() {
     setShowMoreOptions(false);
   };
 
-  if (isLoading) {
-    return (
-      <section className="py-16 bg-gradient-to-br from-primary/5 to-accent/5">
-        <div className="container mx-auto px-4 text-center">
-          <div className="text-2xl">🤖 Loading AI Recommendations...</div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className="py-16 bg-gradient-to-br from-primary/5 to-accent/5">
       <div className="container mx-auto px-4">
@@ -294,10 +274,10 @@ export default function FoodRecommendation() {
             🤖 AI Food Recommendations
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tell us your preferences and we'll recommend the perfect dishes from our authentic menu of {allDishes.length} real items
+            Tell us your preferences and we'll recommend suitable dishes from our menu of {allDishes.length} items
           </p>
           <div className="mt-4 text-sm text-primary font-semibold">
-            🔄 Live data from Family Kebab House menu database
+            🍽️ Recommendations based on the current Family Kebab House menu
           </div>
         </div>
 
